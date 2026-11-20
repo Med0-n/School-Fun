@@ -2445,6 +2445,279 @@
       .speed-slider-range { display: none; }
     }
 
+
+
+    /* === LAB GEEK & OUTILS NERD === */
+    /* Game of Life */
+    .life-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .life-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      width: 100%;
+    }
+    .life-canvas {
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: var(--radius-md);
+      background: #050811;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);
+      cursor: crosshair;
+      max-width: 100%;
+    }
+
+    /* Hacker Typer */
+    .typer-terminal {
+      background: #030712;
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      color: #00f0ff;
+      height: 520px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.5;
+      font-size: 13px;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.1);
+      position: relative;
+    }
+    .typer-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: var(--accent-cyan);
+      vertical-align: middle;
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hacker-modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 24px 36px;
+      border-radius: var(--radius-md);
+      font-weight: 900;
+      font-size: 26px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      pointer-events: none;
+      display: none;
+      z-index: 20;
+    }
+    .hacker-modal.granted {
+      background: rgba(16, 185, 129, 0.92);
+      border: 2px solid #10b981;
+      color: #fff;
+      display: block;
+      animation: pulseGreen 1s infinite alternate;
+    }
+    .hacker-modal.denied {
+      background: rgba(244, 63, 94, 0.92);
+      border: 2px solid #f43f5e;
+      color: #fff;
+      display: block;
+      animation: pulseRed 1s infinite alternate;
+    }
+    @keyframes pulseGreen { from { box-shadow: 0 0 20px #10b981; } to { box-shadow: 0 0 50px #10b981; } }
+    @keyframes pulseRed { from { box-shadow: 0 0 20px #f43f5e; } to { box-shadow: 0 0 50px #f43f5e; } }
+
+    /* Mac Tricks Gallery */
+    .mac-cmd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      width: 100%;
+    }
+    .mac-cmd-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: var(--transition);
+    }
+    .mac-cmd-card:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      transform: translateY(-2px);
+    }
+    .mac-cmd-code {
+      background: #050811;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--accent-cyan);
+      word-break: break-all;
+      user-select: all;
+    }
+
+    /* ASCII & Glitch Gen */
+    .ascii-output-box {
+      background: #030712;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-family: monospace;
+      color: #38bdf8;
+      font-size: 11px;
+      line-height: 1.15;
+      overflow-x: auto;
+      white-space: pre;
+      max-height: 280px;
+      user-select: all;
+    }
+
+
+
+    /* === SUITE LÉGENDAIRE : FAKE UPDATE, QR STEALTH, PIXEL ART & MATRIX === */
+    /* Fake Update */
+    .fake-update-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 99999;
+      background: #000;
+      color: #fff;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      cursor: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    .fake-update-screen.active {
+      display: flex;
+    }
+    .fake-mac-logo {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 45px;
+      fill: #fff;
+    }
+    .fake-progress-bar {
+      width: 320px;
+      height: 6px;
+      background: #333;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .fake-progress-fill {
+      height: 100%;
+      background: #fff;
+      width: 18%;
+      transition: width 1s linear;
+    }
+    .fake-win-spinner {
+      width: 52px;
+      height: 52px;
+      border: 4px solid rgba(0, 120, 215, 0.2);
+      border-top-color: #0078d7;
+      border-radius: 50%;
+      animation: spinWin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      margin-bottom: 25px;
+    }
+    @keyframes spinWin { to { transform: rotate(360deg); } }
+
+    /* QR Code Generator */
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .qr-box {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Pixel Art Studio */
+    .pixel-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .pixel-toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      width: 100%;
+    }
+    .pixel-canvas {
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      border-radius: var(--radius-sm);
+      background: #0b0f19;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.12);
+      cursor: crosshair;
+      image-rendering: pixelated;
+    }
+    .color-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .color-swatch:hover, .color-swatch.active {
+      transform: scale(1.2);
+      border-color: #fff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Matrix Screensaver Overlay */
+    #matrix-screensaver {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 99998;
+      background: #000;
+      display: none;
+      cursor: pointer;
+    }
+    #matrix-screensaver.active {
+      display: block;
+    }
+
 </style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -2615,6 +2888,20 @@
         <button class="nav-btn" data-section="typing"><span class="nav-icon">⌨️</span> Dactylo Speed Test</button>
         <button class="nav-btn" data-section="pomodoro"><span class="nav-icon">⏱️</span> Pomodoro &amp; Focus</button>
         <button class="nav-btn" data-section="silk"><span class="nav-icon">🎨</span> Silk Canvas Néon</button>
+      
+
+        <div class="nav-group-label">🧪 Lab Geek &amp; Outils Nerd</div>
+        <button class="nav-btn" data-section="life"><span class="nav-icon">🧬</span> Jeu de la Vie (Conway)</button>
+        <button class="nav-btn" data-section="hackertyper"><span class="nav-icon">💻</span> Hollywood Hacker Typer</button>
+        <button class="nav-btn" data-section="mactricks"><span class="nav-icon">🍏</span> Astuces Mac Terminal</button>
+        <button class="nav-btn" data-section="asciigen"><span class="nav-icon">🔤</span> Générateur ASCII &amp; Glitch</button>
+      
+
+        <div class="nav-group-label">⚡ Outils Furtifs &amp; Création</div>
+        <button class="nav-btn" data-section="fakeupdate"><span class="nav-icon">💤</span> Faux Écrans de MàJ (Mac/Win)</button>
+        <button class="nav-btn" data-section="qrcode"><span class="nav-icon">📱</span> QR Code Furtif (PC ➔ Tel)</button>
+        <button class="nav-btn" data-section="pixelart"><span class="nav-icon">🎨</span> Pixel Art Studio 8-bit</button>
+        <button class="nav-btn" data-section="matrix"><span class="nav-icon">🟢</span> Pluie Digitale Matrix</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -2632,6 +2919,10 @@
         </div>
 
         <div class="topbar-right">
+          
+          <button id="topbar-matrix-btn" class="btn btn-secondary btn-sm" title="Activer l'écran de veille Matrix Pluie Digitale">
+            <span>🟢</span> <span>Matrix</span>
+          </button>
           <button id="topbar-sound-btn" class="btn btn-secondary btn-sm" title="Activer / Couper les sons rétro synthwave">
             <span id="topbar-sound-icon">🔊</span> <span id="topbar-sound-label">Son ON</span>
           </button>
@@ -3036,6 +3327,92 @@
               <div class="game-launch-meta">
                 <span class="badge badge-cyan">Art Vectoriel</span>
                 <span class="mono text-muted">Symétrie &amp; Export</span>
+              </div>
+            </button>
+
+          
+
+            <!-- === LAB GEEK & OUTILS NERD === -->
+            <button class="game-launch-card" data-goto="life">
+              <div class="game-launch-icon">🧬</div>
+              <h3>Jeu de la Vie (Conway)</h3>
+              <p>L'automate cellulaire mythique de John Conway. Canons à planeurs (Gosper), pulsars, dessin et chaos néon.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-emerald">Simulation</span>
+                <span class="mono text-muted">Automate 2D</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="hackertyper">
+              <div class="game-launch-icon">💻</div>
+              <h3>Hollywood Hacker Typer</h3>
+              <p>Tape n'importe quelles touches pour coder comme dans Matrix. Noyau Linux, IA, shaders et sons mécaniques.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Geek Simulator</span>
+                <span class="mono text-muted">Matrix / Code</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="mactricks">
+              <div class="game-launch-icon">🍏</div>
+              <h3>Astuces Mac Terminal</h3>
+              <p>Le recueil ultime des commandes inoffensives et stylées pour les Mac de l'école (synthèse vocale, météo ASCII, Matrix...).</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-violet">macOS CLI</span>
+                <span class="mono text-muted">100% Inoffensif</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="asciigen">
+              <div class="game-launch-icon">🔤</div>
+              <h3>Générateur ASCII &amp; Glitch</h3>
+              <p>Transforme ton pseudo ou n'importe quel mot en bannières ASCII rétro et texte corrompu Zalgo à copier-coller.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-amber">Art Rétro</span>
+                <span class="mono text-muted">Zalgo &amp; Bannières</span>
+              </div>
+            </button>
+
+          
+
+            <!-- === SUITE LÉGENDAIRE === -->
+            <button class="game-launch-card" data-goto="fakeupdate">
+              <div class="game-launch-icon">💤</div>
+              <h3>Faux Écrans de MàJ</h3>
+              <p>Simulateurs de mise à jour plein écran ultra-réalistes macOS Sequoia, Windows 11 et BSOD pour faire une pause en cours.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Furtivité Pure</span>
+                <span class="mono text-muted">Mac &amp; Win</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="qrcode">
+              <div class="game-launch-icon">📱</div>
+              <h3>QR Code Furtif</h3>
+              <p>Transfère n'importe quel lien, jeu, texte ou Wi-Fi du Mac vers ton smartphone sans te connecter à aucun compte.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-emerald">Bridge Tel</span>
+                <span class="mono text-muted">100% Hors-Ligne</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="pixelart">
+              <div class="game-launch-icon">🎨</div>
+              <h3>Pixel Art Studio 8-bit</h3>
+              <p>Atelier créatif rétro 16x16 / 32x32 avec palette néon, pot de peinture, modèles Space Invader et export PNG.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-violet">Créatif</span>
+                <span class="mono text-muted">Sprites &amp; Export</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="matrix">
+              <div class="game-launch-icon">🟢</div>
+              <h3>Pluie Digitale Matrix</h3>
+              <p>Écran de veille interactif avec katakanas japonais et flux vert phosphorescent calé sur ton régulateur de vitesse.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-emerald">Ambiance</span>
+                <span class="mono text-muted">Screensaver</span>
               </div>
             </button>
 
@@ -4617,6 +4994,405 @@
 </section>
 
 
+
+
+        <!-- ==================================================================
+             SECTION : JEU DE LA VIE DE CONWAY
+             ================================================================== -->
+        <section id="sec-life" class="section">
+          <div class="life-container">
+            <div class="csp-hud" style="width:100%;">
+              <span>Génération: <strong id="life-gen">0</strong></span>
+              <span>Cellules Vivantes: <strong id="life-pop">0</strong></span>
+              <span class="csp-hint">Clic / Glisser pour dessiner • Espace : Pause/Play • C : Effacer</span>
+            </div>
+
+            <div class="life-controls">
+              <button class="btn btn-primary btn-sm" id="life-play-btn">▶ Reprendre</button>
+              <button class="btn btn-secondary btn-sm" id="life-step-btn">⏭ 1 Étape</button>
+              <button class="btn btn-rose btn-sm" id="life-clear-btn">🗑️ Effacer</button>
+              <button class="btn btn-cyan btn-sm" id="life-random-btn">🎲 Aléatoire</button>
+
+              <div style="display:flex; align-items:center; gap:6px; margin-left:auto;">
+                <label style="font-size:12px; color:var(--text-muted);">Motifs :</label>
+                <select id="life-preset-select" class="input-text" style="padding:4px 8px; font-size:12px; width:auto;">
+                  <option value="">-- Choisir un preset --</option>
+                  <option value="gosper">Canon à Planeurs (Gosper Gun)</option>
+                  <option value="pulsar">Pulsar (Oscillateur géométrique)</option>
+                  <option value="acorn">Gland / Acorn (Explosion infinie)</option>
+                  <option value="spaceship">Vaisseau Spatial (LWSS)</option>
+                  <option value="glider">Planeur Solo (Glider)</option>
+                </select>
+              </div>
+            </div>
+
+            <canvas id="life-canvas" class="life-canvas" width="760" height="460"></canvas>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             SECTION : HOLLYWOOD HACKER TYPER
+             ================================================================== -->
+        <section id="sec-hackertyper" class="section">
+          <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:12px;">
+            <div class="csp-hud">
+              <span>Langage: <strong id="typer-lang-label">Noyau Linux C (Kernel)</strong></span>
+              <span class="csp-hint">Tape n'importe quoi sur ton clavier ! • Alt = Access Granted • Verr.Maj = Denied</span>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-secondary btn-sm" id="typer-auto-btn">⚡ Auto-Code</button>
+                <button class="btn btn-rose btn-sm" id="typer-clear-btn">🗑️ Effacer</button>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <span style="font-size:12px; color:var(--text-muted);">Thème de code :</span>
+              <button class="btn btn-sm btn-cyan typer-theme-btn" data-theme="linux">🐧 Linux Kernel C</button>
+              <button class="btn btn-sm btn-secondary typer-theme-btn" data-theme="ai">🧠 Deep Learning Python</button>
+              <button class="btn btn-sm btn-secondary typer-theme-btn" data-theme="shader">✨ 3D Raymarching GLSL</button>
+              <button class="btn btn-sm btn-secondary typer-theme-btn" data-theme="matrix">🟢 Terminal Matrix Bash</button>
+            </div>
+
+            <div class="typer-terminal" id="typer-terminal" tabindex="0">
+              <div class="hacker-modal" id="hacker-modal">ACCESS GRANTED</div>
+              <div id="typer-content"></div><span class="typer-cursor"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             SECTION : ASTUCES MAC TERMINAL
+             ================================================================== -->
+        <section id="sec-mactricks" class="section">
+          <div style="max-width:960px; margin:0 auto; display:flex; flex-direction:column; gap:16px;">
+            <div class="hero-banner" style="padding:18px 24px;">
+              <div>
+                <h3 style="font-size:18px; font-weight:800; color:var(--accent-cyan); margin-bottom:6px;">🍏 Le Guide des Commandes Mac Stylées &amp; Inoffensives</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.4;">
+                  Sur les Mac de l'école (sans aucun mot de passe admin), macOS regorge de pépites cachées dans le Terminal. Voici les meilleures commandes amusantes, visuelles et sans aucun risque à tester ou copier !
+                </p>
+              </div>
+            </div>
+
+            <div class="mac-cmd-grid">
+              <!-- Voix Zarvox -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">🤖 Voix Robot Alien (Zarvox)</h4>
+                    <span class="badge badge-cyan">Son Mac</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Fait parler le Mac avec une voix de robot venue de l'espace.</p>
+                  <div class="mac-cmd-code">say -v Zarvox "Alerte, terminal de l'école sous surveillance"</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="say -v Zarvox &quot;Alerte, terminal de l'école sous surveillance&quot;">📋 Copier</button>
+                  <button class="btn btn-secondary btn-sm btn-speak-test" data-text="Alerte, terminal de l'école sous surveillance" data-pitch="0.4">🔊 Écouter</button>
+                </div>
+              </div>
+
+              <!-- Voix Chuchotement -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">👻 Voix Chuchotement Furtif</h4>
+                    <span class="badge badge-violet">Son Mac</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Une voix mystérieuse chuchote dans les haut-parleurs du Mac.</p>
+                  <div class="mac-cmd-code">say -v Whisper "Le professeur approche doucement..."</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="say -v Whisper &quot;Le professeur approche doucement...&quot;">📋 Copier</button>
+                  <button class="btn btn-secondary btn-sm btn-speak-test" data-text="Le professeur approche doucement..." data-pitch="1.6">🔊 Écouter</button>
+                </div>
+              </div>
+
+              <!-- Voix Chantante Cellos -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">🎻 Voix Chantante (Cellos)</h4>
+                    <span class="badge badge-emerald">Musique</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Chante les mots avec une mélodie classique intégrée à macOS.</p>
+                  <div class="mac-cmd-code">say -v Cellos "dum dum dum dum vacation time"</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="say -v Cellos &quot;dum dum dum dum vacation time&quot;">📋 Copier</button>
+                  <button class="btn btn-secondary btn-sm btn-speak-test" data-text="dum dum dum dum vacation time" data-pitch="0.8">🔊 Écouter</button>
+                </div>
+              </div>
+
+              <!-- Météo ASCII -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">⛅ Météo ASCII Locale (Yverdon)</h4>
+                    <span class="badge badge-amber">Visuel CLI</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Affiche la météo en graphismes ASCII complets sans rien installer.</p>
+                  <div class="mac-cmd-code">curl wttr.in/Yverdon</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="curl wttr.in/Yverdon">📋 Copier</button>
+                </div>
+              </div>
+
+              <!-- Perroquet dansant -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">🦜 Perroquet Party en Direct</h4>
+                    <span class="badge badge-rose">Animation</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Un perroquet animé en couleurs qui danse dans le terminal (quitter avec Ctrl+C).</p>
+                  <div class="mac-cmd-code">curl parrot.live</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="curl parrot.live">📋 Copier</button>
+                </div>
+              </div>
+
+              <!-- Pluie Matrix 1-Ligne -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">🟢 Pluie Matrix en 1 Ligne</h4>
+                    <span class="badge badge-cyan">Matrix Pure</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Fait défiler un flux infini de chiffres verts rétro (arrêter avec Ctrl+C).</p>
+                  <div class="mac-cmd-code">while true; do echo -ne "e[32m$RANDOMe[0m "; done</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="while true; do echo -ne &quot;\e[32m$RANDOM\e[0m &quot;; done">📋 Copier</button>
+                </div>
+              </div>
+
+              <!-- Uptime du Mac -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">⏱️ Uptime du Mac de l'École</h4>
+                    <span class="badge badge-emerald">Diagnostic</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Découvre depuis combien de jours ou semaines le Mac est resté allumé sans reboot !</p>
+                  <div class="mac-cmd-code">uptime</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="uptime">📋 Copier</button>
+                </div>
+              </div>
+
+              <!-- Calendrier Annuel Rétro -->
+              <div class="mac-cmd-card">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h4 style="font-size:15px; font-weight:700;">📅 Calendrier Annuel Complet</h4>
+                    <span class="badge badge-amber">Pratique</span>
+                  </div>
+                  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Affiche le calendrier propre des 12 mois de l'année d'un coup.</p>
+                  <div class="mac-cmd-code">cal -y</div>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button class="btn btn-primary btn-sm btn-copy-cmd" data-cmd="cal -y">📋 Copier</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             SECTION : GÉNÉRATEUR ASCII ART & GLITCH
+             ================================================================== -->
+        <section id="sec-asciigen" class="section">
+          <div style="max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:16px;">
+            <div class="card" style="padding:18px;">
+              <h4 style="font-size:16px; font-weight:700; color:var(--accent-cyan); margin-bottom:12px;">🔤 Générateur de Bannières ASCII &amp; Texte Glitch Zalgo</h4>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+                <input type="text" id="ascii-input-text" class="input-text" style="flex:1; min-width:200px;" value="MEDO" placeholder="Tape ton texte ou pseudo..." />
+                <button id="ascii-copy-btn" class="btn btn-primary">📋 Copier l'ASCII</button>
+              </div>
+
+              <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; align-items:center;">
+                <span style="font-size:12px; color:var(--text-muted);">Style :</span>
+                <button class="btn btn-sm btn-cyan ascii-font-btn" data-font="block">Block Cyber</button>
+                <button class="btn btn-sm btn-secondary ascii-font-btn" data-font="slant">Rétro Slant</button>
+                <button class="btn btn-sm btn-secondary ascii-font-btn" data-font="banner">Standard Big</button>
+                <button class="btn btn-sm btn-secondary ascii-font-btn" data-font="mini">Pixel Mini</button>
+                <button class="btn btn-sm btn-secondary ascii-font-btn" data-font="zalgo">💀 Zalgo Glitch</button>
+              </div>
+
+              <pre id="ascii-output-box" class="ascii-output-box"></pre>
+            </div>
+          </div>
+        </section>
+
+
+
+        <!-- ==================================================================
+             SECTION : FAUX ÉCRANS DE MISE À JOUR (FAKE UPDATE)
+             ================================================================== -->
+        <section id="sec-fakeupdate" class="section">
+          <div style="max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:16px;">
+            <div class="hero-banner" style="padding:18px 24px;">
+              <div>
+                <h3 style="font-size:18px; font-weight:800; color:var(--accent-cyan); margin-bottom:6px;">💤 Faux Écrans de Mise à Jour Plein Écran</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.4;">
+                  Besoin d'aller aux toilettes, de souffler ou de faire une pause de 20 minutes sans que le prof ne demande d'ouvrir ton classeur ? Lance un faux écran de mise à jour système ultra-réaliste en plein écran !
+                </p>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
+              <!-- Carte Mac Sequoia -->
+              <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:14px;">
+                <div>
+                  <div style="font-size:28px; margin-bottom:8px;">🍏</div>
+                  <h4 style="font-size:16px; font-weight:700;">macOS Sequoia / Sonoma</h4>
+                  <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+                    Fond noir épuré Apple, fine barre de progression à 18% et estimation "38 minutes restantes".
+                  </p>
+                </div>
+                <button class="btn btn-primary" id="btn-launch-mac-update">🖥️ Lancer Plein Écran</button>
+              </div>
+
+              <!-- Carte Windows 11 -->
+              <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:14px;">
+                <div>
+                  <div style="font-size:28px; margin-bottom:8px;">🪟</div>
+                  <h4 style="font-size:16px; font-weight:700;">Windows 11 Update</h4>
+                  <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+                    Cercle tournant Windows, texte "Installation des mises à jour en cours (27%). Gardez votre PC allumé".
+                  </p>
+                </div>
+                <button class="btn btn-cyan" id="btn-launch-win-update">🖥️ Lancer Plein Écran</button>
+              </div>
+
+              <!-- Carte BSOD Mort -->
+              <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:14px;">
+                <div>
+                  <div style="font-size:28px; margin-bottom:8px;">☠️</div>
+                  <h4 style="font-size:16px; font-weight:700;">Écran Bleu BSOD Windows</h4>
+                  <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+                    Le célèbre écran bleu ":( Votre ordinateur a rencontré un problème" avec collecte de données à 42%.
+                  </p>
+                </div>
+                <button class="btn btn-rose" id="btn-launch-bsod-update">🖥️ Lancer Plein Écran</button>
+              </div>
+            </div>
+
+            <div style="background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px 18px; font-size:13px; color:var(--text-muted);">
+              💡 <strong>Astuce Furtive :</strong> Pour quitter instantanément le faux écran et revenir sur le site, <strong>double-clique n'importe où sur l'écran</strong> ou appuie sur <span class="kbd">Échap</span>.
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             SECTION : QR CODE FURTIF (PC VERS SMARTPHONE)
+             ================================================================== -->
+        <section id="sec-qrcode" class="section">
+          <div class="qr-container">
+            <div class="hero-banner" style="width:100%; padding:18px 24px;">
+              <div>
+                <h3 style="font-size:18px; font-weight:800; color:var(--accent-cyan); margin-bottom:6px;">📱 Passerelle Furtive Smartphone</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.4;">
+                  Génère un QR Code haute définition instantané pour ouvrir une page, récupérer un lien ou lire une antisèche sur ton téléphone sans te connecter à Google ou iCloud.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" style="width:100%; display:flex; flex-direction:column; gap:14px; padding:20px;">
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <input type="text" id="qr-input-text" class="input-text" style="flex:1; min-width:240px;" placeholder="Colle un lien ou tape un message..." value="https://med0-n.github.io/School-Fun/" />
+                <button class="btn btn-primary" id="qr-gen-btn">Générer QR</button>
+              </div>
+
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <span style="font-size:12px; color:var(--text-muted);">Raccourcis :</span>
+                <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="https://med0-n.github.io/School-Fun/">🌐 Ce Site Web</button>
+                <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="https://1games.io/game/slope-2">⛷️ Slope 2 Direct</button>
+                <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="WIFI:S:EDU_VD;T:WPA;P:;;; ">📶 Wi-Fi EDU_VD</button>
+                <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="Aide Révision : Chapitre 3 formules clés E=mc2 / Pythagore / Formules chimiques">📝 Antisèche Discrète</button>
+              </div>
+            </div>
+
+            <div class="qr-box">
+              <canvas id="qr-canvas" width="260" height="260"></canvas>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+              <button class="btn btn-secondary btn-sm" id="qr-download-btn">💾 Télécharger l'image PNG</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             SECTION : PIXEL ART STUDIO 8-BIT
+             ================================================================== -->
+        <section id="sec-pixelart" class="section">
+          <div class="pixel-container">
+            <div class="csp-hud" style="width:100%;">
+              <span>Taille: <strong>16 x 16</strong></span>
+              <span class="csp-hint">Clic gauche pour peindre • Outil pot de peinture pour remplir</span>
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-primary btn-sm" id="pixel-save-btn">💾 Export PNG</button>
+                <button class="btn btn-rose btn-sm" id="pixel-clear-btn">🗑️ Effacer</button>
+              </div>
+            </div>
+
+            <div class="pixel-toolbar">
+              <!-- Outils -->
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-sm btn-cyan pixel-tool-btn" data-tool="pencil" title="Crayon">✏️</button>
+                <button class="btn btn-sm btn-secondary pixel-tool-btn" data-tool="bucket" title="Pot de peinture">🪣</button>
+                <button class="btn btn-sm btn-secondary pixel-tool-btn" data-tool="eraser" title="Gomme">🧹</button>
+              </div>
+
+              <!-- Palette néon -->
+              <div style="display:flex; gap:5px; align-items:center; margin-left:8px;" id="pixel-palette">
+                <div class="color-swatch active" style="background:#00f0ff;" data-color="#00f0ff"></div>
+                <div class="color-swatch" style="background:#10b981;" data-color="#10b981"></div>
+                <div class="color-swatch" style="background:#fde047;" data-color="#fde047"></div>
+                <div class="color-swatch" style="background:#f43f5e;" data-color="#f43f5e"></div>
+                <div class="color-swatch" style="background:#a855f7;" data-color="#a855f7"></div>
+                <div class="color-swatch" style="background:#ffffff;" data-color="#ffffff"></div>
+                <div class="color-swatch" style="background:#64748b;" data-color="#64748b"></div>
+                <div class="color-swatch" style="background:#070b14;" data-color="#070b14"></div>
+                <input type="color" id="pixel-custom-color" value="#00f0ff" style="width:26px; height:26px; border:none; padding:0; background:transparent; cursor:pointer;" title="Couleur libre" />
+              </div>
+
+              <!-- Modèles -->
+              <div style="display:flex; gap:6px; margin-left:auto;">
+                <button class="btn btn-sm btn-secondary pixel-template-btn" data-template="invader">👾 Invader</button>
+                <button class="btn btn-sm btn-secondary pixel-template-btn" data-template="heart">❤️ Cœur</button>
+                <button class="btn btn-sm btn-secondary pixel-template-btn" data-template="ghost">👻 Fantôme</button>
+                <button class="btn btn-sm btn-secondary pixel-template-btn" data-template="sword">🗡️ Épée</button>
+              </div>
+            </div>
+
+            <canvas id="pixel-canvas" class="pixel-canvas" width="400" height="400"></canvas>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             SECTION : PLUIE DIGITALE MATRIX
+             ================================================================== -->
+        <section id="sec-matrix" class="section">
+          <div style="max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:16px;">
+            <div class="hero-banner" style="padding:18px 24px;">
+              <div>
+                <h3 style="font-size:18px; font-weight:800; color:var(--accent-cyan); margin-bottom:6px;">🟢 Écran de Veille Matrix Digital Rain</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.4;">
+                  La célèbre pluie de katakanas phosphorescents de Matrix. Démarre-la en plein écran pour laisser ton écran tourner avec style !
+                </p>
+              </div>
+              <button class="btn btn-primary" id="btn-fullscreen-matrix">🖥️ Mode Plein Écran</button>
+            </div>
+            <div style="border:1px solid rgba(0,240,255,0.3); border-radius:var(--radius-lg); overflow:hidden; background:#000; box-shadow:0 0 35px rgba(0,255,100,0.15);">
+              <canvas id="matrix-inline-canvas" width="860" height="480" style="display:block; max-width:100%;"></canvas>
+            </div>
+          </div>
+        </section>
+
 </main>
     </div>
   </div>
@@ -5206,6 +5982,18 @@
         typing: '⌨️ Dactylo Speed Test',
         pomodoro: '⏱️ Pomodoro & Focus',
         silk: '🎨 Silk Canvas Néon',
+
+        life: '🧬 Jeu de la Vie (Conway)',
+        hackertyper: '💻 Hollywood Hacker Typer',
+        mactricks: '🍏 Astuces Mac Terminal',
+        asciigen: '🔤 Générateur ASCII & Glitch',
+
+        fakeupdate: '💤 Faux Écrans de MàJ (Mac/Win)',
+        qrcode: '📱 QR Code Furtif (PC ➔ Tel)',
+        pixelart: '🎨 Pixel Art Studio 8-bit',
+        matrix: '🟢 Pluie Digitale Matrix',
+
+
 
       };
 
@@ -13502,7 +14290,1378 @@ const SilkCanvas = (() => {
 /* ============================================================================
    REGISTRE MODULAIRE BRANCHÉ AU ROUTEUR
    ============================================================================ */
-const CYBER_MODULES = {
+
+      /* ============================================================================
+         SUITE LAB GEEK & NERD HUB : 4 MODULES EXPERTS
+         ============================================================================ */
+
+      /* 1. CONWAY'S GAME OF LIFE (AUTOMATE CELLULAIRE NÉON) */
+      const LifeGame = (() => {
+        let cv, ctx, running = false, raf = 0, gen = 0;
+        const COLS = 76, ROWS = 46, CELL = 10;
+        let grid = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
+        let nextGrid = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
+        let ageGrid = Array.from({ length: ROWS }, () => new Uint8Array(COLS));
+        let drawing = false, drawVal = 1;
+
+        function countNeighbors(r, c) {
+          let count = 0;
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              if (dr === 0 && dc === 0) continue;
+              const nr = (r + dr + ROWS) % ROWS;
+              const nc = (c + dc + COLS) % COLS;
+              if (grid[nr][nc]) count++;
+            }
+          }
+          return count;
+        }
+
+        function step() {
+          let pop = 0;
+          for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+              const n = countNeighbors(r, c);
+              const alive = grid[r][c];
+              if (alive && (n === 2 || n === 3)) {
+                nextGrid[r][c] = 1;
+                ageGrid[r][c] = Math.min(255, ageGrid[r][c] + 1);
+                pop++;
+              } else if (!alive && n === 3) {
+                nextGrid[r][c] = 1;
+                ageGrid[r][c] = 1;
+                pop++;
+              } else {
+                nextGrid[r][c] = 0;
+                ageGrid[r][c] = 0;
+              }
+            }
+          }
+          const tmp = grid; grid = nextGrid; nextGrid = tmp;
+          gen++;
+          updateHud(pop);
+          draw();
+          if (running) raf = requestAnimationFrame(step);
+        }
+
+        function updateHud(pop) {
+          const gEl = document.getElementById('life-gen');
+          const pEl = document.getElementById('life-pop');
+          if (gEl) gEl.textContent = gen;
+          if (pEl) pEl.textContent = pop;
+        }
+
+        function draw() {
+          ctx.fillStyle = '#050811';
+          ctx.fillRect(0, 0, COLS * CELL, ROWS * CELL);
+
+          // Grille subtile
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.04)';
+          ctx.lineWidth = 1;
+          for (let x = 0; x <= COLS * CELL; x += CELL) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, ROWS * CELL); ctx.stroke();
+          }
+          for (let y = 0; y <= ROWS * CELL; y += CELL) {
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(COLS * CELL, y); ctx.stroke();
+          }
+
+          // Rendu des cellules avec dégradé d'âge néon (Cyan -> Magenta -> Ambre)
+          for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+              if (grid[r][c]) {
+                const age = ageGrid[r][c];
+                if (age <= 2) ctx.fillStyle = '#00f0ff';
+                else if (age <= 10) ctx.fillStyle = '#38bdf8';
+                else if (age <= 30) ctx.fillStyle = '#a855f7';
+                else ctx.fillStyle = '#f43f5e';
+
+                ctx.shadowColor = ctx.fillStyle;
+                ctx.shadowBlur = 4;
+                ctx.fillRect(c * CELL + 1, r * CELL + 1, CELL - 2, CELL - 2);
+                ctx.shadowBlur = 0;
+              }
+            }
+          }
+        }
+
+        function applyPreset(name) {
+          clear();
+          const midR = Math.floor(ROWS / 2);
+          const midC = Math.floor(COLS / 2);
+
+          if (name === 'glider') {
+            const coords = [[0,1],[1,2],[2,0],[2,1],[2,2]];
+            coords.forEach(([r,c]) => { grid[midR+r][midC+c] = 1; ageGrid[midR+r][midC+c] = 1; });
+          } else if (name === 'pulsar') {
+            const pattern = [
+              [0,2],[0,3],[0,4],[0,8],[0,9],[0,10],
+              [2,0],[2,5],[2,7],[2,12],
+              [3,0],[3,5],[3,7],[3,12],
+              [4,0],[4,5],[4,7],[4,12],
+              [5,2],[5,3],[5,4],[5,8],[5,9],[5,10]
+            ];
+            pattern.forEach(([r,c]) => {
+              const r1 = midR - 6 + r, r2 = midR + 6 - r;
+              const c1 = midC - 6 + c;
+              if (r1 >= 0 && r1 < ROWS && c1 >= 0 && c1 < COLS) grid[r1][c1] = 1;
+              if (r2 >= 0 && r2 < ROWS && c1 >= 0 && c1 < COLS) grid[r2][c1] = 1;
+            });
+          } else if (name === 'spaceship') {
+            const coords = [[0,1],[0,4],[1,0],[2,0],[2,4],[3,0],[3,1],[3,2],[3,3]];
+            coords.forEach(([r,c]) => { grid[midR+r][midC+c] = 1; ageGrid[midR+r][midC+c] = 1; });
+          } else if (name === 'acorn') {
+            const coords = [[0,1],[1,3],[2,0],[2,1],[2,4],[2,5],[2,6]];
+            coords.forEach(([r,c]) => { grid[midR+r][midC+c] = 1; ageGrid[midR+r][midC+c] = 1; });
+          } else if (name === 'gosper') {
+            // Gosper Glider Gun (36 cellules)
+            const coords = [
+              [4,0],[4,1],[5,0],[5,1],
+              [2,12],[2,13],[3,11],[4,10],[5,10],[6,10],[7,11],[8,12],[8,13],[5,14],[3,15],[7,15],[4,16],[5,16],[6,16],[5,17],
+              [2,20],[3,20],[4,20],[2,21],[3,21],[4,21],[1,22],[5,22],[0,24],[1,24],[5,24],[6,24],
+              [2,34],[3,34],[2,35],[3,35]
+            ];
+            const startR = 6, startC = 6;
+            coords.forEach(([r,c]) => {
+              if (startR + r < ROWS && startC + c < COLS) {
+                grid[startR + r][startC + c] = 1;
+                ageGrid[startR + r][startC + c] = 1;
+              }
+            });
+          }
+          draw();
+          updateHud(countPop());
+        }
+
+        function countPop() {
+          let pop = 0;
+          for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (grid[r][c]) pop++;
+          return pop;
+        }
+
+        function clear() {
+          running = false;
+          cancelAnimationFrame(raf);
+          const btn = document.getElementById('life-play-btn');
+          if (btn) btn.textContent = '▶ Reprendre';
+          grid.forEach(row => row.fill(0));
+          ageGrid.forEach(row => row.fill(0));
+          gen = 0;
+          draw();
+          updateHud(0);
+        }
+
+        function randomize() {
+          clear();
+          let pop = 0;
+          for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+              if (Math.random() < 0.22) { grid[r][c] = 1; ageGrid[r][c] = 1; pop++; }
+            }
+          }
+          draw();
+          updateHud(pop);
+        }
+
+        function togglePlay() {
+          running = !running;
+          const btn = document.getElementById('life-play-btn');
+          if (btn) btn.textContent = running ? '⏸ Pause' : '▶ Reprendre';
+          if (running) raf = requestAnimationFrame(step);
+          else cancelAnimationFrame(raf);
+        }
+
+        return {
+          init() {
+            cv = document.getElementById('life-canvas');
+            if (!cv) return;
+            ctx = cv.getContext('2d');
+
+            const playBtn = document.getElementById('life-play-btn');
+            const stepBtn = document.getElementById('life-step-btn');
+            const clearBtn = document.getElementById('life-clear-btn');
+            const randBtn = document.getElementById('life-random-btn');
+            const presetSel = document.getElementById('life-preset-select');
+
+            if (playBtn) playBtn.onclick = togglePlay;
+            if (stepBtn) stepBtn.onclick = () => { if (!running) step(); };
+            if (clearBtn) clearBtn.onclick = clear;
+            if (randBtn) randBtn.onclick = randomize;
+            if (presetSel) presetSel.onchange = (e) => { if (e.target.value) applyPreset(e.target.value); };
+
+            // Interaction dessin
+            function handlePos(e) {
+              const rect = cv.getBoundingClientRect();
+              const scaleX = cv.width / rect.width;
+              const scaleY = cv.height / rect.height;
+              const x = (e.clientX - rect.left) * scaleX;
+              const y = (e.clientY - rect.top) * scaleY;
+              const c = Math.floor(x / CELL);
+              const r = Math.floor(y / CELL);
+              if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+                grid[r][c] = drawVal;
+                ageGrid[r][c] = drawVal ? 1 : 0;
+                draw();
+                updateHud(countPop());
+              }
+            }
+
+            cv.addEventListener('mousedown', (e) => {
+              drawing = true;
+              const rect = cv.getBoundingClientRect();
+              const c = Math.floor(((e.clientX - rect.left) * (cv.width / rect.width)) / CELL);
+              const r = Math.floor(((e.clientY - rect.top) * (cv.height / rect.height)) / CELL);
+              drawVal = (r >= 0 && r < ROWS && c >= 0 && c < COLS && grid[r][c]) ? 0 : 1;
+              handlePos(e);
+            });
+
+            window.addEventListener('mouseup', () => { drawing = false; });
+            cv.addEventListener('mousemove', (e) => { if (drawing) handlePos(e); });
+
+            // Preset par défaut : Gosper Glider Gun
+            applyPreset('gosper');
+          },
+          start() {
+            if (!running) {
+              running = true;
+              const btn = document.getElementById('life-play-btn');
+              if (btn) btn.textContent = '⏸ Pause';
+              raf = requestAnimationFrame(step);
+            }
+          },
+          pause() {
+            running = false;
+            cancelAnimationFrame(raf);
+            const btn = document.getElementById('life-play-btn');
+            if (btn) btn.textContent = '▶ Reprendre';
+          },
+          resize() { draw(); }
+        };
+      })();
+
+      /* 2. HOLLYWOOD HACKER TYPER */
+      const HackerTyper = (() => {
+        let terminal, contentEl, modalEl;
+        let charIndex = 0, currentSnippet = '', autoInterval = null;
+        let altCount = 0, capsCount = 0;
+
+        const SNIPPETS = {
+          linux: `/*
+ * Linux Kernel mm/mmap.c — Virtual Memory Management & Page Allocation
+ * Copyright (C) 1991-2026 Linus Torvalds and contributors
+ */
+#include <linux/kernel.h>
+#include <linux/sched/mm.h>
+#include <linux/security.h>
+#include <linux/mman.h>
+
+static inline unsigned long round_hint_to_min(unsigned long hint) {
+    hint &= PAGE_MASK;
+    if (((void *)hint != NULL) && (hint < mmap_min_addr))
+        return PAGE_ALIGN(mmap_min_addr);
+    return hint;
+}
+
+unsigned long vm_mmap_pgoff(struct file *file, unsigned long addr,
+    unsigned long len, unsigned long prot,
+    unsigned long flag, unsigned long pgoff)
+{
+    unsigned long ret;
+    struct mm_struct *mm = current->mm;
+    unsigned long populate;
+    LIST_HEAD(uf);
+
+    ret = security_mmap_file(file, prot, flag);
+    if (!ret) {
+        if (down_write_killable(&mm->mmap_lock))
+            return -EINTR;
+        ret = do_mmap(file, addr, len, prot, flag, 0, pgoff, &populate, &uf);
+        up_write(&mm->mmap_lock);
+        userfaultfd_unmap_complete(mm, &uf);
+        if (populate)
+            mm_populate(ret, populate);
+    }
+    return ret;
+}
+
+// [DEBUG] Page-table walks initialized. Allocating TLB flush hooks.
+// Memory barrier established. All caches synced across 16 cores.
+`,
+          ai: `# ==============================================================================
+# PyTorch Multi-Head Self-Attention Transformer Layer with RoPE Embeddings
+# ==============================================================================
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class MultiHeadAttention(nn.Module):
+    def __init__(self, d_model: int = 4096, n_heads: int = 32, max_seq: int = 8192):
+        super().__init__()
+        self.d_model = d_model
+        self.n_heads = n_heads
+        self.head_dim = d_model // n_heads
+
+        self.q_proj = nn.Linear(d_model, d_model, bias=False)
+        self.k_proj = nn.Linear(d_model, d_model, bias=False)
+        self.v_proj = nn.Linear(d_model, d_model, bias=False)
+        self.out_proj = nn.Linear(d_model, d_model, bias=False)
+
+    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:
+        B, S, _ = x.shape
+        q = self.q_proj(x).view(B, S, self.n_heads, self.head_dim).transpose(1, 2)
+        k = self.k_proj(x).view(B, S, self.n_heads, self.head_dim).transpose(1, 2)
+        v = self.v_proj(x).view(B, S, self.n_heads, self.head_dim).transpose(1, 2)
+
+        scores = torch.matmul(q, k.transpose(-2, -1)) / (self.head_dim ** 0.5)
+        if mask is not None:
+            scores = scores.masked_fill(mask == 0, -1e9)
+        attn = F.softmax(scores, dim=-1)
+        out = torch.matmul(attn, v).transpose(1, 2).contiguous().view(B, S, self.d_model)
+        return self.out_proj(out)
+
+# Quantized FP8 engine engaged. Forward inference latency: 1.42ms.
+`,
+          shader: `// ==============================================================================
+// Cyber Neon Raymarching Fragment Shader (Signed Distance Functions)
+// ==============================================================================
+#version 300 es
+precision highp float;
+out vec4 fragColor;
+uniform vec2 u_resolution;
+uniform float u_time;
+
+float sdTorus(vec3 p, vec2 t) {
+    vec2 q = vec2(length(p.xz) - t.x, p.y);
+    return length(q) - t.y;
+}
+
+float map(vec3 p) {
+    vec3 q = p;
+    q.xy *= mat2(cos(u_time), -sin(u_time), sin(u_time), cos(u_time));
+    return sdTorus(q, vec2(1.8, 0.45));
+}
+
+void main() {
+    vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / u_resolution.y;
+    vec3 ro = vec3(0.0, 0.0, -4.5);
+    vec3 rd = normalize(vec3(uv, 1.2));
+    float dO = 0.0;
+
+    for (int i = 0; i < 96; i++) {
+        vec3 p = ro + rd * dO;
+        float dS = map(p);
+        dO += dS;
+        if (dO > 20.0 || abs(dS) < 0.001) break;
+    }
+
+    vec3 col = vec3(0.0, 0.94, 1.0) * (1.0 / (1.0 + dO * dO * 0.12));
+    fragColor = vec4(col, 1.0);
+}
+`,
+          matrix: `#!/usr/bin/env bash
+# ==============================================================================
+# Cyber Matrix Stream Decoder v4.2
+# ==============================================================================
+trap "echo -e '\x1b[0m'; exit 0" SIGINT SIGTERM
+echo -e "\x1b[1;32m[+] Connecting to decentralized neuro-link node...\x1b[0m"
+sleep 0.2
+echo -e "\x1b[1;32m[+] Decrypting handshake protocol (AES-256-GCM)... OK\x1b[0m"
+echo -e "\x1b[1;32m[+] Bypassing sub-gateway firewall... ACCESS VERIFIED\x1b[0m"
+
+CHARS="0123456789ABCDEFabcdef!@#$%^&*()_+-=[]{}|;:,.<>?~"
+while true; do
+    LINE=""
+    for i in {1..80}; do
+        IDX=$((RANDOM % \${#CHARS}))
+        CHAR="\${CHARS:$IDX:1}"
+        LINE+="\${CHAR} "
+    done
+    echo -e "\x1b[32m\${LINE}\x1b[0m"
+done
+`
+        };
+
+        function addChars(count = 4) {
+          if (!currentSnippet) currentSnippet = SNIPPETS.linux;
+          const chunk = currentSnippet.slice(charIndex, charIndex + count);
+          charIndex = (charIndex + count) % currentSnippet.length;
+          contentEl.textContent += chunk;
+          terminal.scrollTop = terminal.scrollHeight;
+          if (typeof CyberAudio !== 'undefined') CyberAudio.click();
+        }
+
+        function triggerModal(type) {
+          modalEl.className = 'hacker-modal ' + type;
+          modalEl.textContent = type === 'granted' ? 'ACCESS GRANTED' : 'SECURITY BREACH : DENIED';
+          if (typeof CyberAudio !== 'undefined') {
+            if (type === 'granted') CyberAudio.score();
+            else CyberAudio.boom();
+          }
+          setTimeout(() => { modalEl.className = 'hacker-modal'; }, 1800);
+        }
+
+        return {
+          init() {
+            terminal = document.getElementById('typer-terminal');
+            contentEl = document.getElementById('typer-content');
+            modalEl = document.getElementById('hacker-modal');
+            if (!terminal) return;
+
+            currentSnippet = SNIPPETS.linux;
+            contentEl.textContent = '/* Appuie sur n\'importe quelle touche du clavier pour coder... */\n\n';
+
+            // Frappe clavier
+            window.addEventListener('keydown', (e) => {
+              if (AppState.activeSection !== 'hackertyper') return;
+              if (e.key === 'Alt') {
+                altCount++;
+                if (altCount >= 3) { triggerModal('granted'); altCount = 0; }
+                return;
+              }
+              if (e.key === 'CapsLock') {
+                capsCount++;
+                if (capsCount >= 2) { triggerModal('denied'); capsCount = 0; }
+                return;
+              }
+              if (['Shift', 'Control', 'Meta'].includes(e.key)) return;
+              e.preventDefault();
+              addChars(5);
+            });
+
+            // Boutons
+            const clearBtn = document.getElementById('typer-clear-btn');
+            if (clearBtn) clearBtn.onclick = () => { contentEl.textContent = ''; charIndex = 0; };
+
+            const autoBtn = document.getElementById('typer-auto-btn');
+            if (autoBtn) autoBtn.onclick = () => {
+              if (autoInterval) {
+                clearInterval(autoInterval); autoInterval = null;
+                autoBtn.textContent = '⚡ Auto-Code';
+              } else {
+                autoInterval = setInterval(() => addChars(4), 45);
+                autoBtn.textContent = '⏸ Arrêter Auto';
+              }
+            };
+
+            // Thèmes
+            document.querySelectorAll('.typer-theme-btn').forEach(btn => {
+              btn.addEventListener('click', () => {
+                document.querySelectorAll('.typer-theme-btn').forEach(b => {
+                  b.classList.remove('btn-cyan');
+                  b.classList.add('btn-secondary');
+                });
+                btn.classList.add('btn-cyan');
+                btn.classList.remove('btn-secondary');
+
+                const theme = btn.dataset.theme;
+                currentSnippet = SNIPPETS[theme] || SNIPPETS.linux;
+                charIndex = 0;
+                contentEl.textContent = '';
+                const lbl = document.getElementById('typer-lang-label');
+                if (lbl) lbl.textContent = btn.textContent;
+                addChars(20);
+              });
+            });
+          },
+          start() {},
+          pause() {
+            if (autoInterval) {
+              clearInterval(autoInterval); autoInterval = null;
+              const btn = document.getElementById('typer-auto-btn');
+              if (btn) btn.textContent = '⚡ Auto-Code';
+            }
+          }
+        };
+      })();
+
+      /* 3. ASTUCES MAC TERMINAL */
+      const MacTricks = (() => {
+        return {
+          init() {
+            // Copier les commandes
+            document.querySelectorAll('.btn-copy-cmd').forEach(btn => {
+              btn.addEventListener('click', () => {
+                const cmd = btn.dataset.cmd;
+                if (navigator.clipboard && cmd) {
+                  navigator.clipboard.writeText(cmd).then(() => {
+                    if (typeof showToast === 'function') showToast('Commande copiée dans le presse-papiers !', '📋');
+                  });
+                }
+              });
+            });
+
+            // Aperçu synthèse vocale (Web Speech API)
+            document.querySelectorAll('.btn-speak-test').forEach(btn => {
+              btn.addEventListener('click', () => {
+                const text = btn.dataset.text;
+                const pitch = parseFloat(btn.dataset.pitch) || 1.0;
+                if ('speechSynthesis' in window && text) {
+                  window.speechSynthesis.cancel();
+                  const ut = new SpeechSynthesisUtterance(text);
+                  ut.lang = 'fr-FR';
+                  ut.pitch = pitch;
+                  ut.rate = 0.95;
+                  window.speechSynthesis.speak(ut);
+                  if (typeof showToast === 'function') showToast('Synthèse vocale en cours...', '🔊');
+                }
+              });
+            });
+          },
+          start() {},
+          pause() {}
+        };
+      })();
+
+      /* 4. GÉNÉRATEUR ASCII ART & GLITCH */
+      const AsciiGen = (() => {
+        // Table de fontes ASCII simplifiée et robuste
+        const FONTS = {
+          block: (txt) => {
+            const B = {
+              A: [" ███  ","█   █ ","█████ ","█   █ ","█   █ "],
+              B: ["████  ","█   █ ","████  ","█   █ ","████  "],
+              C: [" ████ ","█     ","█     ","█     "," ████ "],
+              D: ["████  ","█   █ ","█   █ ","█   █ ","████  "],
+              E: ["█████ ","█     ","████  ","█     ","█████ "],
+              F: ["█████ ","█     ","████  ","█     ","█     "],
+              G: [" ████ ","█     ","█  ██ ","█   █ "," ████ "],
+              H: ["█   █ ","█   █ ","█████ ","█   █ ","█   █ "],
+              I: [" ███  ","  █   ","  █   ","  █   "," ███  "],
+              J: ["   ██ ","    █ ","    █ ","█   █ "," ███  "],
+              K: ["█   █ ","█  █  ","███   ","█  █  ","█   █ "],
+              L: ["█     ","█     ","█     ","█     ","█████ "],
+              M: ["█   █ ","██ ██ ","█ █ █ ","█   █ ","█   █ "],
+              N: ["█   █ ","██  █ ","█ █ █ ","█  ██ ","█   █ "],
+              O: [" ███  ","█   █ ","█   █ ","█   █ "," ███  "],
+              P: ["████  ","█   █ ","████  ","█     ","█     "],
+              Q: [" ███  ","█   █ ","█ █ █ ","█  ██ "," ████ "],
+              R: ["████  ","█   █ ","████  ","█  █  ","█   █ "],
+              S: [" ████ ","█     "," ███  ","    █ ","████  "],
+              T: ["█████ ","  █   ","  █   ","  █   ","  █   "],
+              U: ["█   █ ","█   █ ","█   █ ","█   █ "," ███  "],
+              V: ["█   █ ","█   █ ","█   █ "," █ █  ","  █   "],
+              W: ["█   █ ","█   █ ","█ █ █ ","██ ██ ","█   █ "],
+              X: ["█   █ "," █ █  ","  █   "," █ █  ","█   █ "],
+              Y: ["█   █ "," █ █  ","  █   ","  █   ","  █   "],
+              Z: ["█████ ","   █  ","  █   "," █    ","█████ "],
+              " ": ["      ","      ","      ","      ","      "]
+            };
+            const upper = txt.toUpperCase();
+            const lines = ["","","","",""];
+            for (let ch of upper) {
+              const glyph = B[ch] || B[" "];
+              for (let i = 0; i < 5; i++) lines[i] += glyph[i];
+            }
+            return lines.join("\n");
+          },
+          slant: (txt) => {
+            const lines = ["  __  __ ", " |  \\/  |", " | \\  / |", " | |\\/| |", " |_|  |_|"];
+            return FONTS.block(txt).replace(/█/g, '/');
+          },
+          banner: (txt) => {
+            return FONTS.block(txt).replace(/█/g, '#');
+          },
+          mini: (txt) => {
+            return FONTS.block(txt).replace(/█/g, '■');
+          },
+          zalgo: (txt) => {
+            const diacritics = [
+              '\u0300','\u0301','\u0302','\u0303','\u0304','\u0305','\u0306','\u0307','\u0308','\u0309','\u030A','\u030B','\u030C','\u030D','\u030E','\u030F',
+              '\u0310','\u0311','\u0312','\u0313','\u0314','\u0315','\u0316','\u0317','\u0318','\u0319','\u031A','\u031B','\u031C','\u031D','\u031E','\u031F',
+              '\u0320','\u0321','\u0322','\u0323','\u0324','\u0325','\u0326','\u0327','\u0328','\u0329','\u032A','\u032B','\u032C','\u032D','\u032E','\u032F'
+            ];
+            let res = '';
+            for (let ch of txt) {
+              res += ch;
+              const count = Math.floor(Math.random() * 8) + 4;
+              for (let i = 0; i < count; i++) {
+                res += diacritics[Math.floor(Math.random() * diacritics.length)];
+              }
+            }
+            return res;
+          }
+        };
+
+        let currentFont = 'block';
+
+        function render() {
+          const input = document.getElementById('ascii-input-text');
+          const output = document.getElementById('ascii-output-box');
+          if (!input || !output) return;
+          const val = input.value.trim() || 'MEDO';
+          const fn = FONTS[currentFont] || FONTS.block;
+          output.textContent = fn(val);
+        }
+
+        return {
+          init() {
+            const input = document.getElementById('ascii-input-text');
+            const copyBtn = document.getElementById('ascii-copy-btn');
+            if (input) input.addEventListener('input', render);
+
+            if (copyBtn) {
+              copyBtn.addEventListener('click', () => {
+                const output = document.getElementById('ascii-output-box');
+                if (output && navigator.clipboard) {
+                  navigator.clipboard.writeText(output.textContent).then(() => {
+                    if (typeof showToast === 'function') showToast('ASCII copié dans le presse-papiers !', '📋');
+                  });
+                }
+              });
+            }
+
+            document.querySelectorAll('.ascii-font-btn').forEach(btn => {
+              btn.addEventListener('click', () => {
+                document.querySelectorAll('.ascii-font-btn').forEach(b => {
+                  b.classList.remove('btn-cyan');
+                  b.classList.add('btn-secondary');
+                });
+                btn.classList.add('btn-cyan');
+                btn.classList.remove('btn-secondary');
+                currentFont = btn.dataset.font;
+                render();
+              });
+            });
+
+            render();
+          },
+          start() {},
+          pause() {}
+        };
+      })();
+
+      
+      /* ============================================================================
+         SUITE LÉGENDAIRE : MODULES AUTONOMES
+         ============================================================================ */
+
+      /* 1. FAUX ÉCRANS DE MISE À JOUR */
+      const FakeUpdate = (() => {
+        let screenEl, macView, winView, bsodView;
+        let activeInterval = null;
+
+        function openScreen(type) {
+          screenEl.classList.add('active');
+          macView.style.display = 'none';
+          winView.style.display = 'none';
+          bsodView.style.display = 'none';
+
+          if (document.documentElement.requestFullscreen) {
+            try { document.documentElement.requestFullscreen(); } catch {}
+          }
+
+          if (type === 'mac') {
+            macView.style.display = 'flex';
+            let pct = 18;
+            activeInterval = setInterval(() => {
+              pct += 0.05;
+              const fill = document.getElementById('fake-mac-fill');
+              if (fill) fill.style.width = pct + '%';
+            }, 3000);
+          } else if (type === 'win') {
+            winView.style.display = 'flex';
+            let pct = 27;
+            activeInterval = setInterval(() => {
+              pct++;
+              const el = document.getElementById('fake-win-pct');
+              if (el) el.textContent = `Installation des mises à jour en cours (${pct}%)`;
+            }, 5000);
+          } else if (type === 'bsod') {
+            bsodView.style.display = 'flex';
+            let pct = 42;
+            activeInterval = setInterval(() => {
+              if (pct < 99) pct++;
+              const el = document.getElementById('fake-bsod-pct');
+              if (el) el.textContent = `${pct}% effectués`;
+            }, 2500);
+          }
+        }
+
+        function closeScreen() {
+          screenEl.classList.remove('active');
+          if (activeInterval) { clearInterval(activeInterval); activeInterval = null; }
+          if (document.fullscreenElement && document.exitFullscreen) {
+            try { document.exitFullscreen(); } catch {}
+          }
+        }
+
+        return {
+          init() {
+            screenEl = document.getElementById('fake-update-screen');
+            macView = document.getElementById('fake-mac-view');
+            winView = document.getElementById('fake-win-view');
+            bsodView = document.getElementById('fake-bsod-view');
+
+            const btnMac = document.getElementById('btn-launch-mac-update');
+            const btnWin = document.getElementById('btn-launch-win-update');
+            const btnBsod = document.getElementById('btn-launch-bsod-update');
+
+            if (btnMac) btnMac.onclick = () => openScreen('mac');
+            if (btnWin) btnWin.onclick = () => openScreen('win');
+            if (btnBsod) btnBsod.onclick = () => openScreen('bsod');
+
+            if (screenEl) screenEl.ondblclick = closeScreen;
+            window.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && screenEl && screenEl.classList.contains('active')) {
+                closeScreen();
+              }
+            });
+          },
+          start() {},
+          pause() { closeScreen(); }
+        };
+      })();
+
+      /* 2. QR CODE STEALTH GENERATOR */
+      const StealthQR = (() => {
+        // Minimal QR Code Model 2 implementation
+        function QR8bitByte(data) { this.mode = 4; this.data = data; }
+        QR8bitByte.prototype = {
+          getLength: function() { return this.data.length; },
+          write: function(buffer) {
+            for (var i = 0; i < this.data.length; i++) buffer.put(this.data.charCodeAt(i), 8);
+          }
+        };
+
+        function QRCodeModel(typeNumber, errorCorrectLevel) {
+          this.typeNumber = typeNumber;
+          this.errorCorrectLevel = errorCorrectLevel;
+          this.modules = null;
+          this.moduleCount = 0;
+          this.dataList = [];
+        }
+
+        var QRMath = {
+          glog: function(n) { if (n < 1) throw new Error(); return QRMath.LOG_TABLE[n]; },
+          gexp: function(n) { while (n < 0) n += 255; while (n >= 255) n -= 255; return QRMath.EXP_TABLE[n]; },
+          EXP_TABLE: new Array(256),
+          LOG_TABLE: new Array(256)
+        };
+        for (var i = 0; i < 8; i++) QRMath.EXP_TABLE[i] = 1 << i;
+        for (var i = 8; i < 256; i++) QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
+        for (var i = 0; i < 255; i++) QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
+
+        function QRPolynomial(num, shift) {
+          var offset = 0;
+          while (offset < num.length && num[offset] == 0) offset++;
+          this.num = new Array(num.length - offset + shift);
+          for (var i = 0; i < num.length - offset; i++) this.num[i] = num[i + offset];
+        }
+        QRPolynomial.prototype = {
+          get: function(index) { return this.num[index]; },
+          getLength: function() { return this.num.length; },
+          multiply: function(e) {
+            var num = new Array(this.getLength() + e.getLength() - 1);
+            for (var i = 0; i < this.getLength(); i++) {
+              for (var j = 0; j < e.getLength(); j++) {
+                num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
+              }
+            }
+            return new QRPolynomial(num, 0);
+          },
+          mod: function(e) {
+            if (this.getLength() - e.getLength() < 0) return this;
+            var ratio = QRMath.glog(this.get(0)) - QRMath.glog(e.get(0));
+            var num = new Array(this.getLength());
+            for (var i = 0; i < this.getLength(); i++) num[i] = this.get(i);
+            for (var i = 0; i < e.getLength(); i++) num[i] ^= QRMath.gexp(QRMath.glog(e.get(i)) + ratio);
+            return new QRPolynomial(num, 0).mod(e);
+          }
+        };
+
+        var QRRSBlock = {
+          RS_BLOCK_TABLE: [
+            [1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9],
+            [1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16],
+            [1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13],
+            [1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9],
+            [1, 134, 108], [2, 67, 43], [2, 33, 15, 2, 34, 16], [2, 33, 11, 2, 34, 12],
+            [2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15],
+            [2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14],
+            [2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15]
+          ],
+          getRSBlocks: function(typeNumber, errorCorrectLevel) {
+            var rsBlock = QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + errorCorrectLevel];
+            var length = rsBlock.length / 3;
+            var list = [];
+            for (var i = 0; i < length; i++) {
+              var count = rsBlock[i * 3 + 0], totalCount = rsBlock[i * 3 + 1], dataCount = rsBlock[i * 3 + 2];
+              for (var j = 0; j < count; j++) list.push({ totalCount: totalCount, dataCount: dataCount });
+            }
+            return list;
+          }
+        };
+
+        function QRBitBuffer() { this.buffer = []; this.length = 0; }
+        QRBitBuffer.prototype = {
+          put: function(num, length) { for (var i = 0; i < length; i++) this.putBit(((num >>> (length - i - 1)) & 1) == 1); },
+          putBit: function(bit) {
+            var bufIndex = Math.floor(this.length / 8);
+            if (this.buffer.length <= bufIndex) this.buffer.push(0);
+            if (bit) this.buffer[bufIndex] |= (0x80 >>> (this.length % 8));
+            this.length++;
+          }
+        };
+
+        QRCodeModel.prototype = {
+          addData: function(data) { this.dataList.push(new QR8bitByte(data)); },
+          isDark: function(row, col) { return this.modules[row][col]; },
+          getModuleCount: function() { return this.moduleCount; },
+          make: function() {
+            var typeNumber = 1;
+            for (; typeNumber < 8; typeNumber++) {
+              var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+              var buffer = new QRBitBuffer();
+              for (var i = 0; i < this.dataList.length; i++) {
+                var data = this.dataList[i];
+                buffer.put(data.mode, 4);
+                buffer.put(data.getLength(), typeNumber < 10 ? 8 : 16);
+                data.write(buffer);
+              }
+              var totalDataCount = 0;
+              for (var i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
+              if (buffer.length <= totalDataCount * 8) break;
+            }
+            this.typeNumber = typeNumber;
+            this.moduleCount = this.typeNumber * 4 + 17;
+            this.modules = Array.from({ length: this.moduleCount }, () => new Array(this.moduleCount).fill(null));
+
+            this.setupPositionProbePattern(0, 0);
+            this.setupPositionProbePattern(this.moduleCount - 7, 0);
+            this.setupPositionProbePattern(0, this.moduleCount - 7);
+            this.setupTimingPattern();
+            this.setupTypeInfo(0);
+            this.mapData(this.createData());
+          },
+          setupPositionProbePattern: function(row, col) {
+            for (var r = -1; r <= 7; r++) {
+              if (row + r <= -1 || this.moduleCount <= row + r) continue;
+              for (var c = -1; c <= 7; c++) {
+                if (col + c <= -1 || this.moduleCount <= col + c) continue;
+                this.modules[row + r][col + c] = ((0 <= r && r <= 6 && (c == 0 || c == 6)) || (0 <= c && c <= 6 && (r == 0 || r == 6)) || (2 <= r && r <= 4 && 2 <= c && c <= 4));
+              }
+            }
+          },
+          setupTimingPattern: function() {
+            for (var r = 8; r < this.moduleCount - 8; r++) { if (this.modules[r][6] == null) this.modules[r][6] = (r % 2 == 0); }
+            for (var c = 8; c < this.moduleCount - 8; c++) { if (this.modules[6][c] == null) this.modules[6][c] = (c % 2 == 0); }
+          },
+          setupTypeInfo: function(maskPattern) {
+            var data = (this.errorCorrectLevel << 3) | maskPattern;
+            var bits = (data << 10);
+            while (bits >= (1 << 10)) {
+              var d = 0, tmp = bits;
+              while (tmp > 0) { d++; tmp >>>= 1; }
+              bits ^= (1335 << (d - 11));
+            }
+            var finalBits = ((data << 10) | bits) ^ 21522;
+            for (var i = 0; i < 15; i++) {
+              var mod = ((finalBits >> i) & 1) == 1;
+              if (i < 6) this.modules[i][8] = mod;
+              else if (i < 8) this.modules[i + 1][8] = mod;
+              else this.modules[this.moduleCount - 15 + i][8] = mod;
+
+              if (i < 8) this.modules[8][this.moduleCount - i - 1] = mod;
+              else if (i < 9) this.modules[8][15 - i - 1 + 1] = mod;
+              else this.modules[8][15 - i - 1] = mod;
+            }
+            this.modules[this.moduleCount - 8][8] = true;
+          },
+          mapData: function(data) {
+            var inc = -1, row = this.moduleCount - 1, bitIndex = 7, byteIndex = 0;
+            for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+              if (col == 6) col--;
+              while (true) {
+                for (var c = 0; c < 2; c++) {
+                  if (this.modules[row][col - c] == null) {
+                    var dark = false;
+                    if (byteIndex < data.length) dark = (((data[byteIndex] >>> bitIndex) & 1) == 1);
+                    if ((row + (col - c)) % 2 == 0) dark = !dark;
+                    this.modules[row][col - c] = dark;
+                    bitIndex--;
+                    if (bitIndex == -1) { byteIndex++; bitIndex = 7; }
+                  }
+                }
+                row += inc;
+                if (row < 0 || this.moduleCount <= row) { row -= inc; inc = -inc; break; }
+              }
+            }
+          },
+          createData: function() {
+            var rsBlocks = QRRSBlock.getRSBlocks(this.typeNumber, this.errorCorrectLevel);
+            var buffer = new QRBitBuffer();
+            for (var i = 0; i < this.dataList.length; i++) {
+              var data = this.dataList[i];
+              buffer.put(data.mode, 4);
+              buffer.put(data.getLength(), this.typeNumber < 10 ? 8 : 16);
+              data.write(buffer);
+            }
+            var totalDataCount = 0;
+            for (var i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
+            if (buffer.length + 4 <= totalDataCount * 8) buffer.put(0, 4);
+            while (buffer.length % 8 != 0) buffer.putBit(false);
+            while (buffer.length < totalDataCount * 8) {
+              buffer.put(0xec, 8);
+              if (buffer.length < totalDataCount * 8) buffer.put(0x11, 8);
+            }
+            return this.createBytes(buffer, rsBlocks);
+          },
+          createBytes: function(buffer, rsBlocks) {
+            var offset = 0, maxDcCount = 0, maxEcCount = 0;
+            var dcdata = new Array(rsBlocks.length), ecdata = new Array(rsBlocks.length);
+            for (var r = 0; r < rsBlocks.length; r++) {
+              var dcCount = rsBlocks[r].dataCount, ecCount = rsBlocks[r].totalCount - dcCount;
+              maxDcCount = Math.max(maxDcCount, dcCount);
+              maxEcCount = Math.max(maxEcCount, ecCount);
+              dcdata[r] = new Array(dcCount);
+              for (var i = 0; i < dcdata[r].length; i++) dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+              offset += dcCount;
+
+              var rsPoly = (function(ecLen) {
+                var poly = new QRPolynomial([1], 0);
+                for (var i = 0; i < ecLen; i++) poly = poly.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
+                return poly;
+              })(ecCount);
+
+              var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+              var modPoly = rawPoly.mod(rsPoly);
+              ecdata[r] = new Array(rsPoly.getLength() - 1);
+              for (var i = 0; i < ecdata[r].length; i++) {
+                var modIndex = i + modPoly.getLength() - ecdata[r].length;
+                ecdata[r][i] = (modIndex >= 0) ? modPoly.get(modIndex) : 0;
+              }
+            }
+            var totalCodeCount = 0;
+            for (var i = 0; i < rsBlocks.length; i++) totalCodeCount += rsBlocks[i].totalCount;
+            var data = new Array(totalCodeCount), index = 0;
+            for (var i = 0; i < maxDcCount; i++) {
+              for (var r = 0; r < rsBlocks.length; r++) if (i < dcdata[r].length) data[index++] = dcdata[r][i];
+            }
+            for (var i = 0; i < maxEcCount; i++) {
+              for (var r = 0; r < rsBlocks.length; r++) if (i < ecdata[r].length) data[index++] = ecdata[r][i];
+            }
+            return data;
+          }
+        };
+
+        function renderQR(text) {
+          const cv = document.getElementById('qr-canvas');
+          if (!cv) return;
+          const ctx = cv.getContext('2d');
+          try {
+            const qr = new QRCodeModel(0, 1);
+            qr.addData(text || 'https://med0-n.github.io/School-Fun/');
+            qr.make();
+            const count = qr.getModuleCount();
+            const size = cv.width;
+            const tile = size / (count + 4);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, size, size);
+            ctx.fillStyle = '#050811';
+
+            for (let r = 0; r < count; r++) {
+              for (let c = 0; c < count; c++) {
+                if (qr.isDark(r, c)) {
+                  ctx.fillRect((c + 2) * tile, (r + 2) * tile, tile, tile);
+                }
+              }
+            }
+          } catch (e) {
+            console.error('QR Gen error:', e);
+          }
+        }
+
+        return {
+          init() {
+            const input = document.getElementById('qr-input-text');
+            const btn = document.getElementById('qr-gen-btn');
+            const dBtn = document.getElementById('qr-download-btn');
+
+            if (btn && input) btn.onclick = () => renderQR(input.value.trim());
+            if (input) input.oninput = () => renderQR(input.value.trim());
+
+            document.querySelectorAll('.qr-preset-btn').forEach(b => {
+              b.onclick = () => {
+                if (input) {
+                  input.value = b.dataset.text;
+                  renderQR(input.value);
+                }
+              };
+            });
+
+            if (dBtn) {
+              dBtn.onclick = () => {
+                const cv = document.getElementById('qr-canvas');
+                if (cv) {
+                  const a = document.createElement('a');
+                  a.download = 'stealth-qr.png';
+                  a.href = cv.toDataURL('image/png');
+                  a.click();
+                }
+              };
+            }
+
+            renderQR(input ? input.value : '');
+          },
+          start() {},
+          pause() {}
+        };
+      })();
+
+      /* 3. CYBER PIXEL ART STUDIO */
+      const PixelStudio = (() => {
+        let cv, ctx, tool = 'pencil', color = '#00f0ff', drawing = false;
+        const GRID_SIZE = 16;
+        let pixels = Array.from({ length: GRID_SIZE }, () => new Array(GRID_SIZE).fill('#0b0f19'));
+
+        const TEMPLATES = {
+          invader: [
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0],
+            [0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0],
+            [0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0],
+            [0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+          ],
+          heart: [
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0],
+            [0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],
+            [0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],
+            [0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+          ],
+          ghost: [
+            [0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0],
+            [0,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0],
+            [0,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,1,1,0,1,1,0,0,1,1,0,1,1,0,0,0],
+            [0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+          ],
+          sword: [
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1],
+            [0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],
+            [0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0],
+            [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0],
+            [0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0],
+            [0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0],
+            [0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],
+            [0,0,0,1,0,1,1,1,1,0,0,0,0,0,0,0],
+            [0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],
+            [0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+            [0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0],
+            [0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+          ]
+        };
+
+        function draw() {
+          const size = cv.width;
+          const cell = size / GRID_SIZE;
+          ctx.clearRect(0, 0, size, size);
+
+          for (let r = 0; r < GRID_SIZE; r++) {
+            for (let c = 0; c < GRID_SIZE; c++) {
+              ctx.fillStyle = pixels[r][c];
+              ctx.fillRect(c * cell, r * cell, cell, cell);
+            }
+          }
+
+          // Grille fine
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.08)';
+          ctx.lineWidth = 1;
+          for (let i = 0; i <= size; i += cell) {
+            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, size); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(size, i); ctx.stroke();
+          }
+        }
+
+        function floodFill(sr, sc, targetCol, replCol) {
+          if (targetCol === replCol) return;
+          const queue = [[sr, sc]];
+          while (queue.length > 0) {
+            const [r, c] = queue.pop();
+            if (r < 0 || r >= GRID_SIZE || c < 0 || c >= GRID_SIZE) continue;
+            if (pixels[r][c] === targetCol) {
+              pixels[r][c] = replCol;
+              queue.push([r + 1, c], [r - 1, c], [r, c + 1], [r, c - 1]);
+            }
+          }
+        }
+
+        function handlePointer(e) {
+          const rect = cv.getBoundingClientRect();
+          const cell = cv.width / GRID_SIZE;
+          const x = (e.clientX - rect.left) * (cv.width / rect.width);
+          const y = (e.clientY - rect.top) * (cv.height / rect.height);
+          const c = Math.floor(x / cell);
+          const r = Math.floor(y / cell);
+          if (r < 0 || r >= GRID_SIZE || c < 0 || c >= GRID_SIZE) return;
+
+          if (tool === 'pencil') {
+            pixels[r][c] = color;
+          } else if (tool === 'eraser') {
+            pixels[r][c] = '#0b0f19';
+          } else if (tool === 'bucket') {
+            floodFill(r, c, pixels[r][c], color);
+          }
+          draw();
+        }
+
+        function loadTemplate(name) {
+          const t = TEMPLATES[name];
+          if (!t) return;
+          for (let r = 0; r < GRID_SIZE; r++) {
+            for (let c = 0; c < GRID_SIZE; c++) {
+              pixels[r][c] = t[r][c] ? color : '#0b0f19';
+            }
+          }
+          draw();
+        }
+
+        return {
+          init() {
+            cv = document.getElementById('pixel-canvas');
+            if (!cv) return;
+            ctx = cv.getContext('2d');
+
+            cv.addEventListener('mousedown', (e) => { drawing = true; handlePointer(e); });
+            window.addEventListener('mouseup', () => { drawing = false; });
+            cv.addEventListener('mousemove', (e) => { if (drawing && tool !== 'bucket') handlePointer(e); });
+
+            // Palettes
+            document.querySelectorAll('.color-swatch').forEach(sw => {
+              sw.onclick = () => {
+                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                sw.classList.add('active');
+                color = sw.dataset.color;
+              };
+            });
+
+            const custCol = document.getElementById('pixel-custom-color');
+            if (custCol) custCol.onchange = (e) => { color = e.target.value; };
+
+            // Outils
+            document.querySelectorAll('.pixel-tool-btn').forEach(btn => {
+              btn.onclick = () => {
+                document.querySelectorAll('.pixel-tool-btn').forEach(b => {
+                  b.classList.remove('btn-cyan');
+                  b.classList.add('btn-secondary');
+                });
+                btn.classList.add('btn-cyan');
+                btn.classList.remove('btn-secondary');
+                tool = btn.dataset.tool;
+              };
+            });
+
+            // Templates
+            document.querySelectorAll('.pixel-template-btn').forEach(btn => {
+              btn.onclick = () => loadTemplate(btn.dataset.template);
+            });
+
+            const clearBtn = document.getElementById('pixel-clear-btn');
+            if (clearBtn) clearBtn.onclick = () => {
+              pixels.forEach(row => row.fill('#0b0f19'));
+              draw();
+            };
+
+            const saveBtn = document.getElementById('pixel-save-btn');
+            if (saveBtn) {
+              saveBtn.onclick = () => {
+                const offscreen = document.createElement('canvas');
+                offscreen.width = 256; offscreen.height = 256;
+                const oCtx = offscreen.getContext('2d');
+                oCtx.imageSmoothingEnabled = false;
+                oCtx.drawImage(cv, 0, 0, 256, 256);
+                const a = document.createElement('a');
+                a.download = 'pixel-art.png';
+                a.href = offscreen.toDataURL('image/png');
+                a.click();
+              };
+            }
+
+            loadTemplate('invader');
+          },
+          start() {},
+          pause() {}
+        };
+      })();
+
+      /* 4. MATRIX DIGITAL RAIN */
+      const MatrixScreensaver = (() => {
+        let cv, ctx, inlineCv, inlineCtx, raf = 0, inlineRaf = 0;
+        let cols = 0, drops = [], inlineDrops = [];
+        const CHARS = '0123456789ABCDEFｦｱｳｴｵｶｷｹｺｻｼｽｾｿﾀﾂﾃﾅﾆﾇﾈﾊﾋﾎﾏﾐﾑﾒﾓﾔﾕﾗﾘﾜ';
+
+        function initCanvas(canvas) {
+          const c = canvas.getContext('2d');
+          const columns = Math.floor(canvas.width / 16);
+          const d = Array.from({ length: columns }, () => Math.floor(Math.random() * -50));
+          return { c, columns, d };
+        }
+
+        function drawRain(canvas, context, d) {
+          context.fillStyle = 'rgba(0, 0, 0, 0.08)';
+          context.fillRect(0, 0, canvas.width, canvas.height);
+
+          context.font = '14px monospace';
+          for (let i = 0; i < d.length; i++) {
+            const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+            const x = i * 16;
+            const y = d[i] * 16;
+
+            // Tête lumineuse blanche / cyan
+            context.fillStyle = '#e0f2fe';
+            context.fillText(char, x, y);
+
+            // Queue verte
+            context.fillStyle = '#10b981';
+            context.fillText(CHARS[Math.floor(Math.random() * CHARS.length)], x, y - 16);
+
+            if (y > canvas.height && Math.random() > 0.975) {
+              d[i] = 0;
+            }
+            d[i]++;
+          }
+        }
+
+        function stepInline() {
+          if (!inlineCv) return;
+          drawRain(inlineCv, inlineCtx, inlineDrops);
+          inlineRaf = requestAnimationFrame(stepInline);
+        }
+
+        function stepFullscreen() {
+          if (!cv) return;
+          drawRain(cv, ctx, drops);
+          raf = requestAnimationFrame(stepFullscreen);
+        }
+
+        function openFullscreen() {
+          cv.classList.add('active');
+          cv.width = window.innerWidth;
+          cv.height = window.innerHeight;
+          const setup = initCanvas(cv);
+          ctx = setup.c;
+          cols = setup.columns;
+          drops = setup.d;
+          if (document.documentElement.requestFullscreen) {
+            try { document.documentElement.requestFullscreen(); } catch {}
+          }
+          raf = requestAnimationFrame(stepFullscreen);
+        }
+
+        function closeFullscreen() {
+          cv.classList.remove('active');
+          cancelAnimationFrame(raf);
+          if (document.fullscreenElement && document.exitFullscreen) {
+            try { document.exitFullscreen(); } catch {}
+          }
+        }
+
+        return {
+          init() {
+            cv = document.getElementById('matrix-screensaver');
+            inlineCv = document.getElementById('matrix-inline-canvas');
+            if (inlineCv) {
+              const setup = initCanvas(inlineCv);
+              inlineCtx = setup.c;
+              inlineDrops = setup.d;
+            }
+
+            const topBtn = document.getElementById('topbar-matrix-btn');
+            const fsBtn = document.getElementById('btn-fullscreen-matrix');
+
+            if (topBtn) topBtn.onclick = openFullscreen;
+            if (fsBtn) fsBtn.onclick = openFullscreen;
+
+            if (cv) {
+              cv.onclick = closeFullscreen;
+              window.addEventListener('keydown', (e) => {
+                if (cv.classList.contains('active')) closeFullscreen();
+              });
+            }
+
+            // Touche M pour lancer Matrix instantanément
+            window.addEventListener('keydown', (e) => {
+              const tag = document.activeElement ? document.activeElement.tagName : '';
+              if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+              if (e.key === 'm' || e.key === 'M') {
+                if (cv && cv.classList.contains('active')) closeFullscreen();
+                else if (cv) openFullscreen();
+              }
+            });
+          },
+          start() {
+            if (inlineCv) {
+              cancelAnimationFrame(inlineRaf);
+              inlineRaf = requestAnimationFrame(stepInline);
+            }
+          },
+          pause() {
+            cancelAnimationFrame(inlineRaf);
+            if (cv && cv.classList.contains('active')) closeFullscreen();
+          }
+        };
+      })();
+
+      /* 5. KONAMI CODE EASTER EGG */
+      (function initKonami() {
+        const seq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        let idx = 0;
+        window.addEventListener('keydown', (e) => {
+          const tag = document.activeElement ? document.activeElement.tagName : '';
+          if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+          if (e.code === seq[idx]) {
+            idx++;
+            if (idx === seq.length) {
+              idx = 0;
+              if (typeof CyberAudio !== 'undefined') CyberAudio.chime();
+              if (typeof showToast === 'function') {
+                showToast('👑 CODE KONAMI VALIDÉ ! HAUT-FAIT SECRET DÉBLOQUÉ !', '🎮');
+              }
+            }
+          } else {
+            idx = 0;
+          }
+        });
+      })();
+
+      const CYBER_MODULES = {
   doodle: DoodleGame,
   hook: HookGame,
   subway: SubwayGame,
@@ -13522,7 +15681,18 @@ const CYBER_MODULES = {
   studentlife: StudentLifeRPG,
   typing: TypingGame,
   pomodoro: PomodoroTool,
-  silk: SilkCanvas
+  silk: SilkCanvas,
+  life: LifeGame,
+  hackertyper: HackerTyper,
+  mactricks: MacTricks,
+  asciigen: AsciiGen,
+
+  fakeupdate: FakeUpdate,
+  qrcode: StealthQR,
+  pixelart: PixelStudio,
+  matrix: MatrixScreensaver,
+
+
 };
 
 
@@ -13585,5 +15755,50 @@ const CYBER_MODULES = {
       });
     })();
   </script>
+
+  <!-- Écran Faux MàJ Plein Écran -->
+  <div id="fake-update-screen" class="fake-update-screen" title="Double-clique ou touche Échap pour quitter">
+    <!-- Mode Mac -->
+    <div id="fake-mac-view" style="display:none; flex-direction:column; align-items:center;">
+      <svg class="fake-mac-logo" viewBox="0 0 170 170">
+        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.64-7.8-11.83-14.28-6.19-9.57-11.12-20.57-14.79-33-3.68-12.43-5.52-24.32-5.52-35.67 0-14.79 3.59-27.14 10.77-37.05 7.18-9.92 16.3-15.03 27.37-15.34 5.01 0 10.37 1.37 16.08 4.11 5.71 2.74 9.49 4.17 11.34 4.3 1.63 0 5.61-1.55 11.95-4.66 6.34-3.1 11.95-4.57 16.84-4.41 12.51.64 22.84 5.37 31 14.19-10.99 6.64-16.37 15.74-16.14 27.31.23 9.38 3.86 17.27 10.9 23.68 7.04 6.41 15.42 10.15 25.14 11.22-2.18 6.52-4.8 13.06-7.86 19.63zM119.22 31.84c0-7.39 2.67-14.36 8.01-20.91 5.34-6.55 11.83-10.53 19.47-11.93.22 1.09.33 2.18.33 3.27 0 7.39-2.83 14.52-8.49 21.39-5.66 6.87-12.29 10.74-19.89 11.62-.05-1.14-.14-2.28-.27-3.44z"/>
+      </svg>
+      <div class="fake-progress-bar">
+        <div class="fake-progress-fill" id="fake-mac-fill"></div>
+      </div>
+      <div style="font-size:14px; font-weight:500; color:#e2e8f0; margin-bottom:6px;">Mise à jour du système macOS en cours...</div>
+      <div style="font-size:12px; color:#94a3b8;" id="fake-mac-time">Temps restant estimé : environ 38 minutes</div>
+    </div>
+
+    <!-- Mode Windows 11 -->
+    <div id="fake-win-view" style="display:none; flex-direction:column; align-items:center; text-align:center;">
+      <div class="fake-win-spinner"></div>
+      <div style="font-size:24px; font-weight:300; margin-bottom:12px;" id="fake-win-pct">Installation des mises à jour en cours (27%)</div>
+      <div style="font-size:15px; color:#94a3b8; margin-bottom:8px;">Gardez votre ordinateur allumé et branché.</div>
+      <div style="font-size:13px; color:#64748b;">Votre appareil va redémarrer à plusieurs reprises.</div>
+    </div>
+
+    <!-- Mode BSOD -->
+    <div id="fake-bsod-view" style="display:none; flex-direction:column; align-items:flex-start; background:#0078d7; width:100%; height:100%; padding:10vw; box-sizing:border-box;">
+      <div style="font-size:90px; line-height:1; margin-bottom:25px;">:(</div>
+      <div style="font-size:24px; font-weight:300; line-height:1.4; max-width:700px; margin-bottom:30px;">
+        Votre ordinateur a rencontré un problème et doit redémarrer. Nous collectons simplement des informations relatives aux erreurs, puis nous allons redémarrer pour vous.
+      </div>
+      <div style="font-size:20px; font-weight:300; margin-bottom:35px;" id="fake-bsod-pct">42% effectués</div>
+      <div style="display:flex; gap:20px; align-items:center;">
+        <div style="width:90px; height:90px; background:#fff; padding:6px; box-sizing:border-box;">
+          <div style="width:100%; height:100%; background:#000;"></div>
+        </div>
+        <div style="font-size:12px; line-height:1.6;">
+          Pour en savoir plus sur ce problème, visitez https://www.windows.com/stopcode<br>
+          Code d'arrêt : CRITICAL_PROCESS_DIED
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Écran de veille Matrix Plein Écran -->
+  <canvas id="matrix-screensaver" title="Clique ou appuie sur une touche pour quitter"></canvas>
+
 </body>
 </html>
