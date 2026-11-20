@@ -1775,6 +1775,168 @@
       box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
     }
 
+    
+    /* =========================================================================
+       SOUNDBOARD & GESTION DES SOUS-DOSSIERS (meme/ & sound/)
+       ========================================================================= */
+    .soundboard-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .soundboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .sound-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .sound-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-emerald);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+    }
+    .sound-card.playing {
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .sound-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .sound-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .folder-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      white-space: nowrap;
+    }
+    .folder-badge-violet {
+      background: rgba(139, 92, 246, 0.15);
+      color: #c4b5fd;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    .sound-card-body {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sound-play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .sound-play-btn:hover {
+      background: var(--accent-emerald);
+      color: #050811;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+      transform: scale(1.05);
+    }
+    .sound-card.playing .sound-play-btn {
+      background: var(--accent-emerald);
+      color: #050811;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.7);
+    }
+    .sound-viz {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 24px;
+      flex: 1;
+    }
+    .sound-viz-bar {
+      flex: 1;
+      background: rgba(16, 185, 129, 0.25);
+      border-radius: 2px;
+      height: 4px;
+      transition: height 0.15s ease;
+    }
+    .sound-card.playing .sound-viz-bar {
+      background: var(--accent-emerald);
+      animation: soundEqualizer 0.5s ease-in-out infinite alternate;
+    }
+    .sound-card.playing .sound-viz-bar:nth-child(2) { animation-delay: 0.1s; }
+    .sound-card.playing .sound-viz-bar:nth-child(3) { animation-delay: 0.25s; }
+    .sound-card.playing .sound-viz-bar:nth-child(4) { animation-delay: 0.15s; }
+    .sound-card.playing .sound-viz-bar:nth-child(5) { animation-delay: 0.3s; }
+    @keyframes soundEqualizer {
+      0% { height: 4px; }
+      100% { height: 22px; }
+    }
+    .sound-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 6px;
+    }
+    .sound-loop-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sound-loop-btn:hover {
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.1);
+    }
+    .sound-loop-btn.active {
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.18);
+      border-color: rgba(0, 240, 255, 0.35);
+    }
+
     /* =========================================================================
        11. RESPONSIVE (Mobile & Tablette)
        ========================================================================= */
@@ -1926,6 +2088,7 @@
         <button class="nav-btn active" data-section="home"><span class="nav-icon">🏠</span> Accueil</button>
         <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2 (1games.io)</button>
         <button class="nav-btn" data-section="memes"><span class="nav-icon">🖼️</span> Banque de Memes</button>
+        <button class="nav-btn" data-section="soundboard"><span class="nav-icon">🔊</span> Soundboard Scolaire</button>
 
         <div class="nav-group-label">⚔️ Multijoueur (Local &amp; Wi-Fi EDU_VD)</div>
         <button class="nav-btn" data-section="pong"><span class="nav-icon">🏓</span> Cyber Pong 1v1</button>
@@ -1999,6 +2162,7 @@
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
               <button class="btn btn-primary" data-goto="slope">⛷️ Jouer à Slope 2</button>
               <button class="btn btn-violet" data-goto="memes">🖼️ Voir les Memes</button>
+              <button class="btn btn-emerald" data-goto="soundboard">🔊 Soundboard</button>
             </div>
           </div>
 
@@ -2187,10 +2351,36 @@
                 </div>
                 <button id="meme-random-btn" class="btn btn-violet btn-sm">🎲 Meme Aléatoire</button>
                 <button id="meme-refresh-btn" class="btn btn-secondary btn-sm">🔄 Actualiser</button>
-                <label class="btn btn-secondary btn-sm" style="cursor:pointer;">
+                <label class="btn btn-secondary btn-sm" style="cursor:pointer;" title="Tester des images locales (png, jpeg, gif, webp)">
                   📁 Importer (test)
                   <input id="meme-local-input" type="file" accept="image/*" multiple class="hidden" />
                 </label>
+              </div>
+            </div>
+
+            <!-- Sous-barre : Filtres de sous-dossiers & Recherche rapide -->
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
+              <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                <span style="font-size:12px; color:var(--text-muted); font-weight:600;">Dossiers :</span>
+                <div class="pill-tabs" id="meme-folder-tabs">
+                  <button class="pill-tab active" data-mfolder="all">📁 Tous</button>
+                  <button class="pill-tab" data-mfolder="Racine">🏠 Racine</button>
+                </div>
+                <button id="meme-manage-folders-btn" class="btn btn-secondary btn-sm" style="padding:4px 8px; font-size:11px;" title="Gérer ou ajouter des sous-dossiers à scanner">➕ Gérer dossiers</button>
+              </div>
+              <input type="text" id="meme-search-input" placeholder="🔍 Rechercher un meme..." style="background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-sm); padding:6px 12px; font-size:12px; color:var(--text-main); width:200px;" />
+            </div>
+
+            <!-- Formulaire ajout rapide de sous-dossier (accordéon) -->
+            <div id="meme-folder-form" class="hidden" style="background:var(--bg-input); border:1px dashed var(--border-strong); border-radius:var(--radius-md); padding:14px; margin-bottom:16px;">
+              <div style="font-size:13px; font-weight:700; color:var(--accent-purple); margin-bottom:6px;">📁 Gestion des sous-dossiers de memes (dossiers.json)</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-bottom:10px; line-height:1.5;">
+                Tu peux créer des sous-dossiers dans <code>meme/</code> (ex: <code>meme/11VP/1.jpeg</code>, <code>meme/HP/2.jpeg</code>, <code>meme/Ultérieur/3.jpeg</code>). Le site scanne automatiquement <code>dossiers.json</code> ou tu peux ajouter un dossier ci-dessous :
+              </div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" id="new-meme-folder-input" placeholder="Nom du sous-dossier (ex: 11VP, HP, profs)" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:7px 12px; font-size:12px; color:var(--text-main); flex:1;" />
+                <button id="add-meme-folder-btn" class="btn btn-violet btn-sm">Ajouter &amp; Scanner</button>
+                <button id="close-meme-folder-form-btn" class="btn btn-secondary btn-sm">Fermer</button>
               </div>
             </div>
 
@@ -2891,6 +3081,72 @@
           </div>
         </section>
 
+      
+        <!-- ===============================================================
+             SECTION : SOUNDBOARD SCOLAIRE (sound/ & sous-dossiers)
+             =============================================================== -->
+        <section id="sec-soundboard" class="section">
+          <div class="card">
+            <div class="soundboard-toolbar">
+              <div class="card-title">🔊 Soundboard Scolaire <span id="sound-status-badge" class="badge badge-emerald">Scan...</span></div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <!-- Contrôle de volume général -->
+                <div style="display:flex; align-items:center; gap:6px; background:var(--bg-input); padding:4px 10px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                  <span style="font-size:12px;">🔊</span>
+                  <input type="range" id="sound-master-vol" min="0" max="1" step="0.05" value="0.8" style="width:70px; cursor:pointer;" title="Volume général" />
+                  <span id="sound-vol-label" style="font-size:11px; font-family:monospace; min-width:28px;">80%</span>
+                </div>
+                <!-- Tout couper (panique/urgence) -->
+                <button id="sound-stop-all-btn" class="btn btn-secondary btn-sm" style="color:#ef4444; border-color:rgba(239,68,68,0.4);" title="Couper tous les sons immédiatement">⏹️ Tout Couper</button>
+                <button id="sound-random-btn" class="btn btn-emerald btn-sm">🎲 Son Aléatoire</button>
+                <button id="sound-refresh-btn" class="btn btn-secondary btn-sm">🔄 Actualiser</button>
+                <label class="btn btn-secondary btn-sm" style="cursor:pointer;" title="Tester des fichiers audio locaux (wav, mp3, ogg, m4a...)">
+                  📁 Importer (test)
+                  <input id="sound-local-input" type="file" accept="audio/*" multiple class="hidden" />
+                </label>
+              </div>
+            </div>
+
+            <!-- Barre de recherche et filtres de sous-dossiers -->
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
+              <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                <span style="font-size:12px; color:var(--text-muted); font-weight:600;">Dossiers :</span>
+                <div class="pill-tabs" id="sound-folder-tabs">
+                  <button class="pill-tab active" data-sfolder="all">📁 Tous</button>
+                  <button class="pill-tab" data-sfolder="Racine">🏠 Racine</button>
+                </div>
+                <button id="sound-manage-folders-btn" class="btn btn-secondary btn-sm" style="padding:4px 8px; font-size:11px;" title="Gérer ou ajouter des sous-dossiers audio">➕ Gérer dossiers</button>
+              </div>
+              <input type="text" id="sound-search-input" placeholder="🔍 Rechercher un son..." style="background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-sm); padding:6px 12px; font-size:12px; color:var(--text-main); width:200px;" />
+            </div>
+
+            <!-- Formulaire ajout de sous-dossier rapide (accordéon) -->
+            <div id="sound-folder-form" class="hidden" style="background:var(--bg-input); border:1px dashed var(--border-strong); border-radius:var(--radius-md); padding:14px; margin-bottom:16px;">
+              <div style="font-size:13px; font-weight:700; color:var(--accent-emerald); margin-bottom:6px;">📁 Gestion des sous-dossiers audio (dossiers.json)</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-bottom:10px; line-height:1.5;">
+                Crée des dossiers dans <code>sound/</code> (ex: <code>sound/memes/1.wav</code>, <code>sound/bruits/1.mp3</code>, <code>sound/profs/1.ogg</code>). Tu peux inscrire tes dossiers dans <code>dossiers.json</code> à la racine ou ajouter un sous-dossier ici :
+              </div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" id="new-sound-folder-input" placeholder="Nom du sous-dossier (ex: memes, bruits, profs)" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:7px 12px; font-size:12px; color:var(--text-main); flex:1;" />
+                <button id="add-sound-folder-btn" class="btn btn-emerald btn-sm">Ajouter &amp; Scanner</button>
+                <button id="close-sound-folder-form-btn" class="btn btn-secondary btn-sm">Fermer</button>
+              </div>
+            </div>
+
+            <!-- Bandeau info si aucun fichier détecté -->
+            <div id="sound-fallback-banner" class="meme-info-banner hidden" style="border-color:rgba(16,185,129,0.4); background:rgba(16,185,129,0.08); color:#a7f3d0; margin-bottom:16px;">
+              <div>
+                <strong>💡 Sons de démo synthétiques actifs :</strong> Aucun fichier audio détecté dans <code>sound/</code> pour le moment.<br>
+                Sur ton dépôt GitHub ou en local, place tes sons numérotés dans <code>sound/1.mp3</code>, <code>sound/2.wav</code> ou sous-dossiers <code>sound/memes/1.wav</code>. Ils s'afficheront automatiquement !
+              </div>
+              <span class="badge badge-emerald">Web Audio Synth</span>
+            </div>
+
+            <!-- Grille interactive des sons -->
+            <div id="soundboard-grid" class="soundboard-grid"></div>
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
@@ -3116,6 +3372,7 @@
         if (active) {
           pauseAllGames();
           if (AppState.lightboxOpen) closeLightbox();
+          if (typeof Soundboard !== 'undefined') Soundboard.stopAll();
           if (slopeWrap) slopeWrap.style.visibility = 'hidden';
           appShell.classList.add('hidden');
           lightbox.classList.add('hidden');
@@ -3142,6 +3399,7 @@
         home: '🏠 Accueil',
         slope: '⛷️ Slope 2 (1games.io)',
         memes: '🖼️ Banque de Memes',
+        soundboard: '🔊 Soundboard Scolaire',
         pong: '🏓 Cyber Pong 1v1',
         tron: '🏍️ Tron Cycles 1v1',
         tanks: '💣 Tank Battle 1v1',
@@ -3160,6 +3418,7 @@
       };
 
       function pauseAllGames() {
+        if (typeof Soundboard !== 'undefined') Soundboard.stopAll();
         SnakeGame.pause();
         RunnerGame.pause();
         FlappyGame.pause();
@@ -3199,6 +3458,7 @@
         if (sectionKey === 'home') updateDashboardStats();
         if (sectionKey === 'slope' && !AppState.slopeLoaded) loadSlopeIframe();
         if (sectionKey === 'memes' && !MemeGallery.initialized) MemeGallery.scan();
+        if (sectionKey === 'soundboard' && typeof Soundboard !== 'undefined' && !Soundboard.initialized) Soundboard.scan();
         if (sectionKey === 'snake') requestAnimationFrame(() => SnakeGame.resize());
         if (sectionKey === 'runner') requestAnimationFrame(() => RunnerGame.resize());
         if (sectionKey === 'flappy') requestAnimationFrame(() => FlappyGame.resize());
@@ -3368,33 +3628,89 @@
           });
         }
 
-        // Auto-détection dans ./meme/ (1.jpeg, 1.jpg, 1.png, 1.gif, 1.webp, puis 2, 3...)
-        // S'arrête après 5 numéros consécutifs introuvables
+        let activeFolder = 'all';
+        let searchQuery = '';
+        let knownFolders = ['', '11VP', 'HP', 'Ultérieur'];
+
+        async function fetchDossiersConfig() {
+          try {
+            const res = await fetch('dossiers.json', { cache: 'no-cache' });
+            if (res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data.meme)) {
+                data.meme.forEach(f => {
+                  if (!knownFolders.includes(f)) knownFolders.push(f);
+                });
+              }
+            }
+          } catch (e) {}
+          if (Store.customMemeFolders && Array.isArray(Store.customMemeFolders)) {
+            Store.customMemeFolders.forEach(f => {
+              if (!knownFolders.includes(f)) knownFolders.push(f);
+            });
+          }
+        }
+
+        function updateFolderTabs() {
+          const container = document.getElementById('meme-folder-tabs');
+          if (!container) return;
+          const detectedFolders = ['all', ...new Set(items.map(m => m.folder || 'Racine'))];
+          container.innerHTML = detectedFolders.map(f => {
+            const label = f === 'all' ? '📁 Tous' : (f === 'Racine' ? '🏠 Racine' : `📁 ${f}`);
+            const count = f === 'all' ? items.length : items.filter(m => (m.folder || 'Racine') === f).length;
+            const isActive = activeFolder === f ? 'active' : '';
+            return `<button class="pill-tab ${isActive}" data-mfolder="${f}">${label} <span style="opacity:0.75; font-size:10px;">(${count})</span></button>`;
+          }).join('');
+
+          container.querySelectorAll('.pill-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+              container.querySelectorAll('.pill-tab').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              activeFolder = btn.dataset.mfolder;
+              render();
+            });
+          });
+        }
+
+        // Auto-détection dans ./meme/ et sous-dossiers (dossiers.json)
         async function scan() {
           if (scanning) return;
           scanning = true;
           initialized = true;
           const badge = document.getElementById('meme-status-badge');
           const banner = document.getElementById('meme-fallback-banner');
-          badge.textContent = 'Scan de ./meme/...';
+          badge.textContent = 'Scan de ./meme/ et sous-dossiers...';
+
+          await fetchDossiersConfig();
 
           const found = [];
-          let consecutiveMisses = 0;
           const MAX_MISSES = 5;
           const MAX_INDEX = 150;
 
-          for (let i = 1; i <= MAX_INDEX && consecutiveMisses < MAX_MISSES; i++) {
-            const probes = EXTENSIONS.map(ext => {
-              const path = `./meme/${i}.${ext}`;
-              return probeImage(path).then(ok => ok ? { id: `gh-${i}.${ext}`, name: `${i}.${ext}`, type: ext === 'gif' ? 'gif' : 'img', src: path } : null);
-            });
-            const results = await Promise.all(probes);
-            const valid = results.filter(Boolean);
-            if (valid.length > 0) {
-              found.push(...valid);
-              consecutiveMisses = 0;
-            } else {
-              consecutiveMisses++;
+          for (const folder of knownFolders) {
+            const folderPrefix = folder ? (folder.endsWith('/') ? folder : folder + '/') : '';
+            const folderLabel = folder || 'Racine';
+            let consecutiveMisses = 0;
+
+            for (let i = 1; i <= MAX_INDEX && consecutiveMisses < MAX_MISSES; i++) {
+              const probes = EXTENSIONS.map(ext => {
+                const path = `./meme/${folderPrefix}${i}.${ext}`;
+                return probeImage(path).then(ok => ok ? {
+                  id: `gh-${folderLabel.toLowerCase().replace(/[^a-z0-9]/g, '_')}-${i}.${ext}`,
+                  name: `${folder ? folder + '/' : ''}${i}.${ext}`,
+                  folder: folderLabel,
+                  type: ext === 'gif' ? 'gif' : 'img',
+                  src: path
+                } : null);
+              });
+              const results = await Promise.all(probes);
+              const valid = results.filter(Boolean);
+              if (valid.length > 0) {
+                found.push(...valid);
+                consecutiveMisses = 0;
+              } else {
+                consecutiveMisses++;
+              }
             }
           }
 
@@ -3409,13 +3725,18 @@
           }
 
           document.getElementById('dash-meme-count').textContent = `${items.length} memes prêts`;
+          updateFolderTabs();
           scanning = false;
           render();
         }
 
         function getFiltered() {
-          if (filter === 'all') return items;
-          return items.filter(m => m.type === filter);
+          return items.filter(m => {
+            const matchType = filter === 'all' || m.type === filter;
+            const matchFolder = activeFolder === 'all' || (m.folder || 'Racine') === activeFolder;
+            const matchSearch = !searchQuery || m.name.toLowerCase().includes(searchQuery.toLowerCase()) || (m.folder && m.folder.toLowerCase().includes(searchQuery.toLowerCase()));
+            return matchType && matchFolder && matchSearch;
+          });
         }
 
         function toggleLike(id) {
@@ -3439,9 +3760,13 @@
             const likes = Store.likes[m.id] || 0;
             const card = document.createElement('div');
             card.className = 'meme-card';
+            const folderTag = m.folder && m.folder !== 'Racine' ? `<span class="folder-badge folder-badge-violet">${m.folder}</span>` : '';
             card.innerHTML = `
               <div class="meme-thumb-wrap">
-                <span class="meme-type-tag">${m.type === 'gif' ? 'GIF' : 'IMG'}</span>
+                <div style="position:absolute; top:8px; left:8px; display:flex; gap:4px; z-index:2;">
+                  <span class="meme-type-tag">${m.type === 'gif' ? 'GIF' : 'IMG'}</span>
+                  ${folderTag}
+                </div>
                 <img src="${m.src}" alt="${m.name}" loading="lazy" />
               </div>
               <div class="meme-card-footer">

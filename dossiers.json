@@ -1,0 +1,13 @@
+{
+  "description": "Configuration des sous-dossiers pour la Banque de Memes et le Soundboard. Tu peux ajouter autant de sous-dossiers que tu veux.",
+  "meme": [
+    "11VP",
+    "HP",
+    "Ultérieur"
+  ],
+  "sound": [
+    "",
+    "memes",
+    "bruits"
+  ]
+}
