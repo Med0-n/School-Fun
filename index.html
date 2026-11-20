@@ -1426,6 +1426,267 @@
     .gdocs-page ul { margin: 8px 0 12px 24px; }
     .gdocs-page li { margin-bottom: 5px; }
 
+    
+    /* =========================================================================
+       NOUVEAUX JEUX : PONG, TRON, TANKS, CONNECT 4, TETRIS, CALC, ACHIEVEMENTS
+       ========================================================================= */
+    .game-arena-wrap {
+      width: 100%;
+      background: #05070c;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .game-hud-bar {
+      width: 100%;
+      background: rgba(17, 21, 32, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .game-score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 99px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      font-weight: 700;
+    }
+
+    .key-badge {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: #1c2438;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--accent-cyan);
+      font-size: 11px;
+      font-family: ui-monospace, monospace;
+    }
+
+    .game-overlay-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 11, 16, 0.88);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    /* Puissance 4 */
+    .c4-board-container {
+      background: #0f172a;
+      border: 3px solid #1e293b;
+      border-radius: 16px;
+      padding: 14px;
+      display: inline-block;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.1);
+    }
+    .c4-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .c4-row:last-child { margin-bottom: 0; }
+    .c4-cell {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #060911;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .c4-cell:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    .c4-cell.p1 {
+      background: radial-gradient(circle at 35% 35%, #67e8f9, #00f0ff 60%, #0891b2);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.6);
+    }
+    .c4-cell.p2 {
+      background: radial-gradient(circle at 35% 35%, #f472b6, #ec4899 60%, #be185d);
+      box-shadow: 0 0 16px rgba(236, 72, 153, 0.6);
+    }
+    .c4-cell.win-cell {
+      animation: c4Pulse 0.8s infinite alternate;
+    }
+    @keyframes c4Pulse {
+      from { transform: scale(1); filter: brightness(1); }
+      to { transform: scale(1.15); filter: brightness(1.4); }
+    }
+
+    /* Tetris */
+    .tetris-layout {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .tetris-canvas-wrap {
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #06080e;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+    }
+    .tetris-sidebar-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 160px;
+    }
+    .tetris-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Calculatrice */
+    .calc-wrap {
+      max-width: 380px;
+      margin: 0 auto;
+      background: #111520;
+      border: 2px solid var(--border-strong);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+    .calc-screen-wrap {
+      background: #080b12;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+      text-align: right;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.7);
+    }
+    .calc-history {
+      font-size: 12px;
+      color: var(--text-dim);
+      min-height: 18px;
+      font-family: ui-monospace, monospace;
+    }
+    .calc-main-display {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      font-family: ui-monospace, monospace;
+      white-space: nowrap;
+      overflow-x: auto;
+      margin-top: 4px;
+    }
+    .calc-easter-egg {
+      font-size: 11px;
+      color: var(--accent-emerald);
+      min-height: 16px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .calc-keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .calc-btn {
+      height: 48px;
+      border-radius: 10px;
+      background: #192132;
+      border: 1px solid var(--border);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .calc-btn:hover { background: #242f47; border-color: var(--accent-cyan); }
+    .calc-btn.op { background: rgba(0, 240, 255, 0.12); color: var(--accent-cyan); }
+    .calc-btn.fn { background: rgba(139, 92, 246, 0.14); color: #c4b5fd; font-size: 13px; }
+    .calc-btn.eq { background: linear-gradient(135deg, var(--accent-cyan), #0284c7); color: #050811; font-weight: 800; grid-column: span 2; }
+
+    /* Hauts Faits (Achievements) */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .achievement-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: var(--transition);
+    }
+    .achievement-card.unlocked {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(22, 27, 41, 0.95));
+    }
+    .achievement-card.locked {
+      opacity: 0.55;
+      filter: grayscale(0.5);
+    }
+    .achievement-icon {
+      font-size: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .achievement-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .achievement-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .achievement-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
     /* =========================================================================
        11. RESPONSIVE (Mobile & Tablette)
        ========================================================================= */
@@ -1463,6 +1724,7 @@
       }
     }
   </style>
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
 
@@ -1574,10 +1836,17 @@
       <nav class="sidebar-nav" aria-label="Navigation principale">
         <div class="nav-group-label">Principal</div>
         <button class="nav-btn active" data-section="home"><span class="nav-icon">🏠</span> Accueil</button>
-        <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2</button>
+        <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2 (1games.io)</button>
         <button class="nav-btn" data-section="memes"><span class="nav-icon">🖼️</span> Banque de Memes</button>
 
-        <div class="nav-group-label">Mini-Jeux</div>
+        <div class="nav-group-label">⚔️ Multijoueur (Local &amp; Wi-Fi EDU_VD)</div>
+        <button class="nav-btn" data-section="pong"><span class="nav-icon">🏓</span> Cyber Pong 1v1</button>
+        <button class="nav-btn" data-section="tron"><span class="nav-icon">🏍️</span> Tron Cycles 1v1</button>
+        <button class="nav-btn" data-section="tanks"><span class="nav-icon">💣</span> Tank Battle 1v1</button>
+        <button class="nav-btn" data-section="connect4"><span class="nav-icon">🔴</span> Puissance 4 (Local/P2P)</button>
+
+        <div class="nav-group-label">🎮 Solo Rétro &amp; Arcade</div>
+        <button class="nav-btn" data-section="tetris"><span class="nav-icon">🧱</span> Tetris Néon</button>
         <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
         <button class="nav-btn" data-section="snake"><span class="nav-icon">🐍</span> Snake Néon</button>
         <button class="nav-btn" data-section="g2048"><span class="nav-icon">🔢</span> 2048</button>
@@ -1585,7 +1854,9 @@
         <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim</button>
         <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
 
-        <div class="nav-group-label">Furtivité</div>
+        <div class="nav-group-label">🛡️ Furtivité &amp; Références</div>
+        <button class="nav-btn" data-section="calc"><span class="nav-icon">🧮</span> Calculatrice EDU_VD</button>
+        <button class="nav-btn" data-section="achievements"><span class="nav-icon">🏆</span> Hauts Faits de l'École</button>
         <button class="nav-btn" data-section="cloak"><span class="nav-icon">🕵️</span> Camouflage</button>
       </nav>
 
@@ -1604,6 +1875,10 @@
         </div>
 
         <div class="topbar-right">
+          <button id="topbar-sound-btn" class="btn btn-secondary btn-sm" title="Activer / Couper les sons rétro synthwave">
+            <span id="topbar-sound-icon">🔊</span> <span id="topbar-sound-label">Son ON</span>
+          </button>
+
           <select id="topbar-cloak-select" class="cloak-quick-select" aria-label="Changer le camouflage d'onglet">
             <option value="gdocs">📄 Google Docs</option>
             <option value="gdrive">📁 Google Drive</option>
@@ -1644,16 +1919,16 @@
               <span class="stat-value text-emerald" id="dash-cloak-name" style="font-size:17px;">Google Docs</span>
             </div>
             <div class="stat-box">
-              <span class="stat-label">⌨️ Record Speed Test</span>
-              <span class="stat-value text-cyan mono" id="dash-rec-cps">0.0 CPS</span>
+              <span class="stat-label">📶 Réseau École</span>
+              <span class="stat-value text-cyan mono" style="font-size:17px;">EDU_VD Connecté</span>
             </div>
             <div class="stat-box">
-              <span class="stat-label">🐍 Record Snake / 2048</span>
-              <span class="stat-value text-violet mono" id="dash-rec-snake2048">0 / 0</span>
+              <span class="stat-label">🏆 Hauts Faits Débloqués</span>
+              <span class="stat-value text-amber mono" id="dash-achievements-stat">1 / 10</span>
             </div>
             <div class="stat-box">
-              <span class="stat-label">🦖 Runner / 🐦 Flappy</span>
-              <span class="stat-value text-amber mono" id="dash-rec-runflap">0 / 0</span>
+              <span class="stat-label">⚔️ Victoires 1v1</span>
+              <span class="stat-value text-rose mono" id="dash-pvp-stat">0 wins</span>
             </div>
           </div>
 
@@ -1713,7 +1988,56 @@
               <p>Franchis les tuyaux lumineux avec une physique ultra-calibrée à la barre Espace.</p>
               <div class="game-launch-meta"><span id="dash-flappy-best">Record : 0</span><span>Jouer →</span></div>
             </button>
-          </div>
+          
+            <button class="game-launch-card" data-goto="pong">
+              <div class="game-launch-icon">🏓</div>
+              <h3>Cyber Pong 1v1</h3>
+              <p>Duel survolté 2 Joueurs sur le même clavier ou vs IA Meylan. Balles accélérées &amp; sons synthwave.</p>
+              <div class="game-launch-meta"><span class="text-cyan">1v1 Local / IA</span><span>Affronter →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="tron">
+              <div class="game-launch-icon">🏍️</div>
+              <h3>Tron Cycles 1v1</h3>
+              <p>Motos néon avec traînées mortelles. Bloque ton voisin de classe sans percuter les murs !</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Local / Bot Scheurer</span><span>Piloter →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="tanks">
+              <div class="game-launch-icon">💣</div>
+              <h3>Tank Battle 1v1</h3>
+              <p>Combat de tanks dans une arène d'école : tirs lasers qui rebondissent sur les murs néon !</p>
+              <div class="game-launch-meta"><span class="text-rose">1v1 Local 2 Joueurs</span><span>Dégainer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="connect4">
+              <div class="game-launch-icon">🔴</div>
+              <h3>Puissance 4 Néon</h3>
+              <p>Aligne 4 jetons néon. Jouable à deux sur le même écran ou en ligne P2P direct sur le Wi-Fi EDU_VD !</p>
+              <div class="game-launch-meta"><span class="text-amber">Local &amp; P2P Wi-Fi</span><span>Jouer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="tetris">
+              <div class="game-launch-icon">🧱</div>
+              <h3>Tetris Néon</h3>
+              <p>Le légendaire jeu de briques en version Cyber Dark : Hold, Hard Drop, niveaux et combos explosifs.</p>
+              <div class="game-launch-meta"><span id="dash-tetris-best" class="text-emerald">Record : 0</span><span>Empiler →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="calc">
+              <div class="game-launch-icon">🧮</div>
+              <h3>Calculatrice EDU_VD</h3>
+              <p>Calculatrice scientifique ultra-crédible avec historique + easter eggs cachés sur les profs et l'école.</p>
+              <div class="game-launch-meta"><span class="text-cyan">Outil Camouflé</span><span>Calculer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="achievements">
+              <div class="game-launch-icon">🏆</div>
+              <h3>Hauts Faits de l'École</h3>
+              <p>10 succès débloquables en jouant et en explorant les mèmes (Meylan, Scheurer, 11VP, EDU_VD...).</p>
+              <div class="game-launch-meta"><span id="dash-achievements-btn-stat" class="text-amber">Voir trophées</span><span>Ouvrir →</span></div>
+            </button>
+</div>
         </section>
 
         <!-- ===============================================================
@@ -1726,17 +2050,17 @@
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
                 <button id="slope-reload-btn" class="btn btn-primary btn-sm">▶ Lancer / Recharger</button>
                 <button id="slope-fs-btn" class="btn btn-secondary btn-sm">⛶ Plein écran</button>
-                <a href="https://lnahtml.github.io/a6/slope-2/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">↗ Nouvel onglet</a>
+                <a href="https://1games.io/game/slope-2/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">↗ Nouvel onglet</a>
               </div>
             </div>
 
             <!-- Conteneur 16:9 intégrant l'attribut data-iframe demandé -->
-            <div id="slope-frame-wrap" class="slope-frame-wrap" data-iframe="https://lnahtml.github.io/a6/slope-2/">
+            <div id="slope-frame-wrap" class="slope-frame-wrap" data-iframe="https://1games.io/embed/slope-2">
               <iframe
                 id="slope-iframe"
-                data-iframe="https://lnahtml.github.io/a6/slope-2/"
+                data-iframe="https://1games.io/embed/slope-2"
                 title="Slope 2"
-                allow="fullscreen; autoplay; gamepad"
+                allow="fullscreen; autoplay; gamepad; keyboard-map *"
                 allowfullscreen
               ></iframe>
               <div id="slope-placeholder" class="slope-placeholder">
@@ -2092,6 +2416,340 @@
           </div>
         </section>
 
+      
+        <!-- ===============================================================
+             SECTION : CYBER PONG 1V1 (LOCAL & IA)
+             =============================================================== -->
+        <section id="sec-pong" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🏓 Cyber Pong 1v1 (Duel Local &amp; IA Meylan)</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="pong-mode-btn" class="btn btn-secondary btn-sm">Mode : 2 Joueurs Local</button>
+                <button id="pong-restart-btn" class="btn btn-primary btn-sm">▶ Relancer Match</button>
+              </div>
+            </div>
+
+            <div class="game-arena-wrap">
+              <div class="game-hud-bar">
+                <div class="game-score-pill">
+                  <span class="text-cyan">Joueur 1 (11VP)</span> : <span id="pong-score-p1" class="mono text-cyan" style="font-size:18px;">0</span>
+                  <span style="font-size:11px; margin-left:4px;"><span class="key-badge">Z</span> / <span class="key-badge">S</span></span>
+                </div>
+                <div class="badge badge-amber" id="pong-match-info">Premier à 5 points</div>
+                <div class="game-score-pill">
+                  <span class="text-violet" id="pong-p2-label">Joueur 2 (HP)</span> : <span id="pong-score-p2" class="mono text-violet" style="font-size:18px;">0</span>
+                  <span style="font-size:11px; margin-left:4px;"><span class="key-badge">▲</span> / <span class="key-badge">▼</span></span>
+                </div>
+              </div>
+
+              <div style="width:100%; max-width:800px; aspect-ratio:16/9; position:relative;">
+                <canvas id="pong-canvas" width="800" height="450" style="width:100%; height:100%; display:block;"></canvas>
+
+                <div id="pong-overlay" class="game-overlay-screen">
+                  <div style="font-size:44px;">🏓</div>
+                  <h3 id="pong-ov-title" style="font-size:22px; font-weight:800;">Cyber Pong 1v1</h3>
+                  <p class="text-muted" style="max-width:440px; font-size:13px;" id="pong-ov-desc">
+                    Affronte ton camarade sur le même clavier ou teste tes réflexes contre l'IA !
+                  </p>
+                  <button id="pong-start-btn" class="btn btn-primary">▶ Commencer le Match</button>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-muted" style="font-size:12px; margin-top:12px;">
+              💡 <strong>Contrôles :</strong> Joueur 1 : <span class="kbd">Z</span> / <span class="kbd">S</span> (ou <span class="kbd">W</span> / <span class="kbd">S</span>). Joueur 2 : <span class="kbd">▲</span> / <span class="kbd">▼</span>. Donner de l'effet à la raquette au moment de l'impact accélère la balle !
+            </p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : TRON CYCLES 1V1 (LOCAL & BOT)
+             =============================================================== -->
+        <section id="sec-tron" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🏍️ Tron Cycles 1v1 (Arène Néon)</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="tron-mode-btn" class="btn btn-secondary btn-sm">Mode : 2 Joueurs Local</button>
+                <button id="tron-restart-btn" class="btn btn-primary btn-sm">▶ Nouveau Duel</button>
+              </div>
+            </div>
+
+            <div class="game-arena-wrap">
+              <div class="game-hud-bar">
+                <div class="game-score-pill">
+                  <span class="text-cyan">Moto 1 (11VP)</span> : <span id="tron-score-p1" class="mono text-cyan" style="font-size:18px;">0</span>
+                  <span style="font-size:11px; margin-left:4px;"><span class="key-badge">ZQSD</span></span>
+                </div>
+                <div class="badge badge-cyan" id="tron-round-info">Manche 1 (Best of 5)</div>
+                <div class="game-score-pill">
+                  <span class="text-rose" id="tron-p2-label">Moto 2 (HP)</span> : <span id="tron-score-p2" class="mono text-rose" style="font-size:18px;">0</span>
+                  <span style="font-size:11px; margin-left:4px;"><span class="key-badge">Flèches</span></span>
+                </div>
+              </div>
+
+              <div style="width:100%; max-width:800px; aspect-ratio:16/9; position:relative;">
+                <canvas id="tron-canvas" width="800" height="450" style="width:100%; height:100%; display:block;"></canvas>
+
+                <div id="tron-overlay" class="game-overlay-screen">
+                  <div style="font-size:44px;">🏍️</div>
+                  <h3 id="tron-ov-title" style="font-size:22px; font-weight:800;">Tron Light Cycles</h3>
+                  <p class="text-muted" style="max-width:440px; font-size:13px;" id="tron-ov-desc">
+                    Fais percuter ton adversaire contre ta traînée de lumière ou contre les murs de l'arène !
+                  </p>
+                  <button id="tron-start-btn" class="btn btn-primary">▶ Lancer le Duel</button>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-muted" style="font-size:12px; margin-top:12px;">
+              💡 <strong>Contrôles :</strong> Joueur 1 : <span class="kbd">Z</span> <span class="kbd">Q</span> <span class="kbd">S</span> <span class="kbd">D</span> (ou WASD). Joueur 2 : <span class="kbd">▲</span> <span class="kbd">◄</span> <span class="kbd">▼</span> <span class="kbd">►</span>. Tu ne peux pas faire demi-tour directement sur ta propre traînée !
+            </p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : TANK BATTLE 1V1 (LOCAL)
+             =============================================================== -->
+        <section id="sec-tanks" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">💣 Tank Battle 1v1 (Arène à Rebond)</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="tanks-restart-btn" class="btn btn-primary btn-sm">▶ Nouveau Match</button>
+              </div>
+            </div>
+
+            <div class="game-arena-wrap">
+              <div class="game-hud-bar">
+                <div class="game-score-pill">
+                  <span class="text-emerald">Tank Vert (11VP)</span> : <span id="tanks-p1-hp" class="mono text-emerald" style="font-size:16px;">❤❤❤</span>
+                  <span style="font-size:11px; margin-left:4px;"><span class="key-badge">ZQSD + Espace</span></span>
+                </div>
+                <div class="badge badge-emerald" id="tanks-score-info">Score : 0 - 0</div>
+                <div class="game-score-pill">
+                  <span class="text-violet">Tank Violet (HP)</span> : <span id="tanks-p2-hp" class="mono text-violet" style="font-size:16px;">❤❤❤</span>
+                  <span style="font-size:11px; margin-left:4px;"><span class="key-badge">Flèches + Entrée</span></span>
+                </div>
+              </div>
+
+              <div style="width:100%; max-width:800px; aspect-ratio:16/9; position:relative;">
+                <canvas id="tanks-canvas" width="800" height="450" style="width:100%; height:100%; display:block;"></canvas>
+
+                <div id="tanks-overlay" class="game-overlay-screen">
+                  <div style="font-size:44px;">💣</div>
+                  <h3 id="tanks-ov-title" style="font-size:22px; font-weight:800;">Tank Battle 1v1</h3>
+                  <p class="text-muted" style="max-width:440px; font-size:13px;" id="tanks-ov-desc">
+                    Tire des obus lasers qui rebondissent jusqu'à 2 fois sur les murs néon !
+                  </p>
+                  <button id="tanks-start-btn" class="btn btn-primary">▶ Démarrer la Bataille</button>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-muted" style="font-size:12px; margin-top:12px;">
+              💡 <strong>Contrôles :</strong> Tank 1 : <span class="kbd">Z</span> <span class="kbd">S</span> pour avancer/reculer, <span class="kbd">Q</span> <span class="kbd">D</span> pour pivoter, <span class="kbd">Espace</span> pour tirer. Tank 2 : <span class="kbd">▲</span> <span class="kbd">▼</span> avancer/reculer, <span class="kbd">◄</span> <span class="kbd">►</span> pivoter, <span class="kbd">Entrée</span> pour tirer.
+            </p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : PUISSANCE 4 (LOCAL & P2P WI-FI EDU_VD)
+             =============================================================== -->
+        <section id="sec-connect4" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🔴 Puissance 4 Néon (Local 1v1 &amp; P2P Wi-Fi EDU_VD)</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <div class="pill-tabs" id="c4-mode-tabs">
+                  <button class="pill-tab active" data-c4mode="local">1v1 Même Écran</button>
+                  <button class="pill-tab" data-c4mode="ai">vs IA Gemini</button>
+                  <button class="pill-tab" data-c4mode="p2p">En Ligne Wi-Fi EDU_VD</button>
+                </div>
+                <button id="c4-reset-btn" class="btn btn-primary btn-sm">▶ Recommencer</button>
+              </div>
+            </div>
+
+            <!-- Panneau P2P pour jouer à 2 sur le même Wi-Fi d'école -->
+            <div id="c4-p2p-panel" class="hidden" style="background:var(--bg-input); border:1px solid rgba(0,240,255,0.25); border-radius:var(--radius-md); padding:14px; margin-bottom:16px;">
+              <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px;">
+                <div>
+                  <h4 style="font-size:14px; font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">📶 Multijoueur P2P Direct (Wi-Fi de l'École)</h4>
+                  <p class="text-muted" style="font-size:12px;">Aucun compte requis. Crée une salle ou rejoins celle de ton voisin de table !</p>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                  <button id="c4-create-room-btn" class="btn btn-secondary btn-sm">Créer Salle</button>
+                  <input type="text" id="c4-room-input" placeholder="Code salle (ex: EDU-42)" style="background:var(--bg-card); border:1px solid var(--border); padding:6px 10px; border-radius:var(--radius-sm); font-size:12px; color:var(--text-main); width:160px;" />
+                  <button id="c4-join-room-btn" class="btn btn-primary btn-sm">Rejoindre</button>
+                </div>
+              </div>
+              <div id="c4-p2p-status" style="font-size:12px; margin-top:8px; color:var(--accent-emerald);"></div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; align-items:center; gap:16px; margin:10px 0;">
+              <div class="game-hud-bar" style="border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <div class="game-score-pill">
+                  <span class="text-cyan" id="c4-p1-label">Joueur 1 (Cyan)</span> : <span id="c4-p1-wins" class="mono text-cyan">0</span>
+                </div>
+                <div class="badge badge-emerald" id="c4-turn-indicator">Tour : Joueur 1 (Cyan)</div>
+                <div class="game-score-pill">
+                  <span class="text-rose" id="c4-p2-label">Joueur 2 (Rose)</span> : <span id="c4-p2-wins" class="mono text-rose">0</span>
+                </div>
+              </div>
+
+              <!-- Grille Puissance 4 interactive -->
+              <div class="c4-board-container" id="c4-board">
+                <!-- Généré dynamiquement en JS -->
+              </div>
+            </div>
+
+            <p class="text-muted" style="font-size:12px; text-align:center;">
+              Clique sur n'importe quelle colonne pour y glisser un jeton. Aligne 4 jetons horizontalement, verticalement ou en diagonale !
+            </p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : TETRIS NÉON
+             =============================================================== -->
+        <section id="sec-tetris" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🧱 Tetris Néon (Classique Cyber)</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="tetris-start-btn" class="btn btn-primary btn-sm">▶ Démarrer / Relancer</button>
+                <button id="tetris-pause-btn" class="btn btn-secondary btn-sm">⏸ Pause</button>
+              </div>
+            </div>
+
+            <div class="tetris-layout">
+              <!-- Colonne Hold -->
+              <div class="tetris-sidebar-panel">
+                <div class="tetris-box">
+                  <span class="stat-label">RÉSERVE (C / Shift)</span>
+                  <canvas id="tetris-hold-canvas" width="80" height="80" style="background:#06080f; border-radius:8px;"></canvas>
+                </div>
+                <div class="tetris-box">
+                  <span class="stat-label">LIGNES</span>
+                  <span class="stat-value text-emerald mono" id="tetris-lines">0</span>
+                </div>
+                <div class="tetris-box">
+                  <span class="stat-label">NIVEAU</span>
+                  <span class="stat-value text-cyan mono" id="tetris-level">1</span>
+                </div>
+              </div>
+
+              <!-- Matrice principale 10x20 -->
+              <div class="tetris-canvas-wrap" style="position:relative;">
+                <canvas id="tetris-canvas" width="250" height="500" style="display:block;"></canvas>
+                <div id="tetris-overlay" class="game-overlay-screen">
+                  <div style="font-size:40px;">🧱</div>
+                  <h3 id="tetris-ov-title" style="font-size:22px; font-weight:800;">Tetris Néon</h3>
+                  <p class="text-muted" style="max-width:200px; font-size:12px;">
+                    Empile les briques et élimine un maximum de lignes !
+                  </p>
+                  <button id="tetris-ov-btn" class="btn btn-primary">▶ Jouer</button>
+                </div>
+              </div>
+
+              <!-- Colonne Next & Score -->
+              <div class="tetris-sidebar-panel">
+                <div class="tetris-box">
+                  <span class="stat-label">SUIVANTE</span>
+                  <canvas id="tetris-next-canvas" width="80" height="80" style="background:#06080f; border-radius:8px;"></canvas>
+                </div>
+                <div class="tetris-box">
+                  <span class="stat-label">SCORE</span>
+                  <span class="stat-value text-violet mono" id="tetris-score">0</span>
+                </div>
+                <div class="tetris-box">
+                  <span class="stat-label">MEILLEUR</span>
+                  <span class="stat-value text-amber mono" id="tetris-best">0</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-muted" style="font-size:12px; margin-top:14px; text-align:center;">
+              💡 <strong>Contrôles :</strong> <span class="kbd">◄</span> <span class="kbd">►</span> Déplacer • <span class="kbd">▲</span> Rotation • <span class="kbd">▼</span> Descente douce • <span class="kbd">Espace</span> Hard Drop • <span class="kbd">C</span> / <span class="kbd">Shift</span> Hold.
+            </p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : CALCULATRICE SCIENTIFIQUE EDU_VD (CAMOUFLAGE & SECRETS)
+             =============================================================== -->
+        <section id="sec-calc" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🧮 Calculatrice Scientifique EDU_VD</div>
+              <span class="badge badge-cyan">Mode Cours 100% Crédible</span>
+            </div>
+
+            <div class="calc-wrap">
+              <div class="calc-screen-wrap">
+                <div class="calc-history" id="calc-history">0</div>
+                <div class="calc-main-display" id="calc-display">0</div>
+                <div class="calc-easter-egg" id="calc-easter-egg"></div>
+              </div>
+
+              <div class="calc-keys">
+                <button class="calc-btn fn" data-calc="C">AC</button>
+                <button class="calc-btn fn" data-calc="DEL">⌫</button>
+                <button class="calc-btn fn" data-calc="(">(</button>
+                <button class="calc-btn fn" data-calc=")">)</button>
+
+                <button class="calc-btn fn" data-calc="sin">sin</button>
+                <button class="calc-btn fn" data-calc="cos">cos</button>
+                <button class="calc-btn fn" data-calc="tan">tan</button>
+                <button class="calc-btn op" data-calc="/">÷</button>
+
+                <button class="calc-btn" data-calc="7">7</button>
+                <button class="calc-btn" data-calc="8">8</button>
+                <button class="calc-btn" data-calc="9">9</button>
+                <button class="calc-btn op" data-calc="*">×</button>
+
+                <button class="calc-btn" data-calc="4">4</button>
+                <button class="calc-btn" data-calc="5">5</button>
+                <button class="calc-btn" data-calc="6">6</button>
+                <button class="calc-btn op" data-calc="-">−</button>
+
+                <button class="calc-btn" data-calc="1">1</button>
+                <button class="calc-btn" data-calc="2">2</button>
+                <button class="calc-btn" data-calc="3">3</button>
+                <button class="calc-btn op" data-calc="+">+</button>
+
+                <button class="calc-btn" data-calc="0">0</button>
+                <button class="calc-btn" data-calc=".">.</button>
+                <button class="calc-btn eq" data-calc="=">=</button>
+              </div>
+            </div>
+
+            <p class="text-muted" style="font-size:12px; margin-top:16px; text-align:center;">
+              🤫 <em>Easter eggs : tape <strong>11VP</strong>, <strong>EDU_VD</strong>, <strong>42</strong>, <strong>69</strong> ou <strong>420</strong> pour débloquer des secrets et des trophées de classe !</em>
+            </p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : HAUTS FAITS DE L'ÉCOLE (ACHIEVEMENTS)
+             =============================================================== -->
+        <section id="sec-achievements" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🏆 Les Hauts Faits de l'École (Trophées &amp; Réf)</div>
+              <span class="badge badge-amber" id="achievements-unlocked-count">1 / 10 débloqués</span>
+            </div>
+            <p class="text-muted" style="font-size:13px; line-height:1.5;">
+              Accomplis des exploits en classe pour décrocher tous les trophées du collège et de la promo (Meylan, Scheurer, Wi-Fi EDU_VD, 11VP, Baston + Incendie...).
+            </p>
+
+            <div class="achievements-grid" id="achievements-grid">
+              <!-- Rempli dynamiquement en JS -->
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
@@ -2341,14 +2999,21 @@
          ----------------------------------------------------------------------- */
       const SECTION_TITLES = {
         home: '🏠 Accueil',
-        slope: '⛷️ Slope 2',
+        slope: '⛷️ Slope 2 (1games.io)',
         memes: '🖼️ Banque de Memes',
+        pong: '🏓 Cyber Pong 1v1',
+        tron: '🏍️ Tron Cycles 1v1',
+        tanks: '💣 Tank Battle 1v1',
+        connect4: '🔴 Puissance 4 Néon (Local & P2P)',
+        tetris: '🧱 Tetris Néon',
         clicker: '⌨️ Spacebar Clicker',
         snake: '🐍 Snake Néon',
         g2048: '🔢 2048 Néon',
         runner: '🦖 Cyber Runner',
         reflex: '🎯 Réflexe & Aim Trainer',
         flappy: '🐦 Flappy Néon',
+        calc: '🧮 Calculatrice EDU_VD',
+        achievements: '🏆 Hauts Faits de l\'École',
         cloak: '🕵️ Camouflage & Mode Cours'
       };
 
@@ -2357,12 +3022,19 @@
         RunnerGame.pause();
         FlappyGame.pause();
         ReflexGame.pause();
+        if (typeof PongGame !== 'undefined') PongGame.pause();
+        if (typeof TronGame !== 'undefined') TronGame.pause();
+        if (typeof TanksGame !== 'undefined') TanksGame.pause();
+        if (typeof TetrisGame !== 'undefined') TetrisGame.pause();
       }
 
       function resizeActiveCanvas() {
         if (AppState.activeSection === 'snake') SnakeGame.resize();
         if (AppState.activeSection === 'runner') RunnerGame.resize();
         if (AppState.activeSection === 'flappy') FlappyGame.resize();
+        if (AppState.activeSection === 'pong' && typeof PongGame !== 'undefined') PongGame.resize();
+        if (AppState.activeSection === 'tron' && typeof TronGame !== 'undefined') TronGame.resize();
+        if (AppState.activeSection === 'tanks' && typeof TanksGame !== 'undefined') TanksGame.resize();
       }
 
       function navigateTo(sectionKey) {
@@ -2388,6 +3060,10 @@
         if (sectionKey === 'snake') requestAnimationFrame(() => SnakeGame.resize());
         if (sectionKey === 'runner') requestAnimationFrame(() => RunnerGame.resize());
         if (sectionKey === 'flappy') requestAnimationFrame(() => FlappyGame.resize());
+        if (sectionKey === 'pong' && typeof PongGame !== 'undefined') requestAnimationFrame(() => PongGame.resize());
+        if (sectionKey === 'tron' && typeof TronGame !== 'undefined') requestAnimationFrame(() => TronGame.resize());
+        if (sectionKey === 'tanks' && typeof TanksGame !== 'undefined') requestAnimationFrame(() => TanksGame.resize());
+        if (sectionKey === 'achievements' && typeof AchievementsManager !== 'undefined') AchievementsManager.render();
       }
 
       function closeMobileSidebar() {
@@ -4139,6 +4815,1653 @@
         };
       })();
 
+      
+      /* =======================================================================
+         14. MOTEUR AUDIO SYNTHWAVE RÉTRO (Web Audio API - Zéro dépendance)
+         ======================================================================= */
+      const SoundEffects = (function () {
+        let ctx = null;
+        let enabled = true;
+
+        function getCtx() {
+          if (!ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) ctx = new AudioCtx();
+          }
+          if (ctx && ctx.state === 'suspended') ctx.resume();
+          return ctx;
+        }
+
+        function playTone(freq, type, duration, vol = 0.12) {
+          if (!enabled) return;
+          try {
+            const c = getCtx();
+            if (!c) return;
+            const osc = c.createOscillator();
+            const gain = c.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, c.currentTime);
+            gain.gain.setValueAtTime(vol, c.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(c.destination);
+            osc.start();
+            osc.stop(c.currentTime + duration);
+          } catch (e) {}
+        }
+
+        return {
+          toggle() {
+            enabled = !enabled;
+            const icon = document.getElementById('topbar-sound-icon');
+            const lbl = document.getElementById('topbar-sound-label');
+            if (icon) icon.textContent = enabled ? '🔊' : '🔇';
+            if (lbl) lbl.textContent = enabled ? 'Son ON' : 'Son OFF';
+            showToast(enabled ? 'Effets sonores activés' : 'Mode silencieux actif', enabled ? '🔊' : '🔇');
+            return enabled;
+          },
+          isEnabled() { return enabled; },
+          click() { playTone(600, 'sine', 0.05, 0.06); },
+          bounce() { playTone(340, 'triangle', 0.08, 0.12); },
+          smash() { playTone(580, 'square', 0.1, 0.15); },
+          score() {
+            playTone(523.25, 'sine', 0.09, 0.15);
+            setTimeout(() => playTone(659.25, 'sine', 0.15, 0.15), 90);
+          },
+          laser() {
+            if (!enabled) return;
+            try {
+              const c = getCtx();
+              if (!c) return;
+              const osc = c.createOscillator();
+              const gain = c.createGain();
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(850, c.currentTime);
+              osc.frequency.exponentialRampToValueAtTime(160, c.currentTime + 0.14);
+              gain.gain.setValueAtTime(0.12, c.currentTime);
+              gain.gain.linearRampToValueAtTime(0.001, c.currentTime + 0.14);
+              osc.connect(gain);
+              gain.connect(c.destination);
+              osc.start();
+              osc.stop(c.currentTime + 0.14);
+            } catch (e) {}
+          },
+          explosion() {
+            if (!enabled) return;
+            try {
+              const c = getCtx();
+              if (!c) return;
+              const osc = c.createOscillator();
+              const gain = c.createGain();
+              osc.type = 'square';
+              osc.frequency.setValueAtTime(140, c.currentTime);
+              osc.frequency.exponentialRampToValueAtTime(30, c.currentTime + 0.28);
+              gain.gain.setValueAtTime(0.18, c.currentTime);
+              gain.gain.linearRampToValueAtTime(0.001, c.currentTime + 0.28);
+              osc.connect(gain);
+              gain.connect(c.destination);
+              osc.start();
+              osc.stop(c.currentTime + 0.28);
+            } catch (e) {}
+          },
+          win() {
+            [440, 554, 659, 880].forEach((f, i) => {
+              setTimeout(() => playTone(f, 'triangle', 0.18, 0.15), i * 100);
+            });
+          },
+          tetrisLine() {
+            playTone(420, 'sine', 0.08, 0.14);
+            setTimeout(() => playTone(840, 'sine', 0.14, 0.16), 80);
+          }
+        };
+      })();
+
+      const soundBtnEl = document.getElementById('topbar-sound-btn');
+      if (soundBtnEl) soundBtnEl.addEventListener('click', () => SoundEffects.toggle());
+
+      /* =======================================================================
+         15. HAUTS FAITS DE L'ÉCOLE (ACHIEVEMENTS SYSTEM)
+         ======================================================================= */
+      const AchievementsManager = (function () {
+        const LIST = [
+          { id: 'eduvd', title: 'Connecté au Wi-Fi EDU_VD', desc: 'Lancer le hub en cours (Ping aléatoire garanti)', icon: '📶' },
+          { id: 'boss_key', title: 'Ninja du Cours', desc: 'Utiliser la touche Échap pour afficher le faux Google Docs', icon: '🕵️' },
+          { id: 'pong_win', title: 'Smash de Meylan', desc: 'Gagner une manche en Cyber Pong 1v1', icon: '🏓' },
+          { id: 'tron_win', title: 'Pilote du 11VP', desc: 'Remporter un duel de Tron Light Cycles', icon: '🏍️' },
+          { id: 'tank_destroy', title: 'Baston + Incendie', desc: 'Détruire un tank adverse avec un obus rebondissant', icon: '💣' },
+          { id: 'c4_align', title: 'Alignement Octatrouble', desc: 'Aligner 4 jetons dans Puissance 4 Néon', icon: '🔴' },
+          { id: 'tetris_line', title: 'Brevet de Soudage Scheurer', desc: 'Compléter 10 lignes de briques dans Tetris Néon', icon: '🧱' },
+          { id: 'calc_secret', title: 'Calculateur Furtif', desc: 'Découvrir un mot secret sur la calculatrice EDU_VD', icon: '🧮' },
+          { id: 'meme_like', title: 'Conservateur de Memes', desc: 'Aimer des mèmes dans la galerie', icon: '🖼️' },
+          { id: 'speed_master', title: 'Exposé Gemini', desc: 'Dépasser 7 CPS dans le Clicker Speed Test', icon: '⚡' }
+        ];
+
+        function getUnlocked() {
+          if (!Store.achievements) Store.achievements = {};
+          return Store.achievements;
+        }
+
+        function unlock(id) {
+          const unlocked = getUnlocked();
+          if (unlocked[id]) return;
+          const a = LIST.find(item => item.id === id);
+          if (!a) return;
+          unlocked[id] = Date.now();
+          saveData();
+          SoundEffects.win();
+          showToast(`🏆 Succès débloqué : ${a.title} !`, a.icon);
+          render();
+          updateDashboardStats();
+        }
+
+        function render() {
+          const grid = document.getElementById('achievements-grid');
+          if (!grid) return;
+          const unlocked = getUnlocked();
+          grid.innerHTML = LIST.map(a => {
+            const isUn = !!unlocked[a.id];
+            return `
+              <div class="achievement-card ${isUn ? 'unlocked' : 'locked'}">
+                <div class="achievement-icon">${a.icon}</div>
+                <div class="achievement-info">
+                  <div class="achievement-title">${a.title}</div>
+                  <div class="achievement-desc">${a.desc}</div>
+                </div>
+                <div class="badge ${isUn ? 'badge-emerald' : 'badge-amber'}">${isUn ? 'Débloqué ✓' : 'À débloquer'}</div>
+              </div>
+            `;
+          }).join('');
+
+          const count = Object.keys(unlocked).length;
+          const label = document.getElementById('achievements-unlocked-count');
+          if (label) label.textContent = `${count} / ${LIST.length} débloqués`;
+          const dashStat = document.getElementById('dash-achievements-stat');
+          if (dashStat) dashStat.textContent = `${count} / ${LIST.length}`;
+        }
+
+        return {
+          init() {
+            unlock('eduvd');
+            render();
+          },
+          unlock,
+          render
+        };
+      })();
+
+      /* =======================================================================
+         16. JEU 1 : CYBER PONG 1V1 (LOCAL & IA)
+         ======================================================================= */
+      const PongGame = (function () {
+        const canvas = document.getElementById('pong-canvas');
+        if (!canvas) return { pause() {}, resize() {}, onKey() {} };
+        const ctx = canvas.getContext('2d');
+
+        let mode = '2p'; // '2p' ou 'ai'
+        let running = false;
+        let rafId = null;
+        let p1Score = 0;
+        let p2Score = 0;
+        const WIN_SCORE = 5;
+
+        const paddleW = 14;
+        const paddleH = 80;
+        let p1Y = (450 - paddleH) / 2;
+        let p2Y = (450 - paddleH) / 2;
+        let p1Vy = 0;
+        let p2Vy = 0;
+        const paddleSpeed = 420;
+
+        let ballX = 400;
+        let ballY = 225;
+        let ballVx = 320;
+        let ballVy = 160;
+        const ballR = 8;
+        let trail = [];
+
+        const keys = { w: false, s: false, up: false, down: false };
+
+        function resetBall(direction = 1) {
+          ballX = 400;
+          ballY = 225;
+          const angle = (Math.random() * 0.8 - 0.4);
+          const speed = 340;
+          ballVx = direction * speed * Math.cos(angle);
+          ballVy = speed * Math.sin(angle);
+          trail = [];
+        }
+
+        function updateHUD() {
+          document.getElementById('pong-score-p1').textContent = p1Score;
+          document.getElementById('pong-score-p2').textContent = p2Score;
+        }
+
+        function startMatch() {
+          p1Score = 0;
+          p2Score = 0;
+          updateHUD();
+          resetBall(Math.random() > 0.5 ? 1 : -1);
+          document.getElementById('pong-overlay').classList.add('hidden');
+          running = true;
+          lastTime = performance.now();
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(loop);
+          SoundEffects.click();
+        }
+
+        function pause() {
+          running = false;
+          if (rafId) cancelAnimationFrame(rafId);
+        }
+
+        let lastTime = 0;
+        function loop(now) {
+          if (!running) return;
+          const dt = Math.min(0.045, (now - lastTime) / 1000);
+          lastTime = now;
+
+          // Mouvements Joueur 1
+          if (keys.w) p1Y -= paddleSpeed * dt;
+          if (keys.s) p1Y += paddleSpeed * dt;
+          p1Y = Math.max(10, Math.min(450 - paddleH - 10, p1Y));
+
+          // Mouvements Joueur 2 ou IA
+          if (mode === 'ai') {
+            const aiCenter = p2Y + paddleH / 2;
+            const diff = ballY - aiCenter;
+            if (Math.abs(diff) > 12) {
+              p2Y += Math.sign(diff) * Math.min(Math.abs(diff), paddleSpeed * 0.82 * dt);
+            }
+          } else {
+            if (keys.up) p2Y -= paddleSpeed * dt;
+            if (keys.down) p2Y += paddleSpeed * dt;
+          }
+          p2Y = Math.max(10, Math.min(450 - paddleH - 10, p2Y));
+
+          // Balle
+          ballX += ballVx * dt;
+          ballY += ballVy * dt;
+
+          // Traînée
+          trail.push({ x: ballX, y: ballY });
+          if (trail.length > 8) trail.shift();
+
+          // Rebond haut / bas
+          if (ballY - ballR <= 0) {
+            ballY = ballR;
+            ballVy = -ballVy;
+            SoundEffects.bounce();
+          } else if (ballY + ballR >= 450) {
+            ballY = 450 - ballR;
+            ballVy = -ballVy;
+            SoundEffects.bounce();
+          }
+
+          // Collision Raquette Joueur 1 (Gauche)
+          if (ballX - ballR <= 30 + paddleW && ballX + ballR >= 30) {
+            if (ballY >= p1Y - 6 && ballY <= p1Y + paddleH + 6) {
+              ballX = 30 + paddleW + ballR;
+              const hitOffset = (ballY - (p1Y + paddleH / 2)) / (paddleH / 2);
+              const speed = Math.min(680, Math.hypot(ballVx, ballVy) * 1.05);
+              ballVx = Math.abs(speed * Math.cos(hitOffset * 1.1));
+              ballVy = speed * Math.sin(hitOffset * 1.1);
+              SoundEffects.smash();
+            }
+          }
+
+          // Collision Raquette Joueur 2 (Droite)
+          if (ballX + ballR >= 770 - paddleW && ballX - ballR <= 770) {
+            if (ballY >= p2Y - 6 && ballY <= p2Y + paddleH + 6) {
+              ballX = 770 - paddleW - ballR;
+              const hitOffset = (ballY - (p2Y + paddleH / 2)) / (paddleH / 2);
+              const speed = Math.min(680, Math.hypot(ballVx, ballVy) * 1.05);
+              ballVx = -Math.abs(speed * Math.cos(hitOffset * 1.1));
+              ballVy = speed * Math.sin(hitOffset * 1.1);
+              SoundEffects.smash();
+            }
+          }
+
+          // Point marqué
+          if (ballX < 0) {
+            p2Score++;
+            updateHUD();
+            SoundEffects.score();
+            if (p2Score >= WIN_SCORE) endMatch(mode === 'ai' ? 'L\'IA Meylan l\'emporte !' : 'Joueur 2 (HP) a gagné !', 'rose');
+            else resetBall(1);
+          } else if (ballX > 800) {
+            p1Score++;
+            updateHUD();
+            SoundEffects.score();
+            if (p1Score >= WIN_SCORE) {
+              AchievementsManager.unlock('pong_win');
+              endMatch('Joueur 1 (11VP) remporte la victoire !', 'cyan');
+            } else resetBall(-1);
+          }
+
+          // Rendu Canvas
+          draw();
+
+          if (running) rafId = requestAnimationFrame(loop);
+        }
+
+        function endMatch(winnerTxt, color) {
+          pause();
+          const ov = document.getElementById('pong-overlay');
+          const title = document.getElementById('pong-ov-title');
+          const desc = document.getElementById('pong-ov-desc');
+          title.textContent = winnerTxt;
+          title.className = color === 'cyan' ? 'text-cyan' : 'text-rose';
+          desc.textContent = `Score final : ${p1Score} - ${p2Score}. Bravo aux champions du Wi-Fi EDU_VD !`;
+          document.getElementById('pong-start-btn').textContent = '▶ Rejouer un match';
+          ov.classList.remove('hidden');
+          SoundEffects.win();
+        }
+
+        function draw() {
+          ctx.fillStyle = '#05070c';
+          ctx.fillRect(0, 0, 800, 450);
+
+          // Ligne centrale en tirets
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([8, 8]);
+          ctx.beginPath();
+          ctx.moveTo(400, 0);
+          ctx.lineTo(400, 450);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Traînée balle
+          for (let i = 0; i < trail.length; i++) {
+            const alpha = (i + 1) / trail.length * 0.45;
+            ctx.fillStyle = `rgba(0, 240, 255, ${alpha})`;
+            ctx.beginPath();
+            ctx.arc(trail[i].x, trail[i].y, ballR * (0.4 + 0.6 * (i / trail.length)), 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // Balle néon
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 16;
+          ctx.fillStyle = '#eef2ff';
+          ctx.beginPath();
+          ctx.arc(ballX, ballY, ballR, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Raquette Joueur 1
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 14;
+          ctx.fillStyle = '#00f0ff';
+          ctx.beginPath();
+          ctx.roundRect(30, p1Y, paddleW, paddleH, 4);
+          ctx.fill();
+
+          // Raquette Joueur 2
+          ctx.shadowColor = '#8b5cf6';
+          ctx.shadowBlur = 14;
+          ctx.fillStyle = '#ec4899';
+          ctx.beginPath();
+          ctx.roundRect(770 - paddleW, p2Y, paddleW, paddleH, 4);
+          ctx.fill();
+
+          ctx.shadowBlur = 0;
+        }
+
+        // Événements
+        document.getElementById('pong-start-btn').addEventListener('click', startMatch);
+        document.getElementById('pong-restart-btn').addEventListener('click', startMatch);
+        const modeBtn = document.getElementById('pong-mode-btn');
+        if (modeBtn) {
+          modeBtn.addEventListener('click', () => {
+            mode = mode === '2p' ? 'ai' : '2p';
+            modeBtn.textContent = mode === '2p' ? 'Mode : 2 Joueurs Local' : 'Mode : vs IA Meylan';
+            document.getElementById('pong-p2-label').textContent = mode === '2p' ? 'Joueur 2 (HP)' : 'IA Meylan';
+            showToast(`Mode Pong : ${mode === '2p' ? '2 Joueurs (Même clavier)' : 'Contre l\'IA'}`, '🏓');
+            startMatch();
+          });
+        }
+
+        draw();
+
+        return {
+          start: startMatch,
+          pause,
+          resize() { draw(); },
+          onKey(code, down) {
+            if (code === 'KeyW' || code === 'KeyZ') keys.w = down;
+            if (code === 'KeyS') keys.s = down;
+            if (code === 'ArrowUp') keys.up = down;
+            if (code === 'ArrowDown') keys.down = down;
+          }
+        };
+      })();
+
+      /* =======================================================================
+         17. JEU 2 : TRON CYCLES 1V1 (LOCAL & BOT)
+         ======================================================================= */
+      const TronGame = (function () {
+        const canvas = document.getElementById('tron-canvas');
+        if (!canvas) return { pause() {}, resize() {}, onKey() {} };
+        const ctx = canvas.getContext('2d');
+
+        let mode = '2p';
+        let running = false;
+        let rafId = null;
+        let score1 = 0;
+        let score2 = 0;
+        let round = 1;
+
+        const W = 800;
+        const H = 450;
+        const step = 4;
+        let grid = new Uint8Array(W * H); // 0=vide, 1=p1, 2=p2
+
+        let p1 = { x: 120, y: 225, dx: step, dy: 0, alive: true };
+        let p2 = { x: 680, y: 225, dx: -step, dy: 0, alive: true };
+
+        function resetRound() {
+          grid.fill(0);
+          p1 = { x: 120, y: 225, dx: step, dy: 0, alive: true };
+          p2 = { x: 680, y: 225, dx: -step, dy: 0, alive: true };
+          document.getElementById('tron-score-p1').textContent = score1;
+          document.getElementById('tron-score-p2').textContent = score2;
+          document.getElementById('tron-round-info').textContent = `Manche ${round} (Best of 5)`;
+        }
+
+        function startDuel() {
+          score1 = 0;
+          score2 = 0;
+          round = 1;
+          resetRound();
+          document.getElementById('tron-overlay').classList.add('hidden');
+          running = true;
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(loop);
+          SoundEffects.click();
+        }
+
+        function pause() {
+          running = false;
+          if (rafId) cancelAnimationFrame(rafId);
+        }
+
+        function checkCrash(x, y) {
+          if (x < 10 || x >= W - 10 || y < 10 || y >= H - 10) return true;
+          const idx = Math.floor(y) * W + Math.floor(x);
+          return grid[idx] !== 0;
+        }
+
+        function markTrail(x, y, id) {
+          const ix = Math.floor(x);
+          const iy = Math.floor(y);
+          for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+              const nx = ix + dx;
+              const ny = iy + dy;
+              if (nx >= 0 && nx < W && ny >= 0 && ny < H) {
+                grid[ny * W + nx] = id;
+              }
+            }
+          }
+        }
+
+        let lastTime = 0;
+        function loop(now) {
+          if (!running) return;
+
+          // IA pour Joueur 2 si activé
+          if (mode === 'ai') {
+            const nextX = p2.x + p2.dx * 3;
+            const nextY = p2.y + p2.dy * 3;
+            if (checkCrash(nextX, nextY) || Math.random() < 0.04) {
+              const dirs = [
+                { dx: step, dy: 0 },
+                { dx: -step, dy: 0 },
+                { dx: 0, dy: step },
+                { dx: 0, dy: -step }
+              ];
+              // Ne pas faire demi-tour
+              const valid = dirs.filter(d => !(d.dx === -p2.dx && d.dy === -p2.dy) && !checkCrash(p2.x + d.dx * 5, p2.y + d.dy * 5));
+              if (valid.length > 0) {
+                const chosen = valid[Math.floor(Math.random() * valid.length)];
+                p2.dx = chosen.dx;
+                p2.dy = chosen.dy;
+              }
+            }
+          }
+
+          // Déplacement
+          p1.x += p1.dx;
+          p1.y += p1.dy;
+          p2.x += p2.dx;
+          p2.y += p2.dy;
+
+          const crash1 = checkCrash(p1.x, p1.y);
+          const crash2 = checkCrash(p2.x, p2.y);
+
+          if (crash1 || crash2) {
+            SoundEffects.explosion();
+            running = false;
+
+            if (crash1 && crash2) {
+              showToast('Égalité parfaite sur la manche !', '💥');
+            } else if (crash1) {
+              score2++;
+              showToast(mode === 'ai' ? 'Le Bot Scheurer gagne la manche !' : 'Joueur 2 marque un point !', '🏍️');
+            } else {
+              score1++;
+              showToast('Joueur 1 marque un point !', '🏍️');
+            }
+
+            round++;
+            document.getElementById('tron-score-p1').textContent = score1;
+            document.getElementById('tron-score-p2').textContent = score2;
+
+            if (score1 >= 3 || score2 >= 3) {
+              const won = score1 >= 3;
+              if (won) AchievementsManager.unlock('tron_win');
+              const title = document.getElementById('tron-ov-title');
+              title.textContent = won ? 'Victoire du Joueur 1 (11VP) !' : (mode === 'ai' ? 'Victoire du Bot Scheurer !' : 'Victoire du Joueur 2 (HP) !');
+              document.getElementById('tron-ov-desc').textContent = `Match terminé ${score1} - ${score2}. Excellent pilotage sur l'arène néon.`;
+              document.getElementById('tron-start-btn').textContent = '▶ Rejouer un match';
+              document.getElementById('tron-overlay').classList.remove('hidden');
+              SoundEffects.win();
+            } else {
+              setTimeout(() => {
+                resetRound();
+                running = true;
+                rafId = requestAnimationFrame(loop);
+              }, 1200);
+            }
+            return;
+          }
+
+          markTrail(p1.x, p1.y, 1);
+          markTrail(p2.x, p2.y, 2);
+
+          draw();
+
+          if (running) rafId = requestAnimationFrame(loop);
+        }
+
+        function draw() {
+          ctx.fillStyle = '#05070c';
+          ctx.fillRect(0, 0, W, H);
+
+          // Grille fond
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+          ctx.lineWidth = 1;
+          for (let x = 20; x < W; x += 30) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+          }
+          for (let y = 20; y < H; y += 30) {
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+          }
+
+          // Bordures de l'arène
+          ctx.strokeStyle = '#00f0ff';
+          ctx.lineWidth = 2;
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 8;
+          ctx.strokeRect(10, 10, W - 20, H - 20);
+          ctx.shadowBlur = 0;
+
+          // Traînées
+          for (let y = 10; y < H - 10; y += 2) {
+            for (let x = 10; x < W - 10; x += 2) {
+              const val = grid[y * W + x];
+              if (val === 1) {
+                ctx.fillStyle = '#00f0ff';
+                ctx.fillRect(x, y, 2, 2);
+              } else if (val === 2) {
+                ctx.fillStyle = '#f43f5e';
+                ctx.fillRect(x, y, 2, 2);
+              }
+            }
+          }
+
+          // Têtes des motos
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 12;
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath(); ctx.arc(p1.x, p1.y, 5, 0, Math.PI * 2); ctx.fill();
+
+          ctx.shadowColor = '#f43f5e';
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath(); ctx.arc(p2.x, p2.y, 5, 0, Math.PI * 2); ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        document.getElementById('tron-start-btn').addEventListener('click', startDuel);
+        document.getElementById('tron-restart-btn').addEventListener('click', startDuel);
+        const modeBtn = document.getElementById('tron-mode-btn');
+        if (modeBtn) {
+          modeBtn.addEventListener('click', () => {
+            mode = mode === '2p' ? 'ai' : '2p';
+            modeBtn.textContent = mode === '2p' ? 'Mode : 2 Joueurs Local' : 'Mode : vs Bot Scheurer';
+            document.getElementById('tron-p2-label').textContent = mode === '2p' ? 'Moto 2 (HP)' : 'Bot Scheurer';
+            showToast(`Tron : ${mode === '2p' ? 'Mode 2 Joueurs Local' : 'Contre le Bot Scheurer'}`, '🏍️');
+            startDuel();
+          });
+        }
+
+        draw();
+
+        return {
+          start: startDuel,
+          pause,
+          resize() { draw(); },
+          onKey(code) {
+            // Joueur 1 : ZQSD ou WASD
+            if ((code === 'KeyW' || code === 'KeyZ') && p1.dy === 0) { p1.dx = 0; p1.dy = -step; }
+            if ((code === 'KeyS') && p1.dy === 0) { p1.dx = 0; p1.dy = step; }
+            if ((code === 'KeyA' || code === 'KeyQ') && p1.dx === 0) { p1.dx = -step; p1.dy = 0; }
+            if ((code === 'KeyD') && p1.dx === 0) { p1.dx = step; p1.dy = 0; }
+
+            // Joueur 2 : Flèches
+            if (mode === '2p') {
+              if (code === 'ArrowUp' && p2.dy === 0) { p2.dx = 0; p2.dy = -step; }
+              if (code === 'ArrowDown' && p2.dy === 0) { p2.dx = 0; p2.dy = step; }
+              if (code === 'ArrowLeft' && p2.dx === 0) { p2.dx = -step; p2.dy = 0; }
+              if (code === 'ArrowRight' && p2.dx === 0) { p2.dx = step; p2.dy = 0; }
+            }
+          }
+        };
+      })();
+
+      /* =======================================================================
+         18. JEU 3 : TANK BATTLE 1V1 (LOCAL & REBONDS)
+         ======================================================================= */
+      const TanksGame = (function () {
+        const canvas = document.getElementById('tanks-canvas');
+        if (!canvas) return { pause() {}, resize() {}, onKey() {} };
+        const ctx = canvas.getContext('2d');
+
+        const W = 800;
+        const H = 450;
+        let running = false;
+        let rafId = null;
+        let p1Score = 0;
+        let p2Score = 0;
+
+        const obstacles = [
+          { x: 180, y: 80, w: 24, h: 140 },
+          { x: 180, y: 240, w: 24, h: 140 },
+          { x: 600, y: 80, w: 24, h: 140 },
+          { x: 600, y: 240, w: 24, h: 140 },
+          { x: 340, y: 160, w: 120, h: 24 },
+          { x: 340, y: 270, w: 120, h: 24 }
+        ];
+
+        let p1 = { x: 90, y: 225, angle: 0, hp: 3, color: '#10b981', name: '11VP' };
+        let p2 = { x: 710, y: 225, angle: Math.PI, hp: 3, color: '#8b5cf6', name: 'HP' };
+
+        let bullets = [];
+        let particles = [];
+
+        const keys = {
+          w: false, s: false, a: false, d: false, fire1: false,
+          up: false, down: false, left: false, right: false, fire2: false
+        };
+
+        let lastFire1 = 0;
+        let lastFire2 = 0;
+
+        function resetPositions() {
+          p1.x = 90; p1.y = 225; p1.angle = 0; p1.hp = 3;
+          p2.x = 710; p2.y = 225; p2.angle = Math.PI; p2.hp = 3;
+          bullets = [];
+          particles = [];
+          updateHUD();
+        }
+
+        function updateHUD() {
+          const h1 = '❤'.repeat(Math.max(0, p1.hp));
+          const h2 = '❤'.repeat(Math.max(0, p2.hp));
+          document.getElementById('tanks-p1-hp').textContent = h1 || '💀 Mort';
+          document.getElementById('tanks-p2-hp').textContent = h2 || '💀 Mort';
+          document.getElementById('tanks-score-info').textContent = `Score : ${p1Score} - ${p2Score}`;
+        }
+
+        function startMatch() {
+          resetPositions();
+          document.getElementById('tanks-overlay').classList.add('hidden');
+          running = true;
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(loop);
+          SoundEffects.click();
+        }
+
+        function pause() {
+          running = false;
+          if (rafId) cancelAnimationFrame(rafId);
+        }
+
+        function collideBox(x, y, r, box) {
+          const closestX = Math.max(box.x, Math.min(x, box.x + box.w));
+          const closestY = Math.max(box.y, Math.min(y, box.y + box.h));
+          const dx = x - closestX;
+          const dy = y - closestY;
+          return (dx * dx + dy * dy) < (r * r);
+        }
+
+        function moveTank(tank, forward, rotate) {
+          tank.angle += rotate;
+          const speed = forward * 130;
+          const nx = tank.x + Math.cos(tank.angle) * speed * 0.018;
+          const ny = tank.y + Math.sin(tank.angle) * speed * 0.018;
+
+          // Collision bordures
+          if (nx >= 20 && nx <= W - 20) {
+            let blocked = false;
+            for (const b of obstacles) {
+              if (collideBox(nx, tank.y, 16, b)) { blocked = true; break; }
+            }
+            if (!blocked) tank.x = nx;
+          }
+
+          if (ny >= 20 && ny <= H - 20) {
+            let blocked = false;
+            for (const b of obstacles) {
+              if (collideBox(tank.x, ny, 16, b)) { blocked = true; break; }
+            }
+            if (!blocked) tank.y = ny;
+          }
+        }
+
+        function fireBullet(tank, owner) {
+          bullets.push({
+            x: tank.x + Math.cos(tank.angle) * 22,
+            y: tank.y + Math.sin(tank.angle) * 22,
+            vx: Math.cos(tank.angle) * 380,
+            vy: Math.sin(tank.angle) * 380,
+            bounces: 0,
+            owner: owner,
+            color: tank.color
+          });
+          SoundEffects.laser();
+        }
+
+        function createExplosion(x, y, color) {
+          for (let i = 0; i < 20; i++) {
+            const ang = Math.random() * Math.PI * 2;
+            const spd = 60 + Math.random() * 160;
+            particles.push({
+              x, y,
+              vx: Math.cos(ang) * spd,
+              vy: Math.sin(ang) * spd,
+              life: 0.45,
+              maxLife: 0.45,
+              color
+            });
+          }
+          SoundEffects.explosion();
+        }
+
+        let lastTime = 0;
+        function loop(now) {
+          if (!running) return;
+          const dt = Math.min(0.045, (now - lastTime) / 1000);
+          lastTime = now;
+
+          // Contrôles Tank 1
+          let f1 = 0, r1 = 0;
+          if (keys.w) f1 += 1;
+          if (keys.s) f1 -= 1;
+          if (keys.a) r1 -= 0.055;
+          if (keys.d) r1 += 0.055;
+          if (f1 !== 0 || r1 !== 0) moveTank(p1, f1, r1);
+
+          if (keys.fire1 && now - lastFire1 > 380) {
+            fireBullet(p1, 1);
+            lastFire1 = now;
+          }
+
+          // Contrôles Tank 2
+          let f2 = 0, r2 = 0;
+          if (keys.up) f2 += 1;
+          if (keys.down) f2 -= 1;
+          if (keys.left) r2 -= 0.055;
+          if (keys.right) r2 += 0.055;
+          if (f2 !== 0 || r2 !== 0) moveTank(p2, f2, r2);
+
+          if (keys.fire2 && now - lastFire2 > 380) {
+            fireBullet(p2, 2);
+            lastFire2 = now;
+          }
+
+          // Obus
+          for (let i = bullets.length - 1; i >= 0; i--) {
+            const b = bullets[i];
+            b.x += b.vx * dt;
+            b.y += b.vy * dt;
+
+            // Rebonds murs extérieurs
+            if (b.x <= 10 || b.x >= W - 10) { b.vx = -b.vx; b.bounces++; SoundEffects.bounce(); }
+            if (b.y <= 10 || b.y >= H - 10) { b.vy = -b.vy; b.bounces++; SoundEffects.bounce(); }
+
+            // Rebonds obstacles
+            for (const o of obstacles) {
+              if (collideBox(b.x, b.y, 4, o)) {
+                if (b.x < o.x || b.x > o.x + o.w) b.vx = -b.vx;
+                else b.vy = -b.vy;
+                b.bounces++;
+                SoundEffects.bounce();
+                break;
+              }
+            }
+
+            // Dégâts aux tanks
+            if (Math.hypot(b.x - p1.x, b.y - p1.y) < 18) {
+              p1.hp--;
+              createExplosion(p1.x, p1.y, p1.color);
+              bullets.splice(i, 1);
+              updateHUD();
+              if (p1.hp <= 0) handleRoundWin(2);
+              continue;
+            }
+            if (Math.hypot(b.x - p2.x, b.y - p2.y) < 18) {
+              p2.hp--;
+              createExplosion(p2.x, p2.y, p2.color);
+              bullets.splice(i, 1);
+              updateHUD();
+              if (p2.hp <= 0) handleRoundWin(1);
+              continue;
+            }
+
+            if (b.bounces > 2) {
+              bullets.splice(i, 1);
+            }
+          }
+
+          // Particules
+          for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.life -= dt;
+            if (p.life <= 0) particles.splice(i, 1);
+          }
+
+          draw();
+
+          if (running) rafId = requestAnimationFrame(loop);
+        }
+
+        function handleRoundWin(winner) {
+          running = false;
+          if (winner === 1) {
+            p1Score++;
+            AchievementsManager.unlock('tank_destroy');
+            showToast('Tank Vert (11VP) remporte la manche !', '💣');
+          } else {
+            p2Score++;
+            showToast('Tank Violet (HP) remporte la manche !', '💣');
+          }
+
+          updateHUD();
+
+          if (p1Score >= 3 || p2Score >= 3) {
+            const title = document.getElementById('tanks-ov-title');
+            title.textContent = winner === 1 ? 'Victoire finale du Tank 11VP !' : 'Victoire finale du Tank HP !';
+            document.getElementById('tanks-ov-desc').textContent = `Score final : ${p1Score} à ${p2Score}. Débris nettoyés dans la cour de récré.`;
+            document.getElementById('tanks-start-btn').textContent = '▶ Rejouer un match';
+            document.getElementById('tanks-overlay').classList.remove('hidden');
+            SoundEffects.win();
+          } else {
+            setTimeout(() => {
+              resetPositions();
+              running = true;
+              rafId = requestAnimationFrame(loop);
+            }, 1200);
+          }
+        }
+
+        function draw() {
+          ctx.fillStyle = '#060810';
+          ctx.fillRect(0, 0, W, H);
+
+          // Obstacles
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 8;
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = '#00f0ff';
+          ctx.lineWidth = 2;
+          for (const o of obstacles) {
+            ctx.fillRect(o.x, o.y, o.w, o.h);
+            ctx.strokeRect(o.x, o.y, o.w, o.h);
+          }
+          ctx.shadowBlur = 0;
+
+          // Obus
+          for (const b of bullets) {
+            ctx.shadowColor = b.color;
+            ctx.shadowBlur = 8;
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // Particules
+          for (const p of particles) {
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 3 * (p.life / p.maxLife), 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // Dessin des tanks
+          drawTank(p1);
+          drawTank(p2);
+        }
+
+        function drawTank(t) {
+          ctx.save();
+          ctx.translate(t.x, t.y);
+          ctx.rotate(t.angle);
+
+          ctx.shadowColor = t.color;
+          ctx.shadowBlur = 12;
+
+          // Chenilles
+          ctx.fillStyle = '#0a0e1a';
+          ctx.fillRect(-16, -14, 32, 6);
+          ctx.fillRect(-16, 8, 32, 6);
+
+          // Corps
+          ctx.fillStyle = t.color;
+          ctx.fillRect(-12, -8, 24, 16);
+
+          // Canon
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, -2.5, 18, 5);
+
+          ctx.restore();
+        }
+
+        document.getElementById('tanks-start-btn').addEventListener('click', startMatch);
+        document.getElementById('tanks-restart-btn').addEventListener('click', startMatch);
+
+        draw();
+
+        return {
+          start: startMatch,
+          pause,
+          resize() { draw(); },
+          onKey(code, down) {
+            if (code === 'KeyW' || code === 'KeyZ') keys.w = down;
+            if (code === 'KeyS') keys.s = down;
+            if (code === 'KeyA' || code === 'KeyQ') keys.a = down;
+            if (code === 'KeyD') keys.d = down;
+            if (code === 'Space' || code === 'KeyF') keys.fire1 = down;
+
+            if (code === 'ArrowUp') keys.up = down;
+            if (code === 'ArrowDown') keys.down = down;
+            if (code === 'ArrowLeft') keys.left = down;
+            if (code === 'ArrowRight') keys.right = down;
+            if (code === 'Enter' || code === 'KeyL') keys.fire2 = down;
+          }
+        };
+      })();
+
+      /* =======================================================================
+         19. JEU 4 : PUISSANCE 4 NÉON (LOCAL & P2P WI-FI EDU_VD)
+         ======================================================================= */
+      const Connect4Game = (function () {
+        const COLS = 7;
+        const ROWS = 6;
+        let board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+        let currentPlayer = 1; // 1=Cyan, 2=Rose
+        let gameOver = false;
+        let mode = 'local'; // 'local', 'ai', 'p2p'
+        let winsP1 = 0;
+        let winsP2 = 0;
+
+        let peer = null;
+        let conn = null;
+        let isHost = false;
+
+        function initBoard() {
+          board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+          currentPlayer = 1;
+          gameOver = false;
+          updateTurnIndicator();
+          renderBoard();
+        }
+
+        function updateTurnIndicator() {
+          const ind = document.getElementById('c4-turn-indicator');
+          if (gameOver) return;
+          if (currentPlayer === 1) {
+            ind.textContent = 'Tour : Joueur 1 (Cyan)';
+            ind.className = 'badge badge-cyan';
+          } else {
+            ind.textContent = mode === 'ai' ? 'Tour : IA Gemini...' : 'Tour : Joueur 2 (Rose)';
+            ind.className = 'badge badge-rose';
+          }
+        }
+
+        function renderBoard() {
+          const container = document.getElementById('c4-board');
+          if (!container) return;
+          container.innerHTML = '';
+
+          for (let r = 0; r < ROWS; r++) {
+            const rowEl = document.createElement('div');
+            rowEl.className = 'c4-row';
+            for (let c = 0; c < COLS; c++) {
+              const cellEl = document.createElement('div');
+              cellEl.className = 'c4-cell';
+              const val = board[r][c];
+              if (val === 1) cellEl.classList.add('p1');
+              if (val === 2) cellEl.classList.add('p2');
+              cellEl.dataset.col = c;
+              cellEl.dataset.row = r;
+              cellEl.addEventListener('click', () => handleColumnClick(c));
+              rowEl.appendChild(cellEl);
+            }
+            container.appendChild(rowEl);
+          }
+        }
+
+        function dropToken(col, player) {
+          for (let r = ROWS - 1; r >= 0; r--) {
+            if (board[r][col] === 0) {
+              board[r][col] = player;
+              SoundEffects.bounce();
+              return r;
+            }
+          }
+          return -1;
+        }
+
+        function checkWin(player) {
+          // Horizontal
+          for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS - 3; c++) {
+              if (board[r][c] === player && board[r][c+1] === player && board[r][c+2] === player && board[r][c+3] === player) {
+                return [[r,c], [r,c+1], [r,c+2], [r,c+3]];
+              }
+            }
+          }
+          // Vertical
+          for (let r = 0; r < ROWS - 3; r++) {
+            for (let c = 0; c < COLS; c++) {
+              if (board[r][c] === player && board[r+1][c] === player && board[r+2][c] === player && board[r+3][c] === player) {
+                return [[r,c], [r+1,c], [r+2,c], [r+3,c]];
+              }
+            }
+          }
+          // Diagonale descendante
+          for (let r = 0; r < ROWS - 3; r++) {
+            for (let c = 0; c < COLS - 3; c++) {
+              if (board[r][c] === player && board[r+1][c+1] === player && board[r+2][c+2] === player && board[r+3][c+3] === player) {
+                return [[r,c], [r+1,c+1], [r+2,c+2], [r+3,c+3]];
+              }
+            }
+          }
+          // Diagonale montante
+          for (let r = 3; r < ROWS; r++) {
+            for (let c = 0; c < COLS - 3; c++) {
+              if (board[r][c] === player && board[r-1][c+1] === player && board[r-2][c+2] === player && board[r-3][c+3] === player) {
+                return [[r,c], [r-1,c+1], [r-2,c+2], [r-3,c+3]];
+              }
+            }
+          }
+          return null;
+        }
+
+        function handleColumnClick(col) {
+          if (gameOver) return;
+
+          // Si en mode P2P et ce n'est pas notre tour
+          if (mode === 'p2p') {
+            const myPlayer = isHost ? 1 : 2;
+            if (currentPlayer !== myPlayer) {
+              showToast('Attends le coup de ton camarade !', '⏳');
+              return;
+            }
+          }
+
+          const r = dropToken(col, currentPlayer);
+          if (r === -1) {
+            showToast('Cette colonne est déjà pleine !', '⚠️');
+            return;
+          }
+
+          renderBoard();
+
+          // Envoyer le coup au pair si en ligne P2P
+          if (mode === 'p2p' && conn && conn.open) {
+            conn.send({ type: 'move', col });
+          }
+
+          const winCells = checkWin(currentPlayer);
+          if (winCells) {
+            gameOver = true;
+            SoundEffects.win();
+            const ind = document.getElementById('c4-turn-indicator');
+            ind.textContent = `Victoire du Joueur ${currentPlayer} !`;
+            ind.className = 'badge badge-emerald';
+
+            if (currentPlayer === 1) winsP1++; else winsP2++;
+            document.getElementById('c4-p1-wins').textContent = winsP1;
+            document.getElementById('c4-p2-wins').textContent = winsP2;
+
+            AchievementsManager.unlock('c4_align');
+            showToast(`Puissance 4 aligné ! Félicitations !`, '🔴');
+            return;
+          }
+
+          // Alternance tour
+          currentPlayer = currentPlayer === 1 ? 2 : 1;
+          updateTurnIndicator();
+
+          // Tour de l'IA
+          if (mode === 'ai' && currentPlayer === 2 && !gameOver) {
+            setTimeout(playAIMove, 450);
+          }
+        }
+
+        function playAIMove() {
+          if (gameOver) return;
+          // Coup gagnant pour l'IA ?
+          for (let c = 0; c < COLS; c++) {
+            if (board[0][c] === 0) {
+              const r = dropToken(c, 2);
+              if (checkWin(2)) {
+                renderBoard();
+                gameOver = true;
+                SoundEffects.win();
+                document.getElementById('c4-turn-indicator').textContent = 'L\'IA Gemini l\'emporte !';
+                winsP2++;
+                document.getElementById('c4-p2-wins').textContent = winsP2;
+                return;
+              }
+              board[r][c] = 0;
+            }
+          }
+          // Bloquer Joueur 1 ?
+          for (let c = 0; c < COLS; c++) {
+            if (board[0][c] === 0) {
+              const r = dropToken(c, 1);
+              if (checkWin(1)) {
+                board[r][c] = 2; // bloquer ici !
+                renderBoard();
+                currentPlayer = 1;
+                updateTurnIndicator();
+                return;
+              }
+              board[r][c] = 0;
+            }
+          }
+          // Colonne préférentielle au centre
+          const pref = [3, 2, 4, 1, 5, 0, 6];
+          for (const c of pref) {
+            if (board[0][c] === 0) {
+              dropToken(c, 2);
+              break;
+            }
+          }
+          renderBoard();
+          currentPlayer = 1;
+          updateTurnIndicator();
+        }
+
+        // P2P WebRTC Direct
+        function setupPeer(create) {
+          const status = document.getElementById('c4-p2p-status');
+          if (typeof Peer === 'undefined') {
+            status.textContent = '❌ WebRTC bloqué sur ce Wi-Fi. Utilise le mode 1v1 Même Écran !';
+            status.style.color = '#f43f5e';
+            return;
+          }
+
+          const roomId = create ? 'eduvd-' + Math.floor(1000 + Math.random() * 9000) : document.getElementById('c4-room-input').value.trim();
+          if (!create && !roomId) {
+            showToast('Entre un code de salle valide', '⚠️');
+            return;
+          }
+
+          status.textContent = '⏳ Connexion au serveur Wi-Fi EDU_VD...';
+          status.style.color = '#f59e0b';
+
+          if (create) {
+            isHost = true;
+            peer = new Peer(roomId);
+            peer.on('open', (id) => {
+              status.textContent = `🟢 Salle créée ! Donne ce code à ton ami : ${id}`;
+              status.style.color = '#00f0ff';
+              document.getElementById('c4-room-input').value = id;
+            });
+            peer.on('connection', (c) => {
+              conn = c;
+              setupConn(conn);
+              status.textContent = '🤝 Camarade connecté ! La partie commence.';
+              status.style.color = '#10b981';
+              initBoard();
+            });
+          } else {
+            isHost = false;
+            peer = new Peer();
+            peer.on('open', () => {
+              conn = peer.connect(roomId);
+              setupConn(conn);
+              status.textContent = '🤝 Connecté à la salle ! La partie commence.';
+              status.style.color = '#10b981';
+              initBoard();
+            });
+          }
+        }
+
+        function setupConn(c) {
+          c.on('data', (data) => {
+            if (data.type === 'move') {
+              handleColumnClick(data.col);
+            }
+          });
+        }
+
+        // Onglets de mode
+        document.querySelectorAll('#c4-mode-tabs .pill-tab').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('#c4-mode-tabs .pill-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            mode = btn.dataset.c4mode;
+            document.getElementById('c4-p2p-panel').classList.toggle('hidden', mode !== 'p2p');
+            document.getElementById('c4-p2-label').textContent = mode === 'ai' ? 'IA Gemini' : 'Joueur 2 (Rose)';
+            initBoard();
+          });
+        });
+
+        document.getElementById('c4-reset-btn').addEventListener('click', initBoard);
+        document.getElementById('c4-create-room-btn').addEventListener('click', () => setupPeer(true));
+        document.getElementById('c4-join-room-btn').addEventListener('click', () => setupPeer(false));
+
+        initBoard();
+
+        return {
+          init: initBoard,
+          pause() {},
+          onKey(code) {
+            // Touches 1 à 7 pour glisser le jeton
+            if (code >= 'Digit1' && code <= 'Digit7') {
+              const col = parseInt(code.replace('Digit', '')) - 1;
+              handleColumnClick(col);
+            }
+          }
+        };
+      })();
+
+      /* =======================================================================
+         20. JEU 5 : TETRIS NÉON (CLASSIQUE RETRO CYBER)
+         ======================================================================= */
+      const TetrisGame = (function () {
+        const canvas = document.getElementById('tetris-canvas');
+        if (!canvas) return { pause() {}, resize() {}, onKey() {} };
+        const ctx = canvas.getContext('2d');
+
+        const nextCanvas = document.getElementById('tetris-next-canvas');
+        const nextCtx = nextCanvas ? nextCanvas.getContext('2d') : null;
+
+        const holdCanvas = document.getElementById('tetris-hold-canvas');
+        const holdCtx = holdCanvas ? holdCanvas.getContext('2d') : null;
+
+        const COLS = 10;
+        const ROWS = 20;
+        const BLOCK = 25;
+
+        let board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+        let running = false;
+        let paused = false;
+        let rafId = null;
+
+        let score = 0;
+        let lines = 0;
+        let level = 1;
+        let dropInterval = 800;
+        let lastDrop = 0;
+
+        const PIECES = {
+          I: { shape: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], color: '#00f0ff' },
+          J: { shape: [[1,0,0],[1,1,1],[0,0,0]], color: '#3b82f6' },
+          L: { shape: [[0,0,1],[1,1,1],[0,0,0]], color: '#f59e0b' },
+          O: { shape: [[1,1],[1,1]], color: '#eab308' },
+          S: { shape: [[0,1,1],[1,1,0],[0,0,0]], color: '#10b981' },
+          T: { shape: [[0,1,0],[1,1,1],[0,0,0]], color: '#8b5cf6' },
+          Z: { shape: [[1,1,0],[0,1,1],[0,0,0]], color: '#f43f5e' }
+        };
+
+        const PIECE_KEYS = Object.keys(PIECES);
+
+        let current = null;
+        let next = null;
+        let hold = null;
+        let canHold = true;
+
+        function randomPiece() {
+          const k = PIECE_KEYS[Math.floor(Math.random() * PIECE_KEYS.length)];
+          const p = PIECES[k];
+          return {
+            key: k,
+            color: p.color,
+            shape: p.shape.map(r => [...r]),
+            x: Math.floor((COLS - p.shape[0].length) / 2),
+            y: 0
+          };
+        }
+
+        function rotate(shape) {
+          const N = shape.length;
+          return shape[0].map((_, i) => shape.map(row => row[i]).reverse());
+        }
+
+        function valid(piece, offX = 0, offY = 0, newShape = null) {
+          const sh = newShape || piece.shape;
+          for (let r = 0; r < sh.length; r++) {
+            for (let c = 0; c < sh[r].length; c++) {
+              if (sh[r][c]) {
+                const nx = piece.x + c + offX;
+                const ny = piece.y + r + offY;
+                if (nx < 0 || nx >= COLS || ny >= ROWS) return false;
+                if (ny >= 0 && board[ny][nx]) return false;
+              }
+            }
+          }
+          return true;
+        }
+
+        function merge() {
+          for (let r = 0; r < current.shape.length; r++) {
+            for (let c = 0; c < current.shape[r].length; c++) {
+              if (current.shape[r][c]) {
+                const ny = current.y + r;
+                const nx = current.x + c;
+                if (ny >= 0) board[ny][nx] = current.color;
+              }
+            }
+          }
+        }
+
+        function clearLines() {
+          let cleared = 0;
+          for (let r = ROWS - 1; r >= 0; r--) {
+            if (board[r].every(c => c !== 0)) {
+              board.splice(r, 1);
+              board.unshift(Array(COLS).fill(0));
+              cleared++;
+              r++; // Re-tester la même rangée qui est descendue
+            }
+          }
+          if (cleared > 0) {
+            lines += cleared;
+            const pts = [0, 100, 300, 500, 800][cleared] * level;
+            score += pts;
+            level = Math.floor(lines / 10) + 1;
+            dropInterval = Math.max(120, 800 - (level - 1) * 60);
+
+            SoundEffects.tetrisLine();
+            if (lines >= 10) AchievementsManager.unlock('tetris_line');
+
+            updateHUD();
+          }
+        }
+
+        function updateHUD() {
+          document.getElementById('tetris-score').textContent = score;
+          document.getElementById('tetris-lines').textContent = lines;
+          document.getElementById('tetris-level').textContent = level;
+          const best = Math.max(score, Store.records.tetris || 0);
+          Store.records.tetris = best;
+          document.getElementById('tetris-best').textContent = best;
+          saveData();
+        }
+
+        function spawnNext() {
+          current = next || randomPiece();
+          next = randomPiece();
+          canHold = true;
+          drawMini(nextCtx, next);
+          if (!valid(current)) {
+            gameOver();
+          }
+        }
+
+        function gameOver() {
+          running = false;
+          SoundEffects.explosion();
+          document.getElementById('tetris-ov-title').textContent = 'Partie Terminée !';
+          document.getElementById('tetris-overlay').classList.remove('hidden');
+        }
+
+        function drawMini(ctxTarget, p) {
+          if (!ctxTarget) return;
+          ctxTarget.fillStyle = '#06080f';
+          ctxTarget.fillRect(0, 0, 80, 80);
+          if (!p) return;
+          const sz = 16;
+          const offX = (80 - p.shape[0].length * sz) / 2;
+          const offY = (80 - p.shape.length * sz) / 2;
+          ctxTarget.fillStyle = p.color;
+          for (let r = 0; r < p.shape.length; r++) {
+            for (let c = 0; c < p.shape[r].length; c++) {
+              if (p.shape[r][c]) {
+                ctxTarget.fillRect(offX + c * sz, offY + r * sz, sz - 1, sz - 1);
+              }
+            }
+          }
+        }
+
+        function start() {
+          board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+          score = 0;
+          lines = 0;
+          level = 1;
+          dropInterval = 800;
+          hold = null;
+          drawMini(holdCtx, null);
+          spawnNext();
+          updateHUD();
+          document.getElementById('tetris-overlay').classList.add('hidden');
+          running = true;
+          paused = false;
+          lastDrop = performance.now();
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(loop);
+          SoundEffects.click();
+        }
+
+        function loop(now) {
+          if (!running || paused) return;
+          if (now - lastDrop > dropInterval) {
+            drop();
+            lastDrop = now;
+          }
+          draw();
+          if (running) rafId = requestAnimationFrame(loop);
+        }
+
+        function drop() {
+          if (valid(current, 0, 1)) {
+            current.y++;
+          } else {
+            merge();
+            clearLines();
+            spawnNext();
+          }
+        }
+
+        function hardDrop() {
+          while (valid(current, 0, 1)) {
+            current.y++;
+            score += 2;
+          }
+          merge();
+          clearLines();
+          spawnNext();
+          SoundEffects.bounce();
+        }
+
+        function draw() {
+          ctx.fillStyle = '#06080e';
+          ctx.fillRect(0, 0, 250, 500);
+
+          // Grille
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+          for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+              ctx.strokeRect(c * BLOCK, r * BLOCK, BLOCK, BLOCK);
+              if (board[r][c]) {
+                ctx.fillStyle = board[r][c];
+                ctx.fillRect(c * BLOCK + 1, r * BLOCK + 1, BLOCK - 2, BLOCK - 2);
+              }
+            }
+          }
+
+          // Pièce actuelle
+          if (current) {
+            ctx.shadowColor = current.color;
+            ctx.shadowBlur = 8;
+            ctx.fillStyle = current.color;
+            for (let r = 0; r < current.shape.length; r++) {
+              for (let c = 0; c < current.shape[r].length; c++) {
+                if (current.shape[r][c]) {
+                  const x = (current.x + c) * BLOCK;
+                  const y = (current.y + r) * BLOCK;
+                  ctx.fillRect(x + 1, y + 1, BLOCK - 2, BLOCK - 2);
+                }
+              }
+            }
+            ctx.shadowBlur = 0;
+          }
+        }
+
+        document.getElementById('tetris-start-btn').addEventListener('click', start);
+        document.getElementById('tetris-ov-btn').addEventListener('click', start);
+        document.getElementById('tetris-pause-btn').addEventListener('click', () => {
+          paused = !paused;
+          document.getElementById('tetris-pause-btn').textContent = paused ? '▶ Reprendre' : '⏸ Pause';
+        });
+
+        draw();
+
+        return {
+          start,
+          pause() { running = false; },
+          onKey(code) {
+            if (!running || paused) return;
+            if (code === 'ArrowLeft' || code === 'KeyA' || code === 'KeyQ') {
+              if (valid(current, -1, 0)) current.x--;
+            } else if (code === 'ArrowRight' || code === 'KeyD') {
+              if (valid(current, 1, 0)) current.x++;
+            } else if (code === 'ArrowDown' || code === 'KeyS') {
+              if (valid(current, 0, 1)) { current.y++; score += 1; }
+            } else if (code === 'ArrowUp' || code === 'KeyW' || code === 'KeyZ') {
+              const rotated = rotate(current.shape);
+              if (valid(current, 0, 0, rotated)) current.shape = rotated;
+            } else if (code === 'Space') {
+              hardDrop();
+            } else if ((code === 'KeyC' || code === 'ShiftLeft' || code === 'ShiftRight') && canHold) {
+              canHold = false;
+              if (!hold) {
+                hold = { key: current.key, color: current.color, shape: PIECES[current.key].shape.map(r=>[...r]) };
+                spawnNext();
+              } else {
+                const temp = hold;
+                hold = { key: current.key, color: current.color, shape: PIECES[current.key].shape.map(r=>[...r]) };
+                current = {
+                  key: temp.key,
+                  color: temp.color,
+                  shape: temp.shape.map(r=>[...r]),
+                  x: Math.floor((COLS - temp.shape[0].length)/2),
+                  y: 0
+                };
+              }
+              drawMini(holdCtx, hold);
+            }
+          }
+        };
+      })();
+
+      /* =======================================================================
+         21. CALCULATRICE SCIENTIFIQUE EDU_VD (EASTER EGGS DE CLASSE)
+         ======================================================================= */
+      const SchoolCalc = (function () {
+        let expr = '';
+        const display = document.getElementById('calc-display');
+        const history = document.getElementById('calc-history');
+        const easter = document.getElementById('calc-easter-egg');
+
+        const SECRETS = {
+          '11': 'PROMO 11VP ÉLITE VALIDÉE ⛷️',
+          '42': 'RÉPONSE UNIVERSELLE DU PROF MEYLAN 🌌',
+          '69': 'NICE — RESPECT DE CLASSE +100 😎',
+          '420': 'PAUSE RÉCRÉATION AUTORISÉE 🍃',
+          '1991': 'GÉOPOLITIQUE : FIN DE LA GUERRE FROIDE 📚',
+          '1111': 'DOUBLE SOUDAGE DU PROF SCHEURER ⚡'
+        };
+
+        function updateScreen() {
+          if (display) display.textContent = expr || '0';
+        }
+
+        function calculate() {
+          if (!expr) return;
+          try {
+            // Check secrets
+            if (SECRETS[expr.trim()]) {
+              if (easter) easter.textContent = `✨ ${SECRETS[expr.trim()]}`;
+              AchievementsManager.unlock('calc_secret');
+            } else {
+              if (easter) easter.textContent = '';
+            }
+
+            if (history) history.textContent = expr + ' =';
+            // Safe mathematical evaluation (basic arithmetic & Math functions)
+            let safe = expr
+              .replace(/×/g, '*')
+              .replace(/÷/g, '/')
+              .replace(/sin/g, 'Math.sin')
+              .replace(/cos/g, 'Math.cos')
+              .replace(/tan/g, 'Math.tan');
+
+            const res = Function('"use strict";return (' + safe + ')')();
+            expr = String(Math.round(res * 100000) / 100000);
+            updateScreen();
+            SoundEffects.click();
+          } catch (e) {
+            if (display) display.textContent = 'Erreur';
+            expr = '';
+          }
+        }
+
+        document.querySelectorAll('.calc-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const val = btn.dataset.calc;
+            SoundEffects.click();
+            if (val === 'C') {
+              expr = '';
+              if (history) history.textContent = '';
+              if (easter) easter.textContent = '';
+              updateScreen();
+            } else if (val === 'DEL') {
+              expr = expr.slice(0, -1);
+              updateScreen();
+            } else if (val === '=') {
+              calculate();
+            } else {
+              expr += val;
+              updateScreen();
+            }
+          });
+        });
+
+        return {
+          clear() { expr = ''; updateScreen(); }
+        };
+      })();
+
       /* -----------------------------------------------------------------------
          12. GESTIONNAIRE CLAVIER GLOBAL STRICT (Panique, Focus Input, Anti-Scroll)
          ----------------------------------------------------------------------- */
@@ -4177,7 +6500,7 @@
         }
 
         // 5. Bloquer le défilement sur Espace et Flèches dans les sections de jeux
-        const gameSections = ['clicker', 'snake', 'g2048', 'runner', 'reflex', 'flappy'];
+        const gameSections = ['clicker', 'snake', 'g2048', 'runner', 'reflex', 'flappy', 'pong', 'tron', 'tanks', 'tetris', 'connect4'];
         const scrollKeys = [' ', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
         if (gameSections.includes(AppState.activeSection) && scrollKeys.includes(e.key)) {
           e.preventDefault();
@@ -4196,6 +6519,24 @@
           if (e.code === 'Space' && !e.repeat) ReflexGame.onSpace();
         } else if (AppState.activeSection === 'flappy') {
           if (!e.repeat) FlappyGame.onKey(e.key);
+        } else if (AppState.activeSection === 'pong' && typeof PongGame !== 'undefined') {
+          PongGame.onKey(e.code, true);
+        } else if (AppState.activeSection === 'tron' && typeof TronGame !== 'undefined') {
+          TronGame.onKey(e.code);
+        } else if (AppState.activeSection === 'tanks' && typeof TanksGame !== 'undefined') {
+          TanksGame.onKey(e.code, true);
+        } else if (AppState.activeSection === 'connect4' && typeof Connect4Game !== 'undefined') {
+          Connect4Game.onKey(e.code);
+        } else if (AppState.activeSection === 'tetris' && typeof TetrisGame !== 'undefined') {
+          TetrisGame.onKey(e.code);
+        }
+      });
+
+      window.addEventListener('keyup', (e) => {
+        if (AppState.activeSection === 'pong' && typeof PongGame !== 'undefined') {
+          PongGame.onKey(e.code, false);
+        } else if (AppState.activeSection === 'tanks' && typeof TanksGame !== 'undefined') {
+          TanksGame.onKey(e.code, false);
         }
       });
 
@@ -4206,6 +6547,7 @@
       window.addEventListener('load', () => {
         initCloakUI();
         updateDashboardStats();
+        if (typeof AchievementsManager !== 'undefined') AchievementsManager.init();
       });
     })();
   </script>
