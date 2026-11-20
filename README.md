@@ -34,7 +34,11 @@
 
 ## ✨ Fonctionnalités Principales
 
-- **🎮 12+ Jeux intégrés** : Solo, 2 joueurs sur un même clavier, et multijoueur en ligne P2P.
+- **🕶️ Cyber DOOM 3D** : Véritable moteur de raycasting 3D à 60 FPS programmé en pur Canvas 2D mathématique (zéro bibliothèque, zéro WebGL). Arme laser avec recul, radar mini-map et drones ennemis !
+- **🔐 Coffre Stéganographique** : Dissimule des antisèches et textes secrets au cœur des pixels invisibles (LSB) d'une image PNG. 100% indétectable à l'œil nu.
+- **🌀 Illusions d'Optique & Ondes** : Vortex cinétique de distorsion de la réalité (Motion Aftereffect), Tesseract 4D rotatif et générateur de battements binauraux 432 Hz / ondes Alpha de concentration.
+- **💻 Cyber Terminal & Matrix** : Console hacker interactive avec commandes réelles, pluie de code Matrix et mode Hollywood Hacker pour taper du code en direct.
+- **🎮 14+ Jeux & Outils Cyber intégrés** : Solo, 2 joueurs sur un même clavier, et multijoueur en ligne P2P.
 - **⛷️ Slope 2 (1games.io)** : Intégration optimisée plein écran avec iframe wrapper officiel.
 - **🖼️ Banque de Memes** : Auto-détection des images (`.jpeg`, `.png`, `.gif`, `.webp`) triées par dossiers (`11VP`, `HP`, `Ultérieur`...).
 - **🔊 Soundboard Scolaire** : Pads interactifs néon, égaliseur visuel animé, mode Loop, volume général et coupure d'urgence (`.wav`, `.mp3`, `.ogg`...).

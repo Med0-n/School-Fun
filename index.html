@@ -1937,6 +1937,183 @@
       border-color: rgba(0, 240, 255, 0.35);
     }
 
+    
+    /* =========================================================================
+       CYBER LAB & MINDBLOWING MODULES (DOOM 3D, STEGANO, ILLUSIONS, TERMINAL)
+       ========================================================================= */
+    /* DOOM 3D Canvas & HUD */
+    .doom-container {
+      position: relative;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      background: #000;
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+    #doom-canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      background: #02040a;
+      image-rendering: pixelated;
+    }
+    .doom-hud-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 16px;
+      background: linear-gradient(0deg, rgba(5,8,17,0.95) 0%, rgba(5,8,17,0) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+      pointer-events: none;
+    }
+    .doom-stat-badge {
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    /* STÉGANOGRAPHIE */
+    .stegano-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .stegano-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stegano-dropzone {
+      border: 2px dashed rgba(0, 240, 255, 0.35);
+      background: rgba(0, 240, 255, 0.03);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .stegano-dropzone:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.08);
+    }
+    .stegano-preview-img {
+      max-width: 100%;
+      max-height: 180px;
+      border-radius: 8px;
+      object-fit: contain;
+      border: 1px solid var(--border);
+    }
+
+    /* ILLUSIONS LAB */
+    .illusions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .illusion-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+    .illusion-canvas-wrap {
+      position: relative;
+      margin: 0 auto;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+
+    /* CYBER TERMINAL */
+    .terminal-window {
+      background: #020409;
+      border: 1px solid var(--accent-cyan);
+      border-radius: var(--radius-md);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: ui-monospace, 'Courier New', monospace;
+      position: relative;
+    }
+    .terminal-topbar {
+      background: #090e1c;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .terminal-body {
+      padding: 16px;
+      min-height: 380px;
+      max-height: 480px;
+      overflow-y: auto;
+      color: #00f0ff;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .terminal-body::-webkit-scrollbar { width: 6px; }
+    .terminal-body::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.3); border-radius: 3px; }
+    .terminal-line-prompt { color: #10b981; font-weight: bold; }
+    .terminal-line-cmd { color: #fff; }
+    .terminal-line-output { color: #94a3b8; }
+    .terminal-line-success { color: #34d399; }
+    .terminal-line-warn { color: #fbbf24; }
+    .terminal-line-error { color: #f87171; }
+    .terminal-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .terminal-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      flex: 1;
+    }
+
     /* =========================================================================
        11. RESPONSIVE (Mobile & Tablette)
        ========================================================================= */
@@ -2104,6 +2281,12 @@
         <button class="nav-btn" data-section="runner"><span class="nav-icon">🦖</span> Cyber Runner</button>
         <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim</button>
         <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
+
+        <div class="nav-group-label">🔮 Cyber Lab &amp; Mind-Benders</div>
+        <button class="nav-btn" data-section="doom"><span class="nav-icon">🕶️</span> Cyber DOOM 3D</button>
+        <button class="nav-btn" data-section="stegano"><span class="nav-icon">🔐</span> Coffre Stéganographique</button>
+        <button class="nav-btn" data-section="illusions"><span class="nav-icon">🌀</span> Illusions &amp; Ondes</button>
+        <button class="nav-btn" data-section="terminal"><span class="nav-icon">💻</span> Terminal Hacker</button>
 
         <div class="nav-group-label">🛡️ Furtivité &amp; Références</div>
         <button class="nav-btn" data-section="links"><span class="nav-icon">🔗</span> Bibliothèque de Liens</button>
@@ -3147,6 +3330,224 @@
           </div>
         </section>
 
+      
+        <!-- ===============================================================
+             SECTION : CYBER DOOM 3D (Moteur Raycaster Canvas Pur 60 FPS)
+             =============================================================== -->
+        <section id="sec-doom" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">🕶️ Cyber DOOM 3D (Moteur Raycasting Mathématique)</div>
+                <div class="card-subtitle">Moteur 3D en temps réel à 60 FPS codé en pur Canvas 2D (zéro bibliothèque, zéro WebGL). Élimine les drones cyber !</div>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button id="doom-restart-btn" class="btn btn-secondary btn-sm">🔄 Recommencer</button>
+                <button id="doom-fs-btn" class="btn btn-primary btn-sm">⛶ Plein Écran</button>
+              </div>
+            </div>
+
+            <div class="doom-container" id="doom-wrap">
+              <canvas id="doom-canvas" width="640" height="360"></canvas>
+              <div class="doom-hud-overlay">
+                <div>❤️ VIE : <span id="doom-hp" class="text-emerald">100%</span></div>
+                <div>⚡ LASER : <span id="doom-ammo" class="text-cyan">30 / 30</span></div>
+                <div>🎯 DRONES DÉTRUITS : <span id="doom-score" class="text-violet">0</span></div>
+                <div class="doom-stat-badge">60 FPS • DDA RAYCASTER</div>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--text-muted);">
+              <div>
+                <strong>Contrôles :</strong> <span class="kbd">Z</span><span class="kbd">Q</span><span class="kbd">S</span><span class="kbd">D</span> ou <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span> pour te déplacer • <span class="kbd">←</span> <span class="kbd">→</span> pour tourner la caméra • <span class="kbd">Espace</span> ou <strong>Clic Gauche</strong> pour Tirer.
+              </div>
+              <div>Radar mini-map en haut à droite • Touche <span class="kbd">Échap</span> pour cacher l'écran.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : COFFRE STÉGANOGRAPHIQUE (Stéganographie LSB)
+             =============================================================== -->
+        <section id="sec-stegano" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">🔐 Coffre Stéganographique (Stéganographie LSB Invisible)</div>
+                <div class="card-subtitle">Dissimule des antisèches, codes ou messages ultra-secrets directement dans les pixels d'une image. L'image finale est 100% identique à l'œil nu !</div>
+              </div>
+              <div class="pill-tabs" id="stegano-mode-tabs">
+                <button class="pill-tab active" data-smode="encode">🔒 Cacher un Secret (Encoder)</button>
+                <button class="pill-tab" data-smode="decode">🔓 Révéler un Secret (Décoder)</button>
+              </div>
+            </div>
+
+            <!-- Vue Encodeur -->
+            <div id="stegano-encode-view">
+              <div class="stegano-layout">
+                <div class="stegano-box">
+                  <h4 style="font-size:14px; font-weight:700; color:var(--accent-cyan);">1. Choisis une image support</h4>
+                  <div class="stegano-dropzone" id="stegano-encode-drop">
+                    <span style="font-size:32px;">🖼️</span>
+                    <span>Glisse une image ici ou clique pour sélectionner</span>
+                    <span style="font-size:11px; color:var(--text-muted);">PNG, JPEG, WebP</span>
+                    <input type="file" id="stegano-encode-file" accept="image/*" class="hidden" />
+                  </div>
+                  <button id="stegano-sample-img-btn" class="btn btn-secondary btn-sm" style="font-size:11px;">📄 Utiliser l'image Google Docs par défaut</button>
+                  <img id="stegano-encode-preview" class="stegano-preview-img hidden" alt="Aperçu support" />
+                </div>
+
+                <div class="stegano-box">
+                  <h4 style="font-size:14px; font-weight:700; color:var(--accent-purple);">2. Message secret à dissimuler</h4>
+                  <textarea id="stegano-secret-text" rows="5" placeholder="Tape ton texte secret ou ton antisèche ici... (aucun serveur, tout est encodé dans les bits de couleur RGBA de l'image)" style="background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px; font-size:12px; color:#fff; width:100%; resize:vertical;"></textarea>
+                  
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <span id="stegano-capacity-label" style="font-size:11px; color:var(--text-muted);">Capacité : En attente d'image</span>
+                    <button id="stegano-run-encode-btn" class="btn btn-primary">⚡ Injecter le secret dans l'image</button>
+                  </div>
+
+                  <div id="stegano-encode-result" class="hidden" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:var(--radius-sm); padding:12px; margin-top:8px;">
+                    <div style="font-size:12px; color:#34d399; font-weight:bold; margin-bottom:6px;">✅ Message dissimulé avec succès ! (Variation visuelle : 0.00%)</div>
+                    <button id="stegano-download-btn" class="btn btn-emerald btn-sm" style="width:100%;">📥 Télécharger l'image secrète (.PNG)</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vue Décodeur -->
+            <div id="stegano-decode-view" class="hidden">
+              <div class="stegano-layout">
+                <div class="stegano-box">
+                  <h4 style="font-size:14px; font-weight:700; color:var(--accent-emerald);">Glisse l'image contenant un secret</h4>
+                  <div class="stegano-dropzone" id="stegano-decode-drop">
+                    <span style="font-size:32px;">🔍</span>
+                    <span>Dépose l'image secrète PNG ici</span>
+                    <input type="file" id="stegano-decode-file" accept="image/*" class="hidden" />
+                  </div>
+                  <img id="stegano-decode-preview" class="stegano-preview-img hidden" alt="Aperçu décodeur" />
+                </div>
+
+                <div class="stegano-box">
+                  <h4 style="font-size:14px; font-weight:700; color:#00f0ff;">Secret extrait des pixels</h4>
+                  <div id="stegano-extracted-box" style="background:#020409; border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; min-height:120px; font-family:monospace; font-size:12px; color:#cffafe; white-space:pre-wrap; overflow-y:auto; max-height:220px;">
+                    En attente d'une image à décoder...
+                  </div>
+                  <button id="stegano-copy-secret-btn" class="btn btn-secondary btn-sm" style="align-self:flex-end;">📋 Copier le message</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : ILLUSIONS D'OPTIQUE & ONDES CÉRÉBRALES
+             =============================================================== -->
+        <section id="sec-illusions" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">🌀 Illusions d'Optique &amp; Ondes Cérébrales (Mind-Benders)</div>
+                <div class="card-subtitle">Expériences visuelles et auditives qui trompent les neurones du cerveau en temps réel.</div>
+              </div>
+              <div class="pill-tabs" id="illusions-tabs">
+                <button class="pill-tab active" data-ill="vortex">🌀 Vortex Cinétique</button>
+                <button class="pill-tab" data-ill="binaural">🧠 Ondes Alpha &amp; 432 Hz</button>
+                <button class="pill-tab" data-ill="cube4d">📐 Tesseract 4D</button>
+              </div>
+            </div>
+
+            <!-- Onglet 1 : Vortex Cinétique (Motion Aftereffect) -->
+            <div id="ill-view-vortex" style="text-align:center; padding:10px;">
+              <div style="font-size:13px; color:#cffafe; max-width:540px; margin:0 auto 14px; line-height:1.5;">
+                <strong>Effet de distorsion de la réalité :</strong> Clique sur Démarrer, fixe le point rouge au centre pendant 30 secondes sans cligner des yeux, puis regarde immédiatement ta main ou ton écran d'ordinateur !
+              </div>
+              <div class="illusion-canvas-wrap" style="width:340px; height:340px;">
+                <canvas id="vortex-canvas" width="340" height="340"></canvas>
+              </div>
+              <div style="margin-top:14px; display:flex; gap:10px; justify-content:center; align-items:center;">
+                <button id="vortex-toggle-btn" class="btn btn-primary">▶ Lancer l'illusion (30s)</button>
+                <span id="vortex-timer" style="font-family:monospace; font-size:18px; font-weight:bold; color:var(--accent-cyan); min-width:60px;">00:30</span>
+              </div>
+            </div>
+
+            <!-- Onglet 2 : Ondes & Battements Binauraux -->
+            <div id="ill-view-binaural" class="hidden" style="padding:10px;">
+              <div style="font-size:13px; color:#cffafe; max-width:600px; margin:0 auto 16px; line-height:1.5; text-align:center;">
+                🎧 <strong>Mets tes écouteurs (obligatoire pour l'effet stéréophonique) :</strong> Deux fréquences légèrement différentes sont jouées dans l'oreille gauche et droite. Ton cerveau crée une onde d'interférence interne qui induit un état de concentration intense ou de calme.
+              </div>
+              <div style="display:flex; justify-content:center; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+                <button class="btn btn-secondary btn-sm ill-preset-btn" data-freq="200" data-diff="10">🧠 Focus &amp; Révision (Alpha 10 Hz)</button>
+                <button class="btn btn-secondary btn-sm ill-preset-btn" data-freq="150" data-diff="6">🧘 Calme Anti-Stress (Thêta 6 Hz)</button>
+                <button class="btn btn-secondary btn-sm ill-preset-btn" data-freq="432" data-diff="0">✨ Fréquence Harmonieuse 432 Hz</button>
+              </div>
+              <div style="max-width:440px; margin:0 auto; background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:12px;">Fréquence de base :</span>
+                  <span id="binaural-freq-val" style="font-family:monospace; font-size:13px; color:var(--accent-cyan);">200 Hz</span>
+                </div>
+                <input type="range" id="binaural-freq-slider" min="100" max="500" step="1" value="200" style="cursor:pointer;" />
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:12px;">Décalage binaural (onde perçue) :</span>
+                  <span id="binaural-diff-val" style="font-family:monospace; font-size:13px; color:var(--accent-purple);">10 Hz (Alpha)</span>
+                </div>
+                <input type="range" id="binaural-diff-slider" min="0" max="30" step="0.5" value="10" style="cursor:pointer;" />
+                <button id="binaural-toggle-btn" class="btn btn-emerald" style="width:100%; margin-top:8px;">▶ Démarrer le flux audio binaural</button>
+              </div>
+            </div>
+
+            <!-- Onglet 3 : Tesseract 4D -->
+            <div id="ill-view-cube4d" class="hidden" style="text-align:center; padding:10px;">
+              <div style="font-size:13px; color:#cffafe; max-width:540px; margin:0 auto 14px; line-height:1.5;">
+                Hypercube à 4 dimensions géométriques (Tesseract) projeté en 3D puis rendu en direct sur le canvas. Glisse la souris pour faire pivoter la 4e dimension !
+              </div>
+              <div class="illusion-canvas-wrap" style="width:360px; height:320px;">
+                <canvas id="tesseract-canvas" width="360" height="320"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION : TERMINAL HACKER & MATRIX
+             =============================================================== -->
+        <section id="sec-terminal" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">💻 Cyber Terminal &amp; Matrix Shell</div>
+                <div class="card-subtitle">Console en ligne de commande interactive avec mode Hollywood Hacker. Fais semblant d'infiltrer le réseau de l'école !</div>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button id="term-hollywood-btn" class="btn btn-violet btn-sm">⚡ Mode Hollywood Hacker (Frappe libre)</button>
+                <button id="term-clear-btn" class="btn btn-secondary btn-sm">🧹 Effacer</button>
+              </div>
+            </div>
+
+            <div class="terminal-window">
+              <div class="terminal-topbar">
+                <div class="terminal-dots">
+                  <span class="terminal-dot" style="background:#ef4444;"></span>
+                  <span class="terminal-dot" style="background:#f59e0b;"></span>
+                  <span class="terminal-dot" style="background:#10b981;"></span>
+                </div>
+                <span style="font-size:11px; color:var(--text-muted);">med0@edu-vd-gateway: ~ (zsh)</span>
+                <span style="font-size:10px; color:#00f0ff;">AES-256 ENCRYPTED</span>
+              </div>
+              <div class="terminal-body" id="terminal-output">
+                <div class="terminal-line-success">CYBER PORTAL KERNEL v4.19-VD INITIALIZED</div>
+                <div class="terminal-line-output">Tape <strong style="color:#00f0ff">help</strong> pour afficher la liste des commandes cyber disponibles.</div>
+                <div class="terminal-line-output">Astuce : clique sur le bouton « Mode Hollywood Hacker » et tape n'importe quoi au clavier pour impressionner tes camarades !</div>
+              </div>
+              <div style="padding:10px 16px; background:#050811; border-top:1px solid rgba(0,240,255,0.2);">
+                <div class="terminal-input-row">
+                  <span class="terminal-line-prompt">med0@school-fun:~$</span>
+                  <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" placeholder="Tape une commande (ex: help, matrix, hack, scan-wifi, doom)..." />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
@@ -3400,6 +3801,10 @@
         slope: '⛷️ Slope 2 (1games.io)',
         memes: '🖼️ Banque de Memes',
         soundboard: '🔊 Soundboard Scolaire',
+        doom: '🕶️ Cyber DOOM 3D',
+        stegano: '🔐 Coffre Stéganographique',
+        illusions: '🌀 Illusions & Ondes',
+        terminal: '💻 Terminal Hacker',
         pong: '🏓 Cyber Pong 1v1',
         tron: '🏍️ Tron Cycles 1v1',
         tanks: '💣 Tank Battle 1v1',
@@ -3459,6 +3864,11 @@
         if (sectionKey === 'slope' && !AppState.slopeLoaded) loadSlopeIframe();
         if (sectionKey === 'memes' && !MemeGallery.initialized) MemeGallery.scan();
         if (sectionKey === 'soundboard' && typeof Soundboard !== 'undefined' && !Soundboard.initialized) Soundboard.scan();
+        if (sectionKey === 'doom' && typeof CyberDoom !== 'undefined') CyberDoom.start();
+        if (sectionKey !== 'doom' && typeof CyberDoom !== 'undefined') CyberDoom.pause();
+        if (sectionKey === 'illusions' && typeof IllusionsLab !== 'undefined') IllusionsLab.init();
+        if (sectionKey !== 'illusions' && typeof IllusionsLab !== 'undefined') IllusionsLab.stop();
+        if (sectionKey === 'terminal' && typeof TerminalShell !== 'undefined') TerminalShell.focus();
         if (sectionKey === 'snake') requestAnimationFrame(() => SnakeGame.resize());
         if (sectionKey === 'runner') requestAnimationFrame(() => RunnerGame.resize());
         if (sectionKey === 'flappy') requestAnimationFrame(() => FlappyGame.resize());
@@ -7196,6 +7606,10 @@
         initCloakUI();
         updateDashboardStats();
         if (typeof AchievementsManager !== 'undefined') AchievementsManager.init();
+        if (typeof CyberDoom !== 'undefined') CyberDoom.init();
+        if (typeof SteganoVault !== 'undefined') SteganoVault.init();
+        if (typeof IllusionsLab !== 'undefined') IllusionsLab.init();
+        if (typeof TerminalShell !== 'undefined') TerminalShell.init();
 
         // Détection automatique de lien d'invitation multijoueur en ligne
         try {
