@@ -1,0 +1,4214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Titre par défaut camouflé en Google Docs dès le chargement -->
+  <title>Document sans titre - Google Docs</title>
+  <!-- Favicon dynamique injecté en SVG data-URI (Google Docs par défaut) -->
+  <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234285F4' d='M10 4h19l11 11v29a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/%3E%3Cpath fill='%23A1C2FA' d='M29 4v11h11z'/%3E%3Cpath fill='%23FFFFFF' d='M15 22h18v2.5H15zm0 6h18v2.5H15zm0 6h12v2.5H15z'/%3E%3C/svg%3E" />
+
+  <style>
+    /* =========================================================================
+       1. VARIABLES & RESET (Thème Dark Cyber-Minimalist - Zéro dépendance)
+       ========================================================================= */
+    :root {
+      --bg-main: #090b10;
+      --bg-panel: #111520;
+      --bg-card: #161b29;
+      --bg-card-hover: #1c2235;
+      --bg-input: #0c1018;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text-main: #eef2ff;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+
+      --accent-cyan: #00f0ff;
+      --accent-violet: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-blue: #3b82f6;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --sidebar-w: 250px;
+      --topbar-h: 62px;
+      --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --transition: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Scrollbars discrètes */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-main); }
+    ::-webkit-scrollbar-thumb { background: #262f45; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #364363; }
+
+    /* Utilitaires */
+    .hidden { display: none !important; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .text-cyan { color: var(--accent-cyan); }
+    .text-violet { color: var(--accent-violet); }
+    .text-emerald { color: var(--accent-emerald); }
+    .text-amber { color: var(--accent-amber); }
+    .text-rose { color: var(--accent-rose); }
+    .text-muted { color: var(--text-muted); }
+
+    /* =========================================================================
+       2. LAYOUT PRINCIPAL (Sidebar + Topbar + Zone de contenu)
+       ========================================================================= */
+    #app-shell {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(139, 92, 246, 0.08), transparent 35%),
+        radial-gradient(circle at 88% 85%, rgba(0, 240, 255, 0.07), transparent 35%),
+        var(--bg-main);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: rgba(17, 21, 32, 0.96);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 50;
+      transition: transform 0.25s ease;
+    }
+
+    .sidebar-brand {
+      height: var(--topbar-h);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #06080f;
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .brand-text span::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-group-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      padding: 10px 10px 4px;
+      font-weight: 700;
+    }
+
+    .nav-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition);
+      text-align: left;
+      position: relative;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(90deg, rgba(0, 240, 255, 0.14), rgba(139, 92, 246, 0.08));
+      color: var(--text-main);
+      font-weight: 600;
+      border: 1px solid rgba(0, 240, 255, 0.22);
+    }
+
+    .nav-btn.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      bottom: 20%;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    .nav-icon {
+      font-size: 17px;
+      width: 22px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    .kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-family: ui-monospace, monospace;
+      background: #1f273b;
+      border: 1px solid var(--border-strong);
+      border-radius: 5px;
+      color: var(--text-main);
+      box-shadow: 0 2px 0 #0a0d14;
+    }
+
+    /* Overlay mobile sidebar */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(3px);
+      z-index: 45;
+    }
+
+    /* Main Content Wrapper */
+    .main-wrapper {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Topbar */
+    .topbar {
+      height: var(--topbar-h);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(9, 11, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      gap: 12px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .page-title {
+      font-size: 17px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .cloak-quick-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      max-width: 175px;
+      transition: var(--transition);
+    }
+
+    .cloak-quick-select:hover, .cloak-quick-select:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .panic-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .panic-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+
+    .panic-btn .kbd {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: none;
+      font-size: 10px;
+    }
+
+    /* Sections Container */
+    .content-area {
+      flex: 1;
+      padding: 22px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =========================================================================
+       3. COMPOSANTS COMMUNS (Cartes, Boutons, Badges, Onglets, Toast)
+       ========================================================================= */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), #0ea5e9);
+      color: #050811;
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
+    .btn-violet {
+      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    }
+    .btn-violet:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.11); border-color: var(--border-strong); }
+
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.14);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+    }
+    .btn-danger:hover { background: rgba(244, 63, 94, 0.25); }
+
+    .btn-sm { padding: 7px 12px; font-size: 12px; }
+
+    .pill-tabs {
+      display: inline-flex;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .pill-tab {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .pill-tab.active {
+      background: var(--bg-card-hover);
+      color: var(--accent-cyan);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--border);
+    }
+
+    .badge-cyan { background: rgba(0, 240, 255, 0.12); border-color: rgba(0, 240, 255, 0.3); color: var(--accent-cyan); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3); color: var(--accent-emerald); }
+    .badge-violet { background: rgba(139, 92, 246, 0.14); border-color: rgba(139, 92, 246, 0.35); color: #c4b5fd; }
+    .badge-amber { background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.35); color: #fcd34d; }
+
+    /* Toast Notification (remplace alert()) */
+    #toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: rgba(22, 27, 41, 0.96);
+      border: 1px solid var(--accent-cyan);
+      color: var(--text-main);
+      padding: 11px 16px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      animation: toastIn 0.25s ease;
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* =========================================================================
+       4. ACCUEIL (DASHBOARD)
+       ========================================================================= */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.11), rgba(139, 92, 246, 0.14));
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .hero-banner h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .hero-banner p {
+      color: var(--text-muted);
+      font-size: 14px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-label { font-size: 12px; color: var(--text-muted); }
+    .stat-value { font-size: 22px; font-weight: 800; }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+      gap: 16px;
+    }
+
+    .game-launch-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: var(--transition);
+      cursor: pointer;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-launch-card:hover {
+      transform: translateY(-3px);
+      background: var(--bg-card-hover);
+      border-color: rgba(0, 240, 255, 0.35);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .game-launch-icon {
+      font-size: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      display: grid;
+      place-items: center;
+    }
+
+    .game-launch-card h3 { font-size: 16px; font-weight: 700; }
+    .game-launch-card p { font-size: 13px; color: var(--text-muted); line-height: 1.4; flex: 1; }
+    .game-launch-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--accent-cyan);
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* =========================================================================
+       5. SLOPE 2
+       ========================================================================= */
+    .slope-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .slope-frame-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 75vh;
+      background: #05070c;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      position: relative;
+    }
+
+    .slope-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .slope-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: radial-gradient(circle, #131c31 0%, #070a12 100%);
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* =========================================================================
+       6. BANQUE DE MEMES (GitHub Pages + Lightbox)
+       ========================================================================= */
+    .meme-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .meme-info-banner {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px dashed rgba(139, 92, 246, 0.45);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #ddd6fe;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .meme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .meme-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .meme-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-cyan);
+    }
+
+    .meme-thumb-wrap {
+      aspect-ratio: 4 / 3;
+      background: #07090f;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .meme-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .meme-card:hover .meme-thumb-wrap img {
+      transform: scale(1.04);
+    }
+
+    .meme-type-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.72);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+    }
+
+    .meme-card-footer {
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .meme-name {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .like-btn:hover { background: rgba(245, 158, 11, 0.18); border-color: var(--accent-amber); }
+    .like-btn.liked { background: rgba(245, 158, 11, 0.22); border-color: var(--accent-amber); color: #fde68a; }
+
+    /* Lightbox */
+    #meme-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(5, 7, 12, 0.92);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox-stage {
+      position: relative;
+      max-width: 92vw;
+      max-height: 76vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-stage img {
+      max-width: 100%;
+      max-height: 74vh;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      object-fit: contain;
+      background: #000;
+    }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-strong);
+      font-size: 22px;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+    }
+    .lightbox-nav:hover { background: var(--accent-cyan); color: #05070c; }
+    .lightbox-prev { left: 18px; }
+    .lightbox-next { right: 18px; }
+
+    .lightbox-bar {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* =========================================================================
+       7. SPACEBAR CLICKER & SPEED TEST
+       ========================================================================= */
+    .clicker-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .clicker-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clicker-big-score {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+
+    .clicker-stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Barre de surchauffe / combo */
+    .heat-wrap {
+      width: 100%;
+      max-width: 440px;
+    }
+    .heat-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .heat-track {
+      height: 10px;
+      border-radius: 99px;
+      background: #0a0d16;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .heat-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-rose));
+      transition: width 0.08s linear;
+    }
+
+    /* Grosse touche Espace virtuelle néon */
+    .spacebar-btn {
+      width: 100%;
+      max-width: 460px;
+      height: 92px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #1e2942 0%, #121829 100%);
+      border: 2px solid rgba(0, 240, 255, 0.45);
+      box-shadow:
+        0 8px 0 #090d17,
+        0 12px 28px rgba(0, 240, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      position: relative;
+      user-select: none;
+      transition: transform 0.05s ease, box-shadow 0.05s ease, border-color 0.15s ease;
+      margin: 12px 0 8px;
+      touch-action: manipulation;
+    }
+
+    .spacebar-btn.pressed,
+    .spacebar-btn:active {
+      transform: translateY(6px);
+      box-shadow:
+        0 2px 0 #090d17,
+        0 0 32px rgba(0, 240, 255, 0.55),
+        inset 0 2px 10px rgba(0, 240, 255, 0.25);
+      border-color: var(--accent-cyan);
+    }
+
+    .float-particle {
+      position: absolute;
+      pointer-events: none;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--accent-cyan);
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+      animation: floatUp 0.75s ease-out forwards;
+      z-index: 5;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -75px) scale(1.25); }
+    }
+
+    /* Boutique d'améliorations */
+    .shop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .shop-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .shop-item.affordable {
+      border-color: rgba(0, 240, 255, 0.35);
+      background: rgba(0, 240, 255, 0.05);
+    }
+
+    .shop-item-info h4 { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .shop-item-info p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Speed test */
+    .speed-durations {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .speed-rank-box {
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      width: 100%;
+      max-width: 460px;
+    }
+
+    /* =========================================================================
+       8. MINI-JEUX CANVAS & 2048 & RÉFLEXE
+       ========================================================================= */
+    .game-hud {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .game-hud-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .canvas-container {
+      width: 100%;
+      background: #070a12;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .canvas-square {
+      max-width: 520px;
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+    }
+
+    .canvas-wide {
+      max-width: 860px;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+    }
+
+    .canvas-flappy {
+      max-width: 480px;
+      aspect-ratio: 3 / 4;
+      max-height: 68vh;
+      margin: 0 auto;
+    }
+
+    .canvas-container canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+
+    .canvas-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(7, 10, 18, 0.78);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Contrôles tactiles D-Pad (Snake & 2048) */
+    .touch-dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 56px);
+      grid-template-rows: repeat(2, 50px);
+      gap: 8px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .dpad-btn {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 20px;
+      display: grid;
+      place-items: center;
+      touch-action: manipulation;
+    }
+    .dpad-btn:active { background: var(--accent-cyan); color: #050811; }
+
+    /* 2048 */
+    .board-2048-wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .board-2048 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      background: #0d121f;
+      border: 1px solid var(--border-strong);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      aspect-ratio: 1 / 1;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .tile-2048 {
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: clamp(20px, 5vw, 32px);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .tile-pop { animation: tilePop 0.18s ease; }
+    @keyframes tilePop {
+      0% { transform: scale(0.75); }
+      60% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* Couleurs distinctes 2048 */
+    .t-2    { background: #1e293b; color: #e2e8f0; }
+    .t-4    { background: #26354d; color: #f8fafc; }
+    .t-8    { background: #0e7490; color: #ecfeff; box-shadow: 0 0 12px rgba(6, 182, 212, 0.3); }
+    .t-16   { background: #0284c7; color: #fff; box-shadow: 0 0 14px rgba(14, 165, 233, 0.35); }
+    .t-32   { background: #4f46e5; color: #fff; box-shadow: 0 0 16px rgba(99, 102, 241, 0.4); }
+    .t-64   { background: #7c3aed; color: #fff; box-shadow: 0 0 18px rgba(139, 92, 246, 0.45); }
+    .t-128  { background: #a21caf; color: #fff; box-shadow: 0 0 18px rgba(192, 38, 211, 0.45); }
+    .t-256  { background: #db2777; color: #fff; box-shadow: 0 0 20px rgba(236, 72, 153, 0.5); }
+    .t-512  { background: #e11d48; color: #fff; box-shadow: 0 0 22px rgba(244, 63, 94, 0.55); }
+    .t-1024 { background: #d97706; color: #fff; font-size: clamp(16px, 4vw, 24px); box-shadow: 0 0 24px rgba(245, 158, 11, 0.6); }
+    .t-2048 { background: linear-gradient(135deg, #00f0ff, #8b5cf6); color: #050811; font-size: clamp(16px, 4vw, 24px); box-shadow: 0 0 28px rgba(0, 240, 255, 0.75); }
+    .t-big  { background: linear-gradient(135deg, #f59e0b, #f43f5e); color: #fff; font-size: clamp(14px, 3.5vw, 22px); }
+
+    /* Réflexe & Aim Trainer */
+    .reaction-pad {
+      min-height: 290px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 28px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.12s ease;
+      border: 2px solid var(--border-strong);
+    }
+
+    .reaction-idle  { background: linear-gradient(135deg, #162038, #111827); }
+    .reaction-wait  { background: #991b1b; border-color: #f87171; }
+    .reaction-go    { background: #059669; border-color: #34d399; box-shadow: 0 0 40px rgba(16, 185, 129, 0.45); }
+    .reaction-early { background: #b45309; border-color: #fbbf24; }
+
+    .aim-arena {
+      position: relative;
+      width: 100%;
+      height: 410px;
+      background:
+        radial-gradient(circle at center, rgba(0, 240, 255, 0.04), transparent 70%),
+        #070a12;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: crosshair;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .aim-target {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, #fff 0 18%, var(--accent-rose) 20% 52%, #fff 54% 68%, var(--accent-rose) 70% 100%);
+      box-shadow: 0 0 22px rgba(244, 63, 94, 0.75);
+      cursor: pointer;
+      animation: targetSpawn 0.14s ease-out;
+    }
+
+    @keyframes targetSpawn {
+      from { transform: translate(-50%, -50%) scale(0.35); opacity: 0.4; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    /* =========================================================================
+       9. PARAMÈTRES DE CAMOUFLAGE (TAB CLOAK)
+       ========================================================================= */
+    .cloak-presets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
+      margin: 14px 0 22px;
+    }
+
+    .cloak-preset-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .cloak-preset-card:hover { border-color: var(--border-strong); background: var(--bg-card-hover); }
+    .cloak-preset-card.active { border-color: var(--accent-cyan); background: rgba(0, 240, 255, 0.08); }
+
+    .cloak-preset-card img {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .input-text {
+      background: var(--bg-input);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--text-main);
+      outline: none;
+      width: 100%;
+    }
+    .input-text:focus { border-color: var(--accent-cyan); }
+
+    /* =========================================================================
+       10. ÉCRAN PANIQUE ULTRA-RÉALISTE : FAUX GOOGLE DOCS
+       ========================================================================= */
+    #panic-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: #f9fbfd;
+      color: #202124;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    .gdocs-header {
+      background: #f9fbfd;
+      padding: 8px 16px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .gdocs-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    /* Cliquer discrètement sur l'icône bleue Docs en haut à gauche quitte le mode panique */
+    .gdocs-logo-btn {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .gdocs-logo-btn:hover { background: #e8eaed; }
+
+    .gdocs-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .gdocs-doc-title {
+      font-size: 17px;
+      color: #202124;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      outline: none;
+      background: transparent;
+      max-width: 420px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gdocs-doc-title:hover { border-color: #dadce0; }
+    .gdocs-doc-title:focus { border-color: #1a73e8; background: #fff; }
+
+    .gdocs-menubar {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #202124;
+    }
+
+    .gdocs-menubar span {
+      padding: 3px 7px;
+      border-radius: 4px;
+      cursor: default;
+    }
+    .gdocs-menubar span:hover { background: #e8eaed; }
+
+    .gdocs-header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .gdocs-share-btn {
+      background: #c2e7ff;
+      color: #001d35;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 9px 20px;
+      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      cursor: default;
+    }
+
+    .gdocs-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      display: grid;
+      place-items: center;
+    }
+
+    .gdocs-toolbar {
+      margin: 4px 16px 8px;
+      background: #edf2fa;
+      border-radius: 99px;
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #444746;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .gdocs-tool {
+      padding: 4px 7px;
+      border-radius: 4px;
+      cursor: default;
+      user-select: none;
+    }
+    .gdocs-tool:hover { background: #dde3ea; }
+    .gdocs-sep { width: 1px; height: 18px; background: #c7c7c7; flex-shrink: 0; }
+
+    .gdocs-ruler {
+      height: 22px;
+      background: #f9fbfd;
+      border-top: 1px solid #e1e3e1;
+      border-bottom: 1px solid #e1e3e1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+      color: #747775;
+      letter-spacing: 22px;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .gdocs-workspace {
+      flex: 1;
+      overflow-y: auto;
+      padding: 22px 16px 60px;
+      display: flex;
+      justify-content: center;
+      background: #f9fbfd;
+    }
+
+    .gdocs-page {
+      width: 100%;
+      max-width: 816px;
+      min-height: 1056px;
+      background: #ffffff;
+      border: 1px solid #c7c7c7;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      padding: 72px 84px;
+      color: #1f1f1f;
+      font-family: Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.55;
+      outline: none;
+    }
+
+    .gdocs-page h1 {
+      font-size: 18pt;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #111;
+    }
+
+    .gdocs-page h2 {
+      font-size: 13pt;
+      font-weight: 700;
+      margin: 18px 0 8px;
+      color: #1a73e8;
+    }
+
+    .gdocs-page p { margin-bottom: 10px; text-align: justify; }
+    .gdocs-page ul { margin: 8px 0 12px 24px; }
+    .gdocs-page li { margin-bottom: 5px; }
+
+    /* =========================================================================
+       11. RESPONSIVE (Mobile & Tablette)
+       ========================================================================= */
+    @media (max-width: 960px) {
+      .clicker-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 820px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .sidebar-backdrop.open {
+        display: block;
+      }
+      .main-wrapper {
+        margin-left: 0;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+      .content-area {
+        padding: 14px;
+      }
+      .cloak-quick-select {
+        display: none;
+      }
+      .gdocs-page {
+        padding: 32px 22px;
+      }
+      .gdocs-menubar, .gdocs-ruler {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       ÉCRAN PANIQUE : FAUX GOOGLE DOCS (Masqué par défaut, activé sur Échap)
+       ========================================================================= -->
+  <div id="panic-screen" class="hidden" aria-label="Mode Cours Google Docs">
+    <header class="gdocs-header">
+      <div class="gdocs-header-left">
+        <!-- Clic discret sur l'icône Docs pour revenir au hub -->
+        <button class="gdocs-logo-btn" id="panic-exit-logo" title="Google Docs">
+          <svg width="26" height="26" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#4285F4" d="M10 4h19l11 11v29a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+            <path fill="#A1C2FA" d="M29 4v11h11z"/>
+            <path fill="#FFFFFF" d="M15 22h18v2.5H15zm0 6h18v2.5H15zm0 6h12v2.5H15z"/>
+          </svg>
+        </button>
+        <div class="gdocs-title-block">
+          <div class="gdocs-doc-title" contenteditable="true" spellcheck="false">Notes de cours - Méthodologie &amp; Histoire contemporaine</div>
+          <nav class="gdocs-menubar" aria-hidden="true">
+            <span>Fichier</span>
+            <span>Édition</span>
+            <span>Affichage</span>
+            <span>Insertion</span>
+            <span>Format</span>
+            <span>Outils</span>
+            <span>Extensions</span>
+            <span>Aide</span>
+          </nav>
+        </div>
+      </div>
+      <div class="gdocs-header-right">
+        <div class="gdocs-share-btn">🔒 Partager</div>
+        <div class="gdocs-avatar">E</div>
+      </div>
+    </header>
+
+    <div class="gdocs-toolbar" aria-hidden="true">
+      <span class="gdocs-tool">↶</span>
+      <span class="gdocs-tool">↷</span>
+      <span class="gdocs-tool">🖨️</span>
+      <span class="gdocs-sep"></span>
+      <span class="gdocs-tool">100% ▾</span>
+      <span class="gdocs-sep"></span>
+      <span class="gdocs-tool">Texte normal ▾</span>
+      <span class="gdocs-sep"></span>
+      <span class="gdocs-tool">Arial ▾</span>
+      <span class="gdocs-sep"></span>
+      <span class="gdocs-tool">− 11 +</span>
+      <span class="gdocs-sep"></span>
+      <span class="gdocs-tool"><b>G</b></span>
+      <span class="gdocs-tool"><i>I</i></span>
+      <span class="gdocs-tool"><u>S</u></span>
+      <span class="gdocs-tool">A</span>
+      <span class="gdocs-sep"></span>
+      <span class="gdocs-tool">≡</span>
+      <span class="gdocs-tool">•≡</span>
+      <span class="gdocs-tool">1.≡</span>
+    </div>
+
+    <div class="gdocs-ruler" aria-hidden="true">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16</div>
+
+    <div class="gdocs-workspace">
+      <!-- Feuille A4 éditable pour faire semblant de prendre des notes -->
+      <article class="gdocs-page" id="panic-editor" contenteditable="true" spellcheck="true">
+        <h1>Chapitre 4 : Méthodologie de l'analyse de documents et mutations du XXe siècle</h1>
+        <p style="color:#5f6368; font-size:10pt;">Séance du semestre en cours — Synthèse personnelle et préparation de l'évaluation écrite</p>
+
+        <h2>I. Rappel méthodologique : structurer une analyse critique</h2>
+        <p>L'exercice d'analyse de document repose sur une démarche rigoureuse permettant de croiser les connaissances historiques avec une lecture précise de la source. Il convient d'éviter la simple paraphrase en mettant systématiquement en perspective le contexte de production, la nature du texte et l'intention de l'auteur.</p>
+        <ul>
+          <li><strong>Introduction :</strong> présentation de la source (auteur, date, nature, destinataire), contextualisation historique précise, formulation d'une problématique claire et annonce du plan en deux ou trois axes.</li>
+          <li><strong>Développement argumenté :</strong> chaque paragraphe s'appuie sur une citation courte et pertinente, immédiatement expliquée puis nuancée grâce aux repères du cours.</li>
+          <li><strong>Conclusion :</strong> bilan synthétique répondant à la problématique, évaluation de la portée et des limites du document, suivie d'une ouverture chronologique ou thématique.</li>
+        </ul>
+
+        <h2>II. Les grandes transformations économiques et géopolitiques (1945–1991)</h2>
+        <p>Au lendemain de la Seconde Guerre mondiale, la reconstruction de l'Europe s'accompagne d'une croissance soutenue connue sous le nom de « Trente Glorieuses ». Cette période est marquée par le développement de l'État-providence, la modernisation industrielle, l'urbanisation accélérée et l'émergence de la société de consommation.</p>
+        <p>Sur le plan international, la bipolarisation du monde structure les relations diplomatiques entre le bloc occidental et le bloc soviétique. Parallèlement, le mouvement de décolonisation redessine la carte politique en Asie et en Afrique, donnant naissance au mouvement des non-alignés lors de la conférence de Bandung en 1955.</p>
+
+        <h2>III. Points clés à réviser pour le prochain contrôle</h2>
+        <ul>
+          <li>Définitions à maîtriser : plan Marshall, gouvernance mondiale, tertiarisation, choc pétrolier de 1973.</li>
+          <li>Chronologie : 1947 (doctrine Truman), 1957 (traités de Rome), 1962 (crise de Cuba), 1989 (chute du mur de Berlin).</li>
+          <li>Exercice d'application : rédiger une introduction complète à partir du dossier documentaire page 142.</li>
+        </ul>
+        <p><br></p>
+      </article>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       APPLICATION PRINCIPALE (HUB FURTIF)
+       ========================================================================= -->
+  <div id="app-shell">
+    <!-- Backdrop mobile -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Barre latérale -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">HF</div>
+        <div class="brand-text">
+          <h1>Hub Furtif</h1>
+          <span id="sidebar-cloak-status">Camouflage actif</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Navigation principale">
+        <div class="nav-group-label">Principal</div>
+        <button class="nav-btn active" data-section="home"><span class="nav-icon">🏠</span> Accueil</button>
+        <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2</button>
+        <button class="nav-btn" data-section="memes"><span class="nav-icon">🖼️</span> Banque de Memes</button>
+
+        <div class="nav-group-label">Mini-Jeux</div>
+        <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
+        <button class="nav-btn" data-section="snake"><span class="nav-icon">🐍</span> Snake Néon</button>
+        <button class="nav-btn" data-section="g2048"><span class="nav-icon">🔢</span> 2048</button>
+        <button class="nav-btn" data-section="runner"><span class="nav-icon">🦖</span> Cyber Runner</button>
+        <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim</button>
+        <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
+
+        <div class="nav-group-label">Furtivité</div>
+        <button class="nav-btn" data-section="cloak"><span class="nav-icon">🕵️</span> Camouflage</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        Appuie sur <span class="kbd">Échap</span> à tout moment pour passer en Mode Cours.
+      </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <div class="main-wrapper">
+      <!-- Barre supérieure -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Ouvrir le menu">☰</button>
+          <div id="topbar-title" class="page-title">🏠 Accueil</div>
+        </div>
+
+        <div class="topbar-right">
+          <select id="topbar-cloak-select" class="cloak-quick-select" aria-label="Changer le camouflage d'onglet">
+            <option value="gdocs">📄 Google Docs</option>
+            <option value="gdrive">📁 Google Drive</option>
+            <option value="wiki">🌐 Wikipédia</option>
+            <option value="moodle">🎓 Moodle</option>
+            <option value="calc">🧮 Calculatrice</option>
+            <option value="custom">✏️ Personnalisé</option>
+          </select>
+
+          <button id="panic-trigger-btn" class="panic-btn" title="Masquer instantanément (Touche Échap)">
+            <span>📚 Mode Cours</span>
+            <span class="kbd">Échap</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Zone des sections -->
+      <main class="content-area">
+
+        <!-- ===============================================================
+             SECTION 1 : ACCUEIL
+             =============================================================== -->
+        <section id="sec-home" class="section active">
+          <div class="hero-banner">
+            <div>
+              <h2>Prêt pour survivre à cette heure de cours ?</h2>
+              <p>Ton onglet est déjà camouflé automatiquement. Si quelqu'un s'approche, appuie sur <span class="kbd">Échap</span> pour afficher une vraie feuille Google Docs éditable en un éclair.</p>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-primary" data-goto="slope">⛷️ Jouer à Slope 2</button>
+              <button class="btn btn-violet" data-goto="memes">🖼️ Voir les Memes</button>
+            </div>
+          </div>
+
+          <div class="status-grid">
+            <div class="stat-box">
+              <span class="stat-label">🕵️ Camouflage actuel</span>
+              <span class="stat-value text-emerald" id="dash-cloak-name" style="font-size:17px;">Google Docs</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">⌨️ Record Speed Test</span>
+              <span class="stat-value text-cyan mono" id="dash-rec-cps">0.0 CPS</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">🐍 Record Snake / 2048</span>
+              <span class="stat-value text-violet mono" id="dash-rec-snake2048">0 / 0</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">🦖 Runner / 🐦 Flappy</span>
+              <span class="stat-value text-amber mono" id="dash-rec-runflap">0 / 0</span>
+            </div>
+          </div>
+
+          <div class="games-grid">
+            <button class="game-launch-card" data-goto="slope">
+              <div class="game-launch-icon">⛷️</div>
+              <h3>Slope 2</h3>
+              <p>Dévale des pentes néon à toute vitesse sans tomber dans le vide. Plein écran intégré.</p>
+              <div class="game-launch-meta"><span>Arcade 3D</span><span>Lancer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="memes">
+              <div class="game-launch-icon">🖼️</div>
+              <h3>Banque de Memes</h3>
+              <p>Auto-détection de ton dossier GitHub <code>meme/</code> (1.jpeg, 2.gif...), likes et mode aléatoire.</p>
+              <div class="game-launch-meta"><span id="dash-meme-count">Galerie prête</span><span>Ouvrir →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="clicker">
+              <div class="game-launch-icon">⌨️</div>
+              <h3>Spacebar Clicker</h3>
+              <p>Mode Idle avec boutique d'améliorations + Speed Test chronométré 5s / 10s / 30s.</p>
+              <div class="game-launch-meta"><span id="dash-clicker-pts">0 pts</span><span>Jouer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="snake">
+              <div class="game-launch-icon">🐍</div>
+              <h3>Snake Néon</h3>
+              <p>Le classique revisité en néon : murs traversants ou mortels, 4 vitesses, ZQSD &amp; Flèches.</p>
+              <div class="game-launch-meta"><span id="dash-snake-best">Record : 0</span><span>Jouer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="g2048">
+              <div class="game-launch-icon">🔢</div>
+              <h3>2048</h3>
+              <p>Fusionne les tuiles néon jusqu'à 2048 et au-delà. Fluide au clavier comme au tactile.</p>
+              <div class="game-launch-meta"><span id="dash-2048-best">Record : 0</span><span>Jouer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="runner">
+              <div class="game-launch-icon">🦖</div>
+              <h3>Cyber Runner</h3>
+              <p>Course infinie cybernétique avec saut, double saut, drones et vitesse progressive.</p>
+              <div class="game-launch-meta"><span id="dash-runner-best">Record : 0</span><span>Jouer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="reflex">
+              <div class="game-launch-icon">🎯</div>
+              <h3>Réflexe &amp; Aim Trainer</h3>
+              <p>Teste ton temps de réaction en ms sur 5 essais ou entraîne ta précision pendant 30s.</p>
+              <div class="game-launch-meta"><span id="dash-reflex-best">Aim : 0</span><span>Jouer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="flappy">
+              <div class="game-launch-icon">🐦</div>
+              <h3>Flappy Néon</h3>
+              <p>Franchis les tuyaux lumineux avec une physique ultra-calibrée à la barre Espace.</p>
+              <div class="game-launch-meta"><span id="dash-flappy-best">Record : 0</span><span>Jouer →</span></div>
+            </button>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 2 : SLOPE 2
+             =============================================================== -->
+        <section id="sec-slope" class="section">
+          <div class="card">
+            <div class="slope-controls">
+              <div class="card-title">⛷️ Slope 2</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="slope-reload-btn" class="btn btn-primary btn-sm">▶ Lancer / Recharger</button>
+                <button id="slope-fs-btn" class="btn btn-secondary btn-sm">⛶ Plein écran</button>
+                <a href="https://1games.io/game/slope-2/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">↗ Nouvel onglet</a>
+              </div>
+            </div>
+
+            <!-- Conteneur 16:9 intégrant l'attribut data-iframe demandé -->
+            <div id="slope-frame-wrap" class="slope-frame-wrap" data-iframe="https://1games.io/game/slope-2/">
+              <iframe
+                id="slope-iframe"
+                data-iframe="https://1games.io/game/slope-2/"
+                title="Slope 2"
+                allow="fullscreen; autoplay; gamepad"
+                allowfullscreen
+                referrerpolicy="no-referrer"
+              ></iframe>
+              <div id="slope-placeholder" class="slope-placeholder">
+                <div style="font-size:48px;">⛷️</div>
+                <h3>Slope 2 prêt à démarrer</h3>
+                <p class="text-muted" style="max-width:440px; font-size:13px;">Clique sur le bouton ci-dessous pour charger le jeu. Si le réseau bloque l'iframe, utilise le bouton « Nouvel onglet ».</p>
+                <button id="slope-start-overlay-btn" class="btn btn-primary">▶ Lancer Slope 2</button>
+              </div>
+            </div>
+            <p class="text-muted" style="font-size:12px; margin-top:10px;">
+              Astuce : clique dans la zone du jeu pour activer les touches <span class="kbd">←</span> <span class="kbd">→</span> ou <span class="kbd">A</span> <span class="kbd">D</span>. Appuie sur <span class="kbd">Échap</span> pour cacher immédiatement l'écran.
+            </p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 3 : BANQUE DE MEMES (GitHub Pages)
+             =============================================================== -->
+        <section id="sec-memes" class="section">
+          <div class="card">
+            <div class="meme-toolbar">
+              <div class="card-title">🖼️ Banque de Memes <span id="meme-status-badge" class="badge badge-cyan">Scan...</span></div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <div class="pill-tabs" id="meme-filters">
+                  <button class="pill-tab active" data-filter="all">Tous</button>
+                  <button class="pill-tab" data-filter="gif">GIFs</button>
+                  <button class="pill-tab" data-filter="img">Images</button>
+                </div>
+                <button id="meme-random-btn" class="btn btn-violet btn-sm">🎲 Meme Aléatoire</button>
+                <button id="meme-refresh-btn" class="btn btn-secondary btn-sm">🔄 Actualiser</button>
+                <label class="btn btn-secondary btn-sm" style="cursor:pointer;">
+                  📁 Importer (test)
+                  <input id="meme-local-input" type="file" accept="image/*" multiple class="hidden" />
+                </label>
+              </div>
+            </div>
+
+            <!-- Bandeau discret affiché si aucun fichier n'est détecté dans ./meme/ -->
+            <div id="meme-fallback-banner" class="meme-info-banner hidden">
+              <div>
+                <strong>Mode démo actif :</strong> Aucun fichier détecté dans le dossier <code>./meme/</code> pour l'instant.<br>
+                Sur ton dépôt GitHub, crée simplement un dossier <code>meme/</code> à côté de <code>index.html</code> et ajoute tes fichiers numérotés : <code>meme/1.jpeg</code>, <code>meme/2.gif</code>, <code>meme/3.png</code>, <code>meme/4.webp</code>... Ils apparaîtront automatiquement !
+              </div>
+              <span class="badge badge-violet">Auto-détection GitHub Pages</span>
+            </div>
+
+            <div id="meme-grid" class="meme-grid"></div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 4 : SPACEBAR CLICKER & SPEED TEST
+             =============================================================== -->
+        <section id="sec-clicker" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">⌨️ Spacebar Clicker</div>
+              <div class="pill-tabs" id="clicker-mode-tabs">
+                <button class="pill-tab active" data-cmode="idle">⚡ Mode Clicker / Idle</button>
+                <button class="pill-tab" data-cmode="speed">⏱️ Speed Test (CPS)</button>
+              </div>
+            </div>
+
+            <!-- Sous-onglet 1 : Clicker / Idle -->
+            <div id="clicker-idle-view" class="clicker-layout">
+              <div class="card clicker-stage" id="clicker-stage-box" style="background:var(--bg-panel);">
+                <div class="clicker-big-score mono" id="cl-points">0</div>
+                <div class="clicker-stats-row">
+                  <span class="badge badge-cyan mono">⚡ <span id="cl-cps">0.0</span> CPS</span>
+                  <span class="badge badge-violet mono">👆 +<span id="cl-per-click">1</span> / clic</span>
+                  <span class="badge badge-emerald mono">🤖 +<span id="cl-per-sec">0</span> / s</span>
+                </div>
+
+                <div class="heat-wrap">
+                  <div class="heat-header">
+                    <span>🔥 Surchauffe / Combo</span>
+                    <span id="cl-mult-label" class="text-amber mono">x1.0</span>
+                  </div>
+                  <div class="heat-track">
+                    <div id="cl-heat-fill" class="heat-fill"></div>
+                  </div>
+                </div>
+
+                <button id="cl-space-btn" class="spacebar-btn" type="button">ESPACE</button>
+                <p class="text-muted" style="font-size:12px;">Appuie sur la touche <span class="kbd">Espace</span> ou clique dessus ! (Maintenir enfoncé ne compte pas 😉)</p>
+
+                <div style="margin-top:6px;">
+                  <button id="cl-reset-btn" class="btn btn-danger btn-sm">🗑️ Réinitialiser la progression</button>
+                </div>
+              </div>
+
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <h3 style="font-size:15px;">🛒 Boutique d'améliorations</h3>
+                  <span class="text-muted" style="font-size:12px;">Sauvegarde auto</span>
+                </div>
+                <div id="cl-shop-list" class="shop-list"></div>
+              </div>
+            </div>
+
+            <!-- Sous-onglet 2 : Speed Test -->
+            <div id="clicker-speed-view" class="hidden">
+              <div class="clicker-stage" style="padding:10px 0;">
+                <div class="speed-durations" id="speed-dur-btns">
+                  <button class="btn btn-primary btn-sm" data-dur="5">5 secondes</button>
+                  <button class="btn btn-secondary btn-sm" data-dur="10">10 secondes</button>
+                  <button class="btn btn-secondary btn-sm" data-dur="30">30 secondes</button>
+                </div>
+
+                <div class="clicker-stats-row" style="margin-top:6px;">
+                  <span class="badge badge-amber mono">⏱️ <span id="st-timer">5.00</span>s</span>
+                  <span class="badge badge-cyan mono">💥 <span id="st-hits">0</span> appuis</span>
+                  <span class="badge badge-violet mono">⚡ <span id="st-live-cps">0.0</span> CPS</span>
+                  <span class="badge badge-emerald mono">🏆 Record : <span id="st-best-cps">0.0</span> CPS</span>
+                </div>
+
+                <button id="st-space-btn" class="spacebar-btn" type="button">ESPACE — DÉMARRER</button>
+
+                <div id="st-result-box" class="speed-rank-box hidden">
+                  <div style="font-size:22px; font-weight:800; margin-bottom:4px;" id="st-rank-title">🔥 Tryharder</div>
+                  <div class="text-muted" style="font-size:14px;" id="st-rank-desc">0 appuis — 0.00 CPS moyen</div>
+                  <button id="st-retry-btn" class="btn btn-primary btn-sm" style="margin-top:12px;">🔄 Recommencer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 5 : SNAKE NÉON
+             =============================================================== -->
+        <section id="sec-snake" class="section">
+          <div class="card">
+            <div class="game-hud">
+              <div class="card-title">🐍 Snake Néon</div>
+              <div class="game-hud-group">
+                <span class="badge badge-cyan mono">Score : <span id="sn-score">0</span></span>
+                <span class="badge badge-amber mono">Record : <span id="sn-best">0</span></span>
+                <select id="sn-walls" class="cloak-quick-select" style="display:inline-block;">
+                  <option value="solid">🧱 Murs mortels</option>
+                  <option value="wrap">🌀 Murs traversants</option>
+                </select>
+                <select id="sn-speed" class="cloak-quick-select" style="display:inline-block;">
+                  <option value="145">🐢 Lent</option>
+                  <option value="105" selected>⚡ Normal</option>
+                  <option value="75">🔥 Rapide</option>
+                  <option value="52">🚀 Turbo</option>
+                </select>
+                <button id="sn-restart-btn" class="btn btn-primary btn-sm">🔄 Jouer</button>
+              </div>
+            </div>
+
+            <div class="canvas-container canvas-square" id="sn-wrap">
+              <canvas id="sn-canvas"></canvas>
+              <div id="sn-overlay" class="canvas-overlay">
+                <h3 id="sn-ov-title">🐍 Snake Néon</h3>
+                <p class="text-muted" id="sn-ov-msg">Utilise les flèches ou ZQSD pour diriger le serpent.</p>
+                <button id="sn-ov-btn" class="btn btn-primary">▶ Démarrer</button>
+              </div>
+            </div>
+
+            <div class="touch-dpad" aria-label="Contrôles tactiles Snake">
+              <div></div>
+              <button class="dpad-btn" data-sn-dir="up">▲</button>
+              <div></div>
+              <button class="dpad-btn" data-sn-dir="left">◀</button>
+              <button class="dpad-btn" data-sn-dir="down">▼</button>
+              <button class="dpad-btn" data-sn-dir="right">▶</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 6 : 2048
+             =============================================================== -->
+        <section id="sec-g2048" class="section">
+          <div class="card">
+            <div class="game-hud">
+              <div class="card-title">🔢 2048 Néon</div>
+              <div class="game-hud-group">
+                <span class="badge badge-cyan mono">Score : <span id="g2-score">0</span></span>
+                <span class="badge badge-amber mono">Record : <span id="g2-best">0</span></span>
+                <button id="g2-restart-btn" class="btn btn-primary btn-sm">🔄 Recommencer</button>
+              </div>
+            </div>
+
+            <div class="board-2048-wrap">
+              <div id="g2-board" class="board-2048"></div>
+              <div id="g2-overlay" class="canvas-overlay hidden" style="border-radius:var(--radius-md);">
+                <h3 id="g2-ov-title">Partie terminée !</h3>
+                <p class="text-muted" id="g2-ov-msg"></p>
+                <div style="display:flex; gap:10px;">
+                  <button id="g2-continue-btn" class="btn btn-violet hidden">Continuer</button>
+                  <button id="g2-ov-restart" class="btn btn-primary">🔄 Rejouer</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="touch-dpad" aria-label="Contrôles tactiles 2048">
+              <div></div>
+              <button class="dpad-btn" data-g2-dir="up">▲</button>
+              <div></div>
+              <button class="dpad-btn" data-g2-dir="left">◀</button>
+              <button class="dpad-btn" data-g2-dir="down">▼</button>
+              <button class="dpad-btn" data-g2-dir="right">▶</button>
+            </div>
+            <p class="text-muted" style="text-align:center; font-size:12px; margin-top:10px;">Flèches, ZQSD, boutons ou balayage tactile sur la grille.</p>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 7 : CYBER RUNNER
+             =============================================================== -->
+        <section id="sec-runner" class="section">
+          <div class="card">
+            <div class="game-hud">
+              <div class="card-title">🦖 Cyber Runner</div>
+              <div class="game-hud-group">
+                <span class="badge badge-cyan mono">Distance : <span id="rn-score">0</span></span>
+                <span class="badge badge-amber mono">Record : <span id="rn-best">0</span></span>
+                <span class="badge badge-violet mono">Vitesse : <span id="rn-speed">1.0</span>x</span>
+                <button id="rn-restart-btn" class="btn btn-primary btn-sm">🔄 Rejouer</button>
+              </div>
+            </div>
+
+            <div class="canvas-container canvas-wide" id="rn-wrap">
+              <canvas id="rn-canvas"></canvas>
+              <div id="rn-overlay" class="canvas-overlay">
+                <h3 id="rn-ov-title">🦖 Cyber Runner</h3>
+                <p class="text-muted" id="rn-ov-msg">Appuie sur <span class="kbd">Espace</span>, <span class="kbd">↑</span> ou clique pour sauter (Double saut dispo !)</p>
+                <button id="rn-ov-btn" class="btn btn-primary">▶ Lancer la course</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 8 : RÉFLEXE & AIM TRAINER
+             =============================================================== -->
+        <section id="sec-reflex" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🎯 Réflexe &amp; Aim Trainer</div>
+              <div class="pill-tabs" id="reflex-mode-tabs">
+                <button class="pill-tab active" data-rmode="react">⚡ Temps de Réaction (ms)</button>
+                <button class="pill-tab" data-rmode="aim">🎯 Aim Trainer (30s)</button>
+              </div>
+            </div>
+
+            <!-- Sous-mode 1 : Temps de réaction -->
+            <div id="reflex-react-view">
+              <div class="game-hud">
+                <div class="game-hud-group">
+                  <span class="badge badge-cyan mono">Essai : <span id="rx-try">0</span> / 5</span>
+                  <span class="badge badge-violet mono">Dernier : <span id="rx-last">—</span></span>
+                  <span class="badge badge-emerald mono">Meilleure moy. : <span id="rx-best-avg">—</span></span>
+                </div>
+                <button id="rx-reset-btn" class="btn btn-secondary btn-sm">🔄 Réinitialiser la série</button>
+              </div>
+
+              <div id="rx-pad" class="reaction-pad reaction-idle">
+                <div style="font-size:46px; margin-bottom:10px;" id="rx-icon">⚡</div>
+                <h2 id="rx-title" style="font-size:26px; margin-bottom:6px;">Test de Réflexe</h2>
+                <p id="rx-sub" style="font-size:15px; opacity:0.9;">Clique ici ou appuie sur Espace pour commencer. Dès que ça passe au VERT, réagis !</p>
+              </div>
+
+              <div id="rx-history" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;"></div>
+            </div>
+
+            <!-- Sous-mode 2 : Aim Trainer 30s -->
+            <div id="reflex-aim-view" class="hidden">
+              <div class="game-hud">
+                <div class="game-hud-group">
+                  <span class="badge badge-amber mono">⏱️ <span id="aim-timer">30.0</span>s</span>
+                  <span class="badge badge-cyan mono">🎯 Score : <span id="aim-score">0</span></span>
+                  <span class="badge badge-emerald mono">Précision : <span id="aim-acc">100</span>%</span>
+                  <span class="badge badge-violet mono">🏆 Record : <span id="aim-best">0</span></span>
+                </div>
+                <button id="aim-start-btn" class="btn btn-primary btn-sm">▶ Lancer (30s)</button>
+              </div>
+
+              <div id="aim-arena" class="aim-arena">
+                <div id="aim-overlay" class="canvas-overlay">
+                  <h3 id="aim-ov-title">🎯 Aim Trainer — 30 secondes</h3>
+                  <p class="text-muted" id="aim-ov-msg">Clique sur un maximum de cibles néon sans rater !</p>
+                  <button id="aim-ov-btn" class="btn btn-primary">▶ Commencer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 9 : FLAPPY NÉON
+             =============================================================== -->
+        <section id="sec-flappy" class="section">
+          <div class="card">
+            <div class="game-hud">
+              <div class="card-title">🐦 Flappy Néon</div>
+              <div class="game-hud-group">
+                <span class="badge badge-cyan mono">Score : <span id="fl-score">0</span></span>
+                <span class="badge badge-amber mono">Record : <span id="fl-best">0</span></span>
+                <button id="fl-restart-btn" class="btn btn-primary btn-sm">🔄 Rejouer</button>
+              </div>
+            </div>
+
+            <div class="canvas-container canvas-flappy" id="fl-wrap">
+              <canvas id="fl-canvas"></canvas>
+              <div id="fl-overlay" class="canvas-overlay">
+                <h3 id="fl-ov-title">🐦 Flappy Néon</h3>
+                <p class="text-muted" id="fl-ov-msg">Appuie sur <span class="kbd">Espace</span> ou clique/tape pour battre des ailes !</p>
+                <button id="fl-ov-btn" class="btn btn-primary">▶ Décoller</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             SECTION 10 : PARAMÈTRES DE CAMOUFLAGE (TAB CLOAK)
+             =============================================================== -->
+        <section id="sec-cloak" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🕵️ Camouflage d'Onglet (Tab Cloak) &amp; Mode Panique</div>
+              <span class="badge badge-emerald">Actif automatiquement</span>
+            </div>
+            <p class="text-muted" style="font-size:14px; line-height:1.5;">
+              Choisis l'apparence de cet onglet dans ton navigateur (titre + icône favicon). Ton choix est sauvegardé automatiquement pour tes prochaines visites.
+            </p>
+
+            <div id="cloak-presets-grid" class="cloak-presets-grid"></div>
+
+            <div style="background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px; margin-bottom:20px;">
+              <h4 style="font-size:14px; margin-bottom:10px;">✏️ Titre personnalisé</h4>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <input id="cloak-custom-input" type="text" class="input-text" style="flex:1; min-width:220px;" placeholder="Ex : Cours de Mathématiques - Chapitre 3" />
+                <button id="cloak-custom-apply" class="btn btn-primary">Appliquer</button>
+              </div>
+            </div>
+
+            <div style="background:rgba(37,99,235,0.1); border:1px solid rgba(59,130,246,0.35); border-radius:var(--radius-md); padding:16px;">
+              <h4 style="font-size:15px; margin-bottom:8px;">📚 Fonctionnement du Bouton Panique (Boss Key)</h4>
+              <ul style="margin-left:20px; font-size:13px; color:var(--text-muted); line-height:1.7;">
+                <li>Appuie sur <span class="kbd">Échap</span> (ou clique sur <strong>📚 Mode Cours</strong> en haut à droite) pour basculer instantanément sur un faux écran <strong>Google Docs</strong> plein écran.</li>
+                <li>Tous les jeux en cours sont mis en pause automatiquement et l'iframe de Slope 2 est masquée.</li>
+                <li>La feuille Google Docs est entièrement modifiable : tu peux taper dessus pour faire semblant de prendre des notes.</li>
+                <li>Pour revenir au hub : réappuie sur <span class="kbd">Échap</span> ou clique discrètement sur l'icône bleue Google Docs en haut à gauche.</li>
+              </ul>
+              <div style="margin-top:12px;">
+                <button id="cloak-test-panic-btn" class="panic-btn">📚 Tester le Mode Cours maintenant</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Lightbox Plein Écran pour la Banque de Memes -->
+  <div id="meme-lightbox" class="hidden" role="dialog" aria-modal="true">
+    <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="Meme précédent">‹</button>
+    <div class="lightbox-stage">
+      <img id="lb-img" src="" alt="Meme agrandi" />
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="Meme suivant">›</button>
+    <div class="lightbox-bar">
+      <span id="lb-caption" class="badge"></span>
+      <button id="lb-like-btn" class="like-btn">😂 <span id="lb-like-count">0</span></button>
+      <button id="lb-close-btn" class="btn btn-secondary btn-sm">✕ Fermer</button>
+    </div>
+  </div>
+
+  <!-- Conteneur de notifications Toast -->
+  <div id="toast-container"></div>
+
+  <script>
+    /* =========================================================================
+       HUB FURTIF — APPLICATION COMPLÈTE (Zéro dépendance externe)
+       Architecture modulaire claire et commentée pour modification facile.
+       ========================================================================= */
+    (function () {
+      'use strict';
+
+      /* -----------------------------------------------------------------------
+         1. STOCKAGE LOCAL DISCRET & UTILITAIRES
+         ----------------------------------------------------------------------- */
+      const STORAGE_KEY = 'gdocs_user_prefs_cache_v1'; // Clé discrète dans localStorage
+
+      const defaultData = {
+        cloak: { preset: 'gdocs', customTitle: 'Notes de cours - Semestre 1' },
+        likes: {},
+        clicker: {
+          points: 0,
+          totalClicks: 0,
+          upgrades: { thumb: 0, mech: 0, auto: 0, macro: 0, bot: 0, ai: 0 },
+          speedBest: { 5: 0, 10: 0, 30: 0 }
+        },
+        records: {
+          snake: 0,
+          g2048: 0,
+          runner: 0,
+          flappy: 0,
+          aim: 0,
+          reactBestAvg: null
+        }
+      };
+
+      function loadData() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return structuredClone(defaultData);
+          const parsed = JSON.parse(raw);
+          return {
+            cloak: { ...defaultData.cloak, ...(parsed.cloak || {}) },
+            likes: { ...(parsed.likes || {}) },
+            clicker: {
+              ...defaultData.clicker,
+              ...(parsed.clicker || {}),
+              upgrades: { ...defaultData.clicker.upgrades, ...(parsed.clicker?.upgrades || {}) },
+              speedBest: { ...defaultData.clicker.speedBest, ...(parsed.clicker?.speedBest || {}) }
+            },
+            records: { ...defaultData.records, ...(parsed.records || {}) }
+          };
+        } catch (err) {
+          return structuredClone(defaultData);
+        }
+      }
+
+      let Store = loadData();
+
+      function saveData() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(Store));
+        } catch (err) {
+          // Stockage indisponible (navigation privée stricte)
+        }
+      }
+
+      // Notification discrète (remplace alert())
+      function showToast(msg, icon = '✨') {
+        const container = document.getElementById('toast-container');
+        const el = document.createElement('div');
+        el.className = 'toast';
+        el.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
+        container.appendChild(el);
+        setTimeout(() => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(8px)';
+          el.style.transition = '0.2s ease';
+          setTimeout(() => el.remove(), 220);
+        }, 2500);
+      }
+
+      const AppState = {
+        activeSection: 'home',
+        panicActive: false,
+        lightboxOpen: false,
+        slopeLoaded: false
+      };
+
+      /* -----------------------------------------------------------------------
+         2. SYSTÈME DE CAMOUFLAGE D'ONGLET (TAB CLOAK) & MODE PANIQUE
+         ----------------------------------------------------------------------- */
+      const CLOAK_PRESETS = {
+        gdocs: {
+          name: 'Google Docs',
+          title: 'Document sans titre - Google Docs',
+          svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#4285F4" d="M10 4h19l11 11v29a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path fill="#A1C2FA" d="M29 4v11h11z"/><path fill="#FFFFFF" d="M15 22h18v2.5H15zm0 6h18v2.5H15zm0 6h12v2.5H15z"/></svg>`
+        },
+        gdrive: {
+          name: 'Google Drive',
+          title: 'Mon Drive - Google Drive',
+          svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#0F9D58" d="M16 8L4 29l6 11 12-21z"/><path fill="#FFCD40" d="M32 8H16l12 21h16z"/><path fill="#4285F4" d="M10 40h28l6-11H16z"/></svg>`
+        },
+        wiki: {
+          name: 'Wikipédia',
+          title: "Wikipédia, l'encyclopédie libre",
+          svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#F8F9FA" stroke="#A2A9B1" stroke-width="2"/><text x="24" y="33" text-anchor="middle" font-family="Georgia,serif" font-size="27" font-weight="bold" fill="#202122">W</text></svg>`
+        },
+        moodle: {
+          name: 'Moodle',
+          title: 'Tableau de bord | Moodle',
+          svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#F98012"/><path fill="#1E293B" d="M6 17l18-7 18 7-18 7z"/><text x="24" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="900" fill="#FFFFFF">m</text></svg>`
+        },
+        calc: {
+          name: 'Calculatrice',
+          title: 'Calculatrice scientifique',
+          svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="7" y="4" width="34" height="40" rx="6" fill="#334155"/><rect x="12" y="9" width="24" height="9" rx="2" fill="#94A3B8"/><circle cx="15" cy="25" r="2.5" fill="#E2E8F0"/><circle cx="24" cy="25" r="2.5" fill="#E2E8F0"/><circle cx="33" cy="25" r="2.5" fill="#F59E0B"/><circle cx="15" cy="34" r="2.5" fill="#E2E8F0"/><circle cx="24" cy="34" r="2.5" fill="#E2E8F0"/><circle cx="33" cy="34" r="2.5" fill="#38BDF8"/></svg>`
+        },
+        custom: {
+          name: 'Personnalisé',
+          title: 'Notes de cours',
+          svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="8" fill="#475569"/><path fill="#FFFFFF" d="M14 17h20v3H14zm0 7h20v3H14zm0 7h13v3H14z"/></svg>`
+        }
+      };
+
+      function svgToDataUri(svg) {
+        return 'data:image/svg+xml,' + encodeURIComponent(svg);
+      }
+
+      function applyCloak(presetKey, customTitle = null) {
+        const key = CLOAK_PRESETS[presetKey] ? presetKey : 'gdocs';
+        Store.cloak.preset = key;
+        if (customTitle !== null) Store.cloak.customTitle = customTitle.trim() || 'Document sans titre';
+
+        const preset = CLOAK_PRESETS[key];
+        const finalTitle = key === 'custom' ? Store.cloak.customTitle : preset.title;
+        document.title = finalTitle;
+
+        const fav = document.getElementById('dynamic-favicon');
+        if (fav) fav.href = svgToDataUri(preset.svg);
+
+        // Synchroniser les sélecteurs UI
+        const topSelect = document.getElementById('topbar-cloak-select');
+        if (topSelect) topSelect.value = key;
+        const customInput = document.getElementById('cloak-custom-input');
+        if (customInput) customInput.value = Store.cloak.customTitle;
+
+        const dashName = document.getElementById('dash-cloak-name');
+        if (dashName) dashName.textContent = key === 'custom' ? Store.cloak.customTitle : preset.name;
+        const sbStatus = document.getElementById('sidebar-cloak-status');
+        if (sbStatus) sbStatus.textContent = `Onglet : ${preset.name}`;
+
+        document.querySelectorAll('.cloak-preset-card').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.preset === key);
+        });
+
+        saveData();
+      }
+
+      function initCloakUI() {
+        const grid = document.getElementById('cloak-presets-grid');
+        grid.innerHTML = '';
+        Object.entries(CLOAK_PRESETS).forEach(([key, p]) => {
+          const btn = document.createElement('button');
+          btn.className = 'cloak-preset-card';
+          btn.dataset.preset = key;
+          btn.innerHTML = `
+            <img src="${svgToDataUri(p.svg)}" alt="${p.name}" />
+            <div style="min-width:0;">
+              <div style="font-weight:700; font-size:14px;">${p.name}</div>
+              <div class="text-muted" style="font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${key === 'custom' ? 'Titre libre' : p.title}</div>
+            </div>
+          `;
+          btn.addEventListener('click', () => {
+            applyCloak(key);
+            showToast(`Onglet camouflé en ${p.name}`, '🕵️');
+          });
+          grid.appendChild(btn);
+        });
+
+        document.getElementById('topbar-cloak-select').addEventListener('change', (e) => {
+          applyCloak(e.target.value);
+          showToast(`Camouflage : ${CLOAK_PRESETS[e.target.value].name}`, '🕵️');
+        });
+
+        document.getElementById('cloak-custom-apply').addEventListener('click', () => {
+          const val = document.getElementById('cloak-custom-input').value;
+          applyCloak('custom', val);
+          showToast('Titre personnalisé appliqué !', '✏️');
+        });
+
+        document.getElementById('cloak-test-panic-btn').addEventListener('click', () => setPanicMode(true));
+
+        // Appliquer le camouflage dès le démarrage (Google Docs par défaut)
+        applyCloak(Store.cloak.preset);
+      }
+
+      // Bouton Panique / Mode Cours (Échap)
+      function setPanicMode(active) {
+        AppState.panicActive = active;
+        const panicScreen = document.getElementById('panic-screen');
+        const appShell = document.getElementById('app-shell');
+        const slopeWrap = document.getElementById('slope-frame-wrap');
+        const lightbox = document.getElementById('meme-lightbox');
+
+        if (active) {
+          pauseAllGames();
+          if (AppState.lightboxOpen) closeLightbox();
+          if (slopeWrap) slopeWrap.style.visibility = 'hidden';
+          appShell.classList.add('hidden');
+          lightbox.classList.add('hidden');
+          panicScreen.classList.remove('hidden');
+          // Forcer l'onglet en Google Docs pendant le mode panique
+          document.title = CLOAK_PRESETS.gdocs.title;
+          document.getElementById('dynamic-favicon').href = svgToDataUri(CLOAK_PRESETS.gdocs.svg);
+        } else {
+          panicScreen.classList.add('hidden');
+          appShell.classList.remove('hidden');
+          if (slopeWrap) slopeWrap.style.visibility = 'visible';
+          applyCloak(Store.cloak.preset);
+          resizeActiveCanvas();
+        }
+      }
+
+      document.getElementById('panic-trigger-btn').addEventListener('click', () => setPanicMode(true));
+      document.getElementById('panic-exit-logo').addEventListener('click', () => setPanicMode(false));
+
+      /* -----------------------------------------------------------------------
+         3. NAVIGATION & DASHBOARD
+         ----------------------------------------------------------------------- */
+      const SECTION_TITLES = {
+        home: '🏠 Accueil',
+        slope: '⛷️ Slope 2',
+        memes: '🖼️ Banque de Memes',
+        clicker: '⌨️ Spacebar Clicker',
+        snake: '🐍 Snake Néon',
+        g2048: '🔢 2048 Néon',
+        runner: '🦖 Cyber Runner',
+        reflex: '🎯 Réflexe & Aim Trainer',
+        flappy: '🐦 Flappy Néon',
+        cloak: '🕵️ Camouflage & Mode Cours'
+      };
+
+      function pauseAllGames() {
+        SnakeGame.pause();
+        RunnerGame.pause();
+        FlappyGame.pause();
+        ReflexGame.pause();
+      }
+
+      function resizeActiveCanvas() {
+        if (AppState.activeSection === 'snake') SnakeGame.resize();
+        if (AppState.activeSection === 'runner') RunnerGame.resize();
+        if (AppState.activeSection === 'flappy') FlappyGame.resize();
+      }
+
+      function navigateTo(sectionKey) {
+        if (!SECTION_TITLES[sectionKey]) return;
+        pauseAllGames();
+        AppState.activeSection = sectionKey;
+
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        const target = document.getElementById(`sec-${sectionKey}`);
+        if (target) target.classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.section === sectionKey);
+        });
+
+        document.getElementById('topbar-title').textContent = SECTION_TITLES[sectionKey];
+        closeMobileSidebar();
+
+        // Actions spécifiques à l'entrée d'une section
+        if (sectionKey === 'home') updateDashboardStats();
+        if (sectionKey === 'slope' && !AppState.slopeLoaded) loadSlopeIframe();
+        if (sectionKey === 'memes' && !MemeGallery.initialized) MemeGallery.scan();
+        if (sectionKey === 'snake') requestAnimationFrame(() => SnakeGame.resize());
+        if (sectionKey === 'runner') requestAnimationFrame(() => RunnerGame.resize());
+        if (sectionKey === 'flappy') requestAnimationFrame(() => FlappyGame.resize());
+      }
+
+      function closeMobileSidebar() {
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('sidebar-backdrop').classList.remove('open');
+      }
+
+      document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('sidebar-backdrop').classList.toggle('open');
+      });
+      document.getElementById('sidebar-backdrop').addEventListener('click', closeMobileSidebar);
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => navigateTo(btn.dataset.section));
+      });
+      document.querySelectorAll('[data-goto]').forEach(btn => {
+        btn.addEventListener('click', () => navigateTo(btn.dataset.goto));
+      });
+
+      function updateDashboardStats() {
+        const bestCps = Math.max(
+          Store.clicker.speedBest[5] || 0,
+          Store.clicker.speedBest[10] || 0,
+          Store.clicker.speedBest[30] || 0
+        );
+        document.getElementById('dash-rec-cps').textContent = `${bestCps.toFixed(1)} CPS`;
+        document.getElementById('dash-rec-snake2048').textContent = `${Store.records.snake} / ${Store.records.g2048}`;
+        document.getElementById('dash-rec-runflap').textContent = `${Store.records.runner} / ${Store.records.flappy}`;
+        document.getElementById('dash-clicker-pts').textContent = `${Math.floor(Store.clicker.points).toLocaleString('fr-FR')} pts`;
+        document.getElementById('dash-snake-best').textContent = `Record : ${Store.records.snake}`;
+        document.getElementById('dash-2048-best').textContent = `Record : ${Store.records.g2048}`;
+        document.getElementById('dash-runner-best').textContent = `Record : ${Store.records.runner}`;
+        document.getElementById('dash-flappy-best').textContent = `Record : ${Store.records.flappy}`;
+        document.getElementById('dash-reflex-best').textContent = `Aim : ${Store.records.aim}`;
+      }
+
+      /* -----------------------------------------------------------------------
+         4. SLOPE 2 (Intégration avec data-iframe & Plein écran)
+         ----------------------------------------------------------------------- */
+      function loadSlopeIframe() {
+        const iframe = document.getElementById('slope-iframe');
+        const placeholder = document.getElementById('slope-placeholder');
+        const url = iframe.getAttribute('data-iframe');
+        if (!url) return;
+        iframe.src = url;
+        placeholder.classList.add('hidden');
+        AppState.slopeLoaded = true;
+      }
+
+      document.getElementById('slope-start-overlay-btn').addEventListener('click', loadSlopeIframe);
+      document.getElementById('slope-reload-btn').addEventListener('click', () => {
+        const iframe = document.getElementById('slope-iframe');
+        iframe.src = 'about:blank';
+        setTimeout(loadSlopeIframe, 60);
+        showToast('Rechargement de Slope 2...', '⛷️');
+      });
+
+      document.getElementById('slope-fs-btn').addEventListener('click', () => {
+        const wrap = document.getElementById('slope-frame-wrap');
+        try {
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else if (wrap.requestFullscreen) {
+            wrap.requestFullscreen();
+          } else if (wrap.webkitRequestFullscreen) {
+            wrap.webkitRequestFullscreen();
+          } else {
+            showToast('Plein écran non supporté par ce navigateur', '⚠️');
+          }
+        } catch (err) {
+          showToast('Impossible de passer en plein écran', '⚠️');
+        }
+      });
+
+      /* -----------------------------------------------------------------------
+         5. BANQUE DE MEMES COMPATIBLE GITHUB PAGES (./meme/1.jpeg, 2.gif...)
+         ----------------------------------------------------------------------- */
+      const MemeGallery = (() => {
+        const EXTENSIONS = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
+        let items = [];
+        let filter = 'all';
+        let lbIndex = 0;
+        let initialized = false;
+        let scanning = false;
+
+        // Générateur de memes SVG humoristiques pour le mode démo
+        function makeDemoSvg(bg1, bg2, emoji, topText, bottomText) {
+          const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${bg1}"/>
+                <stop offset="100%" stop-color="${bg2}"/>
+              </linearGradient>
+            </defs>
+            <rect width="600" height="450" fill="url(#g)"/>
+            <rect x="18" y="18" width="564" height="414" rx="22" fill="rgba(0,0,0,0.28)" stroke="rgba(255,255,255,0.22)" stroke-width="3"/>
+            <text x="300" y="92" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="30" fill="#ffffff" stroke="#000" stroke-width="1.5">${topText}</text>
+            <text x="300" y="255" text-anchor="middle" font-size="115">${emoji}</text>
+            <text x="300" y="382" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="27" fill="#fef08a" stroke="#000" stroke-width="1.5">${bottomText}</text>
+          </svg>`;
+          return svgToDataUri(svg);
+        }
+
+        const DEMO_MEMES = [
+          {
+            id: 'demo-1',
+            name: 'Mode Panique (Démo)',
+            type: 'img',
+            src: makeDemoSvg('#1e3a8a', '#312e81', '🥷', 'LE PROF PASSANT DERRIÈRE MOI', 'MOI SUR ÉCHAP EN 0.02s : "NOTES DE COURS"')
+          },
+          {
+            id: 'demo-2',
+            name: 'Devoirs oubliés (Démo)',
+            type: 'img',
+            src: makeDemoSvg('#7f1d1d', '#4c1d95', '💀', 'QUAND UN ÉLÈVE DIT :', '"MONSIEUR VOUS AVEZ OUBLIÉ LES DEVOIRS"')
+          },
+          {
+            id: 'demo-3',
+            name: 'Cours de 8h (Démo)',
+            type: 'img',
+            src: makeDemoSvg('#0f766e', '#1e293b', '🫠', 'MON CERVEAU EN COURS À 8H05', 'CHARGEMENT EN COURS... 2%')
+          },
+          {
+            id: 'demo-4',
+            name: 'Sonnerie imminente (Démo)',
+            type: 'gif',
+            src: makeDemoSvg('#581c87', '#be185d', '⏱️', 'IL RESTE 2 MINUTES AVANT LA PAUSE', 'LE PROF : "OUVREZ PAGE 184"')
+          },
+          {
+            id: 'demo-5',
+            name: 'Code qui marche (Démo)',
+            type: 'img',
+            src: makeDemoSvg('#065f46', '#1e3a8a', '🧙‍♂️', 'MON CODE MARCHE DU 1ER COUP', 'NE PLUS RIEN TOUCHER JAMAIS')
+          },
+          {
+            id: 'demo-6',
+            name: 'Record Slope 2 (Démo)',
+            type: 'gif',
+            src: makeDemoSvg('#9a3412', '#1e1b4b', '⛷️', 'QUAND TU BATS TON RECORD SLOPE 2', 'ET QUE LA CLOCHE SONNE')
+          }
+        ];
+
+        // Test rapide d'une image via objet Image (fonctionne sur GitHub Pages et en local)
+        function probeImage(url) {
+          return new Promise((resolve) => {
+            const img = new Image();
+            let done = false;
+            const timer = setTimeout(() => {
+              if (!done) { done = true; resolve(null); }
+            }, 2200);
+            img.onload = () => {
+              if (!done) { done = true; clearTimeout(timer); resolve(url); }
+            };
+            img.onerror = () => {
+              if (!done) { done = true; clearTimeout(timer); resolve(null); }
+            };
+            img.src = url;
+          });
+        }
+
+        // Auto-détection dans ./meme/ (1.jpeg, 1.jpg, 1.png, 1.gif, 1.webp, puis 2, 3...)
+        // S'arrête après 5 numéros consécutifs introuvables
+        async function scan() {
+          if (scanning) return;
+          scanning = true;
+          initialized = true;
+          const badge = document.getElementById('meme-status-badge');
+          const banner = document.getElementById('meme-fallback-banner');
+          badge.textContent = 'Scan de ./meme/...';
+
+          const found = [];
+          let consecutiveMisses = 0;
+          const MAX_MISSES = 5;
+          const MAX_INDEX = 150;
+
+          for (let i = 1; i <= MAX_INDEX && consecutiveMisses < MAX_MISSES; i++) {
+            const probes = EXTENSIONS.map(ext => {
+              const path = `./meme/${i}.${ext}`;
+              return probeImage(path).then(ok => ok ? { id: `gh-${i}.${ext}`, name: `${i}.${ext}`, type: ext === 'gif' ? 'gif' : 'img', src: path } : null);
+            });
+            const results = await Promise.all(probes);
+            const valid = results.filter(Boolean);
+            if (valid.length > 0) {
+              found.push(...valid);
+              consecutiveMisses = 0;
+            } else {
+              consecutiveMisses++;
+            }
+          }
+
+          if (found.length > 0) {
+            items = found;
+            banner.classList.add('hidden');
+            badge.textContent = `${found.length} meme(s) détecté(s)`;
+          } else {
+            items = [...DEMO_MEMES];
+            banner.classList.remove('hidden');
+            badge.textContent = `${items.length} démos (./meme/ vide)`;
+          }
+
+          document.getElementById('dash-meme-count').textContent = `${items.length} memes prêts`;
+          scanning = false;
+          render();
+        }
+
+        function getFiltered() {
+          if (filter === 'all') return items;
+          return items.filter(m => m.type === filter);
+        }
+
+        function toggleLike(id) {
+          Store.likes[id] = (Store.likes[id] || 0) + 1;
+          saveData();
+          render();
+          if (AppState.lightboxOpen) updateLightboxView();
+        }
+
+        function render() {
+          const grid = document.getElementById('meme-grid');
+          const list = getFiltered();
+          grid.innerHTML = '';
+
+          if (list.length === 0) {
+            grid.innerHTML = `<div class="text-muted" style="grid-column:1/-1; text-align:center; padding:40px;">Aucun meme dans cette catégorie.</div>`;
+            return;
+          }
+
+          list.forEach((m, idx) => {
+            const likes = Store.likes[m.id] || 0;
+            const card = document.createElement('div');
+            card.className = 'meme-card';
+            card.innerHTML = `
+              <div class="meme-thumb-wrap">
+                <span class="meme-type-tag">${m.type === 'gif' ? 'GIF' : 'IMG'}</span>
+                <img src="${m.src}" alt="${m.name}" loading="lazy" />
+              </div>
+              <div class="meme-card-footer">
+                <span class="meme-name" title="${m.name}">${m.name}</span>
+                <button class="like-btn ${likes > 0 ? 'liked' : ''}" type="button">😂 <span>${likes}</span></button>
+              </div>
+            `;
+            card.querySelector('.meme-thumb-wrap').addEventListener('click', () => openLightbox(idx));
+            card.querySelector('.like-btn').addEventListener('click', (e) => {
+              e.stopPropagation();
+              toggleLike(m.id);
+            });
+            grid.appendChild(card);
+          });
+        }
+
+        function openLightbox(idx) {
+          const list = getFiltered();
+          if (!list.length) return;
+          lbIndex = (idx + list.length) % list.length;
+          AppState.lightboxOpen = true;
+          document.getElementById('meme-lightbox').classList.remove('hidden');
+          updateLightboxView();
+        }
+
+        function updateLightboxView() {
+          const list = getFiltered();
+          if (!list.length) return closeLightbox();
+          const m = list[lbIndex];
+          document.getElementById('lb-img').src = m.src;
+          document.getElementById('lb-caption').textContent = `${m.name} (${lbIndex + 1}/${list.length})`;
+          const likes = Store.likes[m.id] || 0;
+          document.getElementById('lb-like-count').textContent = likes;
+          document.getElementById('lb-like-btn').classList.toggle('liked', likes > 0);
+        }
+
+        function stepLightbox(delta) {
+          const list = getFiltered();
+          if (!list.length) return;
+          lbIndex = (lbIndex + delta + list.length) % list.length;
+          updateLightboxView();
+        }
+
+        // Import local temporaire pour tester des fichiers avant de push sur GitHub
+        function importLocalFiles(fileList) {
+          if (!fileList || !fileList.length) return;
+          const added = [];
+          Array.from(fileList).forEach((file, i) => {
+            const url = URL.createObjectURL(file);
+            const isGif = file.type === 'image/gif' || file.name.toLowerCase().endsWith('.gif');
+            added.push({
+              id: `local-${file.name}-${file.size}-${i}`,
+              name: file.name,
+              type: isGif ? 'gif' : 'img',
+              src: url
+            });
+          });
+          // Remplacer les démos si on était en mode démo, sinon ajouter
+          if (items.length && items[0].id.startsWith('demo-')) {
+            items = added;
+          } else {
+            items = [...added, ...items];
+          }
+          document.getElementById('meme-status-badge').textContent = `${items.length} meme(s) chargés`;
+          document.getElementById('dash-meme-count').textContent = `${items.length} memes prêts`;
+          render();
+          showToast(`${added.length} image(s) importée(s) pour test !`, '🖼️');
+        }
+
+        // Liaison des événements
+        document.querySelectorAll('#meme-filters .pill-tab').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('#meme-filters .pill-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filter = btn.dataset.filter;
+            render();
+          });
+        });
+
+        document.getElementById('meme-refresh-btn').addEventListener('click', () => {
+          scan();
+          showToast('Actualisation du dossier ./meme/...', '🔄');
+        });
+
+        document.getElementById('meme-random-btn').addEventListener('click', () => {
+          const list = getFiltered();
+          if (!list.length) return;
+          const rand = Math.floor(Math.random() * list.length);
+          openLightbox(rand);
+        });
+
+        document.getElementById('meme-local-input').addEventListener('change', (e) => {
+          importLocalFiles(e.target.files);
+          e.target.value = '';
+        });
+
+        document.getElementById('lb-prev').addEventListener('click', () => stepLightbox(-1));
+        document.getElementById('lb-next').addEventListener('click', () => stepLightbox(1));
+        document.getElementById('lb-close-btn').addEventListener('click', closeLightbox);
+        document.getElementById('lb-like-btn').addEventListener('click', () => {
+          const list = getFiltered();
+          if (list[lbIndex]) toggleLike(list[lbIndex].id);
+        });
+        document.getElementById('meme-lightbox').addEventListener('click', (e) => {
+          if (e.target.id === 'meme-lightbox') closeLightbox();
+        });
+
+        return {
+          get initialized() { return initialized; },
+          scan,
+          stepLightbox
+        };
+      })();
+
+      function closeLightbox() {
+        AppState.lightboxOpen = false;
+        document.getElementById('meme-lightbox').classList.add('hidden');
+      }
+
+      /* -----------------------------------------------------------------------
+         6. SPACEBAR CLICKER (Mode Idle + Boutique + Speed Test)
+         ----------------------------------------------------------------------- */
+      const SpacebarClicker = (() => {
+        let mode = 'idle'; // 'idle' | 'speed'
+        let heat = 0; // 0 à 100
+        let clickTimestamps = [];
+        let resetConfirmPending = false;
+        let resetConfirmTimer = null;
+
+        // Définition des 6 améliorations
+        const UPGRADES = [
+          { id: 'thumb', name: 'Double Pouce', desc: '+1 point par clic', type: 'click', power: 1, baseCost: 15, icon: '👍' },
+          { id: 'mech',  name: 'Clavier Mécanique', desc: '+3 points par clic', type: 'click', power: 3, baseCost: 65, icon: '⌨️' },
+          { id: 'auto',  name: 'Auto-Clicker', desc: '+2 points / seconde', type: 'sec', power: 2, baseCost: 50, icon: '🖱️' },
+          { id: 'macro', name: 'Macro Turbo', desc: '+10 points / seconde', type: 'sec', power: 10, baseCost: 250, icon: '⚡' },
+          { id: 'bot',   name: 'Bot de Cours', desc: '+35 points / seconde', type: 'sec', power: 35, baseCost: 1000, icon: '🤖' },
+          { id: 'ai',    name: 'IA Quantique', desc: '+120 points / seconde', type: 'sec', power: 120, baseCost: 4500, icon: '🧠' }
+        ];
+
+        function getCost(u) {
+          const owned = Store.clicker.upgrades[u.id] || 0;
+          return Math.floor(u.baseCost * Math.pow(1.18, owned));
+        }
+
+        function getPerClick() {
+          let base = 1;
+          UPGRADES.filter(u => u.type === 'click').forEach(u => {
+            base += (Store.clicker.upgrades[u.id] || 0) * u.power;
+          });
+          return base;
+        }
+
+        function getPerSec() {
+          let sec = 0;
+          UPGRADES.filter(u => u.type === 'sec').forEach(u => {
+            sec += (Store.clicker.upgrades[u.id] || 0) * u.power;
+          });
+          return sec;
+        }
+
+        function getHeatMultiplier() {
+          return 1 + Math.floor(heat / 25) * 0.25; // Jusqu'à x2.0 à 100%
+        }
+
+        function spawnFloatText(text) {
+          const stage = document.getElementById('clicker-stage-box');
+          const btn = document.getElementById('cl-space-btn');
+          const el = document.createElement('div');
+          el.className = 'float-particle mono';
+          el.textContent = text;
+          const leftPct = 25 + Math.random() * 50;
+          el.style.left = `${leftPct}%`;
+          el.style.top = `${btn.offsetTop - 6}px`;
+          stage.appendChild(el);
+          setTimeout(() => el.remove(), 760);
+        }
+
+        function triggerIdleHit() {
+          const now = performance.now();
+          clickTimestamps.push(now);
+          heat = Math.min(100, heat + 7.5);
+          const mult = getHeatMultiplier();
+          const gain = Math.round(getPerClick() * mult);
+          Store.clicker.points += gain;
+          Store.clicker.totalClicks++;
+
+          const btn = document.getElementById('cl-space-btn');
+          btn.classList.add('pressed');
+          setTimeout(() => btn.classList.remove('pressed'), 80);
+
+          spawnFloatText(`+${gain}`);
+          updateIdleUI();
+        }
+
+        function renderShop() {
+          const list = document.getElementById('cl-shop-list');
+          list.innerHTML = '';
+          UPGRADES.forEach(u => {
+            const owned = Store.clicker.upgrades[u.id] || 0;
+            const cost = getCost(u);
+            const canBuy = Store.clicker.points >= cost;
+            const row = document.createElement('div');
+            row.className = `shop-item ${canBuy ? 'affordable' : ''}`;
+            row.innerHTML = `
+              <div class="shop-item-info">
+                <h4>${u.icon} ${u.name} <span class="badge mono" style="padding:2px 7px; font-size:11px;">x${owned}</span></h4>
+                <p>${u.desc}</p>
+              </div>
+              <button class="btn ${canBuy ? 'btn-primary' : 'btn-secondary'} btn-sm mono" ${canBuy ? '' : 'disabled'} style="${canBuy ? '' : 'opacity:0.5; cursor:not-allowed;'}">
+                ${cost.toLocaleString('fr-FR')} pts
+              </button>
+            `;
+            row.querySelector('button').addEventListener('click', () => {
+              if (Store.clicker.points >= cost) {
+                Store.clicker.points -= cost;
+                Store.clicker.upgrades[u.id] = owned + 1;
+                saveData();
+                updateIdleUI();
+                showToast(`${u.name} acheté !`, u.icon);
+              }
+            });
+            list.appendChild(row);
+          });
+        }
+
+        function updateIdleUI() {
+          const now = performance.now();
+          clickTimestamps = clickTimestamps.filter(t => now - t <= 1000);
+          document.getElementById('cl-points').textContent = Math.floor(Store.clicker.points).toLocaleString('fr-FR');
+          document.getElementById('cl-cps').textContent = clickTimestamps.length.toFixed(1);
+          document.getElementById('cl-per-click').textContent = getPerClick();
+          document.getElementById('cl-per-sec').textContent = getPerSec();
+          document.getElementById('cl-heat-fill').style.width = `${heat}%`;
+          document.getElementById('cl-mult-label').textContent = `x${getHeatMultiplier().toFixed(2)}`;
+          renderShop();
+        }
+
+        // Boucle passive (10 ticks / seconde pour fluidité)
+        setInterval(() => {
+          const perSec = getPerSec();
+          if (perSec > 0) {
+            Store.clicker.points += perSec / 10;
+          }
+          if (heat > 0) heat = Math.max(0, heat - 1.6);
+          if (AppState.activeSection === 'clicker' && mode === 'idle' && !AppState.panicActive) {
+            updateIdleUI();
+          }
+        }, 100);
+
+        // Sauvegarde auto toutes les 5s
+        setInterval(saveData, 5000);
+
+        // --- SPEED TEST ---
+        let stDuration = 5;
+        let stRunning = false;
+        let stFinishedAt = 0;
+        let stStartTime = 0;
+        let stHits = 0;
+        let stRaf = null;
+
+        function getRank(cps) {
+          if (cps < 3) return { title: '🐌 Escargot fatigué', desc: 'Tu dors encore sur le bureau ?' };
+          if (cps < 5.5) return { title: '☕ Stagiaire', desc: 'Pas mal, un petit café et ça repart.' };
+          if (cps < 7.5) return { title: '⚡ Élève éveillé', desc: 'Rythme solide, le clavier tient bon !' };
+          if (cps < 9.5) return { title: '🔥 Tryharder', desc: 'Les voisins de table commencent à t’entendre.' };
+          if (cps < 12) return { title: '🤖 Cyborg du clavier', desc: 'Tes doigts dépassent le mur du son.' };
+          return { title: '👑 Dieu de la Barre Espace', desc: 'Légendaire. Respect éternel.' };
+        }
+
+        function resetSpeedTest() {
+          cancelAnimationFrame(stRaf);
+          stRunning = false;
+          stHits = 0;
+          document.getElementById('st-timer').textContent = stDuration.toFixed(2);
+          document.getElementById('st-hits').textContent = '0';
+          document.getElementById('st-live-cps').textContent = '0.0';
+          document.getElementById('st-best-cps').textContent = (Store.clicker.speedBest[stDuration] || 0).toFixed(2);
+          document.getElementById('st-space-btn').textContent = 'ESPACE — DÉMARRER';
+          document.getElementById('st-result-box').classList.add('hidden');
+        }
+
+        function tickSpeedTest() {
+          if (!stRunning) return;
+          const elapsed = (performance.now() - stStartTime) / 1000;
+          const left = Math.max(0, stDuration - elapsed);
+          document.getElementById('st-timer').textContent = left.toFixed(2);
+          const liveCps = elapsed > 0.05 ? stHits / Math.min(elapsed, stDuration) : 0;
+          document.getElementById('st-live-cps').textContent = liveCps.toFixed(2);
+
+          if (left <= 0) {
+            stRunning = false;
+            stFinishedAt = performance.now();
+            const finalCps = stHits / stDuration;
+            const best = Store.clicker.speedBest[stDuration] || 0;
+            if (finalCps > best) {
+              Store.clicker.speedBest[stDuration] = Number(finalCps.toFixed(2));
+              saveData();
+              showToast(`Nouveau record ${stDuration}s : ${finalCps.toFixed(2)} CPS !`, '🏆');
+            }
+            const rank = getRank(finalCps);
+            document.getElementById('st-best-cps').textContent = (Store.clicker.speedBest[stDuration] || 0).toFixed(2);
+            document.getElementById('st-rank-title').textContent = rank.title;
+            document.getElementById('st-rank-desc').textContent = `${stHits} appuis en ${stDuration}s — ${finalCps.toFixed(2)} CPS moyen. ${rank.desc}`;
+            document.getElementById('st-result-box').classList.remove('hidden');
+            document.getElementById('st-space-btn').textContent = 'TERMINÉ !';
+            return;
+          }
+          stRaf = requestAnimationFrame(tickSpeedTest);
+        }
+
+        function triggerSpeedHit() {
+          // Petite protection de 700ms après la fin pour éviter de relancer par erreur
+          if (!stRunning && performance.now() - stFinishedAt < 700) return;
+          if (!stRunning) {
+            stRunning = true;
+            stHits = 0;
+            stStartTime = performance.now();
+            document.getElementById('st-result-box').classList.add('hidden');
+            document.getElementById('st-space-btn').textContent = 'TAPPE !';
+            tickSpeedTest();
+          }
+          stHits++;
+          document.getElementById('st-hits').textContent = stHits;
+          const btn = document.getElementById('st-space-btn');
+          btn.classList.add('pressed');
+          setTimeout(() => btn.classList.remove('pressed'), 70);
+        }
+
+        // Événements UI Clicker
+        document.querySelectorAll('#clicker-mode-tabs .pill-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            document.querySelectorAll('#clicker-mode-tabs .pill-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            mode = tab.dataset.cmode;
+            document.getElementById('clicker-idle-view').classList.toggle('hidden', mode !== 'idle');
+            document.getElementById('clicker-speed-view').classList.toggle('hidden', mode !== 'speed');
+            if (mode === 'speed') resetSpeedTest();
+            else updateIdleUI();
+          });
+        });
+
+        document.getElementById('cl-space-btn').addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          triggerIdleHit();
+        });
+
+        document.getElementById('st-space-btn').addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          triggerSpeedHit();
+        });
+
+        document.getElementById('st-retry-btn').addEventListener('click', resetSpeedTest);
+
+        document.querySelectorAll('#speed-dur-btns button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('#speed-dur-btns button').forEach(b => {
+              b.className = 'btn btn-secondary btn-sm';
+            });
+            btn.className = 'btn btn-primary btn-sm';
+            stDuration = Number(btn.dataset.dur);
+            resetSpeedTest();
+          });
+        });
+
+        // Double-clic sécurisé pour réinitialiser (sans confirm())
+        document.getElementById('cl-reset-btn').addEventListener('click', (e) => {
+          const btn = e.currentTarget;
+          if (!resetConfirmPending) {
+            resetConfirmPending = true;
+            btn.textContent = '⚠️ Cliquer encore pour confirmer';
+            clearTimeout(resetConfirmTimer);
+            resetConfirmTimer = setTimeout(() => {
+              resetConfirmPending = false;
+              btn.textContent = '🗑️ Réinitialiser la progression';
+            }, 3000);
+          } else {
+            resetConfirmPending = false;
+            btn.textContent = '🗑️ Réinitialiser la progression';
+            Store.clicker.points = 0;
+            Store.clicker.totalClicks = 0;
+            Store.clicker.upgrades = { thumb: 0, mech: 0, auto: 0, macro: 0, bot: 0, ai: 0 };
+            heat = 0;
+            saveData();
+            updateIdleUI();
+            showToast('Progression Clicker réinitialisée', '🗑️');
+          }
+        });
+
+        updateIdleUI();
+
+        return {
+          onSpace() {
+            if (mode === 'idle') triggerIdleHit();
+            else triggerSpeedHit();
+          }
+        };
+      })();
+
+      /* -----------------------------------------------------------------------
+         7. SNAKE NÉON (Canvas responsive, murs traversants/mortels, vitesses)
+         ----------------------------------------------------------------------- */
+      const SnakeGame = (() => {
+        const canvas = document.getElementById('sn-canvas');
+        const ctx = canvas.getContext('2d');
+        const GRID = 20;
+        let snake = [];
+        let dir = { x: 1, y: 0 };
+        let dirQueue = [];
+        let food = { x: 10, y: 10 };
+        let particles = [];
+        let score = 0;
+        let running = false;
+        let gameOver = false;
+        let lastStep = 0;
+        let rafId = null;
+
+        function resize() {
+          const wrap = document.getElementById('sn-wrap');
+          const size = Math.max(240, Math.floor(wrap.clientWidth));
+          canvas.width = size;
+          canvas.height = size;
+          draw();
+        }
+
+        function placeFood() {
+          const occupied = new Set(snake.map(s => `${s.x},${s.y}`));
+          const free = [];
+          for (let y = 0; y < GRID; y++) {
+            for (let x = 0; x < GRID; x++) {
+              if (!occupied.has(`${x},${y}`)) free.push({ x, y });
+            }
+          }
+          if (free.length) food = free[Math.floor(Math.random() * free.length)];
+        }
+
+        function start() {
+          snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+          dir = { x: 1, y: 0 };
+          dirQueue = [];
+          particles = [];
+          score = 0;
+          gameOver = false;
+          running = true;
+          placeFood();
+          document.getElementById('sn-score').textContent = '0';
+          document.getElementById('sn-best').textContent = Store.records.snake;
+          document.getElementById('sn-overlay').classList.add('hidden');
+          lastStep = performance.now();
+          cancelAnimationFrame(rafId);
+          loop(lastStep);
+        }
+
+        function pause() {
+          if (!running) return;
+          running = false;
+          cancelAnimationFrame(rafId);
+          document.getElementById('sn-ov-title').textContent = '⏸️ Jeu en pause';
+          document.getElementById('sn-ov-msg').textContent = 'Clique sur Reprendre pour continuer ta partie.';
+          document.getElementById('sn-ov-btn').textContent = '▶ Reprendre';
+          document.getElementById('sn-overlay').classList.remove('hidden');
+        }
+
+        function resumeOrStart() {
+          if (gameOver || snake.length === 0) start();
+          else {
+            running = true;
+            document.getElementById('sn-overlay').classList.add('hidden');
+            lastStep = performance.now();
+            loop(lastStep);
+          }
+        }
+
+        function setDirection(name) {
+          const map = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } };
+          const next = map[name];
+          if (!next) return;
+          const ref = dirQueue.length ? dirQueue[dirQueue.length - 1] : dir;
+          if (next.x === -ref.x && next.y === -ref.y) return;
+          if (next.x === ref.x && next.y === ref.y) return;
+          if (dirQueue.length < 2) dirQueue.push(next);
+        }
+
+        function step() {
+          if (dirQueue.length) dir = dirQueue.shift();
+          const wallsMode = document.getElementById('sn-walls').value;
+          let nx = snake[0].x + dir.x;
+          let ny = snake[0].y + dir.y;
+
+          if (wallsMode === 'wrap') {
+            nx = (nx + GRID) % GRID;
+            ny = (ny + GRID) % GRID;
+          } else if (nx < 0 || ny < 0 || nx >= GRID || ny >= GRID) {
+            return endGame();
+          }
+
+          if (snake.some(seg => seg.x === nx && seg.y === ny)) {
+            return endGame();
+          }
+
+          snake.unshift({ x: nx, y: ny });
+          if (nx === food.x && ny === food.y) {
+            score += 10;
+            document.getElementById('sn-score').textContent = score;
+            if (score > Store.records.snake) {
+              Store.records.snake = score;
+              document.getElementById('sn-best').textContent = score;
+              saveData();
+            }
+            // Particules néon
+            const cell = canvas.width / GRID;
+            for (let i = 0; i < 12; i++) {
+              const ang = Math.random() * Math.PI * 2;
+              const spd = 1 + Math.random() * 3;
+              particles.push({
+                x: (food.x + 0.5) * cell,
+                y: (food.y + 0.5) * cell,
+                vx: Math.cos(ang) * spd,
+                vy: Math.sin(ang) * spd,
+                life: 1
+              });
+            }
+            placeFood();
+          } else {
+            snake.pop();
+          }
+        }
+
+        function endGame() {
+          running = false;
+          gameOver = true;
+          cancelAnimationFrame(rafId);
+          document.getElementById('sn-ov-title').textContent = '💀 Perdu !';
+          document.getElementById('sn-ov-msg').textContent = `Score final : ${score} (Record : ${Store.records.snake})`;
+          document.getElementById('sn-ov-btn').textContent = '🔄 Rejouer';
+          document.getElementById('sn-overlay').classList.remove('hidden');
+        }
+
+        function draw() {
+          const w = canvas.width;
+          const cell = w / GRID;
+          ctx.fillStyle = '#070a12';
+          ctx.fillRect(0, 0, w, w);
+
+          // Grille subtile
+          ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+          ctx.lineWidth = 1;
+          for (let i = 0; i <= GRID; i++) {
+            ctx.beginPath(); ctx.moveTo(i * cell, 0); ctx.lineTo(i * cell, w); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, i * cell); ctx.lineTo(w, i * cell); ctx.stroke();
+          }
+
+          // Pomme néon pulsante
+          const pulse = 1 + Math.sin(performance.now() * 0.008) * 0.12;
+          ctx.save();
+          ctx.shadowColor = '#f43f5e';
+          ctx.shadowBlur = 16;
+          ctx.fillStyle = '#fb7185';
+          ctx.beginPath();
+          ctx.arc((food.x + 0.5) * cell, (food.y + 0.5) * cell, (cell * 0.36) * pulse, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+
+          // Serpent néon
+          snake.forEach((seg, i) => {
+            const isHead = i === 0;
+            ctx.save();
+            ctx.shadowColor = isHead ? '#00f0ff' : '#10b981';
+            ctx.shadowBlur = isHead ? 16 : 8;
+            ctx.fillStyle = isHead ? '#00f0ff' : `hsl(${165 - Math.min(i * 1.5, 45)}, 85%, 52%)`;
+            const pad = isHead ? 1.5 : 2.5;
+            ctx.beginPath();
+            ctx.roundRect(seg.x * cell + pad, seg.y * cell + pad, cell - pad * 2, cell - pad * 2, 5);
+            ctx.fill();
+            ctx.restore();
+          });
+
+          // Particules
+          for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy; p.life -= 0.04;
+            if (p.life <= 0) { particles.splice(i, 1); continue; }
+            ctx.fillStyle = `rgba(251, 113, 133, ${p.life})`;
+            ctx.fillRect(p.x, p.y, 4, 4);
+          }
+        }
+
+        function loop(now) {
+          if (!running) return;
+          const speedMs = Number(document.getElementById('sn-speed').value) || 105;
+          if (now - lastStep >= speedMs) {
+            step();
+            lastStep = now;
+          }
+          draw();
+          if (running) rafId = requestAnimationFrame(loop);
+        }
+
+        // Swipe tactile sur le canvas
+        let touchStart = null;
+        canvas.addEventListener('touchstart', (e) => {
+          touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }, { passive: true });
+        canvas.addEventListener('touchend', (e) => {
+          if (!touchStart) return;
+          const dx = e.changedTouches[0].clientX - touchStart.x;
+          const dy = e.changedTouches[0].clientY - touchStart.y;
+          if (Math.max(Math.abs(dx), Math.abs(dy)) > 24) {
+            if (Math.abs(dx) > Math.abs(dy)) setDirection(dx > 0 ? 'right' : 'left');
+            else setDirection(dy > 0 ? 'down' : 'up');
+          }
+          touchStart = null;
+        }, { passive: true });
+
+        document.getElementById('sn-ov-btn').addEventListener('click', resumeOrStart);
+        document.getElementById('sn-restart-btn').addEventListener('click', start);
+        document.querySelectorAll('[data-sn-dir]').forEach(b => {
+          b.addEventListener('click', () => {
+            if (!running && gameOver) start();
+            setDirection(b.dataset.snDir);
+          });
+        });
+
+        document.getElementById('sn-best').textContent = Store.records.snake;
+
+        return {
+          resize,
+          pause,
+          onKey(key) {
+            const k = key.toLowerCase();
+            if (k === 'arrowup' || k === 'z' || k === 'w') setDirection('up');
+            else if (k === 'arrowdown' || k === 's') setDirection('down');
+            else if (k === 'arrowleft' || k === 'q' || k === 'a') setDirection('left');
+            else if (k === 'arrowright' || k === 'd') setDirection('right');
+            else if (k === ' ') {
+              if (running) pause();
+              else resumeOrStart();
+            }
+          }
+        };
+      })();
+
+      /* -----------------------------------------------------------------------
+         8. JEU 2048 COMPLET (4x4, Clavier + Tactile + Record)
+         ----------------------------------------------------------------------- */
+      const Game2048 = (() => {
+        const boardEl = document.getElementById('g2-board');
+        let grid = [];
+        let score = 0;
+        let wonShown = false;
+
+        function init() {
+          grid = Array.from({ length: 4 }, () => [0, 0, 0, 0]);
+          score = 0;
+          wonShown = false;
+          addRandomTile();
+          addRandomTile();
+          document.getElementById('g2-overlay').classList.add('hidden');
+          document.getElementById('g2-best').textContent = Store.records.g2048;
+          render();
+        }
+
+        function addRandomTile() {
+          const empty = [];
+          for (let r = 0; r < 4; r++) {
+            for (let c = 0; c < 4; c++) {
+              if (grid[r][c] === 0) empty.push([r, c]);
+            }
+          }
+          if (!empty.length) return;
+          const [r, c] = empty[Math.floor(Math.random() * empty.length)];
+          grid[r][c] = Math.random() < 0.9 ? 2 : 4;
+        }
+
+        function slideRow(row) {
+          const filtered = row.filter(v => v !== 0);
+          const merged = [];
+          for (let i = 0; i < filtered.length; i++) {
+            if (filtered[i] === filtered[i + 1]) {
+              const val = filtered[i] * 2;
+              merged.push(val);
+              score += val;
+              i++;
+            } else {
+              merged.push(filtered[i]);
+            }
+          }
+          while (merged.length < 4) merged.push(0);
+          return merged;
+        }
+
+        function move(direction) {
+          const before = JSON.stringify(grid);
+
+          if (direction === 'left') {
+            for (let r = 0; r < 4; r++) grid[r] = slideRow(grid[r]);
+          } else if (direction === 'right') {
+            for (let r = 0; r < 4; r++) grid[r] = slideRow([...grid[r]].reverse()).reverse();
+          } else if (direction === 'up') {
+            for (let c = 0; c < 4; c++) {
+              const col = slideRow([grid[0][c], grid[1][c], grid[2][c], grid[3][c]]);
+              for (let r = 0; r < 4; r++) grid[r][c] = col[r];
+            }
+          } else if (direction === 'down') {
+            for (let c = 0; c < 4; c++) {
+              const col = slideRow([grid[3][c], grid[2][c], grid[1][c], grid[0][c]]).reverse();
+              for (let r = 0; r < 4; r++) grid[r][c] = col[r];
+            }
+          }
+
+          if (JSON.stringify(grid) !== before) {
+            addRandomTile();
+            if (score > Store.records.g2048) {
+              Store.records.g2048 = score;
+              saveData();
+            }
+            render(true);
+            checkState();
+          }
+        }
+
+        function hasMoves() {
+          for (let r = 0; r < 4; r++) {
+            for (let c = 0; c < 4; c++) {
+              if (grid[r][c] === 0) return true;
+              if (c < 3 && grid[r][c] === grid[r][c + 1]) return true;
+              if (r < 3 && grid[r][c] === grid[r + 1][c]) return true;
+            }
+          }
+          return false;
+        }
+
+        function checkState() {
+          if (!wonShown && grid.some(row => row.includes(2048))) {
+            wonShown = true;
+            document.getElementById('g2-ov-title').textContent = '🎉 Tu as atteint 2048 !';
+            document.getElementById('g2-ov-msg').textContent = `Score actuel : ${score}. Tu peux continuer pour battre le record !`;
+            document.getElementById('g2-continue-btn').classList.remove('hidden');
+            document.getElementById('g2-overlay').classList.remove('hidden');
+          } else if (!hasMoves()) {
+            document.getElementById('g2-ov-title').textContent = '💀 Plus aucun coup possible';
+            document.getElementById('g2-ov-msg').textContent = `Score final : ${score} (Record : ${Store.records.g2048})`;
+            document.getElementById('g2-continue-btn').classList.add('hidden');
+            document.getElementById('g2-overlay').classList.remove('hidden');
+          }
+        }
+
+        function render(animate = false) {
+          document.getElementById('g2-score').textContent = score;
+          document.getElementById('g2-best').textContent = Store.records.g2048;
+          boardEl.innerHTML = '';
+          for (let r = 0; r < 4; r++) {
+            for (let c = 0; c < 4; c++) {
+              const val = grid[r][c];
+              const tile = document.createElement('div');
+              const cls = val === 0 ? '' : (val <= 2048 ? `t-${val}` : 't-big');
+              tile.className = `tile-2048 ${cls} ${animate && val ? 'tile-pop' : ''}`;
+              tile.textContent = val || '';
+              boardEl.appendChild(tile);
+            }
+          }
+        }
+
+        // Swipe tactile
+        let startTouch = null;
+        boardEl.addEventListener('touchstart', (e) => {
+          startTouch = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }, { passive: true });
+        boardEl.addEventListener('touchend', (e) => {
+          if (!startTouch) return;
+          const dx = e.changedTouches[0].clientX - startTouch.x;
+          const dy = e.changedTouches[0].clientY - startTouch.y;
+          if (Math.max(Math.abs(dx), Math.abs(dy)) > 26) {
+            if (Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? 'right' : 'left');
+            else move(dy > 0 ? 'down' : 'up');
+          }
+          startTouch = null;
+        }, { passive: true });
+
+        document.getElementById('g2-restart-btn').addEventListener('click', init);
+        document.getElementById('g2-ov-restart').addEventListener('click', init);
+        document.getElementById('g2-continue-btn').addEventListener('click', () => {
+          document.getElementById('g2-overlay').classList.add('hidden');
+        });
+        document.querySelectorAll('[data-g2-dir]').forEach(b => {
+          b.addEventListener('click', () => move(b.dataset.g2Dir));
+        });
+
+        init();
+
+        return {
+          onKey(key) {
+            const k = key.toLowerCase();
+            if (k === 'arrowup' || k === 'z' || k === 'w') move('up');
+            else if (k === 'arrowdown' || k === 's') move('down');
+            else if (k === 'arrowleft' || k === 'q' || k === 'a') move('left');
+            else if (k === 'arrowright' || k === 'd') move('right');
+          }
+        };
+      })();
+
+      /* -----------------------------------------------------------------------
+         9. CYBER RUNNER (Saut + Double Saut + Obstacles variés + Particules)
+         ----------------------------------------------------------------------- */
+      const RunnerGame = (() => {
+        const canvas = document.getElementById('rn-canvas');
+        const ctx = canvas.getContext('2d');
+        const W = 800, H = 450; // Coordonnées virtuelles constantes
+        const GROUND_Y = 370;
+
+        let player = { x: 100, y: GROUND_Y - 46, w: 34, h: 46, vy: 0, jumps: 0 };
+        let obstacles = [];
+        let particles = [];
+        let stars = Array.from({ length: 40 }, () => ({ x: Math.random() * W, y: Math.random() * 260, r: 1 + Math.random() * 1.6 }));
+        let distance = 0;
+        let speed = 340;
+        let spawnTimer = 0;
+        let running = false;
+        let gameOver = false;
+        let lastTime = 0;
+        let rafId = null;
+
+        function resize() {
+          const wrap = document.getElementById('rn-wrap');
+          canvas.width = wrap.clientWidth || W;
+          canvas.height = wrap.clientHeight || H;
+          draw();
+        }
+
+        function start() {
+          player = { x: 100, y: GROUND_Y - 46, w: 34, h: 46, vy: 0, jumps: 0 };
+          obstacles = [];
+          particles = [];
+          distance = 0;
+          speed = 350;
+          spawnTimer = 1.0;
+          gameOver = false;
+          running = true;
+          document.getElementById('rn-best').textContent = Store.records.runner;
+          document.getElementById('rn-overlay').classList.add('hidden');
+          lastTime = performance.now();
+          cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(loop);
+        }
+
+        function pause() {
+          if (!running) return;
+          running = false;
+          cancelAnimationFrame(rafId);
+          document.getElementById('rn-ov-title').textContent = '⏸️ Course en pause';
+          document.getElementById('rn-ov-msg').textContent = 'Appuie sur Espace ou Reprendre pour continuer.';
+          document.getElementById('rn-ov-btn').textContent = '▶ Reprendre';
+          document.getElementById('rn-overlay').classList.remove('hidden');
+        }
+
+        function jump() {
+          if (!running) {
+            if (gameOver || distance === 0) start();
+            else {
+              running = true;
+              document.getElementById('rn-overlay').classList.add('hidden');
+              lastTime = performance.now();
+              rafId = requestAnimationFrame(loop);
+            }
+            return;
+          }
+          if (player.jumps < 2) {
+            player.vy = player.jumps === 0 ? -620 : -540;
+            player.jumps++;
+            for (let i = 0; i < 10; i++) {
+              particles.push({
+                x: player.x + player.w / 2,
+                y: player.y + player.h,
+                vx: -80 - Math.random() * 120,
+                vy: (Math.random() - 0.5) * 140,
+                life: 1,
+                color: player.jumps === 2 ? '#8b5cf6' : '#00f0ff'
+              });
+            }
+          }
+        }
+
+        function spawnObstacle() {
+          const r = Math.random();
+          if (r < 0.42) {
+            // Pic bas
+            obstacles.push({ type: 'spike', x: W + 30, y: GROUND_Y - 40, w: 32, h: 40 });
+          } else if (r < 0.74) {
+            // Pilier laser haut
+            obstacles.push({ type: 'pillar', x: W + 30, y: GROUND_Y - 72, w: 26, h: 72 });
+          } else {
+            // Drone volant
+            const flyY = Math.random() < 0.5 ? GROUND_Y - 95 : GROUND_Y - 145;
+            obstacles.push({ type: 'drone', x: W + 30, y: flyY, w: 46, h: 26 });
+          }
+        }
+
+        function update(dt) {
+          speed = Math.min(760, speed + dt * 11);
+          distance += dt * (speed / 22);
+          const intDist = Math.floor(distance);
+          document.getElementById('rn-score').textContent = intDist;
+          document.getElementById('rn-speed').textContent = (speed / 350).toFixed(1);
+
+          // Physique joueur
+          player.vy += 1750 * dt;
+          player.y += player.vy * dt;
+          if (player.y >= GROUND_Y - player.h) {
+            player.y = GROUND_Y - player.h;
+            player.vy = 0;
+            player.jumps = 0;
+          }
+
+          // Traînée néon
+          if (Math.random() < 0.45) {
+            particles.push({
+              x: player.x,
+              y: player.y + player.h * 0.65,
+              vx: -speed * 0.4,
+              vy: (Math.random() - 0.5) * 30,
+              life: 0.65,
+              color: '#00f0ff'
+            });
+          }
+
+          // Obstacles
+          spawnTimer -= dt;
+          if (spawnTimer <= 0) {
+            spawnObstacle();
+            spawnTimer = Math.max(0.68, 1.55 - (speed - 350) / 550) + Math.random() * 0.45;
+          }
+
+          for (let i = obstacles.length - 1; i >= 0; i--) {
+            const o = obstacles[i];
+            o.x -= speed * dt;
+            if (o.x + o.w < -20) { obstacles.splice(i, 1); continue; }
+
+            // Hitbox indulgente (margin 5px)
+            const m = 5;
+            if (
+              player.x + m < o.x + o.w - m &&
+              player.x + player.w - m > o.x + m &&
+              player.y + m < o.y + o.h - m &&
+              player.y + player.h - m > o.y + m
+            ) {
+              running = false;
+              gameOver = true;
+              if (intDist > Store.records.runner) {
+                Store.records.runner = intDist;
+                document.getElementById('rn-best').textContent = intDist;
+                saveData();
+              }
+              document.getElementById('rn-ov-title').textContent = '💥 Collision !';
+              document.getElementById('rn-ov-msg').textContent = `Distance : ${intDist}m (Record : ${Store.records.runner}m)`;
+              document.getElementById('rn-ov-btn').textContent = '🔄 Rejouer';
+              document.getElementById('rn-overlay').classList.remove('hidden');
+              return;
+            }
+          }
+
+          // Particules & étoiles
+          stars.forEach(s => {
+            s.x -= speed * 0.08 * dt;
+            if (s.x < 0) s.x = W;
+          });
+          for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.life -= dt * 2.2;
+            if (p.life <= 0) particles.splice(i, 1);
+          }
+        }
+
+        function draw() {
+          const sx = canvas.width / W;
+          const sy = canvas.height / H;
+          ctx.save();
+          ctx.scale(sx, sy);
+
+          // Fond cybernétique
+          const grad = ctx.createLinearGradient(0, 0, 0, H);
+          grad.addColorStop(0, '#070914');
+          grad.addColorStop(1, '#12152b');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, W, H);
+
+          // Étoiles
+          ctx.fillStyle = 'rgba(255,255,255,0.45)';
+          stars.forEach(s => ctx.fillRect(s.x, s.y, s.r, s.r));
+
+          // Sol néon + perspective
+          ctx.fillStyle = '#0d1020';
+          ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+          ctx.strokeStyle = '#8b5cf6';
+          ctx.shadowColor = '#8b5cf6';
+          ctx.shadowBlur = 12;
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(0, GROUND_Y);
+          ctx.lineTo(W, GROUND_Y);
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+
+          // Particules
+          particles.forEach(p => {
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, 5, 5);
+          });
+          ctx.globalAlpha = 1;
+
+          // Joueur (Cyber-Dino / Bot)
+          ctx.save();
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 16;
+          ctx.fillStyle = '#00f0ff';
+          ctx.beginPath();
+          ctx.roundRect(player.x, player.y, player.w, player.h, 6);
+          ctx.fill();
+          // Visière
+          ctx.fillStyle = '#050811';
+          ctx.fillRect(player.x + 16, player.y + 8, 14, 8);
+          ctx.restore();
+
+          // Obstacles
+          obstacles.forEach(o => {
+            ctx.save();
+            ctx.shadowColor = o.type === 'drone' ? '#f59e0b' : '#f43f5e';
+            ctx.shadowBlur = 14;
+            ctx.fillStyle = o.type === 'drone' ? '#fbbf24' : '#f43f5e';
+            if (o.type === 'spike') {
+              ctx.beginPath();
+              ctx.moveTo(o.x, o.y + o.h);
+              ctx.lineTo(o.x + o.w / 2, o.y);
+              ctx.lineTo(o.x + o.w, o.y + o.h);
+              ctx.closePath();
+              ctx.fill();
+            } else {
+              ctx.beginPath();
+              ctx.roundRect(o.x, o.y, o.w, o.h, 5);
+              ctx.fill();
+            }
+            ctx.restore();
+          });
+
+          ctx.restore();
+        }
+
+        function loop(now) {
+          if (!running) return;
+          const dt = Math.min(0.05, (now - lastTime) / 1000);
+          lastTime = now;
+          update(dt);
+          draw();
+          if (running) rafId = requestAnimationFrame(loop);
+        }
+
+        canvas.addEventListener('pointerdown', (e) => { e.preventDefault(); jump(); });
+        document.getElementById('rn-ov-btn').addEventListener('click', jump);
+        document.getElementById('rn-restart-btn').addEventListener('click', start);
+        document.getElementById('rn-best').textContent = Store.records.runner;
+
+        return {
+          resize,
+          pause,
+          onKey(key) {
+            const k = key.toLowerCase();
+            if (k === ' ' || k === 'arrowup' || k === 'z' || k === 'w') jump();
+          }
+        };
+      })();
+
+      /* -----------------------------------------------------------------------
+         10. RÉFLEXE (ms sur 5 essais) & AIM TRAINER (30 secondes)
+         ----------------------------------------------------------------------- */
+      const ReflexGame = (() => {
+        let mode = 'react'; // 'react' | 'aim'
+
+        // --- Temps de réaction ---
+        let rxState = 'idle'; // 'idle' | 'wait' | 'go' | 'result'
+        let rxTimeout = null;
+        let rxGoTime = 0;
+        let rxTries = [];
+
+        const pad = document.getElementById('rx-pad');
+        const iconEl = document.getElementById('rx-icon');
+        const titleEl = document.getElementById('rx-title');
+        const subEl = document.getElementById('rx-sub');
+
+        function renderRxHistory() {
+          const hist = document.getElementById('rx-history');
+          hist.innerHTML = '';
+          rxTries.forEach((ms, i) => {
+            const b = document.createElement('span');
+            b.className = 'badge badge-cyan mono';
+            b.textContent = `#${i + 1} : ${ms} ms`;
+            hist.appendChild(b);
+          });
+          document.getElementById('rx-try').textContent = rxTries.length;
+          document.getElementById('rx-best-avg').textContent = Store.records.reactBestAvg ? `${Store.records.reactBestAvg} ms` : '—';
+        }
+
+        function resetRxSeries() {
+          clearTimeout(rxTimeout);
+          rxState = 'idle';
+          rxTries = [];
+          pad.className = 'reaction-pad reaction-idle';
+          iconEl.textContent = '⚡';
+          titleEl.textContent = 'Test de Réflexe';
+          subEl.textContent = 'Clique ici ou appuie sur Espace pour démarrer la série de 5 essais.';
+          document.getElementById('rx-last').textContent = '—';
+          renderRxHistory();
+        }
+
+        function startRxWait() {
+          if (rxTries.length >= 5) rxTries = [];
+          rxState = 'wait';
+          pad.className = 'reaction-pad reaction-wait';
+          iconEl.textContent = '🛑';
+          titleEl.textContent = 'Attends le VERT...';
+          subEl.textContent = 'Ne clique pas encore !';
+          const delay = 1400 + Math.random() * 2800;
+          clearTimeout(rxTimeout);
+          rxTimeout = setTimeout(() => {
+            rxState = 'go';
+            rxGoTime = performance.now();
+            pad.className = 'reaction-pad reaction-go';
+            iconEl.textContent = '🟢';
+            titleEl.textContent = 'CLIQUE / ESPACE !';
+            subEl.textContent = 'MAINTENANT !';
+          }, delay);
+        }
+
+        function handleRxAction() {
+          if (rxState === 'idle' || rxState === 'result') {
+            startRxWait();
+          } else if (rxState === 'wait') {
+            clearTimeout(rxTimeout);
+            rxState = 'result';
+            pad.className = 'reaction-pad reaction-early';
+            iconEl.textContent = '⚠️';
+            titleEl.textContent = 'Trop tôt !';
+            subEl.textContent = 'Clique ou appuie sur Espace pour réessayer cet essai.';
+          } else if (rxState === 'go') {
+            const ms = Math.round(performance.now() - rxGoTime);
+            rxTries.push(ms);
+            document.getElementById('rx-last').textContent = `${ms} ms`;
+            rxState = 'result';
+            pad.className = 'reaction-pad reaction-idle';
+            if (rxTries.length === 5) {
+              const avg = Math.round(rxTries.reduce((a, b) => a + b, 0) / 5);
+              if (!Store.records.reactBestAvg || avg < Store.records.reactBestAvg) {
+                Store.records.reactBestAvg = avg;
+                saveData();
+                showToast(`Nouvelle meilleure moyenne : ${avg} ms !`, '⚡');
+              }
+              iconEl.textContent = '🏆';
+              titleEl.textContent = `Moyenne : ${avg} ms`;
+              subEl.textContent = `Série terminée ! Clique ou appuie sur Espace pour recommencer 5 essais.`;
+            } else {
+              iconEl.textContent = '⏱️';
+              titleEl.textContent = `${ms} ms`;
+              subEl.textContent = `Essai ${rxTries.length}/5 enregistré. Clique ou Espace pour l'essai suivant.`;
+            }
+            renderRxHistory();
+          }
+        }
+
+        pad.addEventListener('pointerdown', (e) => { e.preventDefault(); handleRxAction(); });
+        document.getElementById('rx-reset-btn').addEventListener('click', resetRxSeries);
+
+        // --- Aim Trainer (30s) ---
+        const arena = document.getElementById('aim-arena');
+        let aimRunning = false;
+        let aimHits = 0;
+        let aimMisses = 0;
+        let aimStartTime = 0;
+        let aimRaf = null;
+
+        function clearTargets() {
+          arena.querySelectorAll('.aim-target').forEach(t => t.remove());
+        }
+
+        function spawnTarget() {
+          clearTargets();
+          const t = document.createElement('div');
+          t.className = 'aim-target';
+          const padPx = 42;
+          const x = padPx + Math.random() * Math.max(40, arena.clientWidth - padPx * 2);
+          const y = padPx + Math.random() * Math.max(40, arena.clientHeight - padPx * 2);
+          t.style.left = `${x}px`;
+          t.style.top = `${y}px`;
+          t.addEventListener('pointerdown', (e) => {
+            e.stopPropagation();
+            if (!aimRunning) return;
+            aimHits++;
+            updateAimHUD();
+            spawnTarget();
+          });
+          arena.appendChild(t);
+        }
+
+        function updateAimHUD() {
+          const total = aimHits + aimMisses;
+          const acc = total === 0 ? 100 : Math.round((aimHits / total) * 100);
+          document.getElementById('aim-score').textContent = aimHits;
+          document.getElementById('aim-acc').textContent = acc;
+          document.getElementById('aim-best').textContent = Store.records.aim;
+        }
+
+        function startAim() {
+          aimRunning = true;
+          aimHits = 0;
+          aimMisses = 0;
+          aimStartTime = performance.now();
+          document.getElementById('aim-overlay').classList.add('hidden');
+          updateAimHUD();
+          spawnTarget();
+          cancelAnimationFrame(aimRaf);
+          aimRaf = requestAnimationFrame(tickAim);
+        }
+
+        function tickAim() {
+          if (!aimRunning) return;
+          const left = Math.max(0, 30 - (performance.now() - aimStartTime) / 1000);
+          document.getElementById('aim-timer').textContent = left.toFixed(1);
+          if (left <= 0) {
+            aimRunning = false;
+            clearTargets();
+            const total = aimHits + aimMisses;
+            const acc = total === 0 ? 0 : Math.round((aimHits / total) * 100);
+            if (aimHits > Store.records.aim) {
+              Store.records.aim = aimHits;
+              saveData();
+              showToast(`Nouveau record Aim Trainer : ${aimHits} cibles !`, '🎯');
+            }
+            updateAimHUD();
+            document.getElementById('aim-ov-title').textContent = `🎯 Terminé : ${aimHits} cibles !`;
+            document.getElementById('aim-ov-msg').textContent = `Précision : ${acc}% (${aimHits} touchées, ${aimMisses} ratées)`;
+            document.getElementById('aim-ov-btn').textContent = '🔄 Recommencer';
+            document.getElementById('aim-overlay').classList.remove('hidden');
+            return;
+          }
+          aimRaf = requestAnimationFrame(tickAim);
+        }
+
+        arena.addEventListener('pointerdown', (e) => {
+          if (!aimRunning || e.target.classList.contains('aim-target')) return;
+          aimMisses++;
+          updateAimHUD();
+        });
+
+        document.getElementById('aim-start-btn').addEventListener('click', startAim);
+        document.getElementById('aim-ov-btn').addEventListener('click', startAim);
+
+        // Changement de sous-mode
+        document.querySelectorAll('#reflex-mode-tabs .pill-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            pause();
+            document.querySelectorAll('#reflex-mode-tabs .pill-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            mode = tab.dataset.rmode;
+            document.getElementById('reflex-react-view').classList.toggle('hidden', mode !== 'react');
+            document.getElementById('reflex-aim-view').classList.toggle('hidden', mode !== 'aim');
+          });
+        });
+
+        function pause() {
+          clearTimeout(rxTimeout);
+          if (rxState === 'wait') resetRxSeries();
+          if (aimRunning) {
+            aimRunning = false;
+            cancelAnimationFrame(aimRaf);
+            clearTargets();
+            document.getElementById('aim-ov-title').textContent = '⏸️ Session interrompue';
+            document.getElementById('aim-ov-msg').textContent = 'Relance une session de 30 secondes quand tu es prêt.';
+            document.getElementById('aim-ov-btn').textContent = '▶ Relancer';
+            document.getElementById('aim-overlay').classList.remove('hidden');
+          }
+        }
+
+        renderRxHistory();
+        updateAimHUD();
+
+        return {
+          pause,
+          onSpace() {
+            if (mode === 'react') handleRxAction();
+          }
+        };
+      })();
+
+      /* -----------------------------------------------------------------------
+         11. FLAPPY NÉON (Physique delta-time fluide, tuyaux lumineux, record)
+         ----------------------------------------------------------------------- */
+      const FlappyGame = (() => {
+        const canvas = document.getElementById('fl-canvas');
+        const ctx = canvas.getContext('2d');
+        const W = 420, H = 560;
+
+        let bird = { x: 110, y: H / 2, vy: 0, r: 15 };
+        let pipes = [];
+        let particles = [];
+        let score = 0;
+        let running = false;
+        let gameOver = false;
+        let deadAt = 0;
+        let spawnTimer = 0;
+        let lastTime = 0;
+        let rafId = null;
+
+        function resize() {
+          const wrap = document.getElementById('fl-wrap');
+          canvas.width = wrap.clientWidth || W;
+          canvas.height = wrap.clientHeight || H;
+          draw();
+        }
+
+        function start() {
+          bird = { x: 110, y: H / 2, vy: -290, r: 15 };
+          pipes = [];
+          particles = [];
+          score = 0;
+          spawnTimer = 0.8;
+          gameOver = false;
+          running = true;
+          document.getElementById('fl-score').textContent = '0';
+          document.getElementById('fl-best').textContent = Store.records.flappy;
+          document.getElementById('fl-overlay').classList.add('hidden');
+          lastTime = performance.now();
+          cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(loop);
+        }
+
+        function pause() {
+          if (!running) return;
+          running = false;
+          cancelAnimationFrame(rafId);
+          document.getElementById('fl-ov-title').textContent = '⏸️ Pause';
+          document.getElementById('fl-ov-msg').textContent = 'Appuie sur Espace ou clique pour reprendre.';
+          document.getElementById('fl-ov-btn').textContent = '▶ Reprendre';
+          document.getElementById('fl-overlay').classList.remove('hidden');
+        }
+
+        function flap() {
+          if (!running) {
+            if (gameOver && performance.now() - deadAt < 450) return;
+            if (gameOver || pipes.length === 0) start();
+            else {
+              running = true;
+              document.getElementById('fl-overlay').classList.add('hidden');
+              lastTime = performance.now();
+              rafId = requestAnimationFrame(loop);
+            }
+            return;
+          }
+          bird.vy = -345;
+          for (let i = 0; i < 6; i++) {
+            particles.push({
+              x: bird.x - 10,
+              y: bird.y + 4,
+              vx: -60 - Math.random() * 60,
+              vy: (Math.random() - 0.5) * 90,
+              life: 1
+            });
+          }
+        }
+
+        function die() {
+          running = false;
+          gameOver = true;
+          deadAt = performance.now();
+          if (score > Store.records.flappy) {
+            Store.records.flappy = score;
+            document.getElementById('fl-best').textContent = score;
+            saveData();
+          }
+          document.getElementById('fl-ov-title').textContent = '💥 Crash !';
+          document.getElementById('fl-ov-msg').textContent = `Score : ${score} (Record : ${Store.records.flappy})`;
+          document.getElementById('fl-ov-btn').textContent = '🔄 Rejouer';
+          document.getElementById('fl-overlay').classList.remove('hidden');
+        }
+
+        function update(dt) {
+          bird.vy += 960 * dt;
+          bird.y += bird.vy * dt;
+
+          if (bird.y - bird.r < 0 || bird.y + bird.r > H) return die();
+
+          spawnTimer -= dt;
+          if (spawnTimer <= 0) {
+            const gap = 142;
+            const topH = 70 + Math.random() * (H - gap - 140);
+            pipes.push({ x: W + 30, w: 58, topH, gap, passed: false });
+            spawnTimer = 1.55;
+          }
+
+          const pipeSpeed = 185;
+          for (let i = pipes.length - 1; i >= 0; i--) {
+            const p = pipes[i];
+            p.x -= pipeSpeed * dt;
+
+            if (!p.passed && p.x + p.w < bird.x) {
+              p.passed = true;
+              score++;
+              document.getElementById('fl-score').textContent = score;
+            }
+
+            // Collision cercle vs tuyaux
+            if (bird.x + bird.r - 3 > p.x && bird.x - bird.r + 3 < p.x + p.w) {
+              if (bird.y - bird.r + 3 < p.topH || bird.y + bird.r - 3 > p.topH + p.gap) {
+                return die();
+              }
+            }
+
+            if (p.x + p.w < -20) pipes.splice(i, 1);
+          }
+
+          for (let i = particles.length - 1; i >= 0; i--) {
+            const pt = particles[i];
+            pt.x += pt.vx * dt; pt.y += pt.vy * dt; pt.life -= dt * 2.5;
+            if (pt.life <= 0) particles.splice(i, 1);
+          }
+        }
+
+        function draw() {
+          const sx = canvas.width / W;
+          const sy = canvas.height / H;
+          ctx.save();
+          ctx.scale(sx, sy);
+
+          const bg = ctx.createLinearGradient(0, 0, 0, H);
+          bg.addColorStop(0, '#070b18');
+          bg.addColorStop(1, '#131932');
+          ctx.fillStyle = bg;
+          ctx.fillRect(0, 0, W, H);
+
+          // Tuyaux néon
+          pipes.forEach(p => {
+            ctx.save();
+            ctx.shadowColor = '#10b981';
+            ctx.shadowBlur = 14;
+            ctx.fillStyle = '#059669';
+            ctx.strokeStyle = '#34d399';
+            ctx.lineWidth = 2;
+            // Haut
+            ctx.fillRect(p.x, 0, p.w, p.topH);
+            ctx.strokeRect(p.x, 0, p.w, p.topH);
+            // Bas
+            const botY = p.topH + p.gap;
+            ctx.fillRect(p.x, botY, p.w, H - botY);
+            ctx.strokeRect(p.x, botY, p.w, H - botY);
+            ctx.restore();
+          });
+
+          // Particules
+          particles.forEach(pt => {
+            ctx.fillStyle = `rgba(0, 240, 255, ${Math.max(0, pt.life)})`;
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          // Oiseau néon incliné selon sa vitesse
+          ctx.save();
+          ctx.translate(bird.x, bird.y);
+          ctx.rotate(Math.max(-0.5, Math.min(1.1, bird.vy / 480)));
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 18;
+          ctx.fillStyle = '#00f0ff';
+          ctx.beginPath();
+          ctx.arc(0, 0, bird.r, 0, Math.PI * 2);
+          ctx.fill();
+          // Œil et bec
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = '#050811';
+          ctx.beginPath();
+          ctx.arc(6, -4, 3.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#f59e0b';
+          ctx.beginPath();
+          ctx.moveTo(13, -2);
+          ctx.lineTo(22, 2);
+          ctx.lineTo(13, 6);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+
+          ctx.restore();
+        }
+
+        function loop(now) {
+          if (!running) return;
+          const dt = Math.min(0.045, (now - lastTime) / 1000);
+          lastTime = now;
+          update(dt);
+          draw();
+          if (running) rafId = requestAnimationFrame(loop);
+        }
+
+        canvas.addEventListener('pointerdown', (e) => { e.preventDefault(); flap(); });
+        document.getElementById('fl-ov-btn').addEventListener('click', flap);
+        document.getElementById('fl-restart-btn').addEventListener('click', start);
+        document.getElementById('fl-best').textContent = Store.records.flappy;
+
+        return {
+          resize,
+          pause,
+          onKey(key) {
+            if (key === ' ' || key === 'ArrowUp' || key.toLowerCase() === 'z' || key.toLowerCase() === 'w') {
+              flap();
+            }
+          }
+        };
+      })();
+
+      /* -----------------------------------------------------------------------
+         12. GESTIONNAIRE CLAVIER GLOBAL STRICT (Panique, Focus Input, Anti-Scroll)
+         ----------------------------------------------------------------------- */
+      window.addEventListener('keydown', (e) => {
+        // 1. Touche Échap = Toujours basculer le Mode Panique (priorité absolue)
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          if (AppState.lightboxOpen && !AppState.panicActive) {
+            closeLightbox();
+          } else {
+            setPanicMode(!AppState.panicActive);
+          }
+          return;
+        }
+
+        // 2. Si Mode Panique actif : laisser l'utilisateur taper dans le faux Google Docs
+        if (AppState.panicActive) return;
+
+        // 3. Si un champ texte / select / contenteditable a le focus : ne pas interférer
+        const activeEl = document.activeElement;
+        if (
+          activeEl &&
+          (activeEl.tagName === 'INPUT' ||
+            activeEl.tagName === 'TEXTAREA' ||
+            activeEl.tagName === 'SELECT' ||
+            activeEl.isContentEditable)
+        ) {
+          return;
+        }
+
+        // 4. Navigation Lightbox Memes
+        if (AppState.lightboxOpen) {
+          if (e.key === 'ArrowLeft') { e.preventDefault(); MemeGallery.stepLightbox(-1); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); MemeGallery.stepLightbox(1); }
+          return;
+        }
+
+        // 5. Bloquer le défilement sur Espace et Flèches dans les sections de jeux
+        const gameSections = ['clicker', 'snake', 'g2048', 'runner', 'reflex', 'flappy'];
+        const scrollKeys = [' ', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+        if (gameSections.includes(AppState.activeSection) && scrollKeys.includes(e.key)) {
+          e.preventDefault();
+        }
+
+        // 6. Router vers le jeu actif
+        if (AppState.activeSection === 'clicker') {
+          if (e.code === 'Space' && !e.repeat) SpacebarClicker.onSpace();
+        } else if (AppState.activeSection === 'snake') {
+          SnakeGame.onKey(e.key);
+        } else if (AppState.activeSection === 'g2048') {
+          Game2048.onKey(e.key);
+        } else if (AppState.activeSection === 'runner') {
+          if (!e.repeat) RunnerGame.onKey(e.key);
+        } else if (AppState.activeSection === 'reflex') {
+          if (e.code === 'Space' && !e.repeat) ReflexGame.onSpace();
+        } else if (AppState.activeSection === 'flappy') {
+          if (!e.repeat) FlappyGame.onKey(e.key);
+        }
+      });
+
+      /* -----------------------------------------------------------------------
+         13. INITIALISATION AU CHARGEMENT
+         ----------------------------------------------------------------------- */
+      window.addEventListener('resize', resizeActiveCanvas);
+      window.addEventListener('load', () => {
+        initCloakUI();
+        updateDashboardStats();
+      });
+    })();
+  </script>
+</body>
+</html>
