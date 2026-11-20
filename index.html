@@ -3504,7 +3504,7 @@
                       <strong>🔄 Déphasage Stéréo Mac (180°)</strong>
                       <small style="display:block; color:var(--text-dim);">Inverse le canal droit pour détruire la localisation spatiale.</small>
                     </span>
-                    <input type="checkbox" id="hz-opt-phase" checked style="width:18px; height:18px; accent-color:var(--accent-cyan);" />
+                    <input type="checkbox" id="hz-opt-phase" style="width:18px; height:18px; accent-color:var(--accent-cyan);" />
                   </label>
 
                   <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-size:13px;">
@@ -3548,7 +3548,7 @@
             </div>
             <div class="hz-preset-grid">
 
-              <button class="hz-preset-btn" data-freq="17400" data-mode="continuous" data-phase="true">
+              <button class="hz-preset-btn" data-freq="17400" data-mode="continuous" data-phase="false">
                 <div class="hz-preset-top">
                   <span class="hz-preset-icon">🦟</span>
                   <span class="hz-preset-hz">17 400 Hz</span>
@@ -3557,7 +3557,7 @@
                 <div class="hz-preset-sub">Inaudible pour la plupart des profs (> 25 ans). Les élèves entendent un sifflement direct.</div>
               </button>
 
-              <button class="hz-preset-btn active" data-freq="15200" data-mode="continuous" data-phase="true">
+              <button class="hz-preset-btn active" data-freq="15200" data-mode="continuous" data-phase="false">
                 <div class="hz-preset-top">
                   <span class="hz-preset-icon">👻</span>
                   <span class="hz-preset-hz">15 200 Hz</span>
@@ -3566,7 +3566,7 @@
                 <div class="hz-preset-sub">Onde stationnaire pure avec canaux D/G inversés. La classe entière cherche d'où ça vient.</div>
               </button>
 
-              <button class="hz-preset-btn" data-freq="15000" data-mode="burst" data-phase="true">
+              <button class="hz-preset-btn" data-freq="15000" data-mode="burst" data-phase="false">
                 <div class="hz-preset-top">
                   <span class="hz-preset-icon">💥</span>
                   <span class="hz-preset-hz">15 000 Hz Bip</span>
@@ -3584,7 +3584,7 @@
                 <div class="hz-preset-sub">Extrêmement énervant et perçant. Entendu par absolument tout le monde dans la salle.</div>
               </button>
 
-              <button class="hz-preset-btn" data-freq="18500" data-mode="continuous" data-phase="true">
+              <button class="hz-preset-btn" data-freq="18500" data-mode="continuous" data-phase="false">
                 <div class="hz-preset-top">
                   <span class="hz-preset-icon">🦇</span>
                   <span class="hz-preset-hz">18 500 Hz</span>
@@ -3972,7 +3972,10 @@
         if (sectionKey === 'tanks' && typeof TanksGame !== 'undefined') requestAnimationFrame(() => TanksGame.resize());
         if (sectionKey === 'achievements' && typeof AchievementsManager !== 'undefined') AchievementsManager.render();
         if (sectionKey === 'links' && typeof LinksLibrary !== 'undefined') LinksLibrary.load();
-        if (sectionKey === 'ultrasonic' && typeof UltrasonicJammer !== 'undefined') UltrasonicJammer.onEnter();
+        if (sectionKey === 'ultrasonic' && typeof UltrasonicJammer !== 'undefined') {
+          UltrasonicJammer.init();
+          UltrasonicJammer.onEnter();
+        }
         if (sectionKey !== 'ultrasonic' && typeof UltrasonicJammer !== 'undefined' && !UltrasonicJammer.keepInBackground) UltrasonicJammer.stop();
       }
 
@@ -9555,18 +9558,17 @@
       const UltrasonicJammer = (() => {
         let ctx = null;
         let isEmitting = false;
+        let isInitialized = false;
         let freq = 15200;
-        let volume = 0.25;
+        let volume = 0.35;
         let mode = 'continuous'; // 'continuous' | 'burst'
-        let phaseInvert = true;
+        let phaseInvert = false;
         let wobble = false;
         let keepInBackground = true;
 
-        let oscL = null;
-        let oscR = null;
-        let gainL = null;
-        let gainR = null;
-        let merger = null;
+        let osc = null;
+        let osc2 = null;
+        let gainNode = null;
         let masterGain = null;
         let analyser = null;
         let lfo = null;
@@ -9584,7 +9586,7 @@
             if (AudioCtx) ctx = new AudioCtx();
           }
           if (ctx && ctx.state === 'suspended') {
-            ctx.resume();
+            ctx.resume().catch(() => {});
           }
           return ctx;
         }
@@ -9593,6 +9595,10 @@
           const c = getCtx();
           if (!c) return false;
 
+          if (c.state === 'suspended') {
+            c.resume().catch(() => {});
+          }
+
           analyser = c.createAnalyser();
           analyser.fftSize = 256;
           analyser.smoothingTimeConstant = 0.8;
@@ -9600,45 +9606,37 @@
           masterGain = c.createGain();
           masterGain.gain.setValueAtTime(0, c.currentTime);
 
-          merger = c.createChannelMerger(2);
+          // Oscillateur principal pur
+          osc = c.createOscillator();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, c.currentTime);
 
-          // Left channel
-          oscL = c.createOscillator();
-          oscL.type = 'sine';
-          oscL.frequency.setValueAtTime(freq, c.currentTime);
+          // Oscillateur secondaire avec micro-battement spatial (+1.5 Hz) pour dispersion acoustique
+          osc2 = c.createOscillator();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(freq + (wobble ? 3 : 1.5), c.currentTime);
 
-          gainL = c.createGain();
-          gainL.gain.setValueAtTime(volume, c.currentTime);
+          gainNode = c.createGain();
+          gainNode.gain.setValueAtTime(volume, c.currentTime);
 
-          oscL.connect(gainL);
-          gainL.connect(merger, 0, 0);
-
-          // Right channel (allows 180° inverted phase for spatial confusion)
-          oscR = c.createOscillator();
-          oscR.type = 'sine';
-          oscR.frequency.setValueAtTime(freq, c.currentTime);
-
-          gainR = c.createGain();
-          gainR.gain.setValueAtTime(phaseInvert ? -volume : volume, c.currentTime);
-
-          oscR.connect(gainR);
-          gainR.connect(merger, 0, 1);
-
-          // Wobble LFO
+          // Wobble LFO (ondulation subtile ±40 Hz)
           lfo = c.createOscillator();
           lfo.frequency.setValueAtTime(0.5, c.currentTime);
           lfoGain = c.createGain();
           lfoGain.gain.setValueAtTime(wobble ? 40 : 0, c.currentTime);
           lfo.connect(lfoGain);
-          lfoGain.connect(oscL.frequency);
-          lfoGain.connect(oscR.frequency);
+          lfoGain.connect(osc.frequency);
+          lfoGain.connect(osc2.frequency);
 
-          merger.connect(masterGain);
+          // Connexion directe haute compatibilité
+          osc.connect(gainNode);
+          osc2.connect(gainNode);
+          gainNode.connect(masterGain);
           masterGain.connect(analyser);
           analyser.connect(c.destination);
 
-          oscL.start();
-          oscR.start();
+          osc.start();
+          osc2.start();
           lfo.start();
           return true;
         }
@@ -9649,32 +9647,35 @@
               masterGain.gain.setValueAtTime(0, ctx.currentTime);
             } catch (e) {}
           }
-          if (oscL) {
-            try { oscL.stop(); oscL.disconnect(); } catch (e) {}
-            oscL = null;
+          if (osc) {
+            try { osc.stop(); osc.disconnect(); } catch (e) {}
+            osc = null;
           }
-          if (oscR) {
-            try { oscR.stop(); oscR.disconnect(); } catch (e) {}
-            oscR = null;
+          if (osc2) {
+            try { osc2.stop(); osc2.disconnect(); } catch (e) {}
+            osc2 = null;
           }
           if (lfo) {
             try { lfo.stop(); lfo.disconnect(); } catch (e) {}
             lfo = null;
           }
+          if (gainNode) {
+            try { gainNode.disconnect(); } catch (e) {}
+            gainNode = null;
+          }
           if (masterGain) {
             try { masterGain.disconnect(); } catch (e) {}
             masterGain = null;
-          }
-          if (merger) {
-            try { merger.disconnect(); } catch (e) {}
-            merger = null;
           }
         }
 
         function startEmitting() {
           if (isEmitting) return;
           const c = getCtx();
-          if (!c) return;
+          if (!c) {
+            alert('Audio non supporté par ce navigateur.');
+            return;
+          }
 
           cancelDelay();
           if (!createAudioGraph()) return;
@@ -9696,7 +9697,6 @@
         }
 
         function stopEmitting() {
-          if (!isEmitting && !delayTimer) return;
           cancelDelay();
 
           if (burstTimer) {
@@ -9726,7 +9726,7 @@
           const c = getCtx();
           if (!c || !masterGain) return;
 
-          const waitMs = 4000 + Math.random() * 5500;
+          const waitMs = 3500 + Math.random() * 5000;
           burstTimer = setTimeout(() => {
             if (!isEmitting || mode !== 'burst' || !masterGain || !ctx) return;
             const now = ctx.currentTime;
@@ -9753,24 +9753,22 @@
 
         function setFrequency(newFreq) {
           freq = Math.max(20, Math.min(22000, Math.round(newFreq)));
-          if (oscL && oscR && ctx) {
+          if (osc && osc2 && ctx) {
             const now = ctx.currentTime;
-            oscL.frequency.cancelScheduledValues(now);
-            oscR.frequency.cancelScheduledValues(now);
-            oscL.frequency.setValueAtTime(freq, now);
-            oscR.frequency.setValueAtTime(freq, now);
+            osc.frequency.cancelScheduledValues(now);
+            osc2.frequency.cancelScheduledValues(now);
+            osc.frequency.setValueAtTime(freq, now);
+            osc2.frequency.setValueAtTime(freq + (wobble ? 3 : 1.5), now);
           }
           updateFreqDisplay();
         }
 
         function setVolume(pct) {
           volume = Math.max(0.01, Math.min(1.0, pct / 100));
-          if (gainL && gainR && ctx) {
+          if (gainNode && ctx) {
             const now = ctx.currentTime;
-            gainL.gain.cancelScheduledValues(now);
-            gainR.gain.cancelScheduledValues(now);
-            gainL.gain.setValueAtTime(volume, now);
-            gainR.gain.setValueAtTime(phaseInvert ? -volume : volume, now);
+            gainNode.gain.cancelScheduledValues(now);
+            gainNode.gain.setValueAtTime(volume, now);
           }
           const volLbl = document.getElementById('hz-vol-label');
           if (volLbl) volLbl.textContent = Math.round(pct) + '%';
@@ -9778,10 +9776,9 @@
 
         function setPhaseInvert(val) {
           phaseInvert = !!val;
-          if (gainR && ctx) {
+          if (osc2 && ctx) {
             const now = ctx.currentTime;
-            gainR.gain.cancelScheduledValues(now);
-            gainR.gain.setValueAtTime(phaseInvert ? -volume : volume, now);
+            osc2.frequency.setValueAtTime(freq + (phaseInvert ? 2.5 : 1.5), now);
           }
         }
 
@@ -9973,6 +9970,9 @@
         }
 
         function init() {
+          if (isInitialized) return;
+          isInitialized = true;
+
           updateFreqDisplay();
 
           const slider = document.getElementById('hz-freq-slider');
@@ -10065,11 +10065,19 @@
           startVisualizer();
         }
 
+        // Auto-initialisation immédiate dès la création du script
+        try {
+          if (typeof document !== 'undefined' && document.getElementById('hz-toggle-btn')) {
+            init();
+          }
+        } catch (e) {}
+
         return {
           init,
           start: startEmitting,
           stop: stopEmitting,
           onEnter: () => {
+            if (!isInitialized) init();
             startVisualizer();
           },
           get keepInBackground() { return keepInBackground; },
