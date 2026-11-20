@@ -2087,7 +2087,226 @@
       color: var(--text-muted);
       line-height: 1.4;
     }
-  </style>
+  
+
+/* Compatibilité & Icônes Cyber Suite */
+.nav-ico { display: inline-flex; align-items: center; justify-content: center; font-size: 16px; margin-right: 8px; }
+.card-ico { font-size: 28px; line-height: 1; }
+
+/* === CYBER SCHOOL PORTAL : SUITE MODULAIRE 20 JEUX === */
+.csp-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.csp-panel {
+  background: var(--bg-card, #111827);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: 0 0 28px rgba(0, 240, 255, 0.08);
+}
+.csp-hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  width: 100%;
+  background: var(--bg-card, #111827);
+  border: 1px solid rgba(168, 85, 247, 0.28);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
+}
+.csp-hint { font-size: 0.8rem; opacity: 0.78; }
+.csp-status { color: var(--accent-cyan, #00f0ff); font-weight: 600; }
+.p1-tag { color: var(--accent-cyan, #00f0ff); }
+.p2-tag { color: var(--accent-violet, #a855f7); }
+.csp-canvas {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  background: #070b14;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.12);
+  display: block;
+  touch-action: none;
+}
+#canvas-doodle { max-width: 420px; }
+#canvas-subway { max-width: 520px; }
+#canvas-sokoban { max-width: 540px; }
+.silk-canvas { cursor: crosshair; }
+
+.csp-btn-group { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.csp-btn {
+  background: rgba(0, 240, 255, 0.12);
+  color: #e2e8f0;
+  border: 1px solid var(--accent-cyan, #00f0ff);
+  border-radius: 8px;
+  padding: 0.42rem 0.85rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: transform 0.12s, background 0.15s, box-shadow 0.15s;
+}
+.csp-btn:hover { background: rgba(0, 240, 255, 0.26); box-shadow: 0 0 12px rgba(0, 240, 255, 0.35); }
+.csp-btn:active { transform: scale(0.96); }
+.csp-btn-emerald { border-color: var(--accent-emerald, #10b981); background: rgba(16, 185, 129, 0.14); }
+.csp-btn-emerald:hover { background: rgba(16, 185, 129, 0.28); }
+.csp-btn-violet { border-color: var(--accent-violet, #a855f7); background: rgba(168, 85, 247, 0.14); }
+.csp-btn-violet:hover { background: rgba(168, 85, 247, 0.28); }
+.csp-select {
+  background: #0b1120;
+  color: #e2e8f0;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+}
+.csp-check { display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; cursor: pointer; }
+
+/* Wordle */
+.wordle-grid { display: grid; grid-template-rows: repeat(6, 1fr); gap: 6px; margin: 0.5rem 0; }
+.wordle-row { display: grid; grid-template-columns: repeat(5, 52px); gap: 6px; }
+.wordle-cell {
+  width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.45rem; font-weight: 800; border-radius: 8px; text-transform: uppercase;
+  background: #0b1120; border: 2px solid rgba(148, 163, 184, 0.28); color: #f8fafc;
+}
+.wordle-cell.ok { background: var(--accent-emerald, #10b981); border-color: var(--accent-emerald, #10b981); color: #04130d; }
+.wordle-cell.near { background: #eab308; border-color: #eab308; color: #1c1502; }
+.wordle-cell.no { background: #334155; border-color: #334155; color: #94a3b8; }
+.wordle-kbd { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 520px; }
+.wordle-krow { display: flex; justify-content: center; gap: 4px; }
+.wordle-key {
+  min-width: 34px; height: 42px; padding: 0 8px; border-radius: 6px; border: 1px solid rgba(0,240,255,0.2);
+  background: #1e293b; color: #f1f5f9; font-weight: 700; cursor: pointer;
+}
+.wordle-key.ok { background: var(--accent-emerald, #10b981); color: #04130d; }
+.wordle-key.near { background: #eab308; color: #1c1502; }
+.wordle-key.no { background: #0f172a; color: #64748b; }
+
+/* Démineur */
+.mine-board {
+  display: grid; grid-template-columns: repeat(10, 36px); gap: 4px;
+  padding: 8px; background: #070b14; border-radius: 10px; user-select: none;
+}
+.mine-cell {
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  background: #1e293b; border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 6px;
+  font-weight: 800; font-size: 0.95rem; cursor: pointer; color: #e2e8f0;
+}
+.mine-cell:hover { background: #283548; }
+.mine-cell.open { background: #0b1120; border-color: rgba(148, 163, 184, 0.14); cursor: default; }
+.mine-cell.boom { background: #ef4444; color: #fff; }
+.mine-cell.flag { color: #f43f5e; }
+
+/* Sudoku */
+.sudoku-grid {
+  display: grid; grid-template-columns: repeat(9, 42px); background: var(--accent-cyan, #00f0ff);
+  gap: 1px; border: 2px solid var(--accent-cyan, #00f0ff); border-radius: 6px; overflow: hidden;
+}
+.sudoku-cell {
+  width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+  background: #0b1120; color: var(--accent-cyan, #00f0ff); font-size: 1.15rem; font-weight: 700; cursor: pointer;
+}
+.sudoku-cell.fixed { color: #f8fafc; background: #131c31; }
+.sudoku-cell.sel { background: rgba(0, 240, 255, 0.22); }
+.sudoku-cell.err { background: rgba(239, 68, 68, 0.35); color: #fca5a5; }
+.sudoku-cell.hinted { background: rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+.sudoku-cell:nth-child(3n) { border-right: 2px solid var(--accent-cyan, #00f0ff); }
+.sudoku-cell:nth-child(9n) { border-right: none; }
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--accent-cyan, #00f0ff); }
+.sudoku-numpad { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+
+/* Échecs */
+.chess-board {
+  display: grid; grid-template-columns: repeat(8, 54px); border: 2px solid var(--accent-violet, #a855f7);
+  border-radius: 8px; overflow: hidden; user-select: none;
+}
+.chess-sq {
+  width: 54px; height: 54px; display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; cursor: pointer; position: relative;
+}
+.chess-sq.light { background: #1e293b; }
+.chess-sq.dark { background: #0f172a; }
+.chess-sq.sel { background: rgba(0, 240, 255, 0.35); }
+.chess-sq.move::after {
+  content: ""; width: 14px; height: 14px; border-radius: 50%;
+  background: rgba(16, 185, 129, 0.75); position: absolute;
+}
+.chess-sq.last { box-shadow: inset 0 0 0 3px rgba(168, 85, 247, 0.65); }
+
+/* Clicker */
+.clicker-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 1.25rem; align-items: start; }
+@media (max-width: 720px) { .clicker-layout { grid-template-columns: 1fr; } }
+.clicker-left { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.clicker-big { font-size: 2.2rem; font-weight: 800; color: var(--accent-cyan, #00f0ff); }
+.click-orb {
+  width: 165px; height: 165px; margin-top: 1rem; border-radius: 50%; cursor: pointer;
+  border: 3px solid var(--accent-cyan, #00f0ff);
+  background: radial-gradient(circle at 35% 35%, rgba(0,240,255,0.45), rgba(168,85,247,0.25) 65%, #070b14);
+  color: #fff; font-size: 2.8rem; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.3); transition: transform 0.08s;
+}
+.click-orb small { font-size: 0.85rem; letter-spacing: 2px; font-weight: 700; }
+.click-orb:active { transform: scale(0.92); }
+.clicker-shop { display: flex; flex-direction: column; gap: 0.55rem; width: 100%; }
+.shop-item {
+  display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 0.85rem;
+  background: #0b1120; border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 10px;
+  cursor: pointer; text-align: left; color: #f1f5f9;
+}
+.shop-item:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* RPG Vie Étudiante */
+.rpg-bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; width: 100%; }
+.rpg-bar-wrap label { font-size: 0.82rem; display: block; margin-bottom: 4px; }
+.rpg-track { height: 10px; background: #0b1120; border-radius: 99px; overflow: hidden; }
+.rpg-fill { height: 100%; transition: width 0.25s; }
+.fill-cyan { background: var(--accent-cyan, #00f0ff); }
+.fill-violet { background: var(--accent-violet, #a855f7); }
+.fill-emerald { background: var(--accent-emerald, #10b981); }
+.rpg-story {
+  width: 100%; padding: 1rem; background: #0b1120; border-left: 3px solid var(--accent-cyan, #00f0ff);
+  border-radius: 8px; line-height: 1.5; font-size: 1rem;
+}
+.rpg-choices { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+.rpg-choices .csp-btn { text-align: left; padding: 0.65rem 0.9rem; }
+.rpg-log { width: 100%; font-size: 0.82rem; opacity: 0.75; max-height: 90px; overflow-y: auto; }
+
+/* Dactylo */
+.type-display {
+  width: 100%; padding: 1rem; background: #0b1120; border-radius: 10px; font-family: monospace;
+  font-size: 1.15rem; line-height: 1.7; letter-spacing: 0.3px; user-select: none;
+}
+.type-ok { color: var(--accent-emerald, #10b981); }
+.type-err { color: #f43f5e; background: rgba(244, 63, 94, 0.2); border-radius: 2px; }
+.type-cur { border-bottom: 2px solid var(--accent-cyan, #00f0ff); }
+.type-input {
+  width: 100%; padding: 0.85rem; border-radius: 10px; background: #070b14; color: #f8fafc;
+  border: 1px solid rgba(0, 240, 255, 0.35); font-family: monospace; font-size: 1.05rem; resize: none;
+}
+
+/* Pomodoro */
+.pomo-shell { align-items: center; }
+.pomo-ring-wrap { position: relative; width: 280px; height: 280px; }
+.pomo-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; pointer-events: none;
+}
+.pomo-clock { font-size: 3rem; font-weight: 800; color: var(--accent-cyan, #00f0ff); font-variant-numeric: tabular-nums; }
+.pomo-mode { font-size: 0.8rem; letter-spacing: 2px; opacity: 0.78; }
+
+
+
+</style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
@@ -2117,7 +2336,37 @@
             <span>Outils</span>
             <span>Extensions</span>
             <span>Aide</span>
-          </nav>
+          
+
+        <div class="nav-group-label">🚀 Nouveautés Arcade 2D &amp; Physique</div>
+        <button class="nav-btn" data-section="doodle"><span class="nav-icon">🚀</span> Doodle Jump Néon</button>
+        <button class="nav-btn" data-section="hook"><span class="nav-icon">🪝</span> Stickman Hook</button>
+        <button class="nav-btn" data-section="subway"><span class="nav-icon">🚇</span> Subway Runner 2D</button>
+        <button class="nav-btn" data-section="drift"><span class="nav-icon">🏎️</span> Drift Micro-Car</button>
+        <button class="nav-btn" data-section="paper"><span class="nav-icon">✈️</span> Paper Flight</button>
+        <button class="nav-btn" data-section="brick"><span class="nav-icon">🧱</span> Casse-Briques Cyber</button>
+
+        <div class="nav-group-label">⚔️ Nouveaux Duels 1v1</div>
+        <button class="nav-btn" data-section="basket1v1"><span class="nav-icon">🏀</span> Basket Random 1v1</button>
+        <button class="nav-btn" data-section="soccer1v1"><span class="nav-icon">⚽</span> Micro Soccer 1v1</button>
+        <button class="nav-btn" data-section="gunmayhem"><span class="nav-icon">🔫</span> Gun Mayhem 1v1</button>
+        <button class="nav-btn" data-section="volley1v1"><span class="nav-icon">🏐</span> Volley Slime 1v1</button>
+
+        <div class="nav-group-label">🧠 Réflexion &amp; Échecs</div>
+        <button class="nav-btn" data-section="wordle"><span class="nav-icon">🔤</span> Wordle Français</button>
+        <button class="nav-btn" data-section="minesweeper"><span class="nav-icon">💣</span> Démineur Sans 50/50</button>
+        <button class="nav-btn" data-section="sudoku"><span class="nav-icon">🔢</span> Sudoku Express</button>
+        <button class="nav-btn" data-section="chess"><span class="nav-icon">♟️</span> Échecs Mini-Engine</button>
+        <button class="nav-btn" data-section="sokoban"><span class="nav-icon">📦</span> Sokoban 2D</button>
+
+        <div class="nav-group-label">✨ Focus, RPG &amp; Création</div>
+        <button class="nav-btn" data-section="cyberclicker"><span class="nav-icon">🍪</span> Idle Cyber Clicker</button>
+        <button class="nav-btn" data-section="studentlife"><span class="nav-icon">🎓</span> Vie Étudiante RPG</button>
+        <button class="nav-btn" data-section="typing"><span class="nav-icon">⌨️</span> Dactylo Speed Test</button>
+        <button class="nav-btn" data-section="pomodoro"><span class="nav-icon">⏱️</span> Pomodoro &amp; Focus</button>
+        <button class="nav-btn" data-section="silk"><span class="nav-icon">🎨</span> Silk Canvas Néon</button>
+
+      </nav>
         </div>
       </div>
       <div class="gdocs-header-right">
@@ -2423,7 +2672,214 @@
               <p>Émetteur haute fréquence et sons fantômes impossibles à localiser. Presets Mosquito anti-prof, déphasage stéréo Mac.</p>
               <div class="game-launch-meta"><span class="text-rose">Acoustique Furtive</span><span>Brouiller →</span></div>
             </button>
-</div>
+
+
+            <!-- === SUITE MODULAIRE 20 JEUX GEMINI CYBER === -->
+            <!-- Arcade & Physique -->
+            <button class="game-launch-card" data-goto="doodle">
+              <div class="game-launch-icon">🚀</div>
+              <h3>Doodle Jump Néon</h3>
+              <p>Ascension verticale procédurale, ressorts, plateformes mouvantes et monstres néon.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Arcade Solo</span>
+                <span class="mono text-muted">Physique</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="hook">
+              <div class="game-launch-icon">🪝</div>
+              <h3>Stickman Hook</h3>
+              <p>Balancement pendulaire à grappin physique réaliste. Accroche-toi et bats le record de distance.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-emerald">Physique Solo</span>
+                <span class="mono text-muted">Grappin</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="subway">
+              <div class="game-launch-icon">🚇</div>
+              <h3>Subway Runner 2D</h3>
+              <p>Course infinie sur 3 voies cybernétiques. Esquive les rames, saute et glisse sous les lasers.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Runner 2D</span>
+                <span class="mono text-muted">3 Voies</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="drift">
+              <div class="game-launch-icon">🏎️</div>
+              <h3>Drift Micro-Car</h3>
+              <p>Circuit top-down rétro avec physique de dérapage au frein à main et jauge de style.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-amber">Micro-Racing</span>
+                <span class="mono text-muted">Drift Score</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="paper">
+              <div class="game-launch-icon">✈️</div>
+              <h3>Paper Flight</h3>
+              <p>Simulateur aérodynamique d'avion en papier. Utilise les courants thermiques et évite les turbulences.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-violet">Aérodynamique</span>
+                <span class="mono text-muted">Planeur</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="brick">
+              <div class="game-launch-icon">🧱</div>
+              <h3>Casse-Briques Cyber</h3>
+              <p>Arkanoid revisité avec multi-balles néon, canons lasers latéraux et briques explosives.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-rose">Arcade Rétro</span>
+                <span class="mono text-muted">Power-ups</span>
+              </div>
+            </button>
+
+            <!-- Duels 1v1 -->
+            <button class="game-launch-card" data-goto="basket1v1">
+              <div class="game-launch-icon">🏀</div>
+              <h3>Basket Random 1v1</h3>
+              <p>Physique ragdoll déjantée à une touche par joueur. Marque des paniers improbables à 2 sur le même clavier.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-amber">Duel 1v1 Local</span>
+                <span class="mono text-muted">Ragdoll Hotseat</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="soccer1v1">
+              <div class="game-launch-icon">⚽</div>
+              <h3>Micro Soccer 1v1</h3>
+              <p>Duel de football 2D avec têtes plongeantes, rebonds dynamiques et frappes néon survoltées.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-emerald">Duel 1v1 Local</span>
+                <span class="mono text-muted">Micro Soccer</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="gunmayhem">
+              <div class="game-launch-icon">🔫</div>
+              <h3>Gun Mayhem 1v1</h3>
+              <p>Arène de plateformes explosive. Recul des armes, sauts doubles et éjection hors de l'écran.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-rose">Combat 1v1 Local</span>
+                <span class="mono text-muted">Éjection Smash</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="volley1v1">
+              <div class="game-launch-icon">🏐</div>
+              <h3>Volley Slime 1v1</h3>
+              <p>Affrontement arcade classique de slimes au-dessus du filet. Smashs lumineux et sauvetages réflexes.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Duel 1v1 Local</span>
+                <span class="mono text-muted">Slime Volley</span>
+              </div>
+            </button>
+
+            <!-- Réflexion & Puzzles -->
+            <button class="game-launch-card" data-goto="wordle">
+              <div class="game-launch-icon">🔤</div>
+              <h3>Wordle Français</h3>
+              <p>Devine le mot de 5 lettres en 6 essais avec dictionnaire français complet en mode illimité.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-violet">Réflexion</span>
+                <span class="mono text-muted">Illimité FR</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="minesweeper">
+              <div class="game-launch-icon">💣</div>
+              <h3>Démineur Logique</h3>
+              <p>Grille 100% déductible sans aucun coup au hasard (zéro 50/50). Résolution logique pure garantie.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-emerald">Logique Pure</span>
+                <span class="mono text-muted">Sans 50/50</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="sudoku">
+              <div class="game-launch-icon">🔢</div>
+              <h3>Sudoku Express</h3>
+              <p>Grilles 9x9 générées instantanément avec solveur pas-à-pas et détection d'erreurs en direct.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Chiffres</span>
+                <span class="mono text-muted">Générateur &amp; Aide</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="chess">
+              <div class="game-launch-icon">♟️</div>
+              <h3>Échecs Mini-Engine</h3>
+              <p>Moteur d'échecs autonome en JavaScript pur avec IA Minimax Alpha-Bêta sans dépendance externe.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-violet">Stratégie</span>
+                <span class="mono text-muted">Minimax IA</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="sokoban">
+              <div class="game-launch-icon">📦</div>
+              <h3>Sokoban 2D</h3>
+              <p>6 niveaux de réflexion progressive néon. Pousse les caisses sur les socles cibles avec fonction Undo.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-amber">Casse-Tête</span>
+                <span class="mono text-muted">Undo &amp; Salles</span>
+              </div>
+            </button>
+
+            <!-- Focus, RPG & Utilitaires -->
+            <button class="game-launch-card" data-goto="cyberclicker">
+              <div class="game-launch-icon">🍪</div>
+              <h3>Idle Cyber Clicker</h3>
+              <p>Génère des bits passifs, achète des fermes GPU et clusters Linux, et active l'overclock prestige.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Simulation</span>
+                <span class="mono text-muted">Prestige &amp; Idle</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="studentlife">
+              <div class="game-launch-icon">🎓</div>
+              <h3>Vie Étudiante RPG</h3>
+              <p>Simulateur narratif à choix multiples : gère tes notes, ton énergie, ton stress et ton budget cantine.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-emerald">RPG Texte</span>
+                <span class="mono text-muted">Choix Multiples</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="typing">
+              <div class="game-launch-icon">⌨️</div>
+              <h3>Dactylo Speed Test</h3>
+              <p>Mesure ta vitesse de frappe en Mots Par Minute (WPM) et ta précision sur citations et extraits de code.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-rose">Dactylo</span>
+                <span class="mono text-muted">WPM &amp; Précision</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="pomodoro">
+              <div class="game-launch-icon">⏱️</div>
+              <h3>Pomodoro &amp; Focus</h3>
+              <p>Chronomètre de travail par intervalles 25 min / 5 min avec carillon audio 8-bit et jauge circulaire.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-violet">Productivité</span>
+                <span class="mono text-muted">Cycles 25/5 min</span>
+              </div>
+            </button>
+
+            <button class="game-launch-card" data-goto="silk">
+              <div class="game-launch-icon">🎨</div>
+              <h3>Silk Canvas Néon</h3>
+              <p>Outil d'art vectoriel génératif symétrique et relaxant avec dégradés néon et export PNG direct.</p>
+              <div class="game-launch-meta">
+                <span class="badge badge-cyan">Art Vectoriel</span>
+                <span class="mono text-muted">Symétrie &amp; Export</span>
+              </div>
+            </button>
+
+          </div>
         </section>
 
         <!-- ===============================================================
@@ -3679,7 +4135,329 @@
           </div>
         </section>
 
-      </main>
+      
+<!-- === NOUVELLES SECTIONS CYBER SUITE 20 JEUX === -->
+<!-- 1. DOODLE JUMP -->
+<section id="sec-doodle" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Score: <strong id="doodle-score">0</strong></span>
+      <span>Record: <strong id="doodle-best">0</strong></span>
+      <span class="csp-hint">Q/A/D ou ◀▶ pour bouger • Espace pour rejouer</span>
+      <button class="csp-btn" id="doodle-reset">Rejouer</button>
+    </div>
+    <canvas id="canvas-doodle" class="csp-canvas" width="420" height="600"></canvas>
+  </div>
+</section>
+
+<!-- 2. STICKMAN HOOK -->
+<section id="sec-hook" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Distance: <strong id="hook-dist">0</strong>m</span>
+      <span>Record: <strong id="hook-best">0</strong>m</span>
+      <span class="csp-hint">Maintenir Espace / Clic pour accrocher le grappin</span>
+      <button class="csp-btn" id="hook-reset">Rejouer</button>
+    </div>
+    <canvas id="canvas-hook" class="csp-canvas" width="760" height="480"></canvas>
+  </div>
+</section>
+
+<!-- 3. SUBWAY RUNNER -->
+<section id="sec-subway" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Score: <strong id="subway-score">0</strong></span>
+      <span>Pièces: <strong id="subway-coins">0</strong></span>
+      <span class="csp-hint">◀▶ / Q-A-D : Voies • ▲/Z/W : Saut • ▼/S : Glissade</span>
+      <button class="csp-btn" id="subway-reset">Rejouer</button>
+    </div>
+    <canvas id="canvas-subway" class="csp-canvas" width="520" height="580"></canvas>
+  </div>
+</section>
+
+<!-- 4. DRIFT MICRO-CAR -->
+<section id="sec-drift" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Tour: <strong id="drift-lap">1</strong></span>
+      <span>Score Drift: <strong id="drift-score">0</strong></span>
+      <span>Chrono: <strong id="drift-time">0.0</strong>s</span>
+      <span class="csp-hint">ZQSD/WASD/Flèches + Espace (Frein à main)</span>
+      <button class="csp-btn" id="drift-reset">Reset</button>
+    </div>
+    <canvas id="canvas-drift" class="csp-canvas" width="760" height="500"></canvas>
+  </div>
+</section>
+
+<!-- 5. PAPER FLIGHT -->
+<section id="sec-paper" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Distance: <strong id="paper-dist">0</strong>m</span>
+      <span>Anneaux: <strong id="paper-rings">0</strong></span>
+      <span>Record: <strong id="paper-best">0</strong>m</span>
+      <span class="csp-hint">▲▼ / Z-W-S pour l'inclinaison • Espace pour lancer</span>
+      <button class="csp-btn" id="paper-reset">Relancer</button>
+    </div>
+    <canvas id="canvas-paper" class="csp-canvas" width="760" height="460"></canvas>
+  </div>
+</section>
+
+<!-- 6. CASSE-BRIQUES CYBER -->
+<section id="sec-brick" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Score: <strong id="brick-score">0</strong></span>
+      <span>Vies: <strong id="brick-lives">3</strong></span>
+      <span>Niveau: <strong id="brick-lvl">1</strong></span>
+      <span class="csp-hint">Souris ou ◀▶ • Espace : Tir Laser (si actif)</span>
+      <button class="csp-btn" id="brick-reset">Nouvelle Partie</button>
+    </div>
+    <canvas id="canvas-brick" class="csp-canvas" width="720" height="500"></canvas>
+  </div>
+</section>
+
+<!-- 7. BASKET RANDOM 1V1 -->
+<section id="sec-basket1v1" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span class="p1-tag">J1 (Z/W) : <strong id="basket-p1">0</strong></span>
+      <span>Objectif : 5 pts</span>
+      <span class="p2-tag">J2 (▲) : <strong id="basket-p2">0</strong></span>
+      <button class="csp-btn" id="basket-reset">Reset Match</button>
+    </div>
+    <canvas id="canvas-basket1v1" class="csp-canvas" width="760" height="460"></canvas>
+  </div>
+</section>
+
+<!-- 8. MICRO SOCCER 1V1 -->
+<section id="sec-soccer1v1" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span class="p1-tag">J1 (ZQSD/WASD + Espace) : <strong id="soccer-p1">0</strong></span>
+      <span>Premier à 5</span>
+      <span class="p2-tag">J2 (Flèches + Entrée) : <strong id="soccer-p2">0</strong></span>
+      <button class="csp-btn" id="soccer-reset">Reset Match</button>
+    </div>
+    <canvas id="canvas-soccer1v1" class="csp-canvas" width="760" height="460"></canvas>
+  </div>
+</section>
+
+<!-- 9. GUN MAYHEM 1V1 -->
+<section id="sec-gunmayhem" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span class="p1-tag">J1 (ZQSD/WASD + Espace) Vies: <strong id="gun-p1">3</strong></span>
+      <span>Éjecte ton adversaire !</span>
+      <span class="p2-tag">J2 (Flèches + Entrée) Vies: <strong id="gun-p2">3</strong></span>
+      <button class="csp-btn" id="gun-reset">Rejouer</button>
+    </div>
+    <canvas id="canvas-gunmayhem" class="csp-canvas" width="760" height="480"></canvas>
+  </div>
+</section>
+
+<!-- 10. VOLLEY SLIME 1V1 -->
+<section id="sec-volley1v1" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span class="p1-tag">J1 (Z/W + Q/A/D) : <strong id="volley-p1">0</strong></span>
+      <span>Premier à 7</span>
+      <span class="p2-tag">J2 (Flèches) : <strong id="volley-p2">0</strong></span>
+      <button class="csp-btn" id="volley-reset">Reset Match</button>
+    </div>
+    <canvas id="canvas-volley1v1" class="csp-canvas" width="760" height="460"></canvas>
+  </div>
+</section>
+
+<!-- 11. WORDLE FRANÇAIS -->
+<section id="sec-wordle" class="section">
+  <div class="csp-shell csp-panel">
+    <div class="csp-hud">
+      <span>Série : <strong id="wordle-streak">0</strong></span>
+      <span id="wordle-msg" class="csp-status">Devine le mot de 5 lettres</span>
+      <button class="csp-btn" id="wordle-reset">Nouveau Mot</button>
+    </div>
+    <div id="wordle-grid" class="wordle-grid"></div>
+    <div id="wordle-kbd" class="wordle-kbd"></div>
+  </div>
+</section>
+
+<!-- 12. DÉMINEUR SANS 50/50 -->
+<section id="sec-minesweeper" class="section">
+  <div class="csp-shell csp-panel">
+    <div class="csp-hud">
+      <span>Mines : <strong id="mine-left">16</strong></span>
+      <span>Chrono : <strong id="mine-time">0</strong>s</span>
+      <span id="mine-status" class="csp-status">100% Déductible • Clic droit = Drapeau</span>
+      <button class="csp-btn" id="mine-reset">Nouvelle Grille</button>
+    </div>
+    <div id="mine-board" class="mine-board"></div>
+  </div>
+</section>
+
+<!-- 13. SUDOKU EXPRESS -->
+<section id="sec-sudoku" class="section">
+  <div class="csp-shell csp-panel">
+    <div class="csp-hud">
+      <select id="sudoku-diff" class="csp-select">
+        <option value="34">Facile</option>
+        <option value="44" selected>Moyen</option>
+        <option value="52">Difficile</option>
+      </select>
+      <button class="csp-btn" id="sudoku-new">Nouvelle Grille</button>
+      <button class="csp-btn csp-btn-emerald" id="sudoku-hint">Indice Pas-à-Pas</button>
+      <button class="csp-btn csp-btn-violet" id="sudoku-solve">Résoudre</button>
+    </div>
+    <div id="sudoku-msg" class="csp-status">Clique une case puis tape un chiffre (1-9)</div>
+    <div id="sudoku-grid" class="sudoku-grid"></div>
+    <div id="sudoku-numpad" class="sudoku-numpad"></div>
+  </div>
+</section>
+
+<!-- 14. ÉCHECS MINI-ENGINE -->
+<section id="sec-chess" class="section">
+  <div class="csp-shell csp-panel">
+    <div class="csp-hud">
+      <span id="chess-status" class="csp-status">Trait aux Blancs (Toi)</span>
+      <select id="chess-depth" class="csp-select">
+        <option value="2">IA Rapide (Niv. 1)</option>
+        <option value="3" selected>IA Tactique (Niv. 2)</option>
+      </select>
+      <button class="csp-btn" id="chess-reset">Nouvelle Partie</button>
+    </div>
+    <div id="chess-board" class="chess-board"></div>
+  </div>
+</section>
+
+<!-- 15. SOKOBAN 2D -->
+<section id="sec-sokoban" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Salle: <strong id="soko-lvl">1/6</strong></span>
+      <span>Coups: <strong id="soko-moves">0</strong></span>
+      <span class="csp-hint">ZQSD/WASD/Flèches • U: Annuler • R: Reset</span>
+      <div class="csp-btn-group">
+        <button class="csp-btn" id="soko-undo">Annuler</button>
+        <button class="csp-btn" id="soko-reset">Reset</button>
+        <button class="csp-btn csp-btn-emerald" id="soko-next">Suivant</button>
+      </div>
+    </div>
+    <canvas id="canvas-sokoban" class="csp-canvas" width="540" height="420"></canvas>
+  </div>
+</section>
+
+<!-- 16. IDLE CYBER CLICKER -->
+<section id="sec-cyberclicker" class="section">
+  <div class="csp-shell csp-panel clicker-layout">
+    <div class="clicker-left">
+      <div class="clicker-stats">
+        <div class="clicker-big"><span id="click-pts">0</span> <small>BITS</small></div>
+        <div>Production : <strong id="click-cps">0</strong> /sec • Clic : <strong id="click-pwr">1</strong></div>
+      </div>
+      <button id="click-orb" class="click-orb"><span>⚡</span><small>HACK</small></button>
+      <div class="csp-btn-group" style="margin-top:1rem">
+        <button class="csp-btn csp-btn-violet" id="click-prestige">Overclock (x2) — 5000 BITS</button>
+        <button class="csp-btn" id="click-reset">Réinitialiser</button>
+      </div>
+    </div>
+    <div class="clicker-shop" id="click-shop"></div>
+  </div>
+</section>
+
+<!-- 17. SIMULATEUR VIE ÉTUDIANTE RPG -->
+<section id="sec-studentlife" class="section">
+  <div class="csp-shell csp-panel rpg-shell">
+    <div class="csp-hud">
+      <span>Jour : <strong id="rpg-day">1 / 10</strong></span>
+      <span id="rpg-phase" class="csp-status">Semaine d'examens</span>
+      <button class="csp-btn" id="rpg-reset">Recommencer</button>
+    </div>
+    <div class="rpg-bars">
+      <div class="rpg-bar-wrap"><label>⚡ Énergie (<span id="rpg-val-e">80</span>%)</label><div class="rpg-track"><div id="rpg-bar-e" class="rpg-fill fill-cyan"></div></div></div>
+      <div class="rpg-bar-wrap"><label>📚 Révision (<span id="rpg-val-r">20</span>%)</label><div class="rpg-track"><div id="rpg-bar-r" class="rpg-fill fill-violet"></div></div></div>
+      <div class="rpg-bar-wrap"><label>💳 Budget (<span id="rpg-val-b">60</span> CHF)</label><div class="rpg-track"><div id="rpg-bar-b" class="rpg-fill fill-emerald"></div></div></div>
+    </div>
+    <div id="rpg-story" class="rpg-story"></div>
+    <div id="rpg-choices" class="rpg-choices"></div>
+    <div id="rpg-log" class="rpg-log"></div>
+  </div>
+</section>
+
+<!-- 18. DACTYLO SPEED TEST -->
+<section id="sec-typing" class="section">
+  <div class="csp-shell csp-panel">
+    <div class="csp-hud">
+      <span>Temps: <strong id="type-time">60</strong>s</span>
+      <span>WPM: <strong id="type-wpm">0</strong></span>
+      <span>Précision: <strong id="type-acc">100</strong>%</span>
+      <select id="type-dur" class="csp-select">
+        <option value="30">30 sec</option>
+        <option value="60" selected>60 sec</option>
+      </select>
+      <button class="csp-btn" id="type-reset">Nouveau Texte</button>
+    </div>
+    <div id="type-display" class="type-display"></div>
+    <textarea id="type-input" class="type-input" rows="3" placeholder="Commence à taper ici pour démarrer le chrono..." spellcheck="false" autocomplete="off"></textarea>
+  </div>
+</section>
+
+<!-- 19. POMODORO & FOCUS -->
+<section id="sec-pomodoro" class="section">
+  <div class="csp-shell csp-panel pomo-shell">
+    <div class="csp-btn-group">
+      <button class="csp-btn csp-btn-cyan" data-pomo="focus">Focus (25m)</button>
+      <button class="csp-btn csp-btn-emerald" data-pomo="short">Pause (5m)</button>
+      <button class="csp-btn csp-btn-violet" data-pomo="long">Grande Pause (15m)</button>
+    </div>
+    <div class="pomo-ring-wrap">
+      <canvas id="canvas-pomodoro" width="280" height="280"></canvas>
+      <div class="pomo-overlay">
+        <div id="pomo-clock" class="pomo-clock">25:00</div>
+        <div id="pomo-mode" class="pomo-mode">SESSION FOCUS</div>
+      </div>
+    </div>
+    <div class="csp-btn-group">
+      <button class="csp-btn csp-btn-emerald" id="pomo-toggle">Démarrer</button>
+      <button class="csp-btn" id="pomo-reset">Réinitialiser</button>
+    </div>
+    <div class="csp-hint">Sessions terminées aujourd'hui : <strong id="pomo-count">0</strong></div>
+  </div>
+</section>
+
+<!-- 20. SILK CANVAS SYMÉTRIQUE -->
+<section id="sec-silk" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <label>Axes:
+        <select id="silk-axes" class="csp-select">
+          <option value="4">4</option>
+          <option value="6" selected>6</option>
+          <option value="8">8</option>
+          <option value="12">12</option>
+        </select>
+      </label>
+      <label>Couleur:
+        <select id="silk-color" class="csp-select">
+          <option value="rainbow">Cycle Néon</option>
+          <option value="#00f0ff">Cyan</option>
+          <option value="#a855f7">Violet</option>
+          <option value="#10b981">Émeraude</option>
+          <option value="#f43f5e">Rose Cyber</option>
+        </select>
+      </label>
+      <label class="csp-check"><input type="checkbox" id="silk-mirror" checked> Miroir</label>
+      <div class="csp-btn-group">
+        <button class="csp-btn" id="silk-clear">Effacer</button>
+        <button class="csp-btn csp-btn-emerald" id="silk-save">Exporter PNG</button>
+      </div>
+    </div>
+    <canvas id="canvas-silk" class="csp-canvas silk-canvas" width="760" height="520"></canvas>
+  </div>
+</section>
+
+
+</main>
     </div>
   </div>
 
@@ -4098,10 +4876,37 @@
         calc: '🧮 Calculatrice EDU_VD',
         achievements: '🏆 Hauts Faits de l\'École',
         cloak: '🕵️ Camouflage & Mode Cours',
-        ultrasonic: '🦇 Brouilleur Ultra-Sons Hz (Furtif)'
+        ultrasonic: '🦇 Brouilleur Ultra-Sons Hz (Furtif)',
+
+        doodle: '🚀 Doodle Jump Néon',
+        hook: '🪝 Stickman Hook',
+        subway: '🚇 Subway Runner 2D',
+        drift: '🏎️ Drift Micro-Car',
+        paper: '✈️ Paper Flight',
+        brick: '🧱 Casse-Briques Cyber',
+        basket1v1: '🏀 Basket Random 1v1',
+        soccer1v1: '⚽ Micro Soccer 1v1',
+        gunmayhem: '🔫 Gun Mayhem 1v1',
+        volley1v1: '🏐 Volley Slime 1v1',
+        wordle: '🔤 Wordle Français',
+        minesweeper: '💣 Démineur Logique (Sans 50/50)',
+        sudoku: '🔢 Sudoku Express',
+        chess: '♟️ Échecs Mini-Engine',
+        sokoban: '📦 Sokoban 2D',
+        cyberclicker: '🍪 Idle Cyber Clicker',
+        studentlife: '🎓 Vie Étudiante RPG',
+        typing: '⌨️ Dactylo Speed Test',
+        pomodoro: '⏱️ Pomodoro & Focus',
+        silk: '🎨 Silk Canvas Néon',
+
       };
 
       function pauseAllGames() {
+        if (typeof CYBER_MODULES !== 'undefined') {
+          Object.values(CYBER_MODULES).forEach(mod => mod && mod.pause && mod.pause());
+        }
+        window.__activeCyberSection = null;
+  
         if (typeof Soundboard !== 'undefined') Soundboard.stopAll();
         if (typeof UltrasonicJammer !== 'undefined') UltrasonicJammer.stop();
         SnakeGame.pause();
@@ -4138,6 +4943,16 @@
 
         document.getElementById('topbar-title').textContent = SECTION_TITLES[sectionKey];
         closeMobileSidebar();
+
+        window.__activeCyberSection = sectionKey;
+        if (typeof CYBER_MODULES !== 'undefined' && CYBER_MODULES[sectionKey]) {
+          const mod = CYBER_MODULES[sectionKey];
+          if (!mod._inited) { mod.init(); mod._inited = true; }
+          if (mod.resize) mod.resize();
+          mod.start();
+        }
+  
+
 
         // Actions spécifiques à l'entrée d'une section
         if (sectionKey === 'home') updateDashboardStats();
@@ -10273,6 +11088,2146 @@
         };
       })();
 
+      
+      /* ============================================================================
+         SUITE MODULAIRE 20 JEUX GEMINI CYBER PORTAL
+         ============================================================================ */
+/* ============================================================================
+   CORE PARTAGÉ : AUDIO 8-BIT (WEB AUDIO API) & CLAVIER UNIVERSEL AZERTY/QWERTZ
+   ============================================================================ */
+const CyberAudio = (() => {
+  let ctx = null;
+  const ensure = () => {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === "suspended") ctx.resume();
+    return ctx;
+  };
+  const tone = (freq, dur = 0.09, type = "square", vol = 0.07, slide = null) => {
+    try {
+      const c = ensure(), o = c.createOscillator(), g = c.createGain();
+      o.type = type; o.frequency.setValueAtTime(freq, c.currentTime);
+      if (slide) o.frequency.exponentialRampToValueAtTime(slide, c.currentTime + dur);
+      g.gain.setValueAtTime(vol, c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + dur);
+      o.connect(g); g.connect(c.destination);
+      o.start(); o.stop(c.currentTime + dur);
+    } catch {}
+  };
+  return {
+    jump: () => tone(320, 0.11, "square", 0.06, 620),
+    hit: () => tone(190, 0.07, "triangle", 0.08, 90),
+    score: () => { tone(520, 0.08, "sine", 0.07); setTimeout(() => tone(780, 0.12, "sine", 0.07), 70); },
+    boom: () => tone(120, 0.22, "sawtooth", 0.09, 38),
+    click: () => tone(680, 0.04, "sine", 0.05),
+    over: () => { tone(300, 0.12, "sawtooth", 0.07, 200); setTimeout(() => tone(180, 0.24, "sawtooth", 0.07, 90), 110); },
+    chime: () => { [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => tone(f, 0.28, "sine", 0.08), i * 120)); }
+  };
+})();
+
+const CyberKeys = (() => {
+  const down = new Set();
+  const blockList = new Set(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"]);
+  window.addEventListener("keydown", e => {
+    const tag = document.activeElement?.tagName;
+    if (blockList.has(e.code) && window.__activeCyberSection && tag !== "INPUT" && tag !== "TEXTAREA") {
+      if (window.__activeCyberSection !== "typing" && window.__activeCyberSection !== "wordle") e.preventDefault();
+    }
+    down.add(e.code);
+  });
+  window.addEventListener("keyup", e => down.delete(e.code));
+  window.addEventListener("blur", () => down.clear());
+  return {
+    code: c => down.has(c),
+    // e.code utilise la position physique : KeyW = Z (AZERTY) et W (QWERTZ), KeyA = Q (AZERTY) et A (QWERTZ)
+    left: () => down.has("KeyA") || down.has("ArrowLeft"),
+    right: () => down.has("KeyD") || down.has("ArrowRight"),
+    up: () => down.has("KeyW") || down.has("ArrowUp"),
+    down: () => down.has("KeyS") || down.has("ArrowDown")
+  };
+})();
+
+/* ============================================================================
+   1. DOODLE JUMP NÉON
+   ============================================================================ */
+const DoodleGame = (() => {
+  let cv, ctx, raf = 0, active = false, best = 0;
+  let p, plats, monsters, score, over;
+  const W = 420, H = 600;
+
+  function reset() {
+    p = { x: W / 2, y: H - 90, vx: 0, vy: -10, w: 26, h: 26 };
+    plats = [{ x: W / 2 - 45, y: H - 40, w: 90, type: "norm", dir: 1 }];
+    for (let y = H - 100; y > -200; y -= 58) plats.push(makePlat(y));
+    monsters = []; score = 0; over = false;
+    updateHud();
+  }
+  function makePlat(y) {
+    const r = Math.random();
+    return {
+      x: 15 + Math.random() * (W - 105), y, w: 78,
+      type: r < 0.15 ? "spring" : r < 0.35 ? "move" : "norm",
+      dir: Math.random() < 0.5 ? -1 : 1
+    };
+  }
+  function updateHud() {
+    document.getElementById("doodle-score").textContent = Math.floor(score);
+    document.getElementById("doodle-best").textContent = Math.floor(best);
+  }
+  function step() {
+    if (!active) return;
+    if (!over) {
+      if (CyberKeys.left()) p.vx = -5.2;
+      else if (CyberKeys.right()) p.vx = 5.2;
+      else p.vx *= 0.82;
+      p.x += p.vx;
+      if (p.x < -p.w) p.x = W;
+      if (p.x > W) p.x = -p.w;
+
+      p.vy += 0.38; p.y += p.vy;
+
+      plats.forEach(pl => {
+        if (pl.type === "move") {
+          pl.x += pl.dir * 2;
+          if (pl.x < 8 || pl.x + pl.w > W - 8) pl.dir *= -1;
+        }
+        if (p.vy > 0 && p.x + p.w > pl.x && p.x < pl.x + pl.w && p.y + p.h >= pl.y && p.y + p.h <= pl.y + 14) {
+          p.vy = pl.type === "spring" ? -17.5 : -11.2;
+          pl.type === "spring" ? CyberAudio.score() : CyberAudio.jump();
+        }
+      });
+
+      monsters.forEach((m, i) => {
+        m.x += m.vx; if (m.x < 20 || m.x > W - 20) m.vx *= -1;
+        if (Math.hypot(p.x + 13 - m.x, p.y + 13 - m.y) < 24) {
+          if (p.vy > 0 && p.y < m.y) { monsters.splice(i, 1); p.vy = -13; score += 150; CyberAudio.boom(); }
+          else { over = true; CyberAudio.over(); }
+        }
+      });
+
+      if (p.y < H * 0.42) {
+        const dy = H * 0.42 - p.y;
+        p.y = H * 0.42; score += dy * 0.25;
+        if (score > best) best = score;
+        plats.forEach(pl => pl.y += dy);
+        monsters.forEach(m => m.y += dy);
+        plats = plats.filter(pl => pl.y < H + 20);
+        monsters = monsters.filter(m => m.y < H + 40);
+        let minY = Math.min(...plats.map(pl => pl.y));
+        while (minY > -60) {
+          minY -= 55 + Math.random() * 18;
+          plats.push(makePlat(minY));
+          if (score > 200 && Math.random() < 0.09) monsters.push({ x: 40 + Math.random() * (W - 80), y: minY - 22, vx: 1.6 });
+        }
+        updateHud();
+      }
+      if (p.y > H + 30) { over = true; CyberAudio.over(); }
+    } else if (CyberKeys.code("Space")) reset();
+
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = "rgba(0,240,255,0.06)";
+    for (let x = 0; x < W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+    plats.forEach(pl => {
+      ctx.fillStyle = pl.type === "spring" ? "#10b981" : pl.type === "move" ? "#a855f7" : "#00f0ff";
+      ctx.fillRect(pl.x, pl.y, pl.w, 10);
+      if (pl.type === "spring") { ctx.fillStyle = "#fde047"; ctx.fillRect(pl.x + pl.w/2 - 8, pl.y - 6, 16, 6); }
+    });
+    monsters.forEach(m => {
+      ctx.fillStyle = "#f43f5e"; ctx.beginPath(); ctx.arc(m.x, m.y, 14, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.fillRect(m.x - 6, m.y - 4, 4, 4); ctx.fillRect(m.x + 2, m.y - 4, 4, 4);
+    });
+    ctx.fillStyle = "#38bdf8"; ctx.fillRect(p.x, p.y, p.w, p.h);
+    ctx.fillStyle = "#070b14"; ctx.fillRect(p.x + 5, p.y + 6, 5, 5); ctx.fillRect(p.x + 16, p.y + 6, 5, 5);
+    if (over) {
+      ctx.fillStyle = "rgba(7,11,20,0.75)"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#f43f5e"; ctx.font = "bold 28px monospace"; ctx.textAlign = "center";
+      ctx.fillText("GAME OVER", W / 2, H / 2 - 12);
+      ctx.fillStyle = "#e2e8f0"; ctx.font = "15px monospace";
+      ctx.fillText("Espace ou bouton Rejouer", W / 2, H / 2 + 20);
+    }
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-doodle"); ctx = cv.getContext("2d");
+      document.getElementById("doodle-reset").onclick = reset;
+      reset();
+    },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   2. STICKMAN HOOK / GRAPPIN
+   ============================================================================ */
+const HookGame = (() => {
+  let cv, ctx, raf = 0, active = false, holding = false, best = 0;
+  let b, anchors, rope, camX, over, trail;
+  const W = 760, H = 480;
+
+  function reset() {
+    b = { x: 120, y: 200, vx: 6.5, vy: -3 };
+    camX = 0; rope = null; over = false; trail = [];
+    anchors = [];
+    for (let x = 220; x < 3000; x += 220) anchors.push({ x, y: 75 + Math.random() * 115 });
+  }
+  function attach() {
+    if (over) { reset(); return; }
+    holding = true;
+    let bestA = null, minD = 340;
+    anchors.forEach(a => {
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (a.x > b.x - 40 && d < minD) { minD = d; bestA = a; }
+    });
+    if (bestA) { rope = { ax: bestA.x, ay: bestA.y, len: Math.max(70, minD * 0.92) }; CyberAudio.click(); }
+  }
+  function release() { holding = false; rope = null; }
+
+  function step() {
+    if (!active) return;
+    if (CyberKeys.code("Space") && !holding) attach();
+    if (!CyberKeys.code("Space") && holding && !cv._mouseDown) release();
+
+    if (!over) {
+      b.vy += 0.34;
+      b.x += b.vx; b.y += b.vy;
+      if (rope) {
+        const dx = b.x - rope.ax, dy = b.y - rope.ay;
+        const dist = Math.hypot(dx, dy) || 1;
+        if (dist > rope.len) {
+          const nx = dx / dist, ny = dy / dist;
+          b.x = rope.ax + nx * rope.len;
+          b.y = rope.ay + ny * rope.len;
+          const dot = b.vx * nx + b.vy * ny;
+          if (dot > 0) { b.vx -= dot * nx; b.vy -= dot * ny; }
+          b.vx += 0.08; // léger boost pendulaire
+        }
+      }
+      b.vx *= 0.998; b.vy *= 0.998;
+      camX = Math.max(camX, b.x - 220);
+      const lastA = anchors[anchors.length - 1];
+      if (lastA.x < camX + W + 300) anchors.push({ x: lastA.x + 200 + Math.random() * 70, y: 70 + Math.random() * 120 });
+      trail.push({ x: b.x, y: b.y }); if (trail.length > 22) trail.shift();
+
+      const distM = Math.max(0, Math.floor((b.x - 120) / 15));
+      if (distM > best) best = distM;
+      document.getElementById("hook-dist").textContent = distM;
+      document.getElementById("hook-best").textContent = best;
+      if (b.y > H + 40) { over = true; rope = null; CyberAudio.over(); }
+    }
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    ctx.save(); ctx.translate(-camX, 0);
+    anchors.forEach(a => {
+      if (a.x < camX - 40 || a.x > camX + W + 40) return;
+      ctx.strokeStyle = rope && rope.ax === a.x ? "#10b981" : "#a855f7";
+      ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(a.x, a.y, 10, 0, Math.PI * 2); ctx.stroke();
+    });
+    if (rope) {
+      ctx.strokeStyle = "#00f0ff"; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(rope.ax, rope.ay); ctx.lineTo(b.x, b.y); ctx.stroke();
+    }
+    trail.forEach((t, i) => {
+      ctx.fillStyle = `rgba(0,240,255,${i / trail.length * 0.45})`;
+      ctx.beginPath(); ctx.arc(t.x, t.y, 4, 0, Math.PI * 2); ctx.fill();
+    });
+    // Stickman néon
+    ctx.strokeStyle = "#f8fafc"; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(b.x, b.y - 10, 7, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(b.x, b.y - 3); ctx.lineTo(b.x, b.y + 12);
+    ctx.moveTo(b.x - 8, b.y + 4); ctx.lineTo(b.x + 8, b.y + 4);
+    ctx.moveTo(b.x, b.y + 12); ctx.lineTo(b.x - 7, b.y + 22);
+    ctx.moveTo(b.x, b.y + 12); ctx.lineTo(b.x + 7, b.y + 22); ctx.stroke();
+    ctx.restore();
+    if (over) {
+      ctx.fillStyle = "rgba(7,11,20,0.72)"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#f43f5e"; ctx.font = "bold 28px monospace"; ctx.textAlign = "center";
+      ctx.fillText("CHUTE ! Clic ou Espace pour relancer", W / 2, H / 2);
+    }
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-hook"); ctx = cv.getContext("2d");
+      cv.addEventListener("pointerdown", () => { cv._mouseDown = true; attach(); });
+      window.addEventListener("pointerup", () => { if (cv._mouseDown) { cv._mouseDown = false; release(); } });
+      document.getElementById("hook-reset").onclick = reset;
+      reset();
+    },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); release(); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   3. SUBWAY RUNNER 2D (3 VOIES)
+   ============================================================================ */
+const SubwayGame = (() => {
+  let cv, ctx, raf = 0, active = false;
+  let lane, px, jumpZ, vz, slideT, speed, obs, coins, score, coinCount, over, spawnT;
+  const W = 520, H = 580, LANES = [130, 260, 390];
+
+  function reset() {
+    lane = 1; px = LANES[1]; jumpZ = 0; vz = 0; slideT = 0;
+    speed = 6.2; obs = []; coins = []; score = 0; coinCount = 0; over = false; spawnT = 0;
+  }
+  function onKey(e) {
+    if (!active) return;
+    if (over && e.code === "Space") { reset(); return; }
+    if (e.code === "ArrowLeft" || e.code === "KeyA") { lane = Math.max(0, lane - 1); CyberAudio.click(); }
+    if (e.code === "ArrowRight" || e.code === "KeyD") { lane = Math.min(2, lane + 1); CyberAudio.click(); }
+    if ((e.code === "ArrowUp" || e.code === "KeyW" || e.code === "Space") && jumpZ === 0) { vz = 13; slideT = 0; CyberAudio.jump(); }
+    if (e.code === "ArrowDown" || e.code === "KeyS") { slideT = 26; if (jumpZ > 0) vz = -12; CyberAudio.hit(); }
+  }
+  function step() {
+    if (!active) return;
+    if (!over) {
+      speed = Math.min(13.5, speed + 0.0018);
+      score += speed * 0.12;
+      px += (LANES[lane] - px) * 0.28;
+      if (jumpZ > 0 || vz !== 0) { jumpZ += vz; vz -= 0.78; if (jumpZ <= 0) { jumpZ = 0; vz = 0; } }
+      if (slideT > 0) slideT--;
+
+      spawnT -= speed;
+      if (spawnT <= 0) {
+        spawnT = 165 + Math.random() * 85;
+        const l = Math.floor(Math.random() * 3);
+        const r = Math.random();
+        const type = r < 0.36 ? "low" : r < 0.7 ? "high" : "train";
+        obs.push({ lane: l, x: LANES[l], y: -50, type, h: type === "train" ? 95 : 28 });
+        const cl = (l + 1 + Math.floor(Math.random() * 2)) % 3;
+        for (let k = 0; k < 3; k++) coins.push({ x: LANES[cl], y: -40 - k * 34 });
+      }
+
+      obs.forEach(o => o.y += speed);
+      coins.forEach(c => c.y += speed);
+      obs = obs.filter(o => o.y < H + 80);
+      coins = coins.filter(c => {
+        if (Math.abs(c.x - px) < 28 && Math.abs(c.y - 470) < 28) { coinCount++; score += 25; CyberAudio.score(); return false; }
+        return c.y < H + 30;
+      });
+
+      for (const o of obs) {
+        if (Math.abs(o.x - px) < 34 && o.y + o.h / 2 > 452 && o.y - o.h / 2 < 488) {
+          if (o.type === "low" && jumpZ > 22) continue;
+          if (o.type === "high" && slideT > 0) continue;
+          over = true; CyberAudio.over(); break;
+        }
+      }
+      document.getElementById("subway-score").textContent = Math.floor(score);
+      document.getElementById("subway-coins").textContent = coinCount;
+    }
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = "rgba(0,240,255,0.22)"; ctx.lineWidth = 2;
+    [65, 195, 325, 455].forEach(x => { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); });
+
+    coins.forEach(c => {
+      ctx.fillStyle = "#fde047"; ctx.beginPath(); ctx.arc(c.x, c.y, 9, 0, Math.PI * 2); ctx.fill();
+    });
+    obs.forEach(o => {
+      ctx.fillStyle = o.type === "train" ? "#f43f5e" : o.type === "low" ? "#f97316" : "#a855f7";
+      ctx.fillRect(o.x - 42, o.y - o.h / 2, 84, o.h);
+      ctx.fillStyle = "#fff"; ctx.font = "bold 11px monospace"; ctx.textAlign = "center";
+      ctx.fillText(o.type === "low" ? "SAUT" : o.type === "high" ? "GLISSE" : "TRAIN", o.x, o.y + 4);
+    });
+
+    const scale = 1 + jumpZ / 75;
+    const h = slideT > 0 ? 18 : 34;
+    ctx.fillStyle = "rgba(0,0,0,0.45)";
+    ctx.beginPath(); ctx.ellipse(px, 485, 18, 8, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#00f0ff";
+    ctx.fillRect(px - 16 * scale, 470 - h / 2 - jumpZ, 32 * scale, h * scale);
+
+    if (over) {
+      ctx.fillStyle = "rgba(7,11,20,0.78)"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#f43f5e"; ctx.font = "bold 28px monospace"; ctx.textAlign = "center";
+      ctx.fillText("CRASH !", W / 2, H / 2 - 10);
+      ctx.fillStyle = "#e2e8f0"; ctx.font = "15px monospace";
+      ctx.fillText("Espace pour relancer", W / 2, H / 2 + 22);
+    }
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-subway"); ctx = cv.getContext("2d");
+      window.addEventListener("keydown", onKey);
+      document.getElementById("subway-reset").onclick = reset;
+      reset();
+    },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   4. DRIFT MICRO-CAR
+   ============================================================================ */
+const DriftGame = (() => {
+  let cv, ctx, raf = 0, active = false;
+  let car, skids, lap, driftScore, startTime, cpHit;
+  const W = 760, H = 500;
+
+  function reset() {
+    car = { x: 380, y: 415, vx: 0, vy: 0, ang: 0 };
+    skids = []; lap = 1; driftScore = 0; startTime = performance.now(); cpHit = false;
+  }
+  function step() {
+    if (!active) return;
+    const handbrake = CyberKeys.code("Space");
+    const spd = Math.hypot(car.vx, car.vy);
+    const turnRate = (handbrake ? 0.082 : 0.055) * Math.min(1, spd / 1.8 + 0.25);
+    if (CyberKeys.left()) car.ang -= turnRate;
+    if (CyberKeys.right()) car.ang += turnRate;
+
+    const accel = CyberKeys.up() ? 0.34 : CyberKeys.down() ? -0.2 : 0;
+    car.vx += Math.cos(car.ang) * accel;
+    car.vy += Math.sin(car.ang) * accel;
+
+    // Séparation vitesse longitudinale / latérale pour drift réaliste
+    const fx = Math.cos(car.ang), fy = Math.sin(car.ang);
+    const rx = -fy, ry = fx;
+    const forwardVel = car.vx * fx + car.vy * fy;
+    const sideVel = car.vx * rx + car.vy * ry;
+    const grip = handbrake ? 0.945 : 0.84;
+
+    car.vx = fx * forwardVel * 0.975 + rx * sideVel * grip;
+    car.vy = fy * forwardVel * 0.975 + ry * sideVel * grip;
+    car.x += car.vx; car.y += car.vy;
+
+    // Limites circuit ovale-cyber (anneau externe & îlot central)
+    const cx = W / 2, cy = H / 2;
+    const dx = (car.x - cx) / 340, dy = (car.y - cy) / 215;
+    const r = Math.hypot(dx, dy);
+    if (r > 0.96 || r < 0.42) {
+      car.vx *= 0.85; car.vy *= 0.85;
+      if (r > 1.02) { car.x -= car.vx * 2; car.y -= car.vy * 2; }
+      if (r < 0.36) { car.x -= car.vx * 2; car.y -= car.vy * 2; }
+    }
+
+    if (Math.abs(sideVel) > 1.3 && spd > 2.2) {
+      driftScore += Math.abs(sideVel) * 1.4;
+      skids.push({ x: car.x, y: car.y, a: 0.6 });
+      if (skids.length > 260) skids.shift();
+    }
+    if (car.y < 140 && Math.abs(car.x - cx) < 60) cpHit = true;
+    if (cpHit && car.y > 350 && Math.abs(car.x - cx) < 25) {
+      cpHit = false; lap++; CyberAudio.score();
+    }
+
+    document.getElementById("drift-lap").textContent = lap;
+    document.getElementById("drift-score").textContent = Math.floor(driftScore);
+    document.getElementById("drift-time").textContent = ((performance.now() - startTime) / 1000).toFixed(1);
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    // Piste néon
+    ctx.strokeStyle = "#00f0ff"; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.ellipse(W/2, H/2, 340, 215, 0, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = "#111827";
+    ctx.beginPath(); ctx.ellipse(W/2, H/2, 336, 211, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#070b14"; ctx.strokeStyle = "#a855f7";
+    ctx.beginPath(); ctx.ellipse(W/2, H/2, 145, 88, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // Ligne départ
+    ctx.strokeStyle = "#10b981"; ctx.setLineDash([8, 6]);
+    ctx.beginPath(); ctx.moveTo(W/2, H/2 + 88); ctx.lineTo(W/2, H/2 + 211); ctx.stroke(); ctx.setLineDash([]);
+
+    skids.forEach(s => { ctx.fillStyle = "rgba(168,85,247,0.45)"; ctx.fillRect(s.x - 2, s.y - 2, 4, 4); });
+
+    ctx.save(); ctx.translate(car.x, car.y); ctx.rotate(car.ang);
+    ctx.fillStyle = "#00f0ff"; ctx.fillRect(-14, -8, 28, 16);
+    ctx.fillStyle = "#0f172a"; ctx.fillRect(-2, -6, 9, 12);
+    ctx.fillStyle = "#fde047"; ctx.fillRect(12, -7, 3, 4); ctx.fillRect(12, 3, 3, 4);
+    ctx.restore();
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-drift"); ctx = cv.getContext("2d");
+      document.getElementById("drift-reset").onclick = reset;
+      reset();
+    },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   5. PAPER FLIGHT
+   ============================================================================ */
+const PaperGame = (() => {
+  let cv, ctx, raf = 0, active = false, best = 0;
+  let pl, camX, thermals, turbs, rings, state, ringCount;
+  const W = 760, H = 460;
+
+  function reset() {
+    pl = { x: 80, y: 210, vx: 0, vy: 0, ang: -0.15 };
+    camX = 0; state = "ready"; ringCount = 0;
+    thermals = []; turbs = []; rings = [];
+    for (let x = 340; x < 6000; x += 320) {
+      if (Math.random() < 0.62) thermals.push({ x, w: 65 });
+      else turbs.push({ x, y: 90 + Math.random() * 240, r: 34 });
+      rings.push({ x: x + 150, y: 110 + Math.random() * 220, hit: false });
+    }
+  }
+  function launch() {
+    if (state !== "flying") {
+      if (state === "landed") reset();
+      pl.vx = 9.5; pl.vy = -3.8; state = "flying"; CyberAudio.jump();
+    }
+  }
+  function step() {
+    if (!active) return;
+    if (CyberKeys.code("Space") && state !== "flying") launch();
+    if (state === "flying") {
+      if (CyberKeys.up()) pl.ang = Math.max(-0.75, pl.ang - 0.045);
+      if (CyberKeys.down()) pl.ang = Math.min(0.8, pl.ang + 0.045);
+
+      const spd = Math.hypot(pl.vx, pl.vy);
+      // Portance aérodynamique + gravité
+      pl.vx += Math.cos(pl.ang) * 0.07 - 0.022;
+      pl.vy += 0.14 + Math.sin(pl.ang) * spd * 0.045;
+      pl.vx = Math.max(1.5, Math.min(13, pl.vx));
+
+      thermals.forEach(t => { if (pl.x > t.x && pl.x < t.x + t.w) { pl.vy -= 0.32; pl.vx += 0.04; } });
+      turbs.forEach(tb => {
+        if (Math.hypot(pl.x - tb.x, pl.y - tb.y) < tb.r + 12) {
+          pl.vy += (Math.random() - 0.5) * 1.4; pl.vx *= 0.96; CyberAudio.hit();
+        }
+      });
+      rings.forEach(rg => {
+        if (!rg.hit && Math.hypot(pl.x - rg.x, pl.y - rg.y) < 30) {
+          rg.hit = true; ringCount++; pl.vx += 1.6; CyberAudio.score();
+        }
+      });
+
+      pl.x += pl.vx; pl.y += pl.vy;
+      if (pl.y < 15) { pl.y = 15; pl.vy = 1; }
+      if (pl.y >= H - 22) { pl.y = H - 22; state = "landed"; CyberAudio.over(); }
+      camX = Math.max(0, pl.x - 180);
+      const d = Math.floor((pl.x - 80) / 10);
+      if (d > best) best = d;
+      document.getElementById("paper-dist").textContent = d;
+      document.getElementById("paper-rings").textContent = ringCount;
+      document.getElementById("paper-best").textContent = best;
+    }
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    ctx.save(); ctx.translate(-camX, 0);
+    thermals.forEach(t => {
+      if (t.x < camX - 90 || t.x > camX + W + 90) return;
+      const g = ctx.createLinearGradient(0, H, 0, 0);
+      g.addColorStop(0, "rgba(0,240,255,0.22)"); g.addColorStop(1, "rgba(0,240,255,0.01)");
+      ctx.fillStyle = g; ctx.fillRect(t.x, 0, t.w, H - 18);
+    });
+    turbs.forEach(tb => {
+      if (tb.x < camX - 60 || tb.x > camX + W + 60) return;
+      ctx.strokeStyle = "rgba(244,63,94,0.7)"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(tb.x, tb.y, tb.r, 0, Math.PI * 2); ctx.stroke();
+    });
+    rings.forEach(rg => {
+      if (rg.hit || rg.x < camX - 50 || rg.x > camX + W + 50) return;
+      ctx.strokeStyle = "#10b981"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.ellipse(rg.x, rg.y, 10, 24, 0, 0, Math.PI * 2); ctx.stroke();
+    });
+    ctx.fillStyle = "#1e293b"; ctx.fillRect(camX, H - 18, W, 18);
+
+    ctx.save(); ctx.translate(pl.x, pl.y); ctx.rotate(pl.ang);
+    ctx.fillStyle = "#f8fafc"; ctx.beginPath();
+    ctx.moveTo(20, 0); ctx.lineTo(-14, -9); ctx.lineTo(-8, 0); ctx.lineTo(-14, 9); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = "#00f0ff"; ctx.stroke();
+    ctx.restore();
+    ctx.restore();
+
+    if (state !== "flying") {
+      ctx.fillStyle = "#00f0ff"; ctx.font = "bold 20px monospace"; ctx.textAlign = "center";
+      ctx.fillText(state === "ready" ? "ESPACE pour lancer l'avion !" : "ATTERRI ! Espace pour relancer", W / 2, 70);
+    }
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-paper"); ctx = cv.getContext("2d");
+      document.getElementById("paper-reset").onclick = reset;
+      reset();
+    },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   6. CASSE-BRIQUES CYBER
+   ============================================================================ */
+const BrickGame = (() => {
+  let cv, ctx, raf = 0, active = false;
+  let pad, balls, bricks, lasers, pups, score, lives, lvl, laserT, shootCd;
+  const W = 720, H = 500;
+
+  function loadLevel(n) {
+    lvl = n; bricks = []; lasers = []; pups = [];
+    const cols = 10, rows = 4 + Math.min(3, n);
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const rnd = Math.random();
+      bricks.push({
+        x: 24 + c * 68, y: 50 + r * 26, w: 62, h: 18, alive: true,
+        hp: r === 0 ? 2 : 1,
+        type: rnd < 0.1 ? "boom" : rnd < 0.22 ? "bonus" : "norm"
+      });
+    }
+    balls = [{ x: W / 2, y: H - 65, vx: 3.8, vy: -4.4 }];
+    pad = { x: W / 2 - 55, w: 110 }; laserT = 0; shootCd = 0;
+    syncHud();
+  }
+  function reset() { score = 0; lives = 3; loadLevel(1); }
+  function syncHud() {
+    document.getElementById("brick-score").textContent = score;
+    document.getElementById("brick-lives").textContent = lives;
+    document.getElementById("brick-lvl").textContent = lvl;
+  }
+  function destroyBrick(b) {
+    if (!b.alive) return;
+    b.hp--;
+    if (b.hp > 0) { CyberAudio.hit(); return; }
+    b.alive = false; score += 20;
+    if (b.type === "boom") {
+      CyberAudio.boom();
+      bricks.forEach(o => { if (o.alive && Math.hypot(o.x - b.x, o.y - b.y) < 95) { o.hp = 1; destroyBrick(o); } });
+    } else CyberAudio.score();
+    if (b.type === "bonus") pups.push({ x: b.x + b.w / 2, y: b.y, kind: Math.random() < 0.5 ? "laser" : "multi" });
+    syncHud();
+  }
+  function step() {
+    if (!active) return;
+    if (CyberKeys.left()) pad.x -= 8;
+    if (CyberKeys.right()) pad.x += 8;
+    pad.x = Math.max(8, Math.min(W - pad.w - 8, pad.x));
+
+    if (laserT > 0) {
+      laserT--;
+      if (shootCd > 0) shootCd--;
+      if (CyberKeys.code("Space") && shootCd === 0) {
+        lasers.push({ x: pad.x + 12, y: H - 35 }, { x: pad.x + pad.w - 12, y: H - 35 });
+        shootCd = 14; CyberAudio.click();
+      }
+    }
+    lasers.forEach(l => l.y -= 9);
+    lasers = lasers.filter(l => {
+      for (const b of bricks) {
+        if (b.alive && l.x > b.x && l.x < b.x + b.w && l.y > b.y && l.y < b.y + b.h) { destroyBrick(b); return false; }
+      }
+      return l.y > 0;
+    });
+
+    pups.forEach(u => u.y += 2.8);
+    pups = pups.filter(u => {
+      if (u.y > H - 38 && u.x > pad.x && u.x < pad.x + pad.w) {
+        if (u.kind === "laser") laserT = 480;
+        else balls.push({ x: pad.x + pad.w / 2, y: H - 45, vx: (Math.random() - 0.5) * 6, vy: -4.5 });
+        CyberAudio.score(); return false;
+      }
+      return u.y < H;
+    });
+
+    balls.forEach(bl => {
+      bl.x += bl.vx; bl.y += bl.vy;
+      if (bl.x < 8 || bl.x > W - 8) bl.vx *= -1;
+      if (bl.y < 8) bl.vy *= -1;
+      if (bl.vy > 0 && bl.y > H - 34 && bl.y < H - 18 && bl.x > pad.x && bl.x < pad.x + pad.w) {
+        const hit = (bl.x - (pad.x + pad.w / 2)) / (pad.w / 2);
+        bl.vx = hit * 5.6; bl.vy = -Math.abs(bl.vy); CyberAudio.hit();
+      }
+      for (const b of bricks) {
+        if (b.alive && bl.x > b.x - 6 && bl.x < b.x + b.w + 6 && bl.y > b.y - 6 && bl.y < b.y + b.h + 6) {
+          bl.vy *= -1; destroyBrick(b); break;
+        }
+      }
+    });
+    balls = balls.filter(bl => bl.y < H + 15);
+    if (balls.length === 0) {
+      lives--; syncHud(); CyberAudio.over();
+      if (lives <= 0) reset();
+      else balls.push({ x: pad.x + pad.w / 2, y: H - 55, vx: 3.6, vy: -4.4 });
+    }
+    if (bricks.every(b => !b.alive)) loadLevel(lvl + 1);
+
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    bricks.forEach(b => {
+      if (!b.alive) return;
+      ctx.fillStyle = b.type === "boom" ? "#f43f5e" : b.type === "bonus" ? "#10b981" : b.hp > 1 ? "#a855f7" : "#00f0ff";
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+    });
+    ctx.fillStyle = laserT > 0 ? "#fde047" : "#00f0ff";
+    ctx.fillRect(pad.x, H - 28, pad.w, 12);
+    ctx.fillStyle = "#f43f5e"; lasers.forEach(l => ctx.fillRect(l.x - 2, l.y, 4, 12));
+    pups.forEach(u => {
+      ctx.fillStyle = u.kind === "laser" ? "#fde047" : "#10b981";
+      ctx.fillRect(u.x - 10, u.y - 6, 20, 12);
+    });
+    ctx.fillStyle = "#f8fafc";
+    balls.forEach(bl => { ctx.beginPath(); ctx.arc(bl.x, bl.y, 7, 0, Math.PI * 2); ctx.fill(); });
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-brick"); ctx = cv.getContext("2d");
+      cv.addEventListener("pointermove", e => {
+        const r = cv.getBoundingClientRect();
+        pad.x = Math.max(8, Math.min(W - pad.w - 8, (e.clientX - r.left) * (W / r.width) - pad.w / 2));
+      });
+      document.getElementById("brick-reset").onclick = reset;
+      reset();
+    },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   7. BASKET RANDOM 1V1
+   ============================================================================ */
+const Basket1v1 = (() => {
+  let cv, ctx, raf = 0, active = false;
+  let p1, p2, ball, s1, s2, winner, k1Prev, k2Prev;
+  const W = 760, H = 460;
+
+  function serve() {
+    p1 = { x: 210, y: H - 55, vx: 0, vy: 0, tilt: 0, arm: 0, dir: 1 };
+    p2 = { x: W - 210, y: H - 55, vx: 0, vy: 0, tilt: 0, arm: 0, dir: -1 };
+    ball = { x: W / 2, y: 120, vx: (Math.random() - 0.5) * 4, vy: 0, r: 14 };
+  }
+  function reset() { s1 = 0; s2 = 0; winner = ""; sync(); serve(); }
+  function sync() {
+    document.getElementById("basket-p1").textContent = s1;
+    document.getElementById("basket-p2").textContent = s2;
+  }
+  function jump(p) {
+    if (p.y >= H - 58) {
+      p.vy = -12.5 - Math.random() * 2.5;
+      p.vx = p.dir * (2.5 + Math.random() * 3.5);
+      p.tilt = (Math.random() - 0.5) * 0.7;
+      p.arm = 1; CyberAudio.jump();
+    }
+  }
+  function step() {
+    if (!active) return;
+    const k1 = CyberKeys.code("KeyW"), k2 = CyberKeys.code("ArrowUp");
+    if (!winner) {
+      if (k1 && !k1Prev) jump(p1);
+      if (k2 && !k2Prev) jump(p2);
+      [p1, p2].forEach(p => {
+        p.vy += 0.55; p.x += p.vx; p.y += p.vy;
+        if (p.y > H - 55) { p.y = H - 55; p.vy = 0; p.vx *= 0.75; p.tilt *= 0.82; }
+        p.x = Math.max(45, Math.min(W - 45, p.x));
+        p.arm *= 0.88;
+        // Collision balle-joueur + coup de bras
+        const hx = p.x + p.dir * 18, hy = p.y - 28 - p.arm * 16;
+        const d = Math.hypot(ball.x - hx, ball.y - hy);
+        if (d < 34) {
+          ball.vx = p.dir * (6.5 + p.arm * 5) + (Math.random() - 0.5) * 2;
+          ball.vy = -9.5 - p.arm * 4; CyberAudio.hit();
+        }
+      });
+
+      ball.vy += 0.34; ball.x += ball.vx; ball.y += ball.vy;
+      if (ball.x < ball.r || ball.x > W - ball.r) { ball.vx *= -0.8; ball.x = Math.max(ball.r, Math.min(W - ball.r, ball.x)); }
+      if (ball.y > H - 18 - ball.r) { ball.y = H - 18 - ball.r; ball.vy *= -0.78; ball.vx *= 0.96; }
+
+      // Paniers (gauche pour J2, droite pour J1)
+      if (ball.vy > 0 && ball.y > 165 && ball.y < 195) {
+        if (ball.x > W - 82 && ball.x < W - 28) { s1++; sync(); CyberAudio.score(); if (s1 >= 5) winner = "VICTOIRE J1 !"; else serve(); }
+        if (ball.x > 28 && ball.x < 82) { s2++; sync(); CyberAudio.score(); if (s2 >= 5) winner = "VICTOIRE J2 !"; else serve(); }
+      }
+    }
+    k1Prev = k1; k2Prev = k2;
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function drawPlayer(p, col) {
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.tilt);
+    ctx.strokeStyle = col; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.arc(0, -34, 11, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -23); ctx.lineTo(0, 12);
+    ctx.moveTo(0, -14); ctx.lineTo(p.dir * 22, -22 - p.arm * 22);
+    ctx.moveTo(0, 12); ctx.lineTo(-10, 36); ctx.moveTo(0, 12); ctx.lineTo(10, 36); ctx.stroke();
+    ctx.restore();
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#1e293b"; ctx.fillRect(0, H - 18, W, 18);
+    // Paniers
+    ctx.fillStyle = "#f43f5e"; ctx.fillRect(26, 172, 54, 6); ctx.fillRect(W - 80, 172, 54, 6);
+    ctx.fillStyle = "#94a3b8"; ctx.fillRect(20, 120, 8, 70); ctx.fillRect(W - 28, 120, 8, 70);
+    drawPlayer(p1, "#00f0ff"); drawPlayer(p2, "#a855f7");
+    ctx.fillStyle = "#f97316"; ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+    if (winner) {
+      ctx.fillStyle = "rgba(7,11,20,0.75)"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#10b981"; ctx.font = "bold 32px monospace"; ctx.textAlign = "center";
+      ctx.fillText(winner, W / 2, H / 2);
+    }
+  }
+  return {
+    init() { cv = document.getElementById("canvas-basket1v1"); ctx = cv.getContext("2d"); document.getElementById("basket-reset").onclick = reset; reset(); },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   8. MICRO SOCCER 1V1
+   ============================================================================ */
+const Soccer1v1 = (() => {
+  let cv, ctx, raf = 0, active = false;
+  let p1, p2, ball, s1, s2, winner;
+  const W = 760, H = 460;
+
+  function kickoff() {
+    p1 = { x: 160, y: H / 2, vx: 0, vy: 0, r: 18 };
+    p2 = { x: W - 160, y: H / 2, vx: 0, vy: 0, r: 18 };
+    ball = { x: W / 2, y: H / 2, vx: 0, vy: 0, r: 12 };
+  }
+  function reset() { s1 = 0; s2 = 0; winner = ""; sync(); kickoff(); }
+  function sync() {
+    document.getElementById("soccer-p1").textContent = s1;
+    document.getElementById("soccer-p2").textContent = s2;
+  }
+  function moveP(p, u, d, l, r, kick) {
+    const acc = 0.72;
+    if (u) p.vy -= acc; if (d) p.vy += acc; if (l) p.vx -= acc; if (r) p.vx += acc;
+    p.vx *= 0.86; p.vy *= 0.86;
+    p.x = Math.max(25, Math.min(W - 25, p.x + p.vx));
+    p.y = Math.max(25, Math.min(H - 25, p.y + p.vy));
+    const dx = ball.x - p.x, dy = ball.y - p.y, dist = Math.hypot(dx, dy) || 1;
+    if (dist < p.r + ball.r + (kick ? 8 : 0)) {
+      const nx = dx / dist, ny = dy / dist;
+      const power = kick ? 11.5 : 5.2;
+      ball.vx = nx * power + p.vx * 0.6;
+      ball.vy = ny * power + p.vy * 0.6;
+      CyberAudio.hit();
+    }
+  }
+  function step() {
+    if (!active) return;
+    if (!winner) {
+      moveP(p1, CyberKeys.code("KeyW"), CyberKeys.code("KeyS"), CyberKeys.code("KeyA"), CyberKeys.code("KeyD"), CyberKeys.code("Space"));
+      moveP(p2, CyberKeys.code("ArrowUp"), CyberKeys.code("ArrowDown"), CyberKeys.code("ArrowLeft"), CyberKeys.code("ArrowRight"), CyberKeys.code("Enter"));
+
+      ball.x += ball.vx; ball.y += ball.vy;
+      ball.vx *= 0.985; ball.vy *= 0.985;
+      if (ball.y < 20 || ball.y > H - 20) { ball.vy *= -0.9; ball.y = Math.max(20, Math.min(H - 20, ball.y)); }
+      const inGoalY = ball.y > H / 2 - 70 && ball.y < H / 2 + 70;
+      if (ball.x < 18) {
+        if (inGoalY) { s2++; sync(); CyberAudio.score(); if (s2 >= 5) winner = "BUT ! VICTOIRE J2"; else kickoff(); }
+        else { ball.vx *= -0.9; ball.x = 18; }
+      }
+      if (ball.x > W - 18) {
+        if (inGoalY) { s1++; sync(); CyberAudio.score(); if (s1 >= 5) winner = "BUT ! VICTOIRE J1"; else kickoff(); }
+        else { ball.vx *= -0.9; ball.x = W - 18; }
+      }
+    }
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#061518"; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = "rgba(16,185,129,0.45)"; ctx.lineWidth = 3;
+    ctx.strokeRect(12, 12, W - 24, H - 24);
+    ctx.beginPath(); ctx.moveTo(W/2, 12); ctx.lineTo(W/2, H - 12); ctx.stroke();
+    ctx.beginPath(); ctx.arc(W/2, H/2, 58, 0, Math.PI * 2); ctx.stroke();
+    // Cages néon
+    ctx.fillStyle = "rgba(0,240,255,0.28)"; ctx.fillRect(0, H/2 - 70, 14, 140);
+    ctx.fillStyle = "rgba(168,85,247,0.28)"; ctx.fillRect(W - 14, H/2 - 70, 14, 140);
+
+    ctx.fillStyle = "#00f0ff"; ctx.beginPath(); ctx.arc(p1.x, p1.y, p1.r, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#a855f7"; ctx.beginPath(); ctx.arc(p2.x, p2.y, p2.r, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#f8fafc"; ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+    if (winner) {
+      ctx.fillStyle = "rgba(7,11,20,0.78)"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#10b981"; ctx.font = "bold 30px monospace"; ctx.textAlign = "center";
+      ctx.fillText(winner, W / 2, H / 2);
+    }
+  }
+  return {
+    init() { cv = document.getElementById("canvas-soccer1v1"); ctx = cv.getContext("2d"); document.getElementById("soccer-reset").onclick = reset; reset(); },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   9. GUN MAYHEM MICRO 1V1
+   ============================================================================ */
+const GunMayhem1v1 = (() => {
+  let cv, ctx, raf = 0, active = false;
+  let ps, bullets, winner;
+  const W = 760, H = 480;
+  const PLATS = [
+    { x: 140, y: 370, w: 480 }, { x: 90, y: 265, w: 200 },
+    { x: 470, y: 265, w: 200 }, { x: 260, y: 170, w: 240 }
+  ];
+
+  function spawn(i) {
+    return { x: i === 0 ? 220 : 540, y: 120, vx: 0, vy: 0, dir: i === 0 ? 1 : -1, jumps: 2, cd: 0, lives: 3, col: i === 0 ? "#00f0ff" : "#a855f7", upPrev: false };
+  }
+  function reset() { ps = [spawn(0), spawn(1)]; bullets = []; winner = ""; sync(); }
+  function sync() {
+    document.getElementById("gun-p1").textContent = ps[0].lives;
+    document.getElementById("gun-p2").textContent = ps[1].lives;
+  }
+  function step() {
+    if (!active) return;
+    if (!winner) {
+      const ctrl = [
+        { l: CyberKeys.code("KeyA"), r: CyberKeys.code("KeyD"), u: CyberKeys.code("KeyW"), d: CyberKeys.code("KeyS"), f: CyberKeys.code("Space") },
+        { l: CyberKeys.code("ArrowLeft"), r: CyberKeys.code("ArrowRight"), u: CyberKeys.code("ArrowUp"), d: CyberKeys.code("ArrowDown"), f: CyberKeys.code("Enter") }
+      ];
+      ps.forEach((p, i) => {
+        const c = ctrl[i];
+        if (c.l) { p.vx -= 0.7; p.dir = -1; }
+        if (c.r) { p.vx += 0.7; p.dir = 1; }
+        if (c.u && !p.upPrev && p.jumps > 0) { p.vy = -10.5; p.jumps--; CyberAudio.jump(); }
+        p.upPrev = c.u;
+        if (p.cd > 0) p.cd--;
+        if (c.f && p.cd === 0) {
+          bullets.push({ x: p.x + p.dir * 16, y: p.y + 8, vx: p.dir * 13, owner: i, col: p.col });
+          p.vx -= p.dir * 1.4; p.cd = 16; CyberAudio.click();
+        }
+        p.vx *= 0.87; p.vy += 0.48;
+        const prevY = p.y;
+        p.x += p.vx; p.y += p.vy;
+        if (!c.d && p.vy >= 0) {
+          PLATS.forEach(pl => {
+            if (p.x + 12 > pl.x && p.x - 12 < pl.x + pl.w && prevY + 26 <= pl.y + 4 && p.y + 26 >= pl.y) {
+              p.y = pl.y - 26; p.vy = 0; p.jumps = 2;
+            }
+          });
+        }
+        if (p.x < -40 || p.x > W + 40 || p.y > H + 50) {
+          p.lives--; sync(); CyberAudio.boom();
+          if (p.lives <= 0) winner = i === 0 ? "VICTOIRE J2 !" : "VICTOIRE J1 !";
+          else { p.x = W / 2; p.y = 60; p.vx = 0; p.vy = 0; }
+        }
+      });
+
+      bullets.forEach(b => b.x += b.vx);
+      bullets = bullets.filter(b => {
+        const target = ps[1 - b.owner];
+        if (Math.abs(b.x - target.x) < 16 && b.y > target.y && b.y < target.y + 28) {
+          target.vx += Math.sign(b.vx) * 12; target.vy -= 3.5; CyberAudio.hit(); return false;
+        }
+        return b.x > -20 && b.x < W + 20;
+      });
+    }
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#1e293b"; ctx.strokeStyle = "#00f0ff"; ctx.lineWidth = 2;
+    PLATS.forEach(pl => { ctx.fillRect(pl.x, pl.y, pl.w, 10); ctx.strokeRect(pl.x, pl.y, pl.w, 10); });
+    ps.forEach(p => {
+      ctx.fillStyle = p.col; ctx.fillRect(p.x - 11, p.y, 22, 26);
+      ctx.fillStyle = "#f8fafc"; ctx.fillRect(p.x + p.dir * 8, p.y + 7, p.dir * 10, 4);
+    });
+    bullets.forEach(b => { ctx.fillStyle = b.col; ctx.fillRect(b.x - 5, b.y - 2, 10, 4); });
+    if (winner) {
+      ctx.fillStyle = "rgba(7,11,20,0.78)"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#10b981"; ctx.font = "bold 32px monospace"; ctx.textAlign = "center";
+      ctx.fillText(winner, W / 2, H / 2);
+    }
+  }
+  return {
+    init() { cv = document.getElementById("canvas-gunmayhem"); ctx = cv.getContext("2d"); document.getElementById("gun-reset").onclick = reset; reset(); },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   10. VOLLEY SLIME 1V1
+   ============================================================================ */
+const Volley1v1 = (() => {
+  let cv, ctx, raf = 0, active = false;
+  let p1, p2, ball, s1, s2, winner;
+  const W = 760, H = 460, FLOOR = H - 24;
+
+  function serve(side) {
+    p1 = { x: 180, y: FLOOR, vx: 0, vy: 0, r: 38 };
+    p2 = { x: W - 180, y: FLOOR, vx: 0, vy: 0, r: 38 };
+    ball = { x: side === 1 ? 180 : W - 180, y: 160, vx: 0, vy: 0, r: 15 };
+  }
+  function reset() { s1 = 0; s2 = 0; winner = ""; sync(); serve(1); }
+  function sync() {
+    document.getElementById("volley-p1").textContent = s1;
+    document.getElementById("volley-p2").textContent = s2;
+  }
+  function step() {
+    if (!active) return;
+    if (!winner) {
+      const upd = (p, l, r, u, minX, maxX) => {
+        p.vx = (r ? 5.6 : 0) - (l ? 5.6 : 0);
+        if (u && p.y >= FLOOR) { p.vy = -12; CyberAudio.jump(); }
+        p.vy += 0.56; p.x = Math.max(minX, Math.min(maxX, p.x + p.vx));
+        p.y = Math.min(FLOOR, p.y + p.vy); if (p.y === FLOOR) p.vy = 0;
+        const dx = ball.x - p.x, dy = ball.y - p.y, d = Math.hypot(dx, dy) || 1;
+        if (d < p.r + ball.r && ball.y < p.y + 8) {
+          const nx = dx / d, ny = dy / d;
+          ball.x = p.x + nx * (p.r + ball.r); ball.y = p.y + ny * (p.r + ball.r);
+          ball.vx = nx * 8.8 + p.vx * 0.45; ball.vy = Math.min(-5, ny * 9.5 + p.vy * 0.35);
+          CyberAudio.hit();
+        }
+      };
+      upd(p1, CyberKeys.code("KeyA"), CyberKeys.code("KeyD"), CyberKeys.code("KeyW"), 42, W/2 - 44);
+      upd(p2, CyberKeys.code("ArrowLeft"), CyberKeys.code("ArrowRight"), CyberKeys.code("ArrowUp"), W/2 + 44, W - 42);
+
+      ball.vy += 0.32; ball.x += ball.vx; ball.y += ball.vy;
+      if (ball.x < ball.r || ball.x > W - ball.r) { ball.vx *= -0.9; ball.x = Math.max(ball.r, Math.min(W - ball.r, ball.x)); }
+      // Filet central
+      if (ball.y > FLOOR - 95 && Math.abs(ball.x - W/2) < ball.r + 5) {
+        if (ball.y < FLOOR - 84) ball.vy = -Math.abs(ball.vy);
+        else ball.vx *= -0.9;
+      }
+      if (ball.y > FLOOR - ball.r) {
+        CyberAudio.score();
+        if (ball.x < W / 2) { s2++; sync(); if (s2 >= 7) winner = "VICTOIRE J2 !"; else serve(2); }
+        else { s1++; sync(); if (s1 >= 7) winner = "VICTOIRE J1 !"; else serve(1); }
+      }
+    }
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function drawSlime(p, col) {
+    ctx.fillStyle = col; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, Math.PI, 0); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(p.x + (p === p1 ? 14 : -14), p.y - 16, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#070b14"; ctx.beginPath(); ctx.arc(p.x + (p === p1 ? 16 : -16), p.y - 16, 2.5, 0, Math.PI * 2); ctx.fill();
+  }
+  function draw() {
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#1e293b"; ctx.fillRect(0, FLOOR, W, H - FLOOR);
+    ctx.fillStyle = "#10b981"; ctx.fillRect(W/2 - 4, FLOOR - 92, 8, 92);
+    drawSlime(p1, "#00f0ff"); drawSlime(p2, "#a855f7");
+    ctx.fillStyle = "#fde047"; ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+    if (winner) {
+      ctx.fillStyle = "rgba(7,11,20,0.78)"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#10b981"; ctx.font = "bold 32px monospace"; ctx.textAlign = "center";
+      ctx.fillText(winner, W / 2, H / 2);
+    }
+  }
+  return {
+    init() { cv = document.getElementById("canvas-volley1v1"); ctx = cv.getContext("2d"); document.getElementById("volley-reset").onclick = reset; reset(); },
+    start() { if (!active) { active = true; raf = requestAnimationFrame(step); } },
+    pause() { active = false; cancelAnimationFrame(raf); },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   11. WORDLE FRANÇAIS ILLIMITÉ
+   ============================================================================ */
+const WordleGame = (() => {
+  const WORDS = [
+    "ARBRE","AVION","BAGUE","BANDE","BARBE","BATON","BILLE","BLANC","BOIRE","BOITE","BONNE","BORDE","BOULE","BRAVO","BRUIT",
+    "CABLE","CADRE","CALME","CARTE","CAUSE","CHAIR","CHAMP","CHANT","CHAUD","CHIEN","CHOSE","CHUTE","CIBLE","CLAIR","CLASSE".slice(0,5),
+    "COEUR","CONTE","CORDE","CORPS","COURS","COURT","CRANE","CREME","CRISE","CROIX","CYCLE","DANSE","DEBUT","DENTS","DOIGT",
+    "DOUTE","DRAME","DROIT","DUREE","ECART","ECHEC","ECOLE","ECRAN","EFFET","ENFIN","ENTRE","ENVIE","ETAGE","ETANG","ETOIL".replace("ETOIL","ETUDE"),
+    "FABLE","FAIRE","FAUTE","FEMME","FERME","FETER","FIBRE","FILLE","FINAL","FLEUR","FORCE","FORET","FORME","FOULE","FRAIS",
+    "FRERE","FRONT","FRUIT","FUMEE","FUSEE","GAMIN","GARDE","GEANT","GENOU","GENRE","GESTE","GLACE","GORGE","GRACE","GRAIN",
+    "GRAND","GRAVE","GRISE","GUIDE","HABIT","HAINE","HAUTE","HERBE","HEURE","HIVER","HOMME","HONTE","HOTEL","HUILE","IDEAL",
+    "IMAGE","INDEX","ISSUE","JAMBE","JAUNE","JEUNE","JOUER","JOUET","JOURS","JUGER","JUSTE","LABEL","LAINE","LAMPE","LANCE",
+    "LARGE","LARME","LASER","LAVER","LECON","LEGER","LENTE","LEVER","LIBRE","LIGNE","LINGE","LISTE","LITRE","LIVRE","LOCAL",
+    "LOGER","LOIRE","LONGS","LOUPE","LOURD","LUEUR","LUNDI","LUTTE","LYCEE","MAGIE","MAINS","MAIRE","MALIN","MAMAN","MANGE",
+    "MARDI","MAREE","MARIE","MARIN","MASSE","MATIN","MEDIA","MELON","MERCI","METAL","METRE","METRO","MIEUX","MILLE","MINCE",
+    "MINER","MIXER","MODEL","MOINS","MOIRE","MONDE","MONTE","MORAL","MORTE","MOTIF","MOTOX".replace("MOTOX","MOULE"),"MOYEN","MUETS","MURET","MUSEE",
+    "NAGER","NAINE","NAPPE","NATAL","NAVAL","NEIGE","NERFS","NEUVE","NICHE","NIECE","NOBLE","NOEUD","NOIRE","NOMME","NORME",
+    "NOTER","NOTRE","NOUER","NOYER","NUAGE","NUITS","NULLE","NYLON","OASIS","OBJET","OCEAN","ODEUR","OFFRE","OISEA".replace("OISEA","OMBRE"),"ONCLE",
+    "ONDES","OPERA","OPTER","ORAGE","ORALE","ORDRE","ORGUE","ORNER","OSENT","OTAGE","OUEST","OURSE","OUTIL","OUTRE","OVALE",
+    "PACTE","PAGES","PAIRE","PALET","PANEL","PANNE","PARCS","PARMI","PAROI","PARTI","PASSE","PATES","PAUSE","PAVER","PAYER",
+    "PECHE","PEINE","PELER","PENTE","PERCE","PERDU","PERLE","PERTE","PESER","PETIT","PHARE","PHASE","PHOTO","PIANO","PIECE",
+    "PIEGE","PIEUZ".replace("PIEUZ","PILER"),"PILOT","PINCE","PIQUE","PISTE","PIVOT","PIXEL","PLACE","PLAGE","PLAIE","PLAIN","PLANE","PLANS","PLANT","PLATS",
+    "PLEIN","PLEUR","PLIER","PLOMB","PLUIE","PLUME","PNEUS","POCHE","POELE","POEME","POETE","POIDS","POING","POINT","POIRE",
+    "POKER","POLAR","POLIE","POMME","POMPE","PONCE","PONDS","PONTE","PORCS","PORTE","POSER","POSTE","POTES","POUCE","POULE",
+    "POULS","POURS","PRENE","PRETE","PREUX","PRIER","PRIME","PRISE","PRIVE","PROIE","PROSE","PROUE","PRUNE","PUCES","PUITS",
+    "PULSE","PURGE","QUAIS","QUAND","QUANT","QUART","QUASI","QUELS","QUETE","QUEUE","QUOTA","RABAT","RACER","RADAR","RADIO",
+    "RADIS","RAGER","RAIDE","RAIES","RAILS","RAMEE","RAMPE","RANCE","RANGS","RAPER","RARES","RASER","RATER","RATIO","RAVEN",
+    "RAVIR","RAYER","RAYON","REBUT","RECIF","RECIT","RECTO","RECUL","REELS","REFUS","REGAL","REGIE","REGLE","REGNE","REINE",
+    "REINS","REJET","RELAI","RELIE","REMET","REMIS","RENDE","RENDU","RENES","RENNE","RENOM","RENTE","REPAS","REPIT","REPLI",
+    "REPOS","REPRO","RESET","RESTE","RETIF","RETRO","REUNI","REVER","REVES","REVET","REVUE","RHUME","RICHE","RIDER","RIDES",
+    "RIENS","RIGOL","RIMER","RIMES","RINCE","RIRES","RISER","RITES","RIVAL","RIVER","RIVES","ROBOT","ROCHE","RODER","RODES",
+    "ROGNE","ROLES","ROMAN","ROMPE","ROMPT","ROMPU","RONCE","RONDE","RONDS","RONGE","ROQUE","ROSAT","ROSEE","ROSER","ROSES",
+    "ROSIR","ROSSE","ROTER","ROTIE","ROTIN","ROTIR","ROTOR","ROUAN","ROUER","ROUES","ROUGE","ROUIR","ROULE","ROUND","ROUTE",
+    "ROVER","ROYAL","RUBAN","RUBIS","RUCHE","RUDES","RUGBY","RUGIR","RUINE","RULER","RUMBA","RURAL","RUSER","RUSES","RUSSE",
+    "SABIR","SABLE","SABOT","SABRE","SACHE","SACRE","SAGES","SAINE","SAINS","SAINT","SAISI","SAKEZ".replace("SAKEZ","SALAR"),"SALEE","SALER","SALES",
+    "SALIN","SALIR","SALLE","SALON","SALOP","SALSA","SALUE","SALUT","SALVE","SAMBA","SANTE","SAOUL","SAPER","SAPIN","SAQUE",
+    "SARDE","SASSE","SATAN","SATIN","SAUCE","SAUFS","SAUGE","SAULE","SAUNA","SAUNE","SAURA","SAURE","SAUTE","SAUTS","SAUVE",
+    "SAVER","SAVEZ","SAVON","SAXON","SAYON","SCALP","SCARE","SCENE","SCHAH","SCIEE","SCIER","SCIES","SCION","SCONE","SCOOP",
+    "SCORE","SCOUT","SCRUB","SEANT","SEAUX","SECHE","SECON","SECTE","SECUS","SEDAN","SEIDE","SEIME","SEINE","SEING","SEINS",
+    "SEIZE","SELLE","SELON","SELTZ","SEMAE","SEMER","SEMIS","SENAT","SENAU","SENES","SENNE","SENSE","SENTE","SENTS","SEOIR",
+    "SEPIA","SEQUE","SERAC","SERAI","SERAN","SERBE","SERES","SERFS","SERGE","SERIA","SERIE","SERIN","SERPE","SERRE","SERTI",
+    "SERUM","SERVE","SERVI","SEUIL","SEULE","SEULS","SEVES","SEVIR","SEVRE","SEXES","SEXTE","SEXTO","SEXUE","SHAHS","SHAKO",
+    "SHALE","SHAMA","SHANA","SHIFT","SHIRE","SHIRT","SHIVA","SHOOT","SHORT","SHOWS","SHOYU","SHUNT","SIALS","SIBYL","SICAV",
+    "SICLE","SIDAS","SIDES","SIEGE","SIENS","SIERA","SIEUR","SIGLE","SIGMA","SIGNA","SIGNE","SIKHE","SIKHS","SILAT","SILES",
+    "SILEX","SILOS","SILTS","SIMAS","SINGE","SINON","SINUS","SIOUX","SIPHO","SIRES","SIREX","SIRLI","SIROP","SISAL","SISES",
+    "SITAR","SITES","SITOT","SITUA","SITUE","SIUMS","SIXTE","SKATE","SKEET","SKIAI","SKIAS","SKIAT","SKIEE","SKIER","SKIES",
+    "SKIEZ","SKIFF","SKIFS","SKINS","SKIPS","SKONS","SKUAS","SKUNS","SLAMA","SLAME","SLAMS","SLANG","SLASH","SLAVE","SLICK",
+    "SLIDE","SLIMS","SLIPS","SLOOP","SLOWS","SLUMP","SLURP","SLUSH","SMACK","SMALA","SMALT","SMART","SMASH","SMICS","SMOGS",
+    "SMOKS","SMOLT","SMURF","SNACK","SNIFA","SNIFE","SNIFF","SNIFS","SNOBE","SNOBS","SOAPS","SOBRE","SOCCA","SOCIO","SOCLE",
+    "SODAS","SODEE","SODES","SOEUR","SOFAS","SOFTS","SOIES","SOIFS","SOINS","SOIRS","SOJAS","SOLDA","SOLDE","SOLDO","SOLEN",
+    "SOLES","SOLEX","SOLIN","SOLOS","SOMAS","SOMMA","SOMME","SONAL","SONAR","SONDA","SONDE","SONES","SONGE","SONNA","SONNE",
+    "SONOS","SOPOR","SORBE","SORES","SORGO","SORTE","SORTS","SOSIE","SOSOT","SOTCH","SOTHO","SOTIE","SOTTE","SOUCI","SOUDA",
+    "SOUDE","SOUES","SOUFI","SOUKS","SOULA","SOULE","SOULS","SOUMS","SOUNA","SOUPA","SOUPE","SOURD","SOURS","SOUTE","SOYAS",
+    "SOYER","SOYEZ","SPACE","SPAHI","SPAMS","SPARE","SPART","SPATH","SPATS","SPECK","SPEED","SPEOS","SPETS","SPHEX","SPICA",
+    "SPICS","SPINS","SPIRE","SPITA","SPITE","SPITZ","SPORE","SPORT","SPOTS","SPRAT","SPRAY","SPRUE","SPUME","SQUAT","SQUAW",
+    "STADE","STAFF","STAGE","STAMM","STAND","STARS","STASE","STATS","STEAK","STELE","STEMM","STEMS","STENO","STENT","STEPS",
+    "STERA","STERE","STICK","STILB","STIPE","STOCK","STONE","STOPS","STORE","STOTS","STOUT","STRAS","STRIA","STRIE","STRIP",
+    "STRIX","STUCS","STUDS","STUKA","STUPA","STUPS","STURE","STYLE","STYLO","SUAGE","SUAIS","SUAIT","SUANT","SUAVE","SUBER",
+    "SUBIE","SUBIR","SUBIS","SUBIT","SUBLA","SUBLE","SUCAI","SUCAS","SUCAT","SUCEE","SUCER","SUCES","SUCEZ","SUCON","SUCRA",
+    "SUCRE","SUDRA","SUEDE","SUEES","SUENT","SUERA","SUEUR","SUEVE","SUFFI","SUFIS","SUIDE","SUIES","SUIFA","SUIFE","SUIFS",
+    "SUINT","SUITE","SUIVE","SUIVI","SUJET","SULKY","SUMAC","SUMES","SUMOS","SUNNA","SUONS","SUPAI","SUPAS","SUPAT","SUPEE",
+    "SUPER","SUPES","SUPEZ","SUPIN","SUPPO","SUPRA","SURAH","SURAL","SURES","SURET","SURFA","SURFE","SURFS","SURGE","SURGI",
+    "SURIE","SURIN","SURIR","SURIS","SURIT","SUROS","SUSHI","SUSSE","SUTES","SUTRA","SWAGS","SWAPS","SWING","SWINS","SYLIS",
+    "SYLVE","SYMPA","SYRAH","SYRTE","SYSOP","TAALS","TABAC","TABAR","TABES","TABLA","TABLE","TABOR","TABOU","TABUN","TACCA",
+    "TACET","TACHE","TACKA","TACLA","TACLE","TACON","TACOS","TACOT","TACTS","TAELS","TAFFA","TAFFE","TAFFS","TAFIA","TAGAL",
+    "TAGGA","TAGGE","TAGME","TAGUA","TAGUE","TAHRS","TAIES","TAIGA","TAIJI","TAINO","TAINS","TAIRA","TAIRE","TAISE","TAKAS",
+    "TAKIN","TALAI","TALAS","TALAT","TALCS","TALEB","TALED","TALEE","TALER","TALES","TALEZ","TALLA","TALLE","TALON","TALUS",
+    "TAMAS","TAMIA","TAMIL","TAMIS","TANCA","TANCE","TANGA","TANGO","TANGS","TANIN","TANKA","TANKS","TANNA","TANNE","TANNS",
+    "TANTE","TAONS","TAPAI","TAPAS","TAPAT","TAPEE","TAPER","TAPES","TAPEZ","TAPIE","TAPIN","TAPIR","TAPIS","TAPIT","TAPON",
+    "TAQUA","TAQUE","TARAF","TARAI","TARAS","TARAT","TARDA","TARDE","TARDO","TAREE","TARER","TARES","TARET","TAREZ","TARGE",
+    "TARIE","TARIF","TARIN","TARIR","TARIS","TARIT","TAROT","TARSE","TARTE","TARTI","TASER","TASSA","TASSE","TATAI","TATAR",
+    "TATAS","TATAT","TATEE","TATER","TATES","TATEZ","TATIE","TATIN","TATIS","TATOU","TAUDA","TAUDE","TAUDS","TAULE","TAUPA",
+    "TAUPE","TAURE","TAVEL","TAXAI","TAXAS","TAXAT","TAXEE","TAXER","TAXES","TAXEZ","TAXIE","TAXIS","TAXOL","TAXON","TAXUM",
+    "TAXUS","TAYRA","TCHAN","TCHAO","TCHAT","TCHIN","TEAMS","TECKS","TEDDY","TEFAL","TEFFS","TEINS","TEINT","TEJUS","TEKEE",
+    "TEKES","TELES","TELEX","TELLE","TELLS","TEMPE","TEMPI","TEMPO","TEMPS","TENDE","TENDS","TENDU","TENEZ","TENGE","TENIA",
+    "TENIR","TENNO","TENON","TENOR","TENTA","TENTE","TENUE","TENUS","TEPUI","TERCA","TERCE","TERME","TERNE","TERNI","TERRA",
+    "TERRE","TERRI","TERSA","TERSE","TESLA","TESTA","TESTE","TESTS","TETAI","TETAS","TETAT","TETEE","TETER","TETES","TETEZ",
+    "TETIN","TETON","TETRA","TETTE","TETUE","TETUS","TEUFS","TEVES","TEXAN","TEXTA","TEXTE","TEXTO","TEZIG","THAIE","THAIS",
+    "THALI","THANE","THEME","THESE","THETA","THETE","THIOF","THIOL","THONS","THORA","THUGS","THUJA","THUNE","THUYA","THYMS",
+    "TIANS","TIARE","TIBIA","TICAL","TIEDE","TIEDI","TIENS","TIENT","TIERS","TIFFE","TIFOS","TIGEA","TIGER","TIGES","TIGRA",
+    "TIGRE","TIKIS","TILDE","TILLA","TILLE","TILTA","TILTE","TILTS","TIMON","TINES","TINTA","TINTE","TIPAI","TIPAS","TIPAT",
+    "TIPEE","TIPER","TIPES","TIPEZ","TIPIS","TIPPA","TIPPE","TIQUA","TIQUE","TIRAI","TIRAS","TIRAT","TIREE","TIRER","TIRES",
+    "TIRET","TIREZ","TISAI","TISAS","TISAT","TISER","TISES","TISEZ","TISON","TISSA","TISSE","TISSU","TITAN","TITIS","TITRA",
+    "TITRE","TITUS","TJALE","TMESE","TOAST","TOBYS","TOFUS","TOGES","TOILA","TOILE","TOISA","TOISE","TOITS","TOKAI","TOKAJ",
+    "TOKAY","TOLAI","TOLAR","TOLAS","TOLAT","TOLBA","TOLDA","TOLDE","TOLEE","TOLER","TOLES","TOLET","TOLEZ","TOLLE","TOLUS",
+    "TOMAI","TOMAN","TOMAS","TOMAT","TOMBA","TOMBE","TOMEE","TOMER","TOMES","TOMEZ","TOMME","TOMMY","TONAL","TONCA","TONDE",
+    "TONDO","TONDS","TONDU","TONER","TONFA","TONGS","TONIC","TONIE","TONKA","TONNA","TONNE","TONTE","TONUS","TOPAI","TOPAS",
+    "TOPAT","TOPEE","TOPER","TOPES","TOPEZ","TOPIC","TOPOS","TOQUA","TOQUE","TORAH","TORDE","TORDS","TORDU","TOREA","TOREE",
+    "TORES","TORII","TORIL","TORON","TORRS","TORSE","TORTE","TORTS","TORTU","TORVE","TORYS","TOSAS","TOSSA","TOSSE","TOTAL",
+    "TOTEM","TOTON","TOTOS","TOUAI","TOUAS","TOUAT","TOUEE","TOUER","TOUES","TOUEZ","TOURA","TOURD","TOURE","TOURS","TOUTE",
+    "TOUTS","TRABE","TRACA","TRACE","TRACS","TRACT","TRAHI","TRAIE","TRAIL","TRAIN","TRAIS","TRAIT","TRAMA","TRAME","TRAMP",
+    "TRAMS","TRANS","TRAPP","TRAPU","TRASH","TRAVE","TRAYE","TREKS","TREMA","TREND","TREVE","TRIAI","TRIAL","TRIAS","TRIAT",
+    "TRIBU","TRICK","TRICS","TRIDI","TRIEE","TRIER","TRIES","TRIEZ","TRIGO","TRIMA","TRIME","TRINE","TRINS","TRIOL","TRIOS",
+    "TRIPA","TRIPE","TRIPS","TROCS","TROIS","TROLE","TROLL","TRONA","TRONC","TRONE","TROPE","TROTS","TROUA","TROUE","TROUS",
+    "TRUCK","TRUCS","TRUIE","TRUST","TSARS","TSUBA","TSUGA","TTORO","TUAGE","TUAIS","TUAIT","TUANT","TUBAI","TUBAS","TUBAT",
+    "TUBEE","TUBER","TUBES","TUBEZ","TUEES","TUENT","TUERA","TUEUR","TUFTE","TUILE","TULLE","TUMES","TUNAI","TUNAS","TUNAT",
+    "TUNEE","TUNER","TUNES","TUNEZ","TUONS","TUPIE","TUPIS","TUQUE","TURBE","TURBO","TURCO","TURCS","TURFS","TURNE","TUSSE",
+    "TUTES","TUTIE","TUTOS","TUTSI","TUTTI","TUTUS","TUYAU","TWEED","TWEEN","TWEET","TWILL","TWINS","TWIST","TYPAI","TYPAS",
+    "TYPAT","TYPEE","TYPER","TYPES","TYPEZ","TYPHA","TYPON","TYPOS","TYRAN","TZARS","UBACS","UBRIS","UHLAN","UKASE","ULEMA",
+    "ULNAS","ULTRA","ULULA","ULULE","ULVES","UMAMI","UMBOS","UMMAS","UNAUS","UNAUX","UNIES","UNIFS","UNION","UNIRA","UNITE",
+    "UNIVS","UNTEL","URANE","URATE","URDUS","UREES","URGEA","URGER","URINA","URINE","URNES","URSIN","URUBU","USAGE","USAIS",
+    "USAIT","USANT","USEES","USENT","USERA","USINA","USINE","USITE","USNEE","USONS","USUEL","USURE","UTILE","UVALE","UVAUX",
+    "UVEES","UVULA","UVULE","UZBEK","VACHA","VACHE","VACOA","VAGAL","VAGIN","VAGIR","VAGIS","VAGIT","VAGUA","VAGUE","VAINC",
+    "VAINE","VAINS","VAIRE","VAIRS","VALET","VALEZ","VALGA","VALSA","VALSE","VALUE","VALUS","VALUT","VALVE","VAMPA","VAMPE",
+    "VAMPS","VANDA","VANNA","VANNE","VANTA","VANTE","VAPES","VAPOS","VAQUA","VAQUE","VARAN","VARIA","VARIE","VARNA","VARON",
+    "VARUS","VARVE","VASAI","VASAS","VASAT","VASEE","VASER","VASES","VASEZ","VASTE","VATER","VATES","VATOU","VAUDO","VAUTS",
+    "VAYAS","VEAUX","VECES","VECUE","VECUS","VECUT","VEDAS","VEGAN","VEINA","VEINE","VELAI","VELAR","VELAS","VELAT","VELDS",
+    "VELDT","VELER","VELES","VELET","VELEZ","VELIE","VELIN","VELLE","VELOS","VELOT","VELTE","VELUE","VELUM","VELUS","VELUX",
+    "VENAL","VENDA","VENDE","VENDS","VENDU","VENES","VENET","VENEZ","VENGE","VENIN","VENIR","VENTA","VENTE","VENTS","VENUE",
+    "VENUS","VERBE","VERDI","VERGE","VERIF","VERIN","VERNE","VERNI","VERRA","VERRE","VERSA","VERSE","VERSO","VERTE","VERTS",
+    "VERTU","VERVE","VESCE","VESOU","VESPA","VESSA","VESSE","VESTE","VETES","VETEZ","VETIR","VETIS","VETIT","VETOS","VETUE",
+    "VETUS","VEUFS","VEULE","VEUVE","VEXAI","VEXAS","VEXAT","VEXEE","VEXER","VEXES","VEXEZ","VIBOR","VIBRA","VIBRE","VIBRO",
+    "VICES","VICHY","VICIA","VICIE","VIDAI","VIDAS","VIDAT","VIDEE","VIDEO","VIDER","VIDES","VIDEZ","VIEIL","VIEJA","VIENS",
+    "VIENT","VIETS","VIEUX","VIGIE","VIGIL","VIGNE","VILES","VILLA","VILLE","VIMES","VINAI","VINAS","VINAT","VINEE","VINER",
+    "VINES","VINEZ","VINGT","VINYL","VIOCS","VIOLA","VIOLE","VIOLS","VIRAI","VIRAL","VIRAS","VIRAT","VIREE","VIRER","VIRES",
+    "VIREZ","VIRIL","VIRUS","VISAI","VISAS","VISAT","VISEE","VISER","VISES","VISEZ","VISON","VISOU","VISSA","VISSE","VISTA",
+    "VITAL","VITES","VITRA","VITRE","VIVAT","VIVES","VIVEZ","VIVRA","VIVRE","VIZIR","VLOGS","VOCAL","VODKA","VOEUX","VOGUA",
+    "VOGUE","VOICI","VOIES","VOILA","VOILE","VOIRE","VOISE","VOLAI","VOLAS","VOLAT","VOLEE","VOLER","VOLES","VOLET","VOLEZ",
+    "VOLIS","VOLTA","VOLTE","VOLTS","VOLVE","VOMER","VOMIE","VOMIR","VOMIS","VOMIT","VOTAI","VOTAS","VOTAT","VOTEE","VOTER",
+    "VOTES","VOTEZ","VOTIF","VOTRE","VOUAI","VOUAS","VOUAT","VOUEE","VOUER","VOUES","VOUEZ","VOUGE","VOULU","VOUTA","VOUTE",
+    "VOYER","VOYEZ","VOYOU","VRACS","VRAIE","VRAIS","VROOM","VROUM","VULGO","VULVE","WAGON","WALES","WALIS","WAOUH","WAQFS",
+    "WASPS","WATTE","WATTS","WEBER","WEDGE","WELSH","WENGE","WENZE","WHARF","WHIGS","WHIPS","WHIST","WIDIA","WIFIS","WIKIS",
+    "WIMAX","WINCH","WISKI","WOLOF","WONGS","WURMS","WUSHU","XENON","XERES","XERUS","XHOSA","XIANG","XIEME","XIPHO","XYLOL",
+    "XYSTE","YACHT","YACKS","YAKAS","YAMBA","YANGS","YAPOK","YAPON","YARDS","YASSA","YASSE","YAWLS","YEBLE","YETIS","YEUSE",
+    "YEYES","YODEL","YODLA","YODLE","YOGAS","YOGIS","YOLES","YORKS","YOUPI","YOYOS","YUANS","YUCCA","YUKOS","YUZUS","ZABRE",
+    "ZAINS","ZAIRE","ZAKAT","ZAMAK","ZAMIA","ZAMUS","ZANIS","ZANNI","ZANZI","ZAPPA","ZAPPE","ZARBI","ZARBS","ZAZEN","ZAZOU",
+    "ZEBRA","ZEBRE","ZEBUS","ZEINE","ZELEE","ZELES","ZENDS","ZEROS","ZESTA","ZESTE","ZIGUE","ZIKRS","ZINCS","ZIPPA","ZIPPE",
+    "ZIZIS","ZLOTY","ZOIDE","ZOILE","ZOMBI","ZONAI","ZONAL","ZONAS","ZONAT","ZONEE","ZONER","ZONES","ZONEZ","ZOOMA","ZOOME",
+    "ZOOMS","ZORSE","ZOUKA","ZOUKE","ZOUKS","ZOZOS","ZUMBA"
+  ].filter(w => w.length === 5);
+
+  const KBD = ["AZERTYUIOP", "QSDFGHJKLM", "⌫WXCVBN⏎"];
+  let secret, row, guess, done, streak = 0, active = false, keyStates = {};
+
+  function reset() {
+    secret = WORDS[Math.floor(Math.random() * WORDS.length)];
+    row = 0; guess = ""; done = false; keyStates = {};
+    document.getElementById("wordle-msg").textContent = "Devine le mot de 5 lettres";
+    buildGrid(); buildKbd();
+  }
+  function buildGrid() {
+    const g = document.getElementById("wordle-grid"); g.innerHTML = "";
+    for (let r = 0; r < 6; r++) {
+      const rd = document.createElement("div"); rd.className = "wordle-row";
+      for (let c = 0; c < 5; c++) {
+        const cd = document.createElement("div"); cd.className = "wordle-cell"; cd.id = `wc-${r}-${c}`;
+        rd.appendChild(cd);
+      }
+      g.appendChild(rd);
+    }
+  }
+  function buildKbd() {
+    const k = document.getElementById("wordle-kbd"); k.innerHTML = "";
+    KBD.forEach(line => {
+      const r = document.createElement("div"); r.className = "wordle-krow";
+      [...line].forEach(ch => {
+        const b = document.createElement("button"); b.className = "wordle-key " + (keyStates[ch] || "");
+        b.textContent = ch; b.onclick = () => press(ch === "⌫" ? "BACK" : ch === "⏎" ? "ENTER" : ch);
+        r.appendChild(b);
+      });
+      k.appendChild(r);
+    });
+  }
+  function press(ch) {
+    if (done) return;
+    if (ch === "BACK") {
+      if (guess.length > 0) { guess = guess.slice(0, -1); renderRow(); }
+      return;
+    }
+    if (ch === "ENTER") {
+      if (guess.length < 5) { document.getElementById("wordle-msg").textContent = "Il faut 5 lettres !"; return; }
+      submit(); return;
+    }
+    if (/^[A-Z]$/.test(ch) && guess.length < 5) { guess += ch; renderRow(); CyberAudio.click(); }
+  }
+  function renderRow() {
+    for (let c = 0; c < 5; c++) document.getElementById(`wc-${row}-${c}`).textContent = guess[c] || "";
+  }
+  function submit() {
+    const res = Array(5).fill("no"), cnt = {};
+    for (const ch of secret) cnt[ch] = (cnt[ch] || 0) + 1;
+    for (let i = 0; i < 5; i++) if (guess[i] === secret[i]) { res[i] = "ok"; cnt[guess[i]]--; }
+    for (let i = 0; i < 5; i++) if (res[i] !== "ok" && cnt[guess[i]] > 0) { res[i] = "near"; cnt[guess[i]]--; }
+
+    for (let i = 0; i < 5; i++) {
+      document.getElementById(`wc-${row}-${i}`).classList.add(res[i]);
+      const prev = keyStates[guess[i]];
+      if (res[i] === "ok" || (res[i] === "near" && prev !== "ok") || (!prev && res[i] === "no")) keyStates[guess[i]] = res[i];
+    }
+    buildKbd();
+    if (guess === secret) {
+      done = true; streak++; CyberAudio.chime();
+      document.getElementById("wordle-streak").textContent = streak;
+      document.getElementById("wordle-msg").textContent = `Bravo ! Mot trouvé : ${secret}`;
+    } else if (row === 5) {
+      done = true; streak = 0; CyberAudio.over();
+      document.getElementById("wordle-streak").textContent = 0;
+      document.getElementById("wordle-msg").textContent = `Perdu ! Le mot était : ${secret}`;
+    } else { row++; guess = ""; }
+  }
+  function onKey(e) {
+    if (!active) return;
+    if (e.key === "Backspace") press("BACK");
+    else if (e.key === "Enter") press("ENTER");
+    else if (/^[a-zA-Z]$/.test(e.key)) press(e.key.toUpperCase());
+  }
+  return {
+    init() {
+      document.getElementById("wordle-reset").onclick = reset;
+      window.addEventListener("keydown", onKey);
+      reset();
+    },
+    start() { active = true; },
+    pause() { active = false; }
+  };
+})();
+
+/* ============================================================================
+   12. DÉMINEUR NÉON SANS 50/50 (GÉNÉRATEUR DÉTERMINISTE À SOLVEUR LOGIQUE)
+   ============================================================================ */
+const MinesweeperGame = (() => {
+  const N = 10, MINES = 16;
+  const COLORS = ["", "#38bdf8", "#10b981", "#f43f5e", "#a855f7", "#f59e0b", "#06b6d4", "#e2e8f0", "#94a3b8"];
+  let board, open, flag, generated, over, timer = 0, sec = 0;
+
+  const nbrs = (r, c) => {
+    const out = [];
+    for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+      if ((dr || dc) && r + dr >= 0 && r + dr < N && c + dc >= 0 && c + dc < N) out.push([r + dr, c + dc]);
+    }
+    return out;
+  };
+
+  function isSolvable(grid, sr, sc) {
+    const rev = Array.from({ length: N }, () => Array(N).fill(false));
+    const flg = Array.from({ length: N }, () => Array(N).fill(false));
+    const flood = (r, c) => {
+      if (rev[r][c]) return;
+      rev[r][c] = true;
+      if (grid[r][c] === 0) nbrs(r, c).forEach(([nr, nc]) => flood(nr, nc));
+    };
+    flood(sr, sc);
+
+    let progress = true;
+    while (progress) {
+      progress = false;
+      const frontier = [];
+      for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+        if (!rev[r][c] || grid[r][c] <= 0) continue;
+        const ns = nbrs(r, c);
+        const hid = ns.filter(([nr, nc]) => !rev[nr][nc] && !flg[nr][nc]);
+        const fCount = ns.filter(([nr, nc]) => flg[nr][nc]).length;
+        const rem = grid[r][c] - fCount;
+        if (hid.length === 0) continue;
+        if (rem === 0) { hid.forEach(([nr, nc]) => flood(nr, nc)); progress = true; }
+        else if (rem === hid.length) { hid.forEach(([nr, nc]) => flg[nr][nc] = true); progress = true; }
+        else frontier.push({ hid, keys: new Set(hid.map(([a, b]) => a * N + b)), rem });
+      }
+      if (!progress) {
+        // Règle des sous-ensembles couplés (logique pure avancée)
+        for (let i = 0; i < frontier.length && !progress; i++) {
+          for (let j = 0; j < frontier.length && !progress; j++) {
+            if (i === j || frontier[i].hid.length >= frontier[j].hid.length) continue;
+            if ([...frontier[i].keys].every(k => frontier[j].keys.has(k))) {
+              const diff = frontier[j].hid.filter(([a, b]) => !frontier[i].keys.has(a * N + b));
+              const dRem = frontier[j].rem - frontier[i].rem;
+              if (dRem === 0) { diff.forEach(([a, b]) => flood(a, b)); progress = true; }
+              else if (dRem === diff.length) { diff.forEach(([a, b]) => flg[a][b] = true); progress = true; }
+            }
+          }
+        }
+      }
+    }
+    let count = 0;
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (rev[r][c]) count++;
+    return count === N * N - MINES;
+  }
+
+  function generateDeterministic(sr, sc) {
+    let bestGrid = null;
+    for (let attempt = 0; attempt < 180; attempt++) {
+      const g = Array.from({ length: N }, () => Array(N).fill(0));
+      let placed = 0;
+      while (placed < MINES) {
+        const r = Math.floor(Math.random() * N), c = Math.floor(Math.random() * N);
+        if (g[r][c] === -1 || (Math.abs(r - sr) <= 1 && Math.abs(c - sc) <= 1)) continue;
+        g[r][c] = -1; placed++;
+      }
+      for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+        if (g[r][c] !== -1) g[r][c] = nbrs(r, c).filter(([nr, nc]) => g[nr][nc] === -1).length;
+      }
+      bestGrid = g;
+      if (isSolvable(g, sr, sc)) return g;
+    }
+    return bestGrid;
+  }
+
+  function reset() {
+    board = Array.from({ length: N }, () => Array(N).fill(0));
+    open = Array.from({ length: N }, () => Array(N).fill(false));
+    flag = Array.from({ length: N }, () => Array(N).fill(false));
+    generated = false; over = false; sec = 0;
+    clearInterval(timer); timer = 0;
+    document.getElementById("mine-time").textContent = "0";
+    document.getElementById("mine-left").textContent = MINES;
+    document.getElementById("mine-status").textContent = "100% Déductible • Clic droit = Drapeau";
+    render();
+  }
+  function reveal(r, c) {
+    if (over || flag[r][c] || open[r][c]) return;
+    if (!generated) {
+      board = generateDeterministic(r, c); generated = true;
+      timer = setInterval(() => { sec++; document.getElementById("mine-time").textContent = sec; }, 1000);
+    }
+    open[r][c] = true;
+    if (board[r][c] === -1) {
+      over = true; clearInterval(timer); CyberAudio.boom();
+      for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) if (board[i][j] === -1) open[i][j] = true;
+      document.getElementById("mine-status").textContent = "BOOM ! Mine déclenchée.";
+    } else {
+      CyberAudio.click();
+      if (board[r][c] === 0) nbrs(r, c).forEach(([nr, nc]) => reveal(nr, nc));
+      const safeLeft = open.flat().filter(Boolean).length;
+      if (safeLeft === N * N - MINES) {
+        over = true; clearInterval(timer); CyberAudio.chime();
+        document.getElementById("mine-status").textContent = `VICTOIRE LOGIQUE en ${sec}s !`;
+      }
+    }
+    render();
+  }
+  function render() {
+    const el = document.getElementById("mine-board"); el.innerHTML = "";
+    let fCount = 0;
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+      if (flag[r][c]) fCount++;
+      const d = document.createElement("div"); d.className = "mine-cell";
+      if (open[r][c]) {
+        d.classList.add("open");
+        if (board[r][c] === -1) { d.classList.add("boom"); d.textContent = "💣"; }
+        else if (board[r][c] > 0) { d.textContent = board[r][c]; d.style.color = COLORS[board[r][c]]; }
+      } else if (flag[r][c]) { d.classList.add("flag"); d.textContent = "🚩"; }
+      d.onclick = () => reveal(r, c);
+      d.oncontextmenu = e => {
+        e.preventDefault();
+        if (!over && !open[r][c]) { flag[r][c] = !flag[r][c]; CyberAudio.click(); render(); }
+      };
+      el.appendChild(d);
+    }
+    document.getElementById("mine-left").textContent = MINES - fCount;
+  }
+  return {
+    init() { document.getElementById("mine-reset").onclick = reset; reset(); },
+    start() {},
+    pause() { clearInterval(timer); }
+  };
+})();
+
+/* ============================================================================
+   13. SUDOKU EXPRESS (GÉNÉRATEUR + INDICE PAS-À-PAS)
+   ============================================================================ */
+const SudokuGame = (() => {
+  let sol, grid, fixed, sel = -1, active = false;
+
+  const ok = (b, idx, v) => {
+    const r = Math.floor(idx / 9), c = idx % 9, br = Math.floor(r / 3) * 3, bc = Math.floor(c / 3) * 3;
+    for (let i = 0; i < 9; i++) {
+      if (b[r * 9 + i] === v || b[i * 9 + c] === v) return false;
+      if (b[(br + Math.floor(i / 3)) * 9 + bc + (i % 3)] === v) return false;
+    }
+    return true;
+  };
+  function fill(b) {
+    const idx = b.indexOf(0);
+    if (idx === -1) return true;
+    const nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
+    for (const v of nums) {
+      if (ok(b, idx, v)) { b[idx] = v; if (fill(b)) return true; b[idx] = 0; }
+    }
+    return false;
+  }
+  function newGame() {
+    sol = Array(81).fill(0); fill(sol);
+    grid = [...sol];
+    const holes = Number(document.getElementById("sudoku-diff").value);
+    const idxs = Array.from({ length: 81 }, (_, i) => i).sort(() => Math.random() - 0.5);
+    for (let i = 0; i < holes; i++) grid[idxs[i]] = 0;
+    fixed = grid.map(v => v !== 0); sel = -1;
+    document.getElementById("sudoku-msg").textContent = "Grille prête. Sélectionne une case !";
+    render();
+  }
+  function setVal(v) {
+    if (sel < 0 || fixed[sel]) return;
+    grid[sel] = v; CyberAudio.click(); render();
+    if (grid.every((x, i) => x === sol[i])) {
+      CyberAudio.chime(); document.getElementById("sudoku-msg").textContent = "BRAVO ! Sudoku résolu !";
+    }
+  }
+  function hintStep() {
+    // Recherche d'un Single Nu (case avec exactement 1 candidat logique)
+    let target = -1, reason = "";
+    for (let i = 0; i < 81; i++) {
+      if (grid[i] !== 0) continue;
+      const cands = [1,2,3,4,5,6,7,8,9].filter(v => ok(grid, i, v));
+      if (cands.length === 1) { target = i; reason = "Single nu (seule valeur légale)"; break; }
+    }
+    if (target === -1) {
+      target = grid.findIndex((x, i) => x !== sol[i]);
+      reason = "Déduction guidée par le solveur";
+    }
+    if (target === -1) return;
+    grid[target] = sol[target]; sel = target; CyberAudio.score();
+    const r = Math.floor(target / 9) + 1, c = (target % 9) + 1;
+    document.getElementById("sudoku-msg").textContent = `Indice L${r} C${c} = ${sol[target]} (${reason})`;
+    render(target);
+  }
+  function render(hintIdx = -1) {
+    const el = document.getElementById("sudoku-grid"); el.innerHTML = "";
+    grid.forEach((v, i) => {
+      const d = document.createElement("div"); d.className = "sudoku-cell";
+      if (fixed[i]) d.classList.add("fixed");
+      if (i === sel) d.classList.add("sel");
+      if (v !== 0 && v !== sol[i]) d.classList.add("err");
+      if (i === hintIdx) d.classList.add("hinted");
+      d.textContent = v || "";
+      d.onclick = () => { sel = i; render(); };
+      el.appendChild(d);
+    });
+  }
+  return {
+    init() {
+      document.getElementById("sudoku-new").onclick = newGame;
+      document.getElementById("sudoku-hint").onclick = hintStep;
+      document.getElementById("sudoku-solve").onclick = () => { grid = [...sol]; CyberAudio.score(); render(); };
+      const pad = document.getElementById("sudoku-numpad"); pad.innerHTML = "";
+      [1,2,3,4,5,6,7,8,9,0].forEach(n => {
+        const b = document.createElement("button"); b.className = "csp-btn";
+        b.textContent = n === 0 ? "Effacer" : n; b.onclick = () => setVal(n);
+        pad.appendChild(b);
+      });
+      window.addEventListener("keydown", e => {
+        if (!active || sel < 0) return;
+        if (e.key >= "1" && e.key <= "9") setVal(Number(e.key));
+        if (e.key === "Backspace" || e.key === "0") setVal(0);
+      });
+      newGame();
+    },
+    start() { active = true; },
+    pause() { active = false; }
+  };
+})();
+
+/* ============================================================================
+   14. ÉCHECS MINI-ENGINE (MINIMAX ALPHA-BÊTA EN JS PUR)
+   ============================================================================ */
+const ChessGame = (() => {
+  const SYM = { wK:"♔", wQ:"♕", wR:"♖", wB:"♗", wN:"♘", wP:"♙", bK:"♚", bQ:"♛", bR:"♜", bB:"♝", bN:"♞", bP:"♟" };
+  const VAL = { P:100, N:320, B:330, R:500, Q:900, K:20000 };
+  let board, turn, sel, legal, lastMove, busy;
+
+  function reset() {
+    const back = ["R","N","B","Q","K","B","N","R"];
+    board = Array.from({ length: 8 }, (_, r) =>
+      Array.from({ length: 8 }, (_, c) =>
+        r === 0 ? "b" + back[c] : r === 1 ? "bP" : r === 6 ? "wP" : r === 7 ? "w" + back[c] : ""
+      )
+    );
+    turn = "w"; sel = null; legal = []; lastMove = null; busy = false;
+    document.getElementById("chess-status").textContent = "Trait aux Blancs (Toi)";
+    render();
+  }
+  const clone = b => b.map(r => [...r]);
+  const inB = (r, c) => r >= 0 && r < 8 && c >= 0 && c < 8;
+
+  function pseudoMoves(b, color) {
+    const ms = [];
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+      const p = b[r][c]; if (!p || p[0] !== color) continue;
+      const t = p[1], dir = color === "w" ? -1 : 1;
+      const add = (nr, nc) => ms.push({ fr: r, fc: c, tr: nr, tc: nc, cap: b[nr][nc] });
+      if (t === "P") {
+        if (inB(r + dir, c) && !b[r + dir][c]) {
+          add(r + dir, c);
+          if ((color === "w" && r === 6 || color === "b" && r === 1) && !b[r + 2 * dir][c]) add(r + 2 * dir, c);
+        }
+        [-1, 1].forEach(dc => {
+          if (inB(r + dir, c + dc) && b[r + dir][c + dc] && b[r + dir][c + dc][0] !== color) add(r + dir, c + dc);
+        });
+      } else if (t === "N") {
+        [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr, dc]) => {
+          const nr = r + dr, nc = c + dc;
+          if (inB(nr, nc) && (!b[nr][nc] || b[nr][nc][0] !== color)) add(nr, nc);
+        });
+      } else if (t === "K") {
+        for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+          if (!dr && !dc) continue;
+          const nr = r + dr, nc = c + dc;
+          if (inB(nr, nc) && (!b[nr][nc] || b[nr][nc][0] !== color)) add(nr, nc);
+        }
+      } else {
+        const dirs = t === "B" ? [[1,1],[1,-1],[-1,1],[-1,-1]] : t === "R" ? [[1,0],[-1,0],[0,1],[0,-1]] : [[1,1],[1,-1],[-1,1],[-1,-1],[1,0],[-1,0],[0,1],[0,-1]];
+        dirs.forEach(([dr, dc]) => {
+          let nr = r + dr, nc = c + dc;
+          while (inB(nr, nc)) {
+            if (!b[nr][nc]) add(nr, nc);
+            else { if (b[nr][nc][0] !== color) add(nr, nc); break; }
+            nr += dr; nc += dc;
+          }
+        });
+      }
+    }
+    return ms;
+  }
+  function applyMove(b, m) {
+    const nb = clone(b), p = nb[m.fr][m.fc];
+    nb[m.tr][m.tc] = (p[1] === "P" && (m.tr === 0 || m.tr === 7)) ? p[0] + "Q" : p;
+    nb[m.fr][m.fc] = "";
+    return nb;
+  }
+  function inCheck(b, color) {
+    const opp = color === "w" ? "b" : "w";
+    return pseudoMoves(b, opp).some(m => b[m.tr][m.tc] === color + "K");
+  }
+  function legalMoves(b, color) {
+    return pseudoMoves(b, color).filter(m => !inCheck(applyMove(b, m), color));
+  }
+  function evaluate(b) {
+    let sc = 0;
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+      const p = b[r][c]; if (!p) continue;
+      const center = (3.5 - Math.abs(3.5 - c)) * 6 + (3.5 - Math.abs(3.5 - r)) * 6;
+      const v = VAL[p[1]] + (p[1] === "K" ? 0 : center);
+      sc += p[0] === "b" ? v : -v;
+    }
+    return sc;
+  }
+  function minimax(b, depth, alpha, beta, maxing) {
+    const color = maxing ? "b" : "w";
+    const ms = legalMoves(b, color);
+    if (depth === 0 || ms.length === 0) {
+      if (ms.length === 0) return inCheck(b, color) ? (maxing ? -99999 : 99999) : 0;
+      return evaluate(b);
+    }
+    ms.sort((a, z) => (z.cap ? VAL[z.cap[1]] : 0) - (a.cap ? VAL[a.cap[1]] : 0));
+    if (maxing) {
+      let best = -Infinity;
+      for (const m of ms) {
+        best = Math.max(best, minimax(applyMove(b, m), depth - 1, alpha, beta, false));
+        alpha = Math.max(alpha, best); if (beta <= alpha) break;
+      }
+      return best;
+    } else {
+      let best = Infinity;
+      for (const m of ms) {
+        best = Math.min(best, minimax(applyMove(b, m), depth - 1, alpha, beta, true));
+        beta = Math.min(beta, best); if (beta <= alpha) break;
+      }
+      return best;
+    }
+  }
+  function aiMove() {
+    busy = true;
+    document.getElementById("chess-status").textContent = "L'IA réfléchit...";
+    setTimeout(() => {
+      const ms = legalMoves(board, "b");
+      if (ms.length === 0) {
+        document.getElementById("chess-status").textContent = inCheck(board, "b") ? "ÉCHEC ET MAT ! Tu gagnes !" : "PAT (Égalité)";
+        busy = false; return;
+      }
+      const depth = Number(document.getElementById("chess-depth").value);
+      let bestM = ms[0], bestV = -Infinity;
+      ms.forEach(m => {
+        const v = minimax(applyMove(board, m), depth - 1, -Infinity, Infinity, false);
+        if (v > bestV) { bestV = v; bestM = m; }
+      });
+      board = applyMove(board, bestM); lastMove = bestM; turn = "w"; busy = false;
+      CyberAudio.hit();
+      const wMs = legalMoves(board, "w");
+      if (wMs.length === 0) document.getElementById("chess-status").textContent = inCheck(board, "w") ? "ÉCHEC ET MAT ! L'IA gagne." : "PAT";
+      else document.getElementById("chess-status").textContent = inCheck(board, "w") ? "ÉCHEC au Roi Blanc !" : "Trait aux Blancs (Toi)";
+      render();
+    }, 50);
+  }
+  function clickSq(r, c) {
+    if (busy || turn !== "w") return;
+    const mv = legal.find(m => m.tr === r && m.tc === c);
+    if (mv) {
+      board = applyMove(board, mv); lastMove = mv; sel = null; legal = []; turn = "b";
+      CyberAudio.click(); render(); aiMove(); return;
+    }
+    if (board[r][c] && board[r][c][0] === "w") {
+      sel = [r, c];
+      legal = legalMoves(board, "w").filter(m => m.fr === r && m.fc === c);
+    } else { sel = null; legal = []; }
+    render();
+  }
+  function render() {
+    const el = document.getElementById("chess-board"); el.innerHTML = "";
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+      const d = document.createElement("div");
+      d.className = "chess-sq " + ((r + c) % 2 === 0 ? "light" : "dark");
+      if (sel && sel[0] === r && sel[1] === c) d.classList.add("sel");
+      if (legal.some(m => m.tr === r && m.tc === c)) d.classList.add("move");
+      if (lastMove && ((lastMove.fr === r && lastMove.fc === c) || (lastMove.tr === r && lastMove.tc === c))) d.classList.add("last");
+      d.textContent = SYM[board[r][c]] || "";
+      d.style.color = board[r][c]?.[0] === "w" ? "#00f0ff" : "#c084fc";
+      d.onclick = () => clickSq(r, c);
+      el.appendChild(d);
+    }
+  }
+  return {
+    init() { document.getElementById("chess-reset").onclick = reset; reset(); },
+    start() {},
+    pause() {}
+  };
+})();
+
+/* ============================================================================
+   15. SOKOBAN 2D (6 SALLES VÉRIFIÉES + UNDO)
+   ============================================================================ */
+const SokobanGame = (() => {
+  const LEVELS = [
+    ["#######","#     #","# .$  #","# .@$ #","#     #","#######"],
+    ["########","#      #","# .$$. #","#  @#  #","#  $.  #","#      #","########"],
+    ["########","#  .   #","# #$#  #","# .@$  #","#  $ . #","#      #","########"],
+    ["#########","#  #    #","# $ . $ #","#  .@.  #","# $ . $ #","#    #  #","#########"],
+    ["#########","# .   . #","# #$ $# #","#   @   #","# #$ $# #","# .   . #","#########"],
+    ["########","#  #   #","# . . .#","# $$$  #","#  @   #","#      #","########"]
+  ];
+  let cv, ctx, active = false, lvl = 0, walls, targets, boxes, player, history, moves;
+
+  function load(i) {
+    lvl = (i + LEVELS.length) % LEVELS.length;
+    const raw = LEVELS[lvl];
+    walls = new Set(); targets = new Set(); boxes = []; history = []; moves = 0;
+    raw.forEach((row, r) => [...row].forEach((ch, c) => {
+      const k = `${r},${c}`;
+      if (ch === "#") walls.add(k);
+      if (ch === "." || ch === "*" || ch === "+") targets.add(k);
+      if (ch === "$" || ch === "*") boxes.push({ r, c });
+      if (ch === "@" || ch === "+") player = { r, c };
+    }));
+    sync(); draw();
+  }
+  function sync() {
+    document.getElementById("soko-lvl").textContent = `${lvl + 1}/${LEVELS.length}`;
+    document.getElementById("soko-moves").textContent = moves;
+  }
+  function move(dr, dc) {
+    const nr = player.r + dr, nc = player.c + dc, nk = `${nr},${nc}`;
+    if (walls.has(nk)) return;
+    const bi = boxes.findIndex(b => b.r === nr && b.c === nc);
+    if (bi >= 0) {
+      const br = nr + dr, bc = nc + dc, bk = `${br},${bc}`;
+      if (walls.has(bk) || boxes.some(b => b.r === br && b.c === bc)) return;
+      history.push({ p: { ...player }, boxes: boxes.map(b => ({ ...b })) });
+      boxes[bi].r = br; boxes[bi].c = bc;
+    } else {
+      history.push({ p: { ...player }, boxes: boxes.map(b => ({ ...b })) });
+    }
+    player.r = nr; player.c = nc; moves++; CyberAudio.click(); sync(); draw();
+    if (boxes.every(b => targets.has(`${b.r},${b.c}`))) {
+      CyberAudio.chime(); setTimeout(() => load(lvl + 1), 650);
+    }
+  }
+  function undo() {
+    const last = history.pop(); if (!last) return;
+    player = last.p; boxes = last.boxes; moves = Math.max(0, moves - 1); sync(); draw();
+  }
+  function draw() {
+    const rows = LEVELS[lvl].length, cols = LEVELS[lvl][0].length;
+    const sz = Math.min(Math.floor(cv.width / cols), Math.floor(cv.height / rows));
+    const ox = (cv.width - cols * sz) / 2, oy = (cv.height - rows * sz) / 2;
+    ctx.fillStyle = "#070b14"; ctx.fillRect(0, 0, cv.width, cv.height);
+
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const x = ox + c * sz, y = oy + r * sz, k = `${r},${c}`;
+      if (walls.has(k)) {
+        ctx.fillStyle = "#1e293b"; ctx.fillRect(x + 1, y + 1, sz - 2, sz - 2);
+        ctx.strokeStyle = "#334155"; ctx.strokeRect(x + 2, y + 2, sz - 4, sz - 4);
+      } else if (targets.has(k)) {
+        ctx.strokeStyle = "#10b981"; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.arc(x + sz/2, y + sz/2, sz * 0.22, 0, Math.PI * 2); ctx.stroke();
+      }
+    }
+    boxes.forEach(b => {
+      const onT = targets.has(`${b.r},${b.c}`);
+      ctx.fillStyle = onT ? "#10b981" : "#a855f7";
+      ctx.fillRect(ox + b.c * sz + 6, oy + b.r * sz + 6, sz - 12, sz - 12);
+    });
+    ctx.fillStyle = "#00f0ff";
+    ctx.beginPath(); ctx.arc(ox + player.c * sz + sz/2, oy + player.r * sz + sz/2, sz * 0.3, 0, Math.PI * 2); ctx.fill();
+  }
+  function onKey(e) {
+    if (!active) return;
+    if (e.code === "ArrowUp" || e.code === "KeyW") move(-1, 0);
+    if (e.code === "ArrowDown" || e.code === "KeyS") move(1, 0);
+    if (e.code === "ArrowLeft" || e.code === "KeyA") move(0, -1);
+    if (e.code === "ArrowRight" || e.code === "KeyD") move(0, 1);
+    if (e.code === "KeyU") undo();
+    if (e.code === "KeyR") load(lvl);
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-sokoban"); ctx = cv.getContext("2d");
+      window.addEventListener("keydown", onKey);
+      document.getElementById("soko-undo").onclick = undo;
+      document.getElementById("soko-reset").onclick = () => load(lvl);
+      document.getElementById("soko-next").onclick = () => load(lvl + 1);
+      load(0);
+    },
+    start() { active = true; draw(); },
+    pause() { active = false; },
+    resize() { draw(); }
+  };
+})();
+
+/* ============================================================================
+   16. IDLE CYBER CLICKER
+   ============================================================================ */
+const ClickerGame = (() => {
+  const ITEMS = [
+    { id:"script", name:"Auto-Script Python", base:15, cps:0.5, click:0 },
+    { id:"macro", name:"Clavier Mécanique", base:40, cps:0, click:2 },
+    { id:"gpu", name:"Rig GPU Overclock", base:120, cps:4, click:0 },
+    { id:"server", name:"Cluster Linux", base:550, cps:18, click:0 },
+    { id:"ai", name:"LLM Local Quantisé", base:2200, cps:75, click:10 },
+    { id:"quantum", name:"Noeud Quantique", base:12000, cps:380, click:0 }
+  ];
+  let state, iv = 0;
+
+  function load() {
+    try { state = JSON.parse(localStorage.getItem("csp_clicker")) || null; } catch { state = null; }
+    if (!state) state = { pts: 0, mult: 1, owned: {} };
+  }
+  const save = () => { try { localStorage.setItem("csp_clicker", JSON.stringify(state)); } catch {} };
+  const cost = it => Math.floor(it.base * Math.pow(1.18, state.owned[it.id] || 0));
+  const getCps = () => ITEMS.reduce((s, it) => s + (state.owned[it.id] || 0) * it.cps, 0) * state.mult;
+  const getPwr = () => (1 + ITEMS.reduce((s, it) => s + (state.owned[it.id] || 0) * it.click, 0)) * state.mult;
+
+  function render() {
+    document.getElementById("click-pts").textContent = Math.floor(state.pts).toLocaleString("fr-FR");
+    document.getElementById("click-cps").textContent = getCps().toFixed(1);
+    document.getElementById("click-pwr").textContent = getPwr();
+    const pCost = 5000 * state.mult;
+    const pBtn = document.getElementById("click-prestige");
+    pBtn.textContent = `Overclock (x${state.mult * 2}) — ${pCost.toLocaleString("fr-FR")} BITS`;
+    pBtn.disabled = state.pts < pCost;
+
+    const shop = document.getElementById("click-shop"); shop.innerHTML = "";
+    ITEMS.forEach(it => {
+      const c = cost(it), cnt = state.owned[it.id] || 0;
+      const b = document.createElement("button"); b.className = "shop-item"; b.disabled = state.pts < c;
+      b.innerHTML = `<div><strong>${it.name}</strong> <small>(x${cnt})</small><br><small>+${it.cps}/s ${it.click ? "• +" + it.click + "/clic" : ""}</small></div><strong>${c} BITS</strong>`;
+      b.onclick = () => {
+        if (state.pts < c) return;
+        state.pts -= c; state.owned[it.id] = cnt + 1; CyberAudio.score(); save(); render();
+      };
+      shop.appendChild(b);
+    });
+  }
+  return {
+    init() {
+      load();
+      document.getElementById("click-orb").onclick = () => { state.pts += getPwr(); CyberAudio.click(); render(); };
+      document.getElementById("click-prestige").onclick = () => {
+        const pCost = 5000 * state.mult;
+        if (state.pts >= pCost) { state = { pts: 0, mult: state.mult * 2, owned: {} }; CyberAudio.chime(); save(); render(); }
+      };
+      document.getElementById("click-reset").onclick = () => { state = { pts: 0, mult: 1, owned: {} }; save(); render(); };
+      render();
+    },
+    start() {
+      if (!iv) iv = setInterval(() => { state.pts += getCps() / 4; save(); render(); }, 250);
+    },
+    pause() { clearInterval(iv); iv = 0; save(); }
+  };
+})();
+
+/* ============================================================================
+   17. SIMULATEUR DE VIE ÉTUDIANTE (TEXT RPG)
+   ============================================================================ */
+const StudentLifeRPG = (() => {
+  const EVENTS = [
+    { t:"Le prof annonce un contrôle surprise de maths demain matin.", c:[
+      { l:"Réviser toute la soirée (+18 Rév, -20 Én)", e:-20, r:18, b:0 },
+      { l:"Acheter un café & fiche express (+10 Rév, -8 Én, -6 CHF)", e:-8, r:10, b:-6 },
+      { l:"Dormir tôt pour être frais (+18 Én, +2 Rév)", e:18, r:2, b:0 }
+    ]},
+    { t:"Un ami te propose un petit job de dépannage PC après les cours.", c:[
+      { l:"Accepter le dépannage (+28 CHF, -18 Én)", e:-18, r:0, b:28 },
+      { l:"Négocier à distance rapidement (+14 CHF, -6 Én)", e:-6, r:0, b:14 },
+      { l:"Refuser pour bosser tes cours (+12 Rév, -8 Én)", e:-8, r:12, b:0 }
+    ]},
+    { t:"Panne de Wi-Fi à la maison pile pendant ton projet de groupe !", c:[
+      { l:"Bosser hors-ligne sur tes notes (+14 Rév, -10 Én)", e:-10, r:14, b:0 },
+      { l:"Aller au café avec Wi-Fi (+16 Rév, -12 CHF, -8 Én)", e:-8, r:16, b:-12 },
+      { l:"Faire du sport pour décompresser (+22 Én)", e:22, r:0, b:0 }
+    ]},
+    { t:"Sortie kebab / burgers proposée par toute la classe à midi.", c:[
+      { l:"Y aller avec la bande (+18 Én, -14 CHF)", e:18, r:0, b:-14 },
+      { l:"Manger ton repas maison (+8 Én, +0 CHF)", e:8, r:0, b:0 },
+      { l:"Réviser à la bibliothèque (+14 Rév, -12 Én)", e:-12, r:14, b:0 }
+    ]},
+    { t:"Tu trouves un ancien examen corrigé en ligne.", c:[
+      { l:"Le refaire en conditions réelles (+22 Rév, -22 Én)", e:-22, r:22, b:0 },
+      { l:"Le parcourir vite fait (+10 Rév, -6 Én)", e:-6, r:10, b:0 },
+      { l:"Le partager à la classe et faire une sieste (+15 Én, +5 Rév)", e:15, r:5, b:0 }
+    ]}
+  ];
+  let day, energy, rev, budget, logs;
+
+  function reset() {
+    day = 1; energy = 80; rev = 20; budget = 60; logs = [];
+    renderEvent();
+  }
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  function updateBars() {
+    document.getElementById("rpg-day").textContent = `${Math.min(day, 10)} / 10`;
+    document.getElementById("rpg-val-e").textContent = energy;
+    document.getElementById("rpg-val-r").textContent = rev;
+    document.getElementById("rpg-val-b").textContent = budget;
+    document.getElementById("rpg-bar-e").style.width = energy + "%";
+    document.getElementById("rpg-bar-r").style.width = rev + "%";
+    document.getElementById("rpg-bar-b").style.width = clamp(budget, 0, 100) + "%";
+    document.getElementById("rpg-log").innerHTML = logs.slice(-4).map(l => `<div>• ${l}</div>`).join("");
+  }
+  function renderEvent() {
+    updateBars();
+    const story = document.getElementById("rpg-story"), ch = document.getElementById("rpg-choices");
+    ch.innerHTML = "";
+    if (energy <= 0 || budget < 0 || day > 10) {
+      let verdict = "";
+      if (energy <= 0) verdict = "Burn-out ! Ton énergie est tombée à 0 avant la fin des examens.";
+      else if (budget < 0) verdict = "Compte à découvert ! Tu as épuisé tout ton budget étudiant.";
+      else if (rev >= 80) verdict = `MENTION EXCELLENTE ! Examens réussis haut la main (${rev}% révision, ${budget} CHF restants).`;
+      else if (rev >= 55) verdict = `ADMIS ! Semestre validé proprement (${rev}% révision).`;
+      else verdict = `RATTRAPAGE... Révision insuffisante (${rev}%). Retente ta stratégie !`;
+      story.textContent = verdict;
+      rev >= 55 && energy > 0 && budget >= 0 ? CyberAudio.chime() : CyberAudio.over();
+      const b = document.createElement("button"); b.className = "csp-btn csp-btn-emerald";
+      b.textContent = "Nouvelle session d'examens"; b.onclick = reset; ch.appendChild(b);
+      return;
+    }
+    const ev = EVENTS[(day - 1 + Math.floor(Math.random() * EVENTS.length)) % EVENTS.length];
+    story.textContent = `Jour ${day} — ${ev.t}`;
+    ev.c.forEach(opt => {
+      const b = document.createElement("button"); b.className = "csp-btn"; b.textContent = opt.l;
+      b.onclick = () => {
+        energy = clamp(energy + opt.e, 0, 100);
+        rev = clamp(rev + opt.r, 0, 100);
+        budget += opt.b;
+        logs.push(`J${day}: ${opt.l}`); day++;
+        CyberAudio.click(); renderEvent();
+      };
+      ch.appendChild(b);
+    });
+  }
+  return {
+    init() { document.getElementById("rpg-reset").onclick = reset; reset(); },
+    start() {},
+    pause() {}
+  };
+})();
+
+/* ============================================================================
+   18. DACTYLO SPEED TEST
+   ============================================================================ */
+const TypingGame = (() => {
+  const TEXTS = [
+    "L'informatique moderne repose sur des algorithmes rapides, une architecture propre et une curiosite constante face aux nouveaux defis techniques.",
+    "Apprendre a taper sans regarder le clavier fait gagner un temps precieux pour coder en JavaScript, rediger des scripts Linux et documenter ses projets.",
+    "La cybersecurite exige rigueur, esprit critique et vigilance face au phishing, aux mots de passe faibles et aux failles reseau du quotidien.",
+    "Un bon developpeur teste chaque module de facon autonome avant de l'integrer dans une application web fluide, legere et reactive."
+  ];
+  let target = "", left = 60, started = false, timer = 0, totalTyped = 0, errors = 0;
+
+  function reset() {
+    clearInterval(timer); timer = 0; started = false;
+    left = Number(document.getElementById("type-dur").value);
+    target = TEXTS[Math.floor(Math.random() * TEXTS.length)] + " " + TEXTS[Math.floor(Math.random() * TEXTS.length)];
+    totalTyped = 0; errors = 0;
+    const inp = document.getElementById("type-input");
+    inp.value = ""; inp.disabled = false;
+    document.getElementById("type-time").textContent = left;
+    document.getElementById("type-wpm").textContent = "0";
+    document.getElementById("type-acc").textContent = "100";
+    renderText("");
+  }
+  function renderText(val) {
+    let html = "";
+    for (let i = 0; i < target.length; i++) {
+      const ch = target[i];
+      if (i < val.length) html += `<span class="${val[i] === ch ? "type-ok" : "type-err"}">${ch}</span>`;
+      else if (i === val.length) html += `<span class="type-cur">${ch}</span>`;
+      else html += ch;
+    }
+    document.getElementById("type-display").innerHTML = html;
+  }
+  function updateStats(val) {
+    const dur = Number(document.getElementById("type-dur").value);
+    const elapsedMin = Math.max((dur - left) / 60, 1 / 60);
+    let ok = 0;
+    for (let i = 0; i < val.length; i++) if (val[i] === target[i]) ok++;
+    const wpm = Math.round((ok / 5) / elapsedMin);
+    const acc = val.length ? Math.round((ok / val.length) * 100) : 100;
+    document.getElementById("type-wpm").textContent = wpm;
+    document.getElementById("type-acc").textContent = acc;
+  }
+  return {
+    init() {
+      const inp = document.getElementById("type-input");
+      document.getElementById("type-reset").onclick = reset;
+      document.getElementById("type-dur").onchange = reset;
+      inp.addEventListener("input", () => {
+        if (!started) {
+          started = true;
+          timer = setInterval(() => {
+            left--; document.getElementById("type-time").textContent = left;
+            updateStats(inp.value);
+            if (left <= 0) { clearInterval(timer); inp.disabled = true; CyberAudio.chime(); }
+          }, 1000);
+        }
+        renderText(inp.value); updateStats(inp.value);
+        if (inp.value.length >= target.length) { clearInterval(timer); inp.disabled = true; CyberAudio.chime(); }
+      });
+      reset();
+    },
+    start() {},
+    pause() { clearInterval(timer); }
+  };
+})();
+
+/* ============================================================================
+   19. MINUTEUR POMODORO & FOCUS
+   ============================================================================ */
+const PomodoroTool = (() => {
+  const MODES = { focus: { s: 1500, l: "SESSION FOCUS", c: "#00f0ff" }, short: { s: 300, l: "PAUSE COURTE", c: "#10b981" }, long: { s: 900, l: "GRANDE PAUSE", c: "#a855f7" } };
+  let cv, ctx, mode = "focus", rem = 1500, running = false, iv = 0, doneCount = 0;
+
+  function setMode(m) {
+    mode = m; rem = MODES[m].s; running = false; clearInterval(iv); iv = 0;
+    document.getElementById("pomo-mode").textContent = MODES[m].l;
+    document.getElementById("pomo-toggle").textContent = "Démarrer";
+    draw();
+  }
+  function draw() {
+    const mm = String(Math.floor(rem / 60)).padStart(2, "0");
+    const ss = String(rem % 60).padStart(2, "0");
+    document.getElementById("pomo-clock").textContent = `${mm}:${ss}`;
+    const frac = rem / MODES[mode].s;
+    ctx.clearRect(0, 0, 280, 280);
+    ctx.lineWidth = 12;
+    ctx.strokeStyle = "rgba(148,163,184,0.15)";
+    ctx.beginPath(); ctx.arc(140, 140, 118, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = MODES[mode].c; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.arc(140, 140, 118, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * frac); ctx.stroke();
+  }
+  function toggle() {
+    running = !running;
+    document.getElementById("pomo-toggle").textContent = running ? "Pause" : "Reprendre";
+    if (running) {
+      iv = setInterval(() => {
+        rem--; draw();
+        if (rem <= 0) {
+          clearInterval(iv); iv = 0; running = false; CyberAudio.chime();
+          if (mode === "focus") { doneCount++; document.getElementById("pomo-count").textContent = doneCount; setMode("short"); }
+          else setMode("focus");
+        }
+      }, 1000);
+    } else { clearInterval(iv); iv = 0; }
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-pomodoro"); ctx = cv.getContext("2d");
+      document.querySelectorAll("[data-pomo]").forEach(b => b.onclick = () => setMode(b.dataset.pomo));
+      document.getElementById("pomo-toggle").onclick = toggle;
+      document.getElementById("pomo-reset").onclick = () => setMode(mode);
+      setMode("focus");
+    },
+    start() { draw(); },
+    pause() { if (running) toggle(); },
+    resize() { draw(); }
+  };
+})();
+
+/* ============================================================================
+   20. DESSIN VECTORIEL SYMÉTRIQUE (SILK CANVAS)
+   ============================================================================ */
+const SilkCanvas = (() => {
+  let cv, ctx, drawing = false, last = null, hue = 180;
+
+  function clear() {
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#060912"; ctx.fillRect(0, 0, cv.width, cv.height);
+  }
+  function getPos(e) {
+    const r = cv.getBoundingClientRect();
+    return { x: (e.clientX - r.left) * (cv.width / r.width), y: (e.clientY - r.top) * (cv.height / r.height) };
+  }
+  function strokeSilk(p1, p2) {
+    const axes = Number(document.getElementById("silk-axes").value);
+    const mirror = document.getElementById("silk-mirror").checked;
+    const colSel = document.getElementById("silk-color").value;
+    const cx = cv.width / 2, cy = cv.height / 2;
+    hue = (hue + 1.2) % 360;
+    const color = colSel === "rainbow" ? `hsl(${hue}, 95%, 60%)` : colSel;
+
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.strokeStyle = color; ctx.shadowColor = color; ctx.shadowBlur = 12;
+    ctx.lineWidth = 2; ctx.lineCap = "round";
+
+    for (let i = 0; i < axes; i++) {
+      const ang = (Math.PI * 2 * i) / axes;
+      const drawSeg = (flip) => {
+        ctx.save(); ctx.translate(cx, cy); ctx.rotate(ang);
+        if (flip) ctx.scale(1, -1);
+        ctx.beginPath(); ctx.moveTo(p1.x - cx, p1.y - cy); ctx.lineTo(p2.x - cx, p2.y - cy); ctx.stroke();
+        ctx.restore();
+      };
+      drawSeg(false);
+      if (mirror) drawSeg(true);
+    }
+    ctx.restore();
+  }
+  return {
+    init() {
+      cv = document.getElementById("canvas-silk"); ctx = cv.getContext("2d");
+      clear();
+      cv.addEventListener("pointerdown", e => { drawing = true; last = getPos(e); });
+      cv.addEventListener("pointermove", e => {
+        if (!drawing) return;
+        const p = getPos(e); strokeSilk(last, p); last = p;
+      });
+      window.addEventListener("pointerup", () => { drawing = false; last = null; });
+      document.getElementById("silk-clear").onclick = () => { clear(); CyberAudio.click(); };
+      document.getElementById("silk-save").onclick = () => {
+        const a = document.createElement("a");
+        a.download = "cyber-silk-art.png"; a.href = cv.toDataURL("image/png"); a.click();
+      };
+    },
+    start() {},
+    pause() { drawing = false; },
+    resize() {}
+  };
+})();
+
+/* ============================================================================
+   REGISTRE MODULAIRE BRANCHÉ AU ROUTEUR
+   ============================================================================ */
+const CYBER_MODULES = {
+  doodle: DoodleGame,
+  hook: HookGame,
+  subway: SubwayGame,
+  drift: DriftGame,
+  paper: PaperGame,
+  brick: BrickGame,
+  basket1v1: Basket1v1,
+  soccer1v1: Soccer1v1,
+  gunmayhem: GunMayhem1v1,
+  volley1v1: Volley1v1,
+  wordle: WordleGame,
+  minesweeper: MinesweeperGame,
+  sudoku: SudokuGame,
+  chess: ChessGame,
+  sokoban: SokobanGame,
+  cyberclicker: ClickerGame,
+  studentlife: StudentLifeRPG,
+  typing: TypingGame,
+  pomodoro: PomodoroTool,
+  silk: SilkCanvas
+};
+
+
+
+      // Gestionnaire global de redimensionnement pour le module cyber actif
+      window.addEventListener("resize", () => {
+        if (typeof CYBER_MODULES !== 'undefined' && window.__activeCyberSection) {
+          const active = CYBER_MODULES[window.__activeCyberSection];
+          if (active && active.resize) active.resize();
+        }
+      });
+
+
       /* -----------------------------------------------------------------------
          13. INITIALISATION AU CHARGEMENT
          ----------------------------------------------------------------------- */
@@ -10287,6 +13242,16 @@
         if (typeof TunnelRush !== 'undefined') TunnelRush.init();
         if (typeof TerminalShell !== 'undefined') TerminalShell.init();
         if (typeof UltrasonicJammer !== 'undefined') UltrasonicJammer.init();
+
+        // Rebind des boutons de la suite cyber
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+          btn.onclick = () => navigateTo(btn.dataset.section);
+        });
+        document.querySelectorAll('[data-goto]').forEach(btn => {
+          btn.onclick = () => navigateTo(btn.dataset.goto);
+        });
+    
+
 
         // Détection automatique de lien d'invitation multijoueur en ligne
         try {
