@@ -2306,6 +2306,145 @@
 
 
 
+
+
+    /* === RÉGULATEUR DE VITESSE UNIVERSEL (CALIBRATION MAC 120HZ & RALENTI) === */
+    .topbar-speed-widget {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .speed-widget-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 3px 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      transition: var(--transition);
+    }
+    .speed-widget-main:hover {
+      border-color: rgba(0, 240, 255, 0.65);
+    }
+    .speed-icon {
+      font-size: 13px;
+      color: var(--accent-cyan);
+    }
+    .speed-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      border-radius: 3px;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+      transition: var(--transition);
+      padding: 0;
+    }
+    .speed-btn:hover {
+      background: rgba(0, 240, 255, 0.25);
+      border-color: var(--accent-cyan);
+      color: #fff;
+    }
+    .speed-badge {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.12);
+      padding: 2px 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      user-select: none;
+      min-width: 40px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .speed-badge:hover {
+      background: rgba(0, 240, 255, 0.25);
+    }
+    .speed-slider-range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 65px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+    .speed-slider-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 6px rgba(0, 240, 255, 0.8);
+      cursor: pointer;
+    }
+    .speed-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      min-width: 230px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      z-index: 100;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .speed-dropdown.open {
+      display: flex;
+    }
+    .speed-dropdown-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .speed-opt {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
+      color: var(--text-main);
+      border-radius: 5px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .speed-opt:hover {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: rgba(0, 240, 255, 0.4);
+      color: #fff;
+    }
+    .speed-opt.active {
+      background: rgba(0, 240, 255, 0.2);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+    @media (max-width: 640px) {
+      .speed-slider-range { display: none; }
+    }
+
 </style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -2496,6 +2635,29 @@
           <button id="topbar-sound-btn" class="btn btn-secondary btn-sm" title="Activer / Couper les sons rétro synthwave">
             <span id="topbar-sound-icon">🔊</span> <span id="topbar-sound-label">Son ON</span>
           </button>
+
+          
+          <!-- Régulateur de Vitesse Universel (Calibration Mac 120Hz & Mode Ralenti) -->
+          <div class="topbar-speed-widget" id="topbar-speed-widget">
+            <div class="speed-widget-main" title="Régulateur de vitesse (Raccourcis clavier [ et ] pour régler en jeu)">
+              <span class="speed-icon" title="Vitesse du jeu">⚡</span>
+              <button type="button" class="speed-btn" id="speed-minus-btn" title="Ralentir de -0.1x (Touche [)">−</button>
+              <span class="speed-badge" id="speed-val-badge" title="Cliquer pour voir les presets">0.85x</span>
+              <button type="button" class="speed-btn" id="speed-plus-btn" title="Accélérer de +0.1x (Touche ])">+</button>
+              <input type="range" id="topbar-speed-slider" min="0.3" max="1.5" step="0.05" value="0.85" class="speed-slider-range" title="Glisser pour régler la vitesse" />
+            </div>
+            <div class="speed-dropdown" id="speed-dropdown">
+              <div class="speed-dropdown-title">⚡ Calibrage Vitesse des Jeux</div>
+              <button type="button" class="speed-opt" data-speed="0.5">🐢 Mode Zen / Furtif (0.50x)</button>
+              <button type="button" class="speed-opt" data-speed="0.7">😌 Mode Tranquille (0.70x)</button>
+              <button type="button" class="speed-opt active" data-speed="0.85">💻 Calibré Mac 120Hz (0.85x)</button>
+              <button type="button" class="speed-opt" data-speed="1.0">⚡ Standard 60 FPS (1.00x)</button>
+              <button type="button" class="speed-opt" data-speed="1.25">🔥 Mode Turbo Rapide (1.25x)</button>
+              <div style="font-size:10px; color:var(--text-muted); margin-top:4px; padding-top:4px; border-top:1px solid rgba(255,255,255,0.06);">
+                Astuce : utilise les touches <kbd style="padding:1px 4px; background:rgba(255,255,255,0.1); border-radius:3px;">[</kbd> et <kbd style="padding:1px 4px; background:rgba(255,255,255,0.1); border-radius:3px;">]</kbd> en cours de partie !
+              </div>
+            </div>
+          </div>
 
           <select id="topbar-cloak-select" class="cloak-quick-select" aria-label="Changer le camouflage d'onglet">
             <option value="gdocs">📄 Google Docs</option>
@@ -4483,6 +4645,154 @@
        ========================================================================= */
     (function () {
       'use strict';
+
+      /* -----------------------------------------------------------------------
+         0. RÉGULATEUR UNIVERSEL DE VITESSE & CALIBRATION 120HZ MAC (RAF REGULATOR)
+         ----------------------------------------------------------------------- */
+      const SpeedRegulator = (() => {
+        const nativeRAF = window.requestAnimationFrame.bind(window);
+        const nativeCAF = window.cancelAnimationFrame.bind(window);
+
+        let speedMultiplier = 0.85;
+        try {
+          const saved = localStorage.getItem('csp_game_speed');
+          if (saved) speedMultiplier = parseFloat(saved) || 0.85;
+        } catch {}
+
+        const lastCallMap = new WeakMap();
+        const pendingNativeIds = new Map();
+        let nextVirtualId = 1;
+
+        function setSpeed(val, notify = true) {
+          speedMultiplier = Math.max(0.25, Math.min(2.0, parseFloat(val) || 0.85));
+          speedMultiplier = Math.round(speedMultiplier * 100) / 100;
+          try { localStorage.setItem('csp_game_speed', speedMultiplier.toString()); } catch {}
+          updateUI();
+          if (notify && typeof showToast === 'function') {
+            const label = speedMultiplier <= 0.6 ? 'Mode Zen Furtif' : speedMultiplier <= 0.85 ? 'Calibré Confort Mac' : speedMultiplier === 1.0 ? 'Standard 60 FPS' : 'Mode Turbo';
+            showToast(`Vitesse : ${speedMultiplier.toFixed(2)}x (${label})`, '⚡');
+          }
+        }
+
+        function getSpeed() {
+          return speedMultiplier;
+        }
+
+        // Intercepteur universel de requestAnimationFrame :
+        // Calibre la fréquence pour éliminer la sur-vitesse des écrans 120Hz Mac ProMotion
+        window.requestAnimationFrame = function(callback) {
+          if (typeof callback !== 'function') return nativeRAF(callback);
+
+          const vId = nextVirtualId++;
+          const targetFps = 60 * speedMultiplier;
+          const minInterval = 1000 / targetFps;
+
+          function wrapped(timestamp) {
+            pendingNativeIds.delete(vId);
+            const last = lastCallMap.get(callback) || 0;
+            const elapsed = timestamp - last;
+
+            // Tolérance de 2ms contre le jitter de synchronisation
+            if (last === 0 || elapsed >= minInterval - 2) {
+              lastCallMap.set(callback, timestamp);
+              callback(timestamp);
+            } else {
+              // Écran haute fréquence ou ralenti : temporiser sur la frame suivante
+              const nextNativeId = nativeRAF(wrapped);
+              pendingNativeIds.set(vId, nextNativeId);
+            }
+          }
+
+          const nativeId = nativeRAF(wrapped);
+          pendingNativeIds.set(vId, nativeId);
+          return vId;
+        };
+
+        window.cancelAnimationFrame = function(vId) {
+          const nativeId = pendingNativeIds.get(vId);
+          if (nativeId) {
+            nativeCAF(nativeId);
+            pendingNativeIds.delete(vId);
+          }
+          nativeCAF(vId);
+        };
+
+        function updateUI() {
+          const badge = document.getElementById('speed-val-badge');
+          const slider = document.getElementById('topbar-speed-slider');
+          if (badge) badge.textContent = `${speedMultiplier.toFixed(2)}x`;
+          if (slider) slider.value = speedMultiplier.toString();
+          document.querySelectorAll('.speed-opt').forEach(opt => {
+            const s = parseFloat(opt.dataset.speed);
+            opt.classList.toggle('active', Math.abs(s - speedMultiplier) < 0.04);
+          });
+        }
+
+        function initUI() {
+          const slider = document.getElementById('topbar-speed-slider');
+          const minusBtn = document.getElementById('speed-minus-btn');
+          const plusBtn = document.getElementById('speed-plus-btn');
+          const badge = document.getElementById('speed-val-badge');
+          const dropdown = document.getElementById('speed-dropdown');
+
+          if (slider) {
+            slider.addEventListener('input', (e) => setSpeed(e.target.value, false));
+            slider.addEventListener('change', (e) => setSpeed(e.target.value, true));
+          }
+
+          if (minusBtn) {
+            minusBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              setSpeed(speedMultiplier - 0.1);
+            });
+          }
+
+          if (plusBtn) {
+            plusBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              setSpeed(speedMultiplier + 0.1);
+            });
+          }
+
+          if (badge && dropdown) {
+            badge.addEventListener('click', (e) => {
+              e.stopPropagation();
+              dropdown.classList.toggle('open');
+            });
+            document.addEventListener('click', () => dropdown.classList.remove('open'));
+          }
+
+          document.querySelectorAll('.speed-opt').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const s = parseFloat(opt.dataset.speed);
+              setSpeed(s);
+              if (dropdown) dropdown.classList.remove('open');
+            });
+          });
+
+          // Raccourcis clavier [ et ] pour régler la vitesse en plein jeu
+          window.addEventListener('keydown', (e) => {
+            const tag = document.activeElement ? document.activeElement.tagName : '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+            if (e.key === '[' || e.code === 'BracketLeft') {
+              setSpeed(speedMultiplier - 0.05);
+            } else if (e.key === ']' || e.code === 'BracketRight') {
+              setSpeed(speedMultiplier + 0.05);
+            }
+          });
+
+          updateUI();
+        }
+
+        return {
+          setSpeed,
+          getSpeed,
+          initUI
+        };
+      })();
+
+
 
       /* -----------------------------------------------------------------------
          1. STOCKAGE LOCAL DISCRET & UTILITAIRES
@@ -13231,6 +13541,7 @@ const CYBER_MODULES = {
          ----------------------------------------------------------------------- */
       window.addEventListener('resize', resizeActiveCanvas);
       window.addEventListener('load', () => {
+        SpeedRegulator.initUI();
         initCloakUI();
         updateDashboardStats();
         if (typeof AchievementsManager !== 'undefined') AchievementsManager.init();
