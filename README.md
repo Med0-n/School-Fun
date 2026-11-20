@@ -56,11 +56,6 @@
 
 ---
 
-### 🏫 Édition Spéciale : Collège Léon-Michaud (Yverdon-les-Bains)
-
-- **🏃‍♂️ Échappe aux ECR (Léon-Michaud Runner)** : Tu es un élève de 11VP en retard à la Rue Léon-Michaud 3 ! Esquive les copies d'ECR avec des 3.0, les classeurs fédéraux et les retards de bus Travys. Ramasse les briques de thé froid vaudois pour devenir invincible et décrocher la moyenne de 6.0 pour passer au Gymnase !
-- **🥊 Duel au Préau 1v1 (Smash Bros)** : Combat d'arène inspiré de Super Smash Bros se déroulant directement dans le préau et la salle de musique de Léon-Michaud. Fais monter le pourcentage de dégâts de ton adversaire et éjecte-le hors de la cour ! Jouable à 2 sur 1 clavier ou contre un bot IA.
-
 ## ⚔️ Jeux Multijoueur (Local & En Ligne)
 
 | Jeu | Mode | Description |
