@@ -1687,6 +1687,94 @@
       line-height: 1.35;
     }
 
+    
+    /* Bibliothèque de Liens (lien.json) */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .link-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .link-card:hover {
+      transform: translateY(-3px);
+      background: var(--bg-card-hover);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.15);
+    }
+    .link-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .link-favicon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #0a0e1a;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .link-favicon img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+    .link-card-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .link-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-url {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+      font-family: ui-monospace, monospace;
+    }
+    .link-open-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      color: var(--accent-cyan);
+      font-size: 12px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .link-card:hover .link-open-btn {
+      background: var(--accent-cyan);
+      color: #050811;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    }
+
     /* =========================================================================
        11. RESPONSIVE (Mobile & Tablette)
        ========================================================================= */
@@ -1855,6 +1943,7 @@
         <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
 
         <div class="nav-group-label">🛡️ Furtivité &amp; Références</div>
+        <button class="nav-btn" data-section="links"><span class="nav-icon">🔗</span> Bibliothèque de Liens</button>
         <button class="nav-btn" data-section="calc"><span class="nav-icon">🧮</span> Calculatrice EDU_VD</button>
         <button class="nav-btn" data-section="achievements"><span class="nav-icon">🏆</span> Hauts Faits de l'École</button>
         <button class="nav-btn" data-section="cloak"><span class="nav-icon">🕵️</span> Camouflage</button>
@@ -2022,6 +2111,13 @@
               <h3>Tetris Néon</h3>
               <p>Le légendaire jeu de briques en version Cyber Dark : Hold, Hard Drop, niveaux et combos explosifs.</p>
               <div class="game-launch-meta"><span id="dash-tetris-best" class="text-emerald">Record : 0</span><span>Empiler →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="links">
+              <div class="game-launch-icon">🔗</div>
+              <h3>Bibliothèque de Liens</h3>
+              <p>Ouvre tes sites configurés dans lien.json (Google, Wikipédia, Moodle...) en un clic dans un nouvel onglet.</p>
+              <div class="game-launch-meta"><span class="text-cyan">lien.json actif</span><span>Consulter →</span></div>
             </button>
 
             <button class="game-launch-card" data-goto="calc">
@@ -2750,6 +2846,51 @@
           </div>
         </section>
 
+      
+        <!-- ===============================================================
+             SECTION : BIBLIOTHÈQUE DE LIENS (lien.json)
+             =============================================================== -->
+        <section id="sec-links" class="section">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🔗 Bibliothèque de Liens (lien.json)</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <input type="text" id="links-search-input" placeholder="🔍 Rechercher un lien..." style="background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-sm); padding:7px 12px; font-size:12px; color:var(--text-main); width:200px;" />
+                <button id="links-reload-btn" class="btn btn-secondary btn-sm">🔄 Recharger lien.json</button>
+                <button id="links-add-btn" class="btn btn-primary btn-sm">➕ Ajouter un lien</button>
+              </div>
+            </div>
+
+            <!-- Bandeau explicatif du fichier lien.json -->
+            <div style="background:rgba(0,240,255,0.08); border:1px dashed rgba(0,240,255,0.35); border-radius:var(--radius-md); padding:14px; margin-bottom:16px; font-size:13px; line-height:1.55; color:#cffafe; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <div>
+                <strong>💡 Comment personnaliser tes liens :</strong><br/>
+                Ouvre simplement le fichier <code>lien.json</code> dans le dossier du site. Tu peux y inscrire tes liens sous la forme :<br/>
+                <code>{ "1": "google.com", "2": "https://wikipedia.org", "Moodle": "moodle.vd.ch" }</code>
+              </div>
+              <span id="links-count-badge" class="badge badge-cyan">Chargement...</span>
+            </div>
+
+            <!-- Formulaire ajout rapide (accordéon) -->
+            <div id="links-add-form" class="hidden" style="background:var(--bg-input); border:1px solid var(--border-strong); border-radius:var(--radius-md); padding:16px; margin-bottom:18px;">
+              <h4 style="font-size:14px; font-weight:700; margin-bottom:10px; color:var(--accent-cyan);">➕ Ajouter un lien à la bibliothèque</h4>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:12px;">
+                <input type="text" id="new-link-title" placeholder="Nom ou Numéro (ex: 6 ou Pronote)" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; color:var(--text-main);" />
+                <input type="text" id="new-link-url" placeholder="Adresse URL (ex: google.com)" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; color:var(--text-main);" />
+              </div>
+              <div style="display:flex; gap:8px; justify-content:flex-end;">
+                <button id="new-link-cancel-btn" class="btn btn-secondary btn-sm">Annuler</button>
+                <button id="new-link-save-btn" class="btn btn-primary btn-sm">Enregistrer le lien</button>
+              </div>
+            </div>
+
+            <!-- Grille des liens -->
+            <div class="links-grid" id="links-container">
+              <!-- Rempli dynamiquement en JS -->
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
@@ -3012,6 +3153,7 @@
         runner: '🦖 Cyber Runner',
         reflex: '🎯 Réflexe & Aim Trainer',
         flappy: '🐦 Flappy Néon',
+        links: '🔗 Bibliothèque de Liens (lien.json)',
         calc: '🧮 Calculatrice EDU_VD',
         achievements: '🏆 Hauts Faits de l\'École',
         cloak: '🕵️ Camouflage & Mode Cours'
@@ -3064,6 +3206,7 @@
         if (sectionKey === 'tron' && typeof TronGame !== 'undefined') requestAnimationFrame(() => TronGame.resize());
         if (sectionKey === 'tanks' && typeof TanksGame !== 'undefined') requestAnimationFrame(() => TanksGame.resize());
         if (sectionKey === 'achievements' && typeof AchievementsManager !== 'undefined') AchievementsManager.render();
+        if (sectionKey === 'links' && typeof LinksLibrary !== 'undefined') LinksLibrary.load();
       }
 
       function closeMobileSidebar() {
@@ -6027,29 +6170,50 @@
           status.textContent = '⏳ Connexion au serveur Wi-Fi EDU_VD...';
           status.style.color = '#f59e0b';
 
+          const PEER_OPTS = {
+            debug: 1,
+            config: {
+              iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'stun:stun2.l.google.com:19302' },
+                { urls: 'stun:stun3.l.google.com:19302' }
+              ]
+            }
+          };
+
           if (create) {
             isHost = true;
-            peer = new Peer(roomId);
+            peer = new Peer(roomId, PEER_OPTS);
             peer.on('open', (id) => {
-              status.textContent = `🟢 Salle créée ! Donne ce code à ton ami : ${id}`;
-              status.style.color = '#00f0ff';
+              status.innerHTML = `🟢 Salle créée ! Code : <strong style="color:#00f0ff">${id}</strong> <button id="c4-copy-link-btn" class="btn btn-secondary btn-sm" style="margin-left:8px; padding:3px 8px; font-size:11px;">📋 Copier lien d'invitation</button>`;
               document.getElementById('c4-room-input').value = id;
+              const copyBtn = document.getElementById('c4-copy-link-btn');
+              if (copyBtn) {
+                copyBtn.addEventListener('click', () => {
+                  const inviteUrl = `${window.location.origin}${window.location.pathname}?game=connect4&room=${id}`;
+                  navigator.clipboard.writeText(inviteUrl);
+                  showToast('Lien d\'invitation copié ! Envoie-le à ton ami.', '📋');
+                });
+              }
             });
             peer.on('connection', (c) => {
               conn = c;
               setupConn(conn);
-              status.textContent = '🤝 Camarade connecté ! La partie commence.';
+              status.textContent = '🤝 Camarade connecté (Maison/Wi-Fi) ! La partie commence.';
               status.style.color = '#10b981';
+              showToast('Camarade connecté en direct !', '🤝');
               initBoard();
             });
           } else {
             isHost = false;
-            peer = new Peer();
+            peer = new Peer(PEER_OPTS);
             peer.on('open', () => {
               conn = peer.connect(roomId);
               setupConn(conn);
               status.textContent = '🤝 Connecté à la salle ! La partie commence.';
               status.style.color = '#10b981';
+              showToast('Connecté à la salle de ton ami !', '🤝');
               initBoard();
             });
           }
@@ -6462,6 +6626,165 @@
         };
       })();
 
+      
+      /* =======================================================================
+         22. BIBLIOTHÈQUE DE LIENS (lien.json - OUVERTURE NOUVEL ONGLET)
+         ======================================================================= */
+      const LinksLibrary = (function () {
+        let linksData = {};
+        let filterText = '';
+
+        const DEFAULT_LINKS = {
+          "1": "https://google.com",
+          "2": "https://wikipedia.org",
+          "3": "https://youtube.com",
+          "4": "https://github.com",
+          "5": "https://1games.io/game/slope-2/"
+        };
+
+        function formatUrl(raw) {
+          if (!raw) return '';
+          let url = raw.trim();
+          if (!/^https?:\/\//i.test(url)) {
+            url = 'https://' + url;
+          }
+          return url;
+        }
+
+        function extractDomain(url) {
+          try {
+            return new URL(url).hostname.replace(/^www\./, '');
+          } catch (e) {
+            return url.replace(/^https?:\/\//, '').split('/')[0];
+          }
+        }
+
+        async function fetchLinks() {
+          const badge = document.getElementById('links-count-badge');
+          try {
+            const res = await fetch('lien.json', { cache: 'no-cache' });
+            if (!res.ok) throw new Error('Status ' + res.status);
+            const data = await res.json();
+            linksData = data;
+            if (badge) {
+              badge.textContent = `${Object.keys(linksData).length} liens chargés depuis lien.json`;
+              badge.className = 'badge badge-emerald';
+            }
+          } catch (err) {
+            console.warn('lien.json non accessible via fetch (local ou absent), utilisation du cache local:', err);
+            linksData = Store.customLinks || DEFAULT_LINKS;
+            if (badge) {
+              badge.textContent = `${Object.keys(linksData).length} liens actifs (Mode Local / Cache)`;
+              badge.className = 'badge badge-amber';
+            }
+          }
+          render();
+        }
+
+        function render() {
+          const container = document.getElementById('links-container');
+          if (!container) return;
+
+          const entries = Object.entries(linksData);
+          const filtered = entries.filter(([key, val]) => {
+            const fullUrl = typeof val === 'string' ? val : (val.url || '');
+            const title = typeof val === 'string' ? key : (val.name || key);
+            const search = filterText.toLowerCase();
+            return title.toLowerCase().includes(search) || fullUrl.toLowerCase().includes(search);
+          });
+
+          if (filtered.length === 0) {
+            container.innerHTML = `
+              <div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">
+                Aucun lien correspondant à « ${filterText} ». Ajoutes-en un avec le bouton ci-dessus !
+              </div>
+            `;
+            return;
+          }
+
+          container.innerHTML = filtered.map(([key, val]) => {
+            const rawUrl = typeof val === 'string' ? val : (val.url || '');
+            const targetUrl = formatUrl(rawUrl);
+            const domain = extractDomain(targetUrl);
+            const title = typeof val === 'string' ? (isNaN(key) ? key : `Lien #${key}`) : (val.name || `Lien #${key}`);
+            const favicon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+
+            return `
+              <div class="link-card" onclick="window.open('${targetUrl}', '_blank', 'noopener,noreferrer')">
+                <div class="link-card-header">
+                  <div class="link-favicon">
+                    <img src="${favicon}" alt="" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\'%3E%3Ctext y=\\'18\\' font-size=\\'18\\'%3E🌐%3C/text%3E%3C/svg%3E'" />
+                  </div>
+                  <div class="link-card-body">
+                    <div class="link-title">${title}</div>
+                    <div class="link-url">${domain}</div>
+                  </div>
+                </div>
+                <div class="link-open-btn">
+                  <span>Ouvrir dans un nouvel onglet</span> ↗
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Événements
+        const searchInput = document.getElementById('links-search-input');
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            filterText = e.target.value.trim();
+            render();
+          });
+        }
+
+        const reloadBtn = document.getElementById('links-reload-btn');
+        if (reloadBtn) {
+          reloadBtn.addEventListener('click', () => {
+            fetchLinks();
+            showToast('Rechargement du fichier lien.json...', '🔄');
+          });
+        }
+
+        const addBtn = document.getElementById('links-add-btn');
+        const addForm = document.getElementById('links-add-form');
+        const cancelBtn = document.getElementById('new-link-cancel-btn');
+        const saveBtn = document.getElementById('new-link-save-btn');
+
+        if (addBtn && addForm) {
+          addBtn.addEventListener('click', () => addForm.classList.toggle('hidden'));
+        }
+        if (cancelBtn && addForm) {
+          cancelBtn.addEventListener('click', () => addForm.classList.add('hidden'));
+        }
+        if (saveBtn) {
+          saveBtn.addEventListener('click', () => {
+            const titleInput = document.getElementById('new-link-title');
+            const urlInput = document.getElementById('new-link-url');
+            const title = titleInput.value.trim();
+            const url = urlInput.value.trim();
+            if (!url) {
+              showToast('L\'adresse URL est obligatoire !', '⚠️');
+              return;
+            }
+            const key = title || String(Object.keys(linksData).length + 1);
+            linksData[key] = formatUrl(url);
+            if (!Store.customLinks) Store.customLinks = {};
+            Store.customLinks[key] = formatUrl(url);
+            saveData();
+            render();
+            if (addForm) addForm.classList.add('hidden');
+            titleInput.value = '';
+            urlInput.value = '';
+            showToast(`Lien « ${key} » ajouté avec succès !`, '✅');
+          });
+        }
+
+        return {
+          load: fetchLinks,
+          render
+        };
+      })();
+
       /* -----------------------------------------------------------------------
          12. GESTIONNAIRE CLAVIER GLOBAL STRICT (Panique, Focus Input, Anti-Scroll)
          ----------------------------------------------------------------------- */
@@ -6548,6 +6871,27 @@
         initCloakUI();
         updateDashboardStats();
         if (typeof AchievementsManager !== 'undefined') AchievementsManager.init();
+
+        // Détection automatique de lien d'invitation multijoueur en ligne
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          const inviteRoom = urlParams.get('room');
+          const inviteGame = urlParams.get('game');
+          if (inviteRoom && inviteGame === 'connect4') {
+            setTimeout(() => {
+              navigateTo('connect4');
+              const p2pTab = document.querySelector('#c4-mode-tabs [data-c4mode="p2p"]');
+              if (p2pTab) p2pTab.click();
+              const roomIn = document.getElementById('c4-room-input');
+              if (roomIn) roomIn.value = inviteRoom;
+              setTimeout(() => {
+                const joinBtn = document.getElementById('c4-join-room-btn');
+                if (joinBtn) joinBtn.click();
+              }, 400);
+            }, 300);
+          }
+        } catch (e) {}
+
       });
     })();
   </script>
