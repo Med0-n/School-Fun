@@ -2517,7 +2517,195 @@
     .synth-key.black { width: 32px; height: 85px; background: #0f172a; color: #fff; margin-left: -16px; margin-right: -16px; z-index: 2; border-color: #334155; }
     .synth-key.black:hover, .synth-key.black.active { background: #a855f7; color: #fff; }
 
-</style>
+
+    /* === COMPTEUR LIVE & STATS EN DIRECT === */
+    .topbar-timer-widget {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--text-main);
+      transition: var(--transition);
+      user-select: none;
+    }
+    .topbar-timer-widget[data-status="paused"] {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(30, 24, 15, 0.85);
+    }
+    .timer-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .timer-dot.active {
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseGreen 1.5s infinite;
+    }
+    .timer-dot.paused {
+      background: #f59e0b;
+      box-shadow: 0 0 5px #f59e0b;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
+    .topbar-games-badge {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+      color: var(--accent-cyan);
+    }
+
+    /* Panneau de stats Dashboard */
+    .dash-stats-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .timer-status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .timer-status-chip.active {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+    .timer-status-chip.paused {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fcd34d;
+    }
+
+    /* Barre de filtres et recherche Dashboard */
+    .dash-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dash-filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .dash-filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 7px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dash-filter-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
+    .dash-filter-btn.active {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+    }
+    .dash-search-input {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 7px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      width: 240px;
+      transition: var(--transition);
+    }
+    .dash-search-input:focus {
+      border-color: var(--accent-cyan);
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    }
+    .game-launch-card.filter-hidden {
+      display: none !important;
+    }
+
+    /* NOUVEAU JEU : CYBER MEMORY MATRIX */
+    .memory-grid {
+      display: grid;
+      gap: 12px;
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+    .memory-grid.mode-16 { grid-template-columns: repeat(4, 1fr); }
+    .memory-grid.mode-24 { grid-template-columns: repeat(6, 1fr); }
+    .memory-card {
+      aspect-ratio: 1;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      padding: 0;
+    }
+    .memory-card.flipped { transform: rotateY(180deg); }
+    .memory-card.matched { transform: rotateY(180deg) scale(0.96); opacity: 0.85; cursor: default; }
+    .memory-card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      user-select: none;
+    }
+    .memory-card-back {
+      background: linear-gradient(135deg, #090e1c, #131c33);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--accent-cyan);
+      font-size: 24px;
+    }
+    .memory-card-front {
+      background: linear-gradient(135deg, #131d36, #1e2947);
+      border: 2px solid var(--accent-cyan);
+      transform: rotateY(180deg);
+      font-size: 34px;
+    }
+    .memory-card.matched .memory-card-front {
+      border-color: #10b981;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+    }
+
+  </style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
@@ -2628,80 +2816,77 @@
       </div>
 
       <nav class="sidebar-nav" aria-label="Navigation principale">
-        <div class="nav-group-label">Principal</div>
-        <button class="nav-btn active" data-section="home"><span class="nav-icon">🏠</span> Accueil</button>
-        <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2 (1games.io)</button>
-        <button class="nav-btn" data-section="memes"><span class="nav-icon">🖼️</span> Banque de Memes</button>
-        <button class="nav-btn" data-section="soundboard"><span class="nav-icon">🔊</span> Soundboard Scolaire</button>
+        <div class="nav-group-label">🏠 Hub &amp; Principal</div>
+        <button class="nav-btn active" data-section="home"><span class="nav-icon">🏠</span> Accueil (Centre &amp; Stats)</button>
+        <button class="nav-btn" data-section="achievements"><span class="nav-icon">🏆</span> Hauts Faits de l'École</button>
+        <button class="nav-btn" data-section="cloak"><span class="nav-icon">🕵️</span> Camouflage &amp; Mode Cours</button>
 
-        <div class="nav-group-label">⚔️ Multijoueur (Local &amp; Wi-Fi EDU_VD)</div>
+        <div class="nav-group-label">🕹️ Solo Arcade &amp; Réflexes (19)</div>
+        <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2 (1games.io)</button>
+        <button class="nav-btn" data-section="pacman"><span class="nav-icon">👾</span> Mini Pac-Man Néon <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
+        <button class="nav-btn" data-section="invaders"><span class="nav-icon">🛸</span> Space Invaders Cyber <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
+        <button class="nav-btn" data-section="crossy"><span class="nav-icon">🐸</span> Cyber Crossy Road <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
+        <button class="nav-btn" data-section="wave"><span class="nav-icon">⚡</span> Neon Wave (Geometry)</button>
+        <button class="nav-btn" data-section="tunnel"><span class="nav-icon">🌀</span> Tunnel Rush 3D</button>
+        <button class="nav-btn" data-section="tetris"><span class="nav-icon">🧱</span> Tetris Néon</button>
+        <button class="nav-btn" data-section="brick"><span class="nav-icon">🧱</span> Casse-Briques Cyber</button>
+        <button class="nav-btn" data-section="doodle"><span class="nav-icon">🚀</span> Doodle Jump Néon</button>
+        <button class="nav-btn" data-section="hook"><span class="nav-icon">🪝</span> Stickman Hook</button>
+        <button class="nav-btn" data-section="subway"><span class="nav-icon">🚇</span> Subway Runner 2D</button>
+        <button class="nav-btn" data-section="drivemad"><span class="nav-icon">🚙</span> Drive Mad 2D</button>
+        <button class="nav-btn" data-section="drift"><span class="nav-icon">🏎️</span> Drift Micro-Car</button>
+        <button class="nav-btn" data-section="paper"><span class="nav-icon">✈️</span> Paper Flight</button>
+        <button class="nav-btn" data-section="snake"><span class="nav-icon">🐍</span> Snake Néon</button>
+        <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
+        <button class="nav-btn" data-section="runner"><span class="nav-icon">🦖</span> Cyber Runner</button>
+        <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim Trainer</button>
+        <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
+
+        <div class="nav-group-label">⚔️ Duels 1v1 (Local &amp; P2P) (9)</div>
         <button class="nav-btn" data-section="pong"><span class="nav-icon">🏓</span> Cyber Pong 1v1</button>
         <button class="nav-btn" data-section="tron"><span class="nav-icon">🏍️</span> Tron Cycles 1v1</button>
         <button class="nav-btn" data-section="tanks"><span class="nav-icon">💣</span> Tank Battle 1v1</button>
         <button class="nav-btn" data-section="connect4"><span class="nav-icon">🔴</span> Puissance 4 (Local/P2P)</button>
         <button class="nav-btn" data-section="rooftop"><span class="nav-icon">🎯</span> Rooftop Snipers 1v1</button>
-
-        <div class="nav-group-label">🎮 Solo Rétro &amp; Arcade</div>
-        <button class="nav-btn" data-section="wave"><span class="nav-icon">⚡</span> Neon Wave (Geometry)</button>
-        <button class="nav-btn" data-section="drivemad"><span class="nav-icon">🚙</span> Drive Mad 2D</button>
-        <button class="nav-btn" data-section="tunnel"><span class="nav-icon">🌀</span> Tunnel Rush 3D</button>
-        <button class="nav-btn" data-section="tetris"><span class="nav-icon">🧱</span> Tetris Néon</button>
-        <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
-        <button class="nav-btn" data-section="snake"><span class="nav-icon">🐍</span> Snake Néon</button>
-        <button class="nav-btn" data-section="g2048"><span class="nav-icon">🔢</span> 2048</button>
-        <button class="nav-btn" data-section="runner"><span class="nav-icon">🦖</span> Cyber Runner</button>
-        <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim</button>
-        <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
-
-        <div class="nav-group-label">🛡️ Furtivité &amp; Références</div>
-        <button class="nav-btn" data-section="ultrasonic"><span class="nav-icon">🦇</span> Brouilleur Ultra-Sons Hz</button>
-        <button class="nav-btn" data-section="links"><span class="nav-icon">🔗</span> Bibliothèque de Liens</button>
-        <button class="nav-btn" data-section="calc"><span class="nav-icon">🧮</span> Calculatrice EDU_VD</button>
-        <button class="nav-btn" data-section="achievements"><span class="nav-icon">🏆</span> Hauts Faits de l'École</button>
-        <button class="nav-btn" data-section="cloak"><span class="nav-icon">🕵️</span> Camouflage</button>
-      
-        <div class="nav-group-label">🚀 Nouveautés Arcade 2D &amp; Physique</div>
-        <button class="nav-btn" data-section="doodle"><span class="nav-icon">🚀</span> Doodle Jump Néon</button>
-        <button class="nav-btn" data-section="hook"><span class="nav-icon">🪝</span> Stickman Hook</button>
-        <button class="nav-btn" data-section="subway"><span class="nav-icon">🚇</span> Subway Runner 2D</button>
-        <button class="nav-btn" data-section="drift"><span class="nav-icon">🏎️</span> Drift Micro-Car</button>
-        <button class="nav-btn" data-section="paper"><span class="nav-icon">✈️</span> Paper Flight</button>
-        <button class="nav-btn" data-section="brick"><span class="nav-icon">🧱</span> Casse-Briques Cyber</button>
-
-        <div class="nav-group-label">⚔️ Nouveaux Duels 1v1</div>
         <button class="nav-btn" data-section="basket1v1"><span class="nav-icon">🏀</span> Basket Random 1v1</button>
         <button class="nav-btn" data-section="soccer1v1"><span class="nav-icon">⚽</span> Micro Soccer 1v1</button>
         <button class="nav-btn" data-section="gunmayhem"><span class="nav-icon">🔫</span> Gun Mayhem 1v1</button>
         <button class="nav-btn" data-section="volley1v1"><span class="nav-icon">🏐</span> Volley Slime 1v1</button>
 
-        <div class="nav-group-label">🧠 Réflexion &amp; Échecs</div>
-        <button class="nav-btn" data-section="wordle"><span class="nav-icon">🔤</span> Wordle Français</button>
-        <button class="nav-btn" data-section="minesweeper"><span class="nav-icon">💣</span> Démineur Sans 50/50</button>
+        <div class="nav-group-label">🧠 Puzzles &amp; Stratégie (7)</div>
+        <button class="nav-btn" data-section="memory"><span class="nav-icon">🃏</span> Cyber Memory Matrix <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
+        <button class="nav-btn" data-section="g2048"><span class="nav-icon">🔢</span> 2048 Néon</button>
+        <button class="nav-btn" data-section="minesweeper"><span class="nav-icon">💣</span> Démineur Logique</button>
         <button class="nav-btn" data-section="sudoku"><span class="nav-icon">🔢</span> Sudoku Express</button>
         <button class="nav-btn" data-section="chess"><span class="nav-icon">♟️</span> Échecs Mini-Engine</button>
         <button class="nav-btn" data-section="sokoban"><span class="nav-icon">📦</span> Sokoban 2D</button>
+        <button class="nav-btn" data-section="wordle"><span class="nav-icon">🔤</span> Wordle Français</button>
 
-        <div class="nav-group-label">✨ Focus, RPG &amp; Création</div>
-        <button class="nav-btn" data-section="cyberclicker"><span class="nav-icon">🍪</span> Idle Cyber Clicker</button>
-        <button class="nav-btn" data-section="studentlife"><span class="nav-icon">🎓</span> Vie Étudiante RPG</button>
-        <button class="nav-btn" data-section="typing"><span class="nav-icon">⌨️</span> Dactylo Speed Test</button>
-        <button class="nav-btn" data-section="pomodoro"><span class="nav-icon">⏱️</span> Pomodoro &amp; Focus</button>
-        <button class="nav-btn" data-section="silk"><span class="nav-icon">🎨</span> Silk Canvas Néon</button>
-      
-
-        <div class="nav-group-label">🧪 Lab Geek &amp; Outils Nerd</div>
+        <div class="nav-group-label">🧪 Lab Geek &amp; Simulations (7)</div>
         <button class="nav-btn" data-section="life"><span class="nav-icon">🧬</span> Jeu de la Vie (Conway)</button>
         <button class="nav-btn" data-section="hackertyper"><span class="nav-icon">💻</span> Hollywood Hacker Typer</button>
         <button class="nav-btn" data-section="mactricks"><span class="nav-icon">🍏</span> Astuces Mac Terminal</button>
-        <button class="nav-btn" data-section="asciigen"><span class="nav-icon">🔤</span> Générateur ASCII &amp; Glitch</button>
-        <button class="nav-btn" data-section="synth"><span class="nav-icon">🎹</span> Synthé Chiptune &amp; Oscilloscope</button>
-        <button class="nav-btn" data-section="gravity"><span class="nav-icon">🌌</span> Gravité Cosmique 2D</button>
+        <button class="nav-btn" data-section="synth"><span class="nav-icon">🎹</span> Synthé Chiptune &amp; Oscillo</button>
+        <button class="nav-btn" data-section="gravity"><span class="nav-icon">🌌</span> Gravité Orbitale (N-Body)</button>
+        <button class="nav-btn" data-section="asciigen"><span class="nav-icon">🔤</span> Bannières ASCII &amp; Zalgo</button>
+        <button class="nav-btn" data-section="matrix"><span class="nav-icon">🟢</span> Pluie Numérique Matrix</button>
 
-        <div class="nav-group-label">⚡ Outils Furtifs &amp; Création</div>
-        <button class="nav-btn" data-section="fakeupdate"><span class="nav-icon">💤</span> Faux Écrans de MàJ (Mac/Win)</button>
-        <button class="nav-btn" data-section="qrcode"><span class="nav-icon">📱</span> QR Code Furtif (PC ➔ Tel)</button>
-        <button class="nav-btn" data-section="pixelart"><span class="nav-icon">🎨</span> Pixel Art Studio 8-bit</button>
-        <button class="nav-btn" data-section="matrix"><span class="nav-icon">🟢</span> Pluie Digitale Matrix</button>
+        <div class="nav-group-label">🎨 Créativité &amp; Détente (6)</div>
+        <button class="nav-btn" data-section="pixelart"><span class="nav-icon">🎨</span> Studio Pixel Art 8-bit</button>
+        <button class="nav-btn" data-section="silk"><span class="nav-icon">✨</span> Silk Canvas Néon</button>
+        <button class="nav-btn" data-section="cyberclicker"><span class="nav-icon">🍪</span> Idle Cyber Clicker</button>
+        <button class="nav-btn" data-section="studentlife"><span class="nav-icon">🎓</span> Vie Étudiante RPG</button>
+        <button class="nav-btn" data-section="memes"><span class="nav-icon">🖼️</span> Banque de Mèmes</button>
+        <button class="nav-btn" data-section="soundboard"><span class="nav-icon">🔊</span> Soundboard Scolaire</button>
+
+        <div class="nav-group-label">🛠️ Outils &amp; Furtivité (7)</div>
+        <button class="nav-btn" data-section="fakeupdate"><span class="nav-icon">🛑</span> Faux Écrans MàJ &amp; BSOD</button>
+        <button class="nav-btn" data-section="qrcode"><span class="nav-icon">📱</span> QR Code Furtif Hors-Ligne</button>
+        <button class="nav-btn" data-section="typing"><span class="nav-icon">⌨️</span> Dactylo Speed Test</button>
+        <button class="nav-btn" data-section="pomodoro"><span class="nav-icon">⏱️</span> Pomodoro &amp; Focus</button>
+        <button class="nav-btn" data-section="calc"><span class="nav-icon">🧮</span> Calculatrice EDU_VD</button>
+        <button class="nav-btn" data-section="ultrasonic"><span class="nav-icon">🦇</span> Brouilleur Ultra-Sons Hz</button>
+        <button class="nav-btn" data-section="links"><span class="nav-icon">🔗</span> Bibliothèque de Liens (73+)</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -2719,6 +2904,15 @@
         </div>
 
         <div class="topbar-right">
+
+          <!-- Compteur Actif & Jeux Découverts -->
+          <div class="topbar-timer-widget" id="topbar-timer-widget" title="Temps passé activement sur le site (pause automatique si l'onglet est masqué ou en arrière-plan)">
+            <span class="timer-dot active" id="topbar-timer-dot"></span>
+            <span class="timer-icon">⏱️</span>
+            <span class="timer-text" id="topbar-timer-text">00m 00s</span>
+            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/58</span>
+          </div>
+
           
           <button id="topbar-matrix-btn" class="btn btn-secondary btn-sm" title="Activer l'écran de veille Matrix Pluie Digitale (Touche M)">
             <span>🟢</span> <span>Matrix</span>
@@ -2773,466 +2967,477 @@
              SECTION 1 : ACCUEIL
              =============================================================== -->
         <section id="sec-home" class="section active">
+          <!-- Bannière Héro -->
           <div class="hero-banner">
             <div>
               <h2>Prêt pour survivre à cette heure de cours ?</h2>
-              <p>Ton onglet est déjà camouflé automatiquement. Si quelqu'un s'approche, appuie sur <span class="kbd">Échap</span> pour afficher une vraie feuille Google Docs éditable en un éclair.</p>
+              <p>58 jeux d'arcade, duels 1v1, énigmes, labo geek et outils scolaires. Si quelqu'un s'approche, appuie sur <span class="kbd">Échap</span> pour afficher une vraie feuille Google Docs éditable en un éclair.</p>
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn btn-primary" data-goto="slope">⛷️ Jouer à Slope 2</button>
-              <button class="btn btn-violet" data-goto="memes">🖼️ Voir les Memes</button>
-              <button class="btn btn-emerald" data-goto="soundboard">🔊 Soundboard</button>
+              <button class="btn btn-primary" data-goto="slope">⛷️ Slope 2</button>
+              <button class="btn btn-cyan" data-goto="pacman">👾 Mini Pac-Man</button>
+              <button class="btn btn-violet" data-goto="invaders">🛸 Space Invaders</button>
+              <button class="btn btn-emerald" data-goto="crossy">🐸 Cyber Crossy</button>
             </div>
           </div>
 
-          <div class="status-grid">
-            <div class="stat-box">
-              <span class="stat-label">🕵️ Camouflage actuel</span>
-              <span class="stat-value text-emerald" id="dash-cloak-name" style="font-size:17px;">Google Docs</span>
+          <!-- Panneau Stats & Compteur Actif en Direct -->
+          <div class="dash-stats-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:24px;">📊</span>
+                <div>
+                  <h3 style="font-size:16px; font-weight:800; margin:0; color:var(--text-main);">Centre de Contrôle &amp; Temps d'Activité en Direct</h3>
+                  <p style="font-size:12px; color:var(--text-muted); margin:0;">Ne compte que lorsque cet onglet est au premier plan et actif (pause automatique en arrière-plan)</p>
+                </div>
+              </div>
+              <div id="dash-timer-status" class="timer-status-chip active">
+                <span class="pulse-green">🟢</span> <strong>ACTIF</strong> (Chrono en direct)
+              </div>
             </div>
-            <div class="stat-box">
-              <span class="stat-label">📶 Réseau École</span>
-              <span class="stat-value text-cyan mono" style="font-size:17px;">EDU_VD Connecté</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">🏆 Hauts Faits Débloqués</span>
-              <span class="stat-value text-amber mono" id="dash-achievements-stat">1 / 10</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">⚔️ Victoires 1v1</span>
-              <span class="stat-value text-rose mono" id="dash-pvp-stat">0 wins</span>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px;">
+              <div class="stat-box" style="border-left:3px solid var(--accent-cyan);">
+                <span class="stat-label">⏱️ Session Actuelle</span>
+                <span class="stat-value text-cyan mono" id="dash-timer-session" style="font-size:20px;">00m 00s</span>
+                <span style="font-size:11px; color:var(--text-muted);">Fenêtre active au premier plan</span>
+              </div>
+
+              <div class="stat-box" style="border-left:3px solid var(--accent-emerald);">
+                <span class="stat-label">⏳ Temps Total Cumulé</span>
+                <span class="stat-value text-emerald mono" id="dash-timer-total" style="font-size:20px;">00m 00s</span>
+                <span style="font-size:11px; color:var(--text-muted);">Sauvegardé sur ce poste</span>
+              </div>
+
+              <div class="stat-box" style="border-left:3px solid var(--accent-violet);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="stat-label">🎮 Jeux Découverts</span>
+                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 58</span>
+                </div>
+                <div style="width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden; margin:8px 0 4px;">
+                  <div id="dash-games-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--accent-cyan), var(--accent-violet)); transition:width 0.4s ease;"></div>
+                </div>
+                <span style="font-size:11px; color:var(--text-muted);"><span id="dash-games-percent">0%</span> du hub exploré</span>
+              </div>
+
+              <div class="stat-box" style="border-left:3px solid var(--accent-amber);">
+                <span class="stat-label">🎖️ Rang d'Assiduité</span>
+                <span class="stat-value text-amber" id="dash-rank-badge" style="font-size:14px; font-weight:800;">👻 Agent Furtif Novice</span>
+                <div style="display:flex; gap:6px; margin-top:6px;">
+                  <button id="dash-timer-reset-btn" class="btn btn-secondary btn-sm" style="font-size:10px; padding:3px 8px;">🔄 Reset</button>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="games-grid">
-            <button class="game-launch-card" data-goto="slope">
-              <div class="game-launch-icon">⛷️</div>
-              <h3>Slope 2</h3>
-              <p>Dévale des pentes néon à toute vitesse sans tomber dans le vide. Plein écran intégré.</p>
-              <div class="game-launch-meta"><span>Arcade 3D</span><span>Lancer →</span></div>
+          <!-- Barre de Filtres par Catégorie et Recherche Rapide -->
+          <div class="dash-controls-bar">
+            <div class="dash-filter-tabs" id="dash-filter-tabs">
+              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">55</span>)</button>
+              <button class="dash-filter-btn" data-filter="arcade">🕹️ Solo Arcade (<span id="count-arcade">19</span>)</button>
+              <button class="dash-filter-btn" data-filter="duel">⚔️ Duels 1v1 (<span id="count-duel">9</span>)</button>
+              <button class="dash-filter-btn" data-filter="puzzle">🧠 Puzzles (<span id="count-puzzle">7</span>)</button>
+              <button class="dash-filter-btn" data-filter="geek">🧪 Lab Geek (<span id="count-geek">7</span>)</button>
+              <button class="dash-filter-btn" data-filter="creative">🎨 Créa &amp; Détente (<span id="count-creative">6</span>)</button>
+              <button class="dash-filter-btn" data-filter="tools">🛠️ Outils &amp; Furtivité (<span id="count-tools">7</span>)</button>
+            </div>
+            <div>
+              <input type="text" id="dash-search-input" class="dash-search-input" placeholder="🔍 Rechercher un jeu ou outil..." />
+            </div>
+          </div>
+
+          <!-- Grille des Cartes Triées par Catégorie -->
+          <div class="game-launch-grid" id="dash-games-grid">
+            <!-- 1. SOLO ARCADE (19) -->
+            <button class="game-launch-card" data-goto="slope" data-cat="arcade">
+              <div class="card-ico">⛷️</div>
+              <h4>Slope 2 (1games.io)</h4>
+              <p>Descente 3D effrénée sur pistes polygonales avec réactivité 120Hz</p>
+              <div class="game-launch-meta"><span class="text-cyan">3D Arcade</span><span>Jouer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="memes">
-              <div class="game-launch-icon">🖼️</div>
-              <h3>Banque de Memes</h3>
-              <p>Auto-détection de ton dossier GitHub <code>meme/</code> (1.jpeg, 2.gif...), likes et mode aléatoire.</p>
-              <div class="game-launch-meta"><span id="dash-meme-count">Galerie prête</span><span>Ouvrir →</span></div>
+            <button class="game-launch-card" data-goto="pacman" data-cat="arcade">
+              <div class="card-ico">👾</div>
+              <h4>Mini Pac-Man Néon</h4>
+              <p>Labyrinthe classique, fantômes IA, pac-gommes et mode festin bleu</p>
+              <div class="game-launch-meta"><span class="text-amber">Nouveau</span><span>Manger →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="clicker">
-              <div class="game-launch-icon">⌨️</div>
-              <h3>Spacebar Clicker</h3>
-              <p>Mode Idle avec boutique d'améliorations + Speed Test chronométré 5s / 10s / 30s.</p>
-              <div class="game-launch-meta"><span id="dash-clicker-pts">0 pts</span><span>Jouer →</span></div>
+            <button class="game-launch-card" data-goto="invaders" data-cat="arcade">
+              <div class="card-ico">🛸</div>
+              <h4>Space Invaders Cyber</h4>
+              <p>Escouade d'aliens rétro, bunkers destructibles et soucoupe bonus</p>
+              <div class="game-launch-meta"><span class="text-amber">Nouveau</span><span>Tirer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="snake">
-              <div class="game-launch-icon">🐍</div>
-              <h3>Snake Néon</h3>
-              <p>Le classique revisité en néon : murs traversants ou mortels, 4 vitesses, ZQSD &amp; Flèches.</p>
-              <div class="game-launch-meta"><span id="dash-snake-best">Record : 0</span><span>Jouer →</span></div>
+            <button class="game-launch-card" data-goto="crossy" data-cat="arcade">
+              <div class="card-ico">🐸</div>
+              <h4>Cyber Crossy Road</h4>
+              <p>Traversée infinie d'autoroutes néon, rivières de données et trains TGV</p>
+              <div class="game-launch-meta"><span class="text-amber">Nouveau</span><span>Sauter →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="g2048">
-              <div class="game-launch-icon">🔢</div>
-              <h3>2048</h3>
-              <p>Fusionne les tuiles néon jusqu'à 2048 et au-delà. Fluide au clavier comme au tactile.</p>
-              <div class="game-launch-meta"><span id="dash-2048-best">Record : 0</span><span>Jouer →</span></div>
+            <button class="game-launch-card" data-goto="wave" data-cat="arcade">
+              <div class="card-ico">⚡</div>
+              <h4>Neon Wave (Geometry)</h4>
+              <p>Contrôle de flèche en zigzag à 45° dans un couloir d'obstacles</p>
+              <div class="game-launch-meta"><span class="text-cyan">Rythme</span><span>Surfer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="runner">
-              <div class="game-launch-icon">🦖</div>
-              <h3>Cyber Runner</h3>
-              <p>Course infinie cybernétique avec saut, double saut, drones et vitesse progressive.</p>
-              <div class="game-launch-meta"><span id="dash-runner-best">Record : 0</span><span>Jouer →</span></div>
+            <button class="game-launch-card" data-goto="tunnel" data-cat="arcade">
+              <div class="card-ico">🌀</div>
+              <h4>Tunnel Rush 3D</h4>
+              <p>Plongée vertigineuse dans un tunnel cylindrique psychédélique</p>
+              <div class="game-launch-meta"><span class="text-cyan">Vitesse</span><span>Plonger →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="reflex">
-              <div class="game-launch-icon">🎯</div>
-              <h3>Réflexe &amp; Aim Trainer</h3>
-              <p>Teste ton temps de réaction en ms sur 5 essais ou entraîne ta précision pendant 30s.</p>
-              <div class="game-launch-meta"><span id="dash-reflex-best">Aim : 0</span><span>Jouer →</span></div>
+            <button class="game-launch-card" data-goto="tetris" data-cat="arcade">
+              <div class="card-ico">🧱</div>
+              <h4>Tetris Néon</h4>
+              <p>Rotation de tétrominos, drop instantané, hold et affichage néon</p>
+              <div class="game-launch-meta"><span class="text-cyan">Classique</span><span>Empiler →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="flappy">
-              <div class="game-launch-icon">🐦</div>
-              <h3>Flappy Néon</h3>
-              <p>Franchis les tuyaux lumineux avec une physique ultra-calibrée à la barre Espace.</p>
-              <div class="game-launch-meta"><span id="dash-flappy-best">Record : 0</span><span>Jouer →</span></div>
-            </button>
-          
-            <button class="game-launch-card" data-goto="pong">
-              <div class="game-launch-icon">🏓</div>
-              <h3>Cyber Pong 1v1</h3>
-              <p>Duel survolté 2 Joueurs sur le même clavier ou vs IA Meylan. Balles accélérées &amp; sons synthwave.</p>
-              <div class="game-launch-meta"><span class="text-cyan">1v1 Local / IA</span><span>Affronter →</span></div>
+            <button class="game-launch-card" data-goto="brick" data-cat="arcade">
+              <div class="card-ico">🧱</div>
+              <h4>Casse-Briques Cyber</h4>
+              <p>Lasers, multi-balles, briques explosives et bonus de paddle</p>
+              <div class="game-launch-meta"><span class="text-cyan">Arcade</span><span>Casser →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="tron">
-              <div class="game-launch-icon">🏍️</div>
-              <h3>Tron Cycles 1v1</h3>
-              <p>Motos néon avec traînées mortelles. Bloque ton voisin de classe sans percuter les murs !</p>
-              <div class="game-launch-meta"><span class="text-violet">1v1 Local / Bot Scheurer</span><span>Piloter →</span></div>
+            <button class="game-launch-card" data-goto="doodle" data-cat="arcade">
+              <div class="card-ico">🚀</div>
+              <h4>Doodle Jump Néon</h4>
+              <p>Ascension verticale infinie, ressorts, plateformes mobiles et monstres</p>
+              <div class="game-launch-meta"><span class="text-cyan">Sauts</span><span>Grimper →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="tanks">
-              <div class="game-launch-icon">💣</div>
-              <h3>Tank Battle 1v1</h3>
-              <p>Combat de tanks dans une arène d'école : tirs lasers qui rebondissent sur les murs néon !</p>
-              <div class="game-launch-meta"><span class="text-rose">1v1 Local 2 Joueurs</span><span>Dégainer →</span></div>
+            <button class="game-launch-card" data-goto="hook" data-cat="arcade">
+              <div class="card-ico">🪝</div>
+              <h4>Stickman Hook</h4>
+              <p>Balancement pendulaire et propulsion au grappin physique</p>
+              <div class="game-launch-meta"><span class="text-cyan">Physique</span><span>Balancer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="connect4">
-              <div class="game-launch-icon">🔴</div>
-              <h3>Puissance 4 Néon</h3>
-              <p>Aligne 4 jetons néon. Jouable à deux sur le même écran ou en ligne P2P direct sur le Wi-Fi EDU_VD !</p>
-              <div class="game-launch-meta"><span class="text-amber">Local &amp; P2P Wi-Fi</span><span>Jouer →</span></div>
+            <button class="game-launch-card" data-goto="subway" data-cat="arcade">
+              <div class="card-ico">🚇</div>
+              <h4>Subway Runner 2D</h4>
+              <p>Course à 3 voies, glissades sous barrières et esquive de rames</p>
+              <div class="game-launch-meta"><span class="text-cyan">Runner</span><span>Courir →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="tetris">
-              <div class="game-launch-icon">🧱</div>
-              <h3>Tetris Néon</h3>
-              <p>Le légendaire jeu de briques en version Cyber Dark : Hold, Hard Drop, niveaux et combos explosifs.</p>
-              <div class="game-launch-meta"><span id="dash-tetris-best" class="text-emerald">Record : 0</span><span>Empiler →</span></div>
+            <button class="game-launch-card" data-goto="drivemad" data-cat="arcade">
+              <div class="card-ico">🚙</div>
+              <h4>Drive Mad 2D</h4>
+              <p>Physique de suspension 4x4, ponts branlants et loopings casse-cou</p>
+              <div class="game-launch-meta"><span class="text-cyan">4x4</span><span>Rouler →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="links">
-              <div class="game-launch-icon">🔗</div>
-              <h3>Bibliothèque de Liens</h3>
-              <p>Ouvre tes sites configurés dans lien.json (Google, Wikipédia, Moodle...) en un clic dans un nouvel onglet.</p>
-              <div class="game-launch-meta"><span class="text-cyan">lien.json actif</span><span>Consulter →</span></div>
+            <button class="game-launch-card" data-goto="drift" data-cat="arcade">
+              <div class="card-ico">🏎️</div>
+              <h4>Drift Micro-Car</h4>
+              <p>Circuit vue du dessus, dérapages au frein à main et chrono au tour</p>
+              <div class="game-launch-meta"><span class="text-cyan">Course</span><span>Drifter →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="calc">
-              <div class="game-launch-icon">🧮</div>
-              <h3>Calculatrice EDU_VD</h3>
-              <p>Calculatrice scientifique ultra-crédible avec historique + easter eggs cachés sur les profs et l'école.</p>
-              <div class="game-launch-meta"><span class="text-cyan">Outil Camouflé</span><span>Calculer →</span></div>
+            <button class="game-launch-card" data-goto="paper" data-cat="arcade">
+              <div class="card-ico">✈️</div>
+              <h4>Paper Flight</h4>
+              <p>Planeur en papier, courants thermiques ascendants et turbulences</p>
+              <div class="game-launch-meta"><span class="text-cyan">Vol</span><span>Planer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="achievements">
-              <div class="game-launch-icon">🏆</div>
-              <h3>Hauts Faits de l'École</h3>
-              <p>10 succès débloquables en jouant et en explorant les mèmes (Meylan, Scheurer, 11VP, EDU_VD...).</p>
-              <div class="game-launch-meta"><span id="dash-achievements-btn-stat" class="text-amber">Voir trophées</span><span>Ouvrir →</span></div>
+            <button class="game-launch-card" data-goto="snake" data-cat="arcade">
+              <div class="card-ico">🐍</div>
+              <h4>Snake Néon</h4>
+              <p>Le serpent classique revu avec traînées lumineuses et fruits néon</p>
+              <div class="game-launch-meta"><span class="text-cyan">Classique</span><span>Manger →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="ultrasonic">
-              <div class="game-launch-icon">🦇</div>
-              <h3>Brouilleur Ultra-Sons Hz</h3>
-              <p>Émetteur haute fréquence et sons fantômes impossibles à localiser. Presets Mosquito anti-prof, déphasage stéréo Mac.</p>
-              <div class="game-launch-meta"><span class="text-rose">Acoustique Furtive</span><span>Brouiller →</span></div>
+            <button class="game-launch-card" data-goto="flappy" data-cat="arcade">
+              <div class="card-ico">🐦</div>
+              <h4>Flappy Néon</h4>
+              <p>Battement d'ailes au pixel près entre les tuyaux électrifiés</p>
+              <div class="game-launch-meta"><span class="text-cyan">Réflexes</span><span>Voler →</span></div>
             </button>
 
-
-            <!-- === SUITE MODULAIRE 20 JEUX GEMINI CYBER === -->
-            <!-- Arcade & Physique -->
-            <button class="game-launch-card" data-goto="doodle">
-              <div class="game-launch-icon">🚀</div>
-              <h3>Doodle Jump Néon</h3>
-              <p>Ascension verticale procédurale, ressorts, plateformes mouvantes et monstres néon.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Arcade Solo</span>
-                <span class="mono text-muted">Physique</span>
-              </div>
+            <button class="game-launch-card" data-goto="runner" data-cat="arcade">
+              <div class="card-ico">🦖</div>
+              <h4>Cyber Runner</h4>
+              <p>Le dinosaure hors-ligne réinventé en mode cyberpunk nocturne</p>
+              <div class="game-launch-meta"><span class="text-cyan">Endless</span><span>Sauter →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="hook">
-              <div class="game-launch-icon">🪝</div>
-              <h3>Stickman Hook</h3>
-              <p>Balancement pendulaire à grappin physique réaliste. Accroche-toi et bats le record de distance.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-emerald">Physique Solo</span>
-                <span class="mono text-muted">Grappin</span>
-              </div>
+            <button class="game-launch-card" data-goto="reflex" data-cat="arcade">
+              <div class="card-ico">🎯</div>
+              <h4>Réflexe &amp; Aim Trainer</h4>
+              <p>Cibles stroboscopiques, temps de réaction en millisecondes et précision</p>
+              <div class="game-launch-meta"><span class="text-cyan">Entraînement</span><span>Viser →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="subway">
-              <div class="game-launch-icon">🚇</div>
-              <h3>Subway Runner 2D</h3>
-              <p>Course infinie sur 3 voies cybernétiques. Esquive les rames, saute et glisse sous les lasers.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Runner 2D</span>
-                <span class="mono text-muted">3 Voies</span>
-              </div>
+            <button class="game-launch-card" data-goto="clicker" data-cat="arcade">
+              <div class="card-ico">⌨️</div>
+              <h4>Spacebar Clicker</h4>
+              <p>Test de CPS au clavier avec multiplicateurs et paliers de frappe</p>
+              <div class="game-launch-meta"><span class="text-cyan">CPS</span><span>Spammer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="drift">
-              <div class="game-launch-icon">🏎️</div>
-              <h3>Drift Micro-Car</h3>
-              <p>Circuit top-down rétro avec physique de dérapage au frein à main et jauge de style.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-amber">Micro-Racing</span>
-                <span class="mono text-muted">Drift Score</span>
-              </div>
+            <!-- 2. DUELS 1V1 (9) -->
+            <button class="game-launch-card" data-goto="pong" data-cat="duel">
+              <div class="card-ico">🏓</div>
+              <h4>Cyber Pong 1v1</h4>
+              <p>Duel sur le même clavier avec effets de lift et balles accélérées</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Local</span><span>Duel →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="paper">
-              <div class="game-launch-icon">✈️</div>
-              <h3>Paper Flight</h3>
-              <p>Simulateur aérodynamique d'avion en papier. Utilise les courants thermiques et évite les turbulences.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-violet">Aérodynamique</span>
-                <span class="mono text-muted">Planeur</span>
-              </div>
+            <button class="game-launch-card" data-goto="tron" data-cat="duel">
+              <div class="card-ico">🏍️</div>
+              <h4>Tron Cycles 1v1</h4>
+              <p>Bataille de traînées lumineuses mortelles en arène fermée</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Local</span><span>Poursuivre →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="brick">
-              <div class="game-launch-icon">🧱</div>
-              <h3>Casse-Briques Cyber</h3>
-              <p>Arkanoid revisité avec multi-balles néon, canons lasers latéraux et briques explosives.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-rose">Arcade Rétro</span>
-                <span class="mono text-muted">Power-ups</span>
-              </div>
+            <button class="game-launch-card" data-goto="tanks" data-cat="duel">
+              <div class="card-ico">💣</div>
+              <h4>Tank Battle 1v1</h4>
+              <p>Affrontement de blindés dans un labyrinthe avec obus ricocheurs</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Local</span><span>Tirer →</span></div>
             </button>
 
-            <!-- Duels 1v1 -->
-            <button class="game-launch-card" data-goto="basket1v1">
-              <div class="game-launch-icon">🏀</div>
-              <h3>Basket Random 1v1</h3>
-              <p>Physique ragdoll déjantée à une touche par joueur. Marque des paniers improbables à 2 sur le même clavier.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-amber">Duel 1v1 Local</span>
-                <span class="mono text-muted">Ragdoll Hotseat</span>
-              </div>
+            <button class="game-launch-card" data-goto="connect4" data-cat="duel">
+              <div class="card-ico">🔴</div>
+              <h4>Puissance 4 (Local/P2P)</h4>
+              <p>Alignez 4 jetons en local ou contre un pote en Wi-Fi EDU_VD</p>
+              <div class="game-launch-meta"><span class="text-violet">P2P En Ligne</span><span>Aligner →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="soccer1v1">
-              <div class="game-launch-icon">⚽</div>
-              <h3>Micro Soccer 1v1</h3>
-              <p>Duel de football 2D avec têtes plongeantes, rebonds dynamiques et frappes néon survoltées.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-emerald">Duel 1v1 Local</span>
-                <span class="mono text-muted">Micro Soccer</span>
-              </div>
+            <button class="game-launch-card" data-goto="rooftop" data-cat="duel">
+              <div class="card-ico">🎯</div>
+              <h4>Rooftop Snipers 1v1</h4>
+              <p>Physique ragdoll folle sur les toits avec fusils de sniper</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Ragdoll</span><span>Éjecter →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="gunmayhem">
-              <div class="game-launch-icon">🔫</div>
-              <h3>Gun Mayhem 1v1</h3>
-              <p>Arène de plateformes explosive. Recul des armes, sauts doubles et éjection hors de l'écran.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-rose">Combat 1v1 Local</span>
-                <span class="mono text-muted">Éjection Smash</span>
-              </div>
+            <button class="game-launch-card" data-goto="basket1v1" data-cat="duel">
+              <div class="card-ico">🏀</div>
+              <h4>Basket Random 1v1</h4>
+              <p>Physique loufoque à 1 touche : dunks cosmiques et contres hilarants</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Fun</span><span>Dunker →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="volley1v1">
-              <div class="game-launch-icon">🏐</div>
-              <h3>Volley Slime 1v1</h3>
-              <p>Affrontement arcade classique de slimes au-dessus du filet. Smashs lumineux et sauvetages réflexes.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Duel 1v1 Local</span>
-                <span class="mono text-muted">Slime Volley</span>
-              </div>
+            <button class="game-launch-card" data-goto="soccer1v1" data-cat="duel">
+              <div class="card-ico">⚽</div>
+              <h4>Micro Soccer 1v1</h4>
+              <p>Duel de football 2D miniature avec tirs brossés et sauvetages</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Foot</span><span>Marquer →</span></div>
             </button>
 
-            <!-- Réflexion & Puzzles -->
-            <button class="game-launch-card" data-goto="wordle">
-              <div class="game-launch-icon">🔤</div>
-              <h3>Wordle Français</h3>
-              <p>Devine le mot de 5 lettres en 6 essais avec dictionnaire français complet en mode illimité.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-violet">Réflexion</span>
-                <span class="mono text-muted">Illimité FR</span>
-              </div>
+            <button class="game-launch-card" data-goto="gunmayhem" data-cat="duel">
+              <div class="card-ico">🔫</div>
+              <h4>Gun Mayhem 1v1</h4>
+              <p>Combat de plateformes au recul d'armes pour éjecter l'adversaire</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Combat</span><span>Dégommer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="minesweeper">
-              <div class="game-launch-icon">💣</div>
-              <h3>Démineur Logique</h3>
-              <p>Grille 100% déductible sans aucun coup au hasard (zéro 50/50). Résolution logique pure garantie.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-emerald">Logique Pure</span>
-                <span class="mono text-muted">Sans 50/50</span>
-              </div>
+            <button class="game-launch-card" data-goto="volley1v1" data-cat="duel">
+              <div class="card-ico">🏐</div>
+              <h4>Volley Slime 1v1</h4>
+              <p>Volley-ball arcade au-dessus du filet avec slimes rebondissants</p>
+              <div class="game-launch-meta"><span class="text-violet">1v1 Slime</span><span>Smasher →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="sudoku">
-              <div class="game-launch-icon">🔢</div>
-              <h3>Sudoku Express</h3>
-              <p>Grilles 9x9 générées instantanément avec solveur pas-à-pas et détection d'erreurs en direct.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Chiffres</span>
-                <span class="mono text-muted">Générateur &amp; Aide</span>
-              </div>
+            <!-- 3. PUZZLES & STRATÉGIE (7) -->
+            <button class="game-launch-card" data-goto="memory" data-cat="puzzle">
+              <div class="card-ico">🃏</div>
+              <h4>Cyber Memory Matrix</h4>
+              <p>Paires de cartes holographiques 3D, multiplicateurs de combos et chrono</p>
+              <div class="game-launch-meta"><span class="text-emerald">Nouveau</span><span>Mémoriser →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="chess">
-              <div class="game-launch-icon">♟️</div>
-              <h3>Échecs Mini-Engine</h3>
-              <p>Moteur d'échecs autonome en JavaScript pur avec IA Minimax Alpha-Bêta sans dépendance externe.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-violet">Stratégie</span>
-                <span class="mono text-muted">Minimax IA</span>
-              </div>
+            <button class="game-launch-card" data-goto="g2048" data-cat="puzzle">
+              <div class="card-ico">🔢</div>
+              <h4>2048 Néon</h4>
+              <p>Fusion de tuiles exponentielles pour atteindre la tuile légendaire</p>
+              <div class="game-launch-meta"><span class="text-emerald">Logique</span><span>Fusionner →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="sokoban">
-              <div class="game-launch-icon">📦</div>
-              <h3>Sokoban 2D</h3>
-              <p>6 niveaux de réflexion progressive néon. Pousse les caisses sur les socles cibles avec fonction Undo.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-amber">Casse-Tête</span>
-                <span class="mono text-muted">Undo &amp; Salles</span>
-              </div>
+            <button class="game-launch-card" data-goto="minesweeper" data-cat="puzzle">
+              <div class="card-ico">💣</div>
+              <h4>Démineur Logique</h4>
+              <p>Grille de démineur 100% résoluble par déduction pure (sans 50/50)</p>
+              <div class="game-launch-meta"><span class="text-emerald">Démineur</span><span>Dédouaner →</span></div>
             </button>
 
-            <!-- Focus, RPG & Utilitaires -->
-            <button class="game-launch-card" data-goto="cyberclicker">
-              <div class="game-launch-icon">🍪</div>
-              <h3>Idle Cyber Clicker</h3>
-              <p>Génère des bits passifs, achète des fermes GPU et clusters Linux, et active l'overclock prestige.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Simulation</span>
-                <span class="mono text-muted">Prestige &amp; Idle</span>
-              </div>
+            <button class="game-launch-card" data-goto="sudoku" data-cat="puzzle">
+              <div class="card-ico">🔢</div>
+              <h4>Sudoku Express</h4>
+              <p>Grilles générées à la volée, notes de crayon et aide pas-à-pas</p>
+              <div class="game-launch-meta"><span class="text-emerald">Chiffres</span><span>Résoudre →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="studentlife">
-              <div class="game-launch-icon">🎓</div>
-              <h3>Vie Étudiante RPG</h3>
-              <p>Simulateur narratif à choix multiples : gère tes notes, ton énergie, ton stress et ton budget cantine.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-emerald">RPG Texte</span>
-                <span class="mono text-muted">Choix Multiples</span>
-              </div>
+            <button class="game-launch-card" data-goto="chess" data-cat="puzzle">
+              <div class="card-ico">♟️</div>
+              <h4>Échecs Mini-Engine</h4>
+              <p>Moteur d'échecs Minimax Alpha-Bêta complet en JavaScript natif</p>
+              <div class="game-launch-meta"><span class="text-emerald">Échecs IA</span><span>Mat →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="typing">
-              <div class="game-launch-icon">⌨️</div>
-              <h3>Dactylo Speed Test</h3>
-              <p>Mesure ta vitesse de frappe en Mots Par Minute (WPM) et ta précision sur citations et extraits de code.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-rose">Dactylo</span>
-                <span class="mono text-muted">WPM &amp; Précision</span>
-              </div>
+            <button class="game-launch-card" data-goto="sokoban" data-cat="puzzle">
+              <div class="card-ico">📦</div>
+              <h4>Sokoban 2D</h4>
+              <p>Poussez les caisses d'énergie sur les interrupteurs cibles</p>
+              <div class="game-launch-meta"><span class="text-emerald">Sokoban</span><span>Pousser →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="pomodoro">
-              <div class="game-launch-icon">⏱️</div>
-              <h3>Pomodoro &amp; Focus</h3>
-              <p>Chronomètre de travail par intervalles 25 min / 5 min avec carillon audio 8-bit et jauge circulaire.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-violet">Productivité</span>
-                <span class="mono text-muted">Cycles 25/5 min</span>
-              </div>
+            <button class="game-launch-card" data-goto="wordle" data-cat="puzzle">
+              <div class="card-ico">🔤</div>
+              <h4>Wordle Français</h4>
+              <p>Devinez le mot secret de 5 lettres en 6 essais avec indices couleur</p>
+              <div class="game-launch-meta"><span class="text-emerald">Mots</span><span>Deviner →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="silk">
-              <div class="game-launch-icon">🎨</div>
-              <h3>Silk Canvas Néon</h3>
-              <p>Outil d'art vectoriel génératif symétrique et relaxant avec dégradés néon et export PNG direct.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Art Vectoriel</span>
-                <span class="mono text-muted">Symétrie &amp; Export</span>
-              </div>
+            <!-- 4. LAB GEEK & SIMULATIONS (7) -->
+            <button class="game-launch-card" data-goto="life" data-cat="geek">
+              <div class="card-ico">🧬</div>
+              <h4>Jeu de la Vie (Conway)</h4>
+              <p>Automate cellulaire universel, canon à planeurs et vieillissement néon</p>
+              <div class="game-launch-meta"><span class="text-cyan">Maths</span><span>Observer →</span></div>
             </button>
 
-          
-
-            <!-- === LAB GEEK & SUITE ULTIME === -->
-            <button class="game-launch-card" data-goto="life">
-              <div class="game-launch-icon">🧬</div>
-              <h3>Jeu de la Vie (Conway)</h3>
-              <p>Automate cellulaire mythique. Canons à planeurs Gosper, pulsars géométriques, dessin libre et chaos néon.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-emerald">Simulation</span>
-                <span class="mono text-muted">Automate 2D</span>
-              </div>
+            <button class="game-launch-card" data-goto="hackertyper" data-cat="geek">
+              <div class="card-ico">💻</div>
+              <h4>Hollywood Hacker Typer</h4>
+              <p>Frappez n'importe où pour générer du C Linux ou du code d'IA en direct</p>
+              <div class="game-launch-meta"><span class="text-cyan">Hacker</span><span>Taper →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="hackertyper">
-              <div class="game-launch-icon">💻</div>
-              <h3>Hollywood Hacker Typer</h3>
-              <p>Tape n'importe quelles touches pour coder comme dans Matrix. Noyau Linux, IA, shaders et sons mécaniques.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Geek Simulator</span>
-                <span class="mono text-muted">Matrix / Code</span>
-              </div>
+            <button class="game-launch-card" data-goto="mactricks" data-cat="geek">
+              <div class="card-ico">🍏</div>
+              <h4>Astuces Mac Terminal</h4>
+              <p>Commandes natives macOS sans mot de passe : say audio, météo ASCII et Pi</p>
+              <div class="game-launch-meta"><span class="text-cyan">Terminal</span><span>Tester →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="mactricks">
-              <div class="game-launch-icon">🍏</div>
-              <h3>Astuces Mac Terminal</h3>
-              <p>Recueil ultime des commandes inoffensives et stylées pour les Mac de l'école (synthèse vocale, météo ASCII, Matrix...).</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-violet">macOS CLI</span>
-                <span class="mono text-muted">100% Inoffensif</span>
-              </div>
+            <button class="game-launch-card" data-goto="synth" data-cat="geek">
+              <div class="card-ico">🎹</div>
+              <h4>Synthé Chiptune &amp; Oscillo</h4>
+              <p>Synthétiseur audio 8-bit avec visualiseur d'ondes sonore temps réel</p>
+              <div class="game-launch-meta"><span class="text-cyan">Audio</span><span>Jouer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="asciigen">
-              <div class="game-launch-icon">🔤</div>
-              <h3>Générateur ASCII &amp; Glitch</h3>
-              <p>Transforme ton pseudo ou n'importe quel mot en bannières ASCII rétro et texte corrompu Zalgo à copier-coller.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-amber">Art Rétro</span>
-                <span class="mono text-muted">Zalgo &amp; Bannières</span>
-              </div>
+            <button class="game-launch-card" data-goto="gravity" data-cat="geek">
+              <div class="card-ico">🌌</div>
+              <h4>Gravité Orbitale (N-Body)</h4>
+              <p>Moteur physique newtonien : lancez des planètes et admirez leurs orbites</p>
+              <div class="game-launch-meta"><span class="text-cyan">Physique</span><span>Orbiter →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="synth">
-              <div class="game-launch-icon">🎹</div>
-              <h3>Synthé Chiptune 8-bit</h3>
-              <p>Oscilloscope interactif en temps réel, clavier jouable A-K, ondes rétro et synthèse sonore Web Audio.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-rose">Audio Synth</span>
-                <span class="mono text-muted">Oscilloscope</span>
-              </div>
+            <button class="game-launch-card" data-goto="asciigen" data-cat="geek">
+              <div class="card-ico">🔤</div>
+              <h4>Bannières ASCII &amp; Zalgo</h4>
+              <p>Typographie ASCII rétro et curseur de glitch combinatoire Zalgo</p>
+              <div class="game-launch-meta"><span class="text-cyan">Unicode</span><span>Générer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="gravity">
-              <div class="game-launch-icon">🌌</div>
-              <h3>Gravité Cosmique 2D</h3>
-              <p>Bac à sable physique gravitationnel newtonien. Crée des soleils, des planètes en orbite et des trous noirs.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Physique 2D</span>
-                <span class="mono text-muted">Orbites</span>
-              </div>
+            <button class="game-launch-card" data-goto="matrix" data-cat="geek">
+              <div class="card-ico">🟢</div>
+              <h4>Pluie Numérique Matrix</h4>
+              <p>Écran de veille interactif Katakana (raccourci M pour plein écran)</p>
+              <div class="game-launch-meta"><span class="text-cyan">Écran de Veille</span><span>Lancer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="fakeupdate">
-              <div class="game-launch-icon">💤</div>
-              <h3>Faux Écrans de MàJ</h3>
-              <p>Simulateurs de mise à jour plein écran ultra-réalistes macOS Sequoia, Windows 11 et BSOD pour faire une pause en cours.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-cyan">Furtivité Pure</span>
-                <span class="mono text-muted">Mac &amp; Win</span>
-              </div>
+            <!-- 5. CRÉATIVITÉ & DÉTENTE (6) -->
+            <button class="game-launch-card" data-goto="pixelart" data-cat="creative">
+              <div class="card-ico">🎨</div>
+              <h4>Studio Pixel Art 8-bit</h4>
+              <p>Éditeur de sprites 16x16 / 32x32, palette cyberpunk et export PNG</p>
+              <div class="game-launch-meta"><span class="text-violet">Dessin</span><span>Créer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="qrcode">
-              <div class="game-launch-icon">📱</div>
-              <h3>QR Code Furtif</h3>
-              <p>Transfère n'importe quel lien, jeu, texte ou Wi-Fi du Mac vers ton smartphone sans te connecter à aucun compte.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-emerald">Bridge Tel</span>
-                <span class="mono text-muted">100% Hors-Ligne</span>
-              </div>
+            <button class="game-launch-card" data-goto="silk" data-cat="creative">
+              <div class="card-ico">✨</div>
+              <h4>Silk Canvas Néon</h4>
+              <p>Art génératif symétrique et rubans de lumière relaxants</p>
+              <div class="game-launch-meta"><span class="text-violet">Zen Art</span><span>Tracer →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="pixelart">
-              <div class="game-launch-icon">🎨</div>
-              <h3>Pixel Art Studio 8-bit</h3>
-              <p>Atelier créatif rétro 16x16 / 32x32 avec palette néon, pot de peinture, modèles Space Invader et export PNG.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-violet">Créatif</span>
-                <span class="mono text-muted">Sprites &amp; Export</span>
-              </div>
+            <button class="game-launch-card" data-goto="cyberclicker" data-cat="creative">
+              <div class="card-ico">🍪</div>
+              <h4>Idle Cyber Clicker</h4>
+              <p>Production passive de cookies cybernétiques, serveurs et IAs</p>
+              <div class="game-launch-meta"><span class="text-violet">Idle Game</span><span>Produire →</span></div>
             </button>
 
-            <button class="game-launch-card" data-goto="matrix">
-              <div class="game-launch-icon">🟢</div>
-              <h3>Pluie Digitale Matrix</h3>
-              <p>Écran de veille interactif avec katakanas japonais et flux vert phosphorescent calé sur ton régulateur de vitesse.</p>
-              <div class="game-launch-meta">
-                <span class="badge badge-emerald">Ambiance</span>
-                <span class="mono text-muted">Screensaver</span>
-              </div>
+            <button class="game-launch-card" data-goto="studentlife" data-cat="creative">
+              <div class="card-ico">🎓</div>
+              <h4>Vie Étudiante RPG</h4>
+              <p>Simulateur narratif de semestre : équilibrez notes, sommeil et budget</p>
+              <div class="game-launch-meta"><span class="text-violet">Simulation</span><span>Vivre →</span></div>
             </button>
 
+            <button class="game-launch-card" data-goto="memes" data-cat="creative">
+              <div class="card-ico">🖼️</div>
+              <h4>Banque de Mèmes</h4>
+              <p>Galerie de mèmes scolaires classés par matière avec vote en direct</p>
+              <div class="game-launch-meta"><span class="text-violet">Humour</span><span>Rire →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="soundboard" data-cat="creative">
+              <div class="card-ico">🔊</div>
+              <h4>Soundboard Scolaire</h4>
+              <p>Sons de cloche d'école, notification Teams, Discord et bruitages cultes</p>
+              <div class="game-launch-meta"><span class="text-violet">Audio</span><span>Déclencher →</span></div>
+            </button>
+
+            <!-- 6. OUTILS SCOLAIRES & FURTIVITÉ (7) -->
+            <button class="game-launch-card" data-goto="fakeupdate" data-cat="tools">
+              <div class="card-ico">🛑</div>
+              <h4>Faux Écrans MàJ &amp; BSOD</h4>
+              <p>Simulateur plein écran macOS Sequoia (18%), Windows 11 et BSOD fatal</p>
+              <div class="game-launch-meta"><span class="text-amber">Camouflage</span><span>Simuler →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="qrcode" data-cat="tools">
+              <div class="card-ico">📱</div>
+              <h4>QR Code Furtif Hors-Ligne</h4>
+              <p>Encodeur 100% hors-ligne pour transférer du texte du Mac vers son tel</p>
+              <div class="game-launch-meta"><span class="text-amber">Transfert</span><span>Flasher →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="typing" data-cat="tools">
+              <div class="card-ico">⌨️</div>
+              <h4>Dactylo Speed Test</h4>
+              <p>Test de vitesse de frappe en direct camouflé en prise de notes</p>
+              <div class="game-launch-meta"><span class="text-amber">Dactylo</span><span>Mesurer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="pomodoro" data-cat="tools">
+              <div class="card-ico">⏱️</div>
+              <h4>Pomodoro &amp; Focus</h4>
+              <p>Chronomètre de cycles 25 min de travail / 5 min de pause avec gong</p>
+              <div class="game-launch-meta"><span class="text-amber">Productivité</span><span>Minuter →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="calc" data-cat="tools">
+              <div class="card-ico">🧮</div>
+              <h4>Calculatrice EDU_VD</h4>
+              <p>Calculatrice scientifique ultra-crédible avec historique et easter eggs</p>
+              <div class="game-launch-meta"><span class="text-amber">Calcul</span><span>Calculer →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="ultrasonic" data-cat="tools">
+              <div class="card-ico">🦇</div>
+              <h4>Brouilleur Ultra-Sons Hz</h4>
+              <p>Fréquences furtives inaudibles pour adultes (15kHz - 21kHz) avec minuterie</p>
+              <div class="game-launch-meta"><span class="text-amber">Infrasons</span><span>Émettre →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="links" data-cat="tools">
+              <div class="card-ico">🔗</div>
+              <h4>Bibliothèque de Liens</h4>
+              <p>73+ sites débloqués, émulateurs, outils de révision et web toys classés</p>
+              <div class="game-launch-meta"><span class="text-amber">73+ Liens</span><span>Consulter →</span></div>
+            </button>
           </div>
         </section>
 
@@ -4052,6 +4257,18 @@
             </div>
 
             <!-- Grille des liens -->
+            
+            <!-- Filtres par catégorie de liens -->
+            <div class="dash-filter-tabs" id="links-cat-tabs" style="margin-bottom:14px; display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="dash-filter-btn active" data-linkcat="all">🌟 Tous les liens</button>
+              <button class="dash-filter-btn" data-linkcat="games">🎮 Jeux Web</button>
+              <button class="dash-filter-btn" data-linkcat="puzzle">🧠 Réflexion &amp; Puzzles</button>
+              <button class="dash-filter-btn" data-linkcat="emulator">🕹️ Émulateurs Rétro</button>
+              <button class="dash-filter-btn" data-linkcat="tools">🛠️ Outils de Cours</button>
+              <button class="dash-filter-btn" data-linkcat="toys">✨ Web Toys &amp; Fun</button>
+              <button class="dash-filter-btn" data-linkcat="school">🎓 Portails Scolaires</button>
+            </div>
+
             <div class="links-grid" id="links-container">
               <!-- Rempli dynamiquement en JS -->
             </div>
@@ -5256,6 +5473,96 @@
           </div>
         </section>
 
+<!-- 1. MINI PAC-MAN NÉON -->
+<section id="sec-pacman" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Score: <strong id="pacman-score">0</strong></span>
+      <span>Record: <strong id="pacman-best">0</strong></span>
+      <span>Vies: <span id="pacman-lives">🟡🟡🟡</span></span>
+      <span>Niveau: <strong id="pacman-level">1</strong></span>
+      <button class="csp-btn" id="pacman-reset">Rejouer</button>
+    </div>
+    <div style="position:relative; display:inline-block; border:1px solid rgba(0, 240, 255, 0.4); border-radius:var(--radius-md); overflow:hidden; box-shadow:0 0 30px rgba(0,240,255,0.15);">
+      <canvas id="canvas-pacman" width="440" height="500" style="display:block; background:#02050f;"></canvas>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:6px;">
+      <button class="csp-btn" id="pac-btn-up" style="padding:6px 24px;">▲ Haut</button>
+      <div style="display:flex; gap:8px;">
+        <button class="csp-btn" id="pac-btn-left" style="padding:6px 18px;">◀ Gauche</button>
+        <button class="csp-btn" id="pac-btn-down" style="padding:6px 24px;">▼ Bas</button>
+        <button class="csp-btn" id="pac-btn-right" style="padding:6px 18px;">▶ Droite</button>
+      </div>
+      <span class="csp-hint" style="margin-top:4px;">Flèches ou ZQSD / WASD • Les grosses pastilles rendent les fantômes vulnérables !</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SPACE INVADERS CYBER -->
+<section id="sec-invaders" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Score: <strong id="invaders-score">0</strong></span>
+      <span>Record: <strong id="invaders-best">0</strong></span>
+      <span>Vague: <strong id="invaders-wave">1</strong></span>
+      <span>Vies: <span id="invaders-lives">🚀🚀🚀</span></span>
+      <button class="csp-btn" id="invaders-reset">Rejouer</button>
+    </div>
+    <div style="position:relative; display:inline-block; border:1px solid rgba(0, 240, 255, 0.4); border-radius:var(--radius-md); overflow:hidden; box-shadow:0 0 30px rgba(0,240,255,0.15);">
+      <canvas id="canvas-invaders" width="640" height="480" style="display:block; background:#02050f;"></canvas>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:8px;">
+      <button class="csp-btn" id="inv-btn-left">◀ Gauche (Q/A)</button>
+      <button class="csp-btn" id="inv-btn-fire">🔥 Tirer (Espace)</button>
+      <button class="csp-btn" id="inv-btn-right">▶ Droite (D)</button>
+    </div>
+    <span class="csp-hint">Q/D ou ◀▶ pour viser • Espace pour tirer • Les bunkers protègent des tirs ennemis !</span>
+  </div>
+</section>
+
+<!-- 3. CYBER CROSSY ROAD 2D -->
+<section id="sec-crossy" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Distance: <strong id="crossy-score">0</strong></span>
+      <span>Record: <strong id="crossy-best">0</strong></span>
+      <span>Pièces: <strong id="crossy-coins">0</strong></span>
+      <button class="csp-btn" id="crossy-reset">Rejouer</button>
+    </div>
+    <div style="position:relative; display:inline-block; border:1px solid rgba(0, 240, 255, 0.4); border-radius:var(--radius-md); overflow:hidden; box-shadow:0 0 30px rgba(0,240,255,0.15);">
+      <canvas id="canvas-crossy" width="560" height="560" style="display:block; background:#02050f;"></canvas>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:6px;">
+      <button class="csp-btn" id="crossy-btn-up" style="padding:6px 28px;">▲ Avancer (Z/W/▲)</button>
+      <div style="display:flex; gap:8px;">
+        <button class="csp-btn" id="crossy-btn-left" style="padding:6px 18px;">◀ Gauche</button>
+        <button class="csp-btn" id="crossy-btn-down" style="padding:6px 18px;">▼ Reculer</button>
+        <button class="csp-btn" id="crossy-btn-right" style="padding:6px 18px;">▶ Droite</button>
+      </div>
+      <span class="csp-hint">Avancez à travers les voitures, sautez sur les plateformes de données et évitez les trains lasers !</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4. CYBER MEMORY MATRIX -->
+<section id="sec-memory" class="section">
+  <div class="csp-shell">
+    <div class="csp-hud">
+      <span>Paires: <strong id="memory-pairs">0 / 8</strong></span>
+      <span>Coups: <strong id="memory-moves">0</strong></span>
+      <span>Combo: <strong id="memory-combo" class="text-cyan">x1</strong></span>
+      <span>Temps: <strong id="memory-timer">00:00</strong></span>
+      <span>Record: <strong id="memory-best">--</strong></span>
+      <button class="csp-btn" id="memory-reset">Nouvelle Partie</button>
+    </div>
+    <div style="display:flex; gap:8px; margin-bottom:12px;">
+      <button class="btn btn-secondary btn-sm active" id="memory-mode-16">16 Cartes (4x4)</button>
+      <button class="btn btn-secondary btn-sm" id="memory-mode-24">24 Cartes (6x4)</button>
+    </div>
+    <div id="memory-grid" class="memory-grid mode-16"></div>
+  </div>
+</section>
+
 </main>
     </div>
   </div>
@@ -5856,6 +6163,10 @@
         qrcode: '📱 QR Code Furtif (PC ➔ Tel)',
         pixelart: '🎨 Pixel Art Studio 8-bit',
         matrix: '🟢 Pluie Digitale Matrix',
+        pacman: '👾 Mini Pac-Man Néon',
+        invaders: '🛸 Space Invaders Cyber',
+        crossy: '🐸 Cyber Crossy Road',
+        memory: '🃏 Cyber Memory Matrix',
 
 
       };
@@ -5898,6 +6209,7 @@
         }
         try { pauseAllGames(); } catch (err) { console.error('[Navigate] Erreur pauseAllGames :', err); }
         AppState.activeSection = sectionKey;
+        try { if (typeof ActiveTimeTracker !== 'undefined') ActiveTimeTracker.recordGamePlayed(sectionKey); } catch(e){}
 
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         const target = document.getElementById(`sec-${sectionKey}`);
@@ -9477,43 +9789,93 @@
       const LinksLibrary = (function () {
         let linksData = {};
         let filterText = '';
+        let activeLinkCat = 'all';
+
+        function getLinkCategory(title, url) {
+          const t = (title + ' ' + url).toLowerCase();
+          if (t.includes('playretro') || t.includes('emulatorjs') || t.includes('js-dos') || t.includes('retrogames') || t.includes('archive.org') || t.includes('snesfun')) return 'emulator';
+          if (t.includes('slope') || t.includes('1v1.lol') || t.includes('smashkarts') || t.includes('paper-io') || t.includes('retro bowl') || t.includes('krunker') || t.includes('agar.io') || t.includes('diep.io') || t.includes('slither') || t.includes('vex') || t.includes('cookie clicker') || t.includes('paperclips') || t.includes('sandtris') || t.includes('bitlife') || t.includes('hole.io') || t.includes('motox3m') || t.includes('crossy-road') || t.includes('run 3') || t.includes('badicecream')) return 'games';
+          if (t.includes('neal.fun') || t.includes('password-game') || t.includes('infinite-craft') || t.includes('wordle') || t.includes('lichess') || t.includes('chess') || t.includes('thewikigame') || t.includes('virtualvacation') || t.includes('worldle') || t.includes('semantle') || t.includes('quickdraw') || t.includes('humanbenchmark') || t.includes('littlealchemy') || t.includes('boredbutton')) return 'puzzle';
+          if (t.includes('geogebra') || t.includes('desmos') || t.includes('wolfram') || t.includes('deepl') || t.includes('symbolab') || t.includes('notion') || t.includes('docs.google') || t.includes('drive.google') || t.includes('canva') || t.includes('quillbot') || t.includes('photopea') || t.includes('overleaf') || t.includes('monkeytype') || t.includes('convertio')) return 'tools';
+          if (t.includes('moodle') || t.includes('edu.vd') || t.includes('educavie') || t.includes('educanet') || t.includes('wikipedia') || t.includes('vikidia') || t.includes('github') || t.includes('youtube')) return 'school';
+          return 'toys';
+        }
 
         const DEFAULT_LINKS = {
-          "Neal.fun (Infinite Craft, Deep Sea, Space)": "https://neal.fun",
-          "The Password Game (Le jeu de mot de passe impossible)": "https://neal.fun/password-game/",
-          "Infinite Craft (Fusion infinie d'éléments)": "https://neal.fun/infinite-craft/",
-          "Cookie Clicker Officiel (Le boss des idle games)": "https://orteil.dashnet.org/cookieclicker/",
-          "Universal Paperclips (L'IA de fabrication de trombones)": "https://decisionproblem.com/paperclips/index2.html",
-          "Fake Update (Fausse mise à jour Windows/Mac plein écran F11)": "https://fakeupdate.net",
-          "Hacker Typer (Frappe au clavier pour afficher du cyber-code)": "https://hackertyper.net",
-          "Monkeytype (Test de dactylo camouflé en prise de notes)": "https://monkeytype.com",
-          "Slow Roads (Conduite 3D zen et infinie dans le navigateur)": "https://slowroads.io",
-          "Sandspiel (Simulateur de sable & physique élémentaire)": "https://sandspiel.club",
-          "Little Alchemy 2 (Alchimie & combinaisons d'éléments)": "https://littlealchemy2.com",
-          "Lichess (Échecs en ligne 100% gratuits, sans pub ni tracking)": "https://lichess.org",
-          "Quick, Draw! (Google IA qui devine tes dessins en 20s)": "https://quickdraw.withgoogle.com",
-          "The Wiki Game (Course d'articles Wikipédia en 6 clics)": "https://thewikigame.com",
-          "City Guesser (GeoGuessr vidéo gratuit dans le monde)": "https://virtualvacation.us/guess",
-          "Bored Button (Bouton magique de jeux anti-ennui aléatoires)": "https://boredbutton.com",
-          "The Useless Web (Le générateur des sites les plus inutiles du web)": "https://theuselessweb.com",
-          "Pointer Pointer (Trouve une photo qui pointe exactement ton curseur)": "https://pointerpointer.com",
-          "Weave Silk (Art génératif symétrique et néon)": "https://weavesilk.com",
-          "Radio Garden (Explore et écoute toutes les radios du monde sur un globe 3D)": "https://radio.garden",
-          "Window Swap (Regarde par la fenêtre de quelqu'un à l'autre bout de la Terre)": "https://window-swap.com",
-          "A Soft Murmur (Générateur d'ambiance pluie, orage, feu pour réviser)": "https://asoftmurmur.com",
-          "Smash Karts (Combat de kart multijoueur 3D en ligne)": "https://smashkarts.io",
-          "1v1.LOL (Battle Royale & construction dans le navigateur)": "https://1v1.lol",
-          "Slope 2 (1games.io officiel)": "https://1games.io/game/slope-2/",
-          "GeoGebra (Calculatrice graphique & géométrie camouflée)": "https://geogebra.org/calculator",
-          "Desmos (Calculatrice scientifique & courbes de cours)": "https://desmos.com/calculator",
-          "Wolfram Alpha (Moteur de calcul et solveur de devoirs)": "https://wolframalpha.com",
-          "DeepL Traducteur (Le traducteur référence pour l'Anglais et l'Allemand)": "https://deepl.com/translator",
-          "Google Docs": "https://docs.google.com",
-          "Google Drive": "https://drive.google.com",
-          "Wikipédia Français": "https://fr.wikipedia.org",
-          "YouTube": "https://youtube.com",
-          "GitHub": "https://github.com"
-        };
+  "Slope 2 (1games.io officiel)": "https://1games.io/game/slope-2/",
+  "1v1.LOL (Battle Royale & Construction)": "https://1v1.lol",
+  "Smash Karts (Combat de Kart 3D en ligne)": "https://smashkarts.io",
+  "Paper.io 2 (Conquête de territoire multijoueur)": "https://paper-io.com",
+  "Retro Bowl (Football américain rétro 8-bit)": "https://game316009.hostingerapp.com/",
+  "Krunker.io (FPS 3D rapide dans le navigateur)": "https://krunker.io",
+  "Agar.io (Absorption de cellules multijoueur)": "https://agar.io",
+  "Diep.io (Bataille de chars et évolutions)": "https://diep.io",
+  "Slither.io (Vers néon multijoueur)": "https://slither.io",
+  "Vex 7 (Parkour & plateformes hardcore)": "https://html5.gamedistribution.com/b52c03c51cf94ff788cb20c6a81b2da9/",
+  "Cookie Clicker Officiel (Orteil)": "https://orteil.dashnet.org/cookieclicker/",
+  "Universal Paperclips (IA de trombones exponentielle)": "https://decisionproblem.com/paperclips/index2.html",
+  "SandTris (Tetris de sable physique)": "https://sandtris.com/",
+  "BitLife Web (Simulateur de vie)": "https://bitlifeonline.io",
+  "Hole.io (Trou noir urbain multijoueur)": "https://hole-io.com",
+  "Moto X3M (Course de moto trial & cascades)": "https://motox3m.co",
+  "Crossy Road Web (Le classique du saut de route)": "https://poki.com/fr/g/crossy-road",
+  "Run 3 (Course spatiale 3D dans le tunnel)": "https://run3.io",
+  "Bad Ice Cream (Jeu Nitrome rétro d'arcade)": "https://badicecream.io",
+  "Neal.fun (Infinite Craft, Deep Sea, Space)": "https://neal.fun",
+  "The Password Game (Le mot de passe impossible)": "https://neal.fun/password-game/",
+  "Infinite Craft (Fusion d'éléments par IA)": "https://neal.fun/infinite-craft/",
+  "Wordle NYT (Le mot quotidien mondial)": "https://www.nytimes.com/games/wordle/index.html",
+  "Lichess (Échecs en ligne 100% gratuits sans pub)": "https://lichess.org",
+  "Chess.com (Échecs & puzzles tactiques)": "https://chess.com",
+  "The Wiki Game (Course Wikipédia en 6 clics)": "https://thewikigame.com",
+  "City Guesser (GeoGuessr vidéo immersif mondial)": "https://virtualvacation.us/guess",
+  "Worldle (Devine le pays par sa silhouette géographique)": "https://worldle.teuteuf.fr",
+  "Semantle (Jeu de proximité sémantique de mots)": "https://semantle.com",
+  "Quick, Draw! (Google IA qui devine tes dessins)": "https://quickdraw.withgoogle.com",
+  "Human Benchmark (Tests de réflexes, mémoire et clics)": "https://humanbenchmark.com",
+  "Little Alchemy 2 (Alchimie & combinaisons)": "https://littlealchemy2.com",
+  "Bored Button (Bouton magique anti-ennui)": "https://boredbutton.com",
+  "PlayRetroGames (Émulateur NES, SNES, GBA en ligne)": "https://www.playretrogames.com",
+  "EmulatorJS (Émulateur web pour consoles rétro)": "https://emulatorjs.org",
+  "DOSBox Online (Jeux PC DOS cultes dans le navigateur)": "https://js-dos.com/games/",
+  "RetroGames.cc (Bibliothèque d'arcade et de salon rétro)": "https://www.retrogames.cc",
+  "Archive.org Internet Arcade (Musée vivant de l'arcade)": "https://archive.org/details/internetarcade",
+  "SNESFun (Super Nintendo complet en ligne)": "https://www.snesfun.com",
+  "Slow Roads (Conduite 3D zen et infinie procédurale)": "https://slowroads.io",
+  "Sandspiel (Simulateur de sable & physique élémentaire)": "https://sandspiel.club",
+  "Weave Silk (Art génératif symétrique et néon)": "https://weavesilk.com",
+  "Radio Garden (Écoute les radios du monde sur globe 3D)": "https://radio.garden",
+  "Window Swap (Regarde par la fenêtre d'inconnus du monde)": "https://window-swap.com",
+  "A Soft Murmur (Ambiance pluie, orage, feu pour focus)": "https://asoftmurmur.com",
+  "Pointer Pointer (Photo qui pointe exactement ton curseur)": "https://pointerpointer.com",
+  "The Useless Web (Le générateur des sites les plus inutiles)": "https://theuselessweb.com",
+  "Zoomquilt (L'illusion infinie de zoom continu)": "https://zoomquilt.org",
+  "Hacker Typer (Frappe au clavier façon hacker cinéma)": "https://hackertyper.net",
+  "Fake Update (Fausse mise à jour Windows/Mac plein écran)": "https://fakeupdate.net",
+  "MuscleWiki (Exercices de musculation & étirements)": "https://musclewiki.com",
+  "GeoGebra (Calculatrice graphique & géométrie de cours)": "https://geogebra.org/calculator",
+  "Desmos (Calculatrice scientifique & courbes)": "https://desmos.com/calculator",
+  "Wolfram Alpha (Moteur de calcul et solveur de devoirs)": "https://wolframalpha.com",
+  "DeepL Traducteur (Le meilleur traducteur EN/DE/ES)": "https://deepl.com/translator",
+  "Symbolab (Solveur d'équations étape par étape)": "https://symbolab.com",
+  "Notion (Prise de notes & base de connaissances)": "https://notion.so",
+  "Google Docs (Traitement de texte camouflé)": "https://docs.google.com",
+  "Google Drive (Stockage de fichiers école)": "https://drive.google.com",
+  "Canva (Création de diaporamas et affiches)": "https://canva.com",
+  "QuillBot (Reformulation & correction de texte)": "https://quillbot.com",
+  "Photopea (Clone Photoshop complet dans le navigateur)": "https://photopea.com",
+  "Overleaf (Éditeur LaTeX collaboratif de devoirs)": "https://overleaf.com",
+  "Monkeytype (Test de dactylo camouflé en prise de notes)": "https://monkeytype.com",
+  "Convertio (Convertisseur universel de fichiers)": "https://convertio.co/fr/",
+  "Moodle VD (Portail cantonal officiel des cours)": "https://moodle.vd.ch",
+  "Portail EDU_VD (Services numériques scolaires vaudois)": "https://edu.vd.ch",
+  "Educavie (Espace cantonal de formation VD)": "https://educavie.ch",
+  "Educanet (Ressources pédagogiques romandes)": "https://educanet2.ch",
+  "Wikipédia Français (L'encyclopédie libre)": "https://fr.wikipedia.org",
+  "Vikidia (Encyclopédie pour les jeunes 8-13 ans)": "https://fr.vikidia.org",
+  "GitHub (Plateforme de code & projets)": "https://github.com",
+  "YouTube (Vidéos éducatives & musique d'ambiance)": "https://youtube.com"
+};
 
         function formatUrl(raw) {
           if (!raw) return '';
@@ -9563,7 +9925,10 @@
             const fullUrl = typeof val === 'string' ? val : (val.url || '');
             const title = typeof val === 'string' ? key : (val.name || key);
             const search = filterText.toLowerCase();
-            return title.toLowerCase().includes(search) || fullUrl.toLowerCase().includes(search);
+            const textMatch = title.toLowerCase().includes(search) || fullUrl.toLowerCase().includes(search);
+            const cat = typeof getLinkCategory === 'function' ? getLinkCategory(title, fullUrl) : 'toys';
+            const catMatch = (activeLinkCat === 'all' || cat === activeLinkCat);
+            return textMatch && catMatch;
           });
 
           if (filtered.length === 0) {
@@ -9602,6 +9967,17 @@
         }
 
         // Événements
+        // Clics sur les catégories de liens
+        const catBtns = document.querySelectorAll('#links-cat-tabs .dash-filter-btn');
+        catBtns.forEach(btn => {
+          btn.onclick = () => {
+            catBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeLinkCat = btn.dataset.linkcat;
+            render();
+          };
+        });
+
         const searchInput = document.getElementById('links-search-input');
         if (searchInput) {
           searchInput.addEventListener('input', (e) => {
@@ -15637,7 +16013,1266 @@ const SilkCanvas = (() => {
         });
       })();
 
-      const CYBER_MODULES = {
+      
+/* ============================================================================
+   SUITE NOUVEAUX JEUX : PAC-MAN, SPACE INVADERS, CROSSY ROAD, MEMORY MATRIX
+   ============================================================================ */
+
+// 1. MINI PAC-MAN NÉON
+const PacmanGame = (() => {
+  let cv, ctx, animId, speedMul = 1.0;
+  let score = 0, best = parseInt(localStorage.getItem('hf_pacman_best') || '0', 10);
+  let lives = 3, level = 1, frightTimer = 0, mouthAngle = 0.2, mouthDir = 1;
+  const tileSize = 20, cols = 22, rows = 25;
+
+  // Labyrinthe (0 = vide/couloir avec point, 1 = mur, 2 = energizer, 3 = maison fantômes, 4 = couloir vide sans point)
+  const baseMap = [
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,2,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,2,1],
+    [1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1],
+    [1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,1,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,1,0,1],
+    [1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1],
+    [1,1,1,1,1,0,1,1,1,4,1,1,4,1,1,1,0,1,1,1,1,1],
+    [4,4,4,4,1,0,1,4,4,4,4,4,4,4,4,1,0,1,4,4,4,4],
+    [1,1,1,1,1,0,1,4,1,1,3,3,1,1,4,1,0,1,1,1,1,1],
+    [4,4,4,4,4,0,4,4,1,3,3,3,3,1,4,4,0,4,4,4,4,4],
+    [1,1,1,1,1,0,1,4,1,1,1,1,1,1,4,1,0,1,1,1,1,1],
+    [4,4,4,4,1,0,1,4,4,4,4,4,4,4,4,1,0,1,4,4,4,4],
+    [1,1,1,1,1,0,1,4,1,1,1,1,1,1,4,1,0,1,1,1,1,1],
+    [1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1],
+    [1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1],
+    [1,2,0,0,1,0,0,0,0,0,4,4,0,0,0,0,0,1,0,0,2,1],
+    [1,1,1,0,1,0,1,0,1,1,1,1,1,1,0,1,0,1,0,1,1,1],
+    [1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1],
+    [1,0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
+    [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
+    [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
+  ];
+
+  let grid = [];
+  let pacman = { x: 10, y: 16, px: 200, py: 320, dirX: 0, dirY: 0, nextDirX: 0, nextDirY: 0, speed: 2.2 };
+  let ghosts = [];
+
+  function initMap() {
+    grid = baseMap.map(row => [...row]);
+    pacman.x = 10; pacman.y = 16;
+    pacman.px = pacman.x * tileSize + tileSize / 2;
+    pacman.py = pacman.y * tileSize + tileSize / 2;
+    pacman.dirX = 0; pacman.dirY = 0;
+    pacman.nextDirX = -1; pacman.nextDirY = 0;
+
+    ghosts = [
+      { x: 10, y: 10, px: 210, py: 210, color: '#f43f5e', dirX: 1, dirY: 0, speed: 1.8, name: 'Blinky', inHouse: false },
+      { x: 11, y: 10, px: 230, py: 210, color: '#ec4899', dirX: -1, dirY: 0, speed: 1.7, name: 'Pinky', inHouse: false },
+      { x: 9, y: 10, px: 190, py: 210, color: '#00f0ff', dirX: 0, dirY: -1, speed: 1.6, name: 'Inky', inHouse: false },
+      { x: 12, y: 10, px: 250, py: 210, color: '#f59e0b', dirX: 0, dirY: 1, speed: 1.5, name: 'Clyde', inHouse: false }
+    ];
+  }
+
+  function canMove(gx, gy) {
+    if (gx < 0 || gx >= cols || gy < 0 || gy >= rows) return true; // tunnels
+    return grid[gy][gx] !== 1 && grid[gy][gx] !== 3;
+  }
+
+  function handleInput(e) {
+    const k = e.key;
+    if (['ArrowUp', 'KeyW', 'KeyZ'].includes(k)) { pacman.nextDirX = 0; pacman.nextDirY = -1; }
+    else if (['ArrowDown', 'KeyS'].includes(k)) { pacman.nextDirX = 0; pacman.nextDirY = 1; }
+    else if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(k)) { pacman.nextDirX = -1; pacman.nextDirY = 0; }
+    else if (['ArrowRight', 'KeyD'].includes(k)) { pacman.nextDirX = 1; pacman.nextDirY = 0; }
+  }
+
+  function update() {
+    const mult = (typeof SpeedRegulator !== 'undefined' ? SpeedRegulator.multiplier : 1.0) * speedMul;
+    mouthAngle += 0.05 * mouthDir;
+    if (mouthAngle > 0.38) mouthDir = -1;
+    if (mouthAngle < 0.05) mouthDir = 1;
+
+    // Movement Pac-Man
+    const currentGridX = Math.floor(pacman.px / tileSize);
+    const currentGridY = Math.floor(pacman.py / tileSize);
+    const centerX = currentGridX * tileSize + tileSize / 2;
+    const centerY = currentGridY * tileSize + tileSize / 2;
+
+    // Turn check
+    if (pacman.nextDirX !== 0 || pacman.nextDirY !== 0) {
+      if (Math.abs(pacman.px - centerX) < 3 && Math.abs(pacman.py - centerY) < 3) {
+        if (canMove(currentGridX + pacman.nextDirX, currentGridY + pacman.nextDirY)) {
+          pacman.px = centerX;
+          pacman.py = centerY;
+          pacman.dirX = pacman.nextDirX;
+          pacman.dirY = pacman.nextDirY;
+          pacman.nextDirX = 0;
+          pacman.nextDirY = 0;
+        }
+      }
+    }
+
+    // Move forward
+    const nextPx = pacman.px + pacman.dirX * pacman.speed * mult;
+    const nextPy = pacman.py + pacman.dirY * pacman.speed * mult;
+    const testGridX = Math.floor((nextPx + pacman.dirX * 9) / tileSize);
+    const testGridY = Math.floor((nextPy + pacman.dirY * 9) / tileSize);
+
+    if (canMove(testGridX, testGridY)) {
+      pacman.px = nextPx;
+      pacman.py = nextPy;
+    }
+
+    // Wrap-around tunnels
+    if (pacman.px < 0) pacman.px = cols * tileSize;
+    if (pacman.px > cols * tileSize) pacman.px = 0;
+
+    // Eat pellets
+    const gx = Math.floor(pacman.px / tileSize);
+    const gy = Math.floor(pacman.py / tileSize);
+    if (gx >= 0 && gx < cols && gy >= 0 && gy < rows) {
+      if (grid[gy][gx] === 0) {
+        grid[gy][gx] = 4;
+        score += 10;
+        try { CyberAudio.click(); } catch(e){}
+      } else if (grid[gy][gx] === 2) {
+        grid[gy][gx] = 4;
+        score += 50;
+        frightTimer = 400; // ~6-7 seconds
+        try { CyberAudio.score(); } catch(e){}
+      }
+    }
+
+    if (frightTimer > 0) frightTimer -= 1 * mult;
+
+    // Update ghosts
+    ghosts.forEach(g => {
+      const gCurrentX = Math.floor(g.px / tileSize);
+      const gCurrentY = Math.floor(g.py / tileSize);
+      const gCenterX = gCurrentX * tileSize + tileSize / 2;
+      const gCenterY = gCurrentY * tileSize + tileSize / 2;
+
+      if (Math.abs(g.px - gCenterX) < 2 && Math.abs(g.py - gCenterY) < 2) {
+        g.px = gCenterX;
+        g.py = gCenterY;
+        const validDirs = [];
+        const dirs = [{x:0, y:-1}, {x:0, y:1}, {x:-1, y:0}, {x:1, y:0}];
+        dirs.forEach(d => {
+          if (d.x === -g.dirX && d.y === -g.dirY) return; // don't reverse
+          if (canMove(gCurrentX + d.x, gCurrentY + d.y)) validDirs.push(d);
+        });
+
+        if (validDirs.length > 0) {
+          // target Pac-Man or random if frightened
+          if (frightTimer > 0) {
+            const chosen = validDirs[Math.floor(Math.random() * validDirs.length)];
+            g.dirX = chosen.x; g.dirY = chosen.y;
+          } else {
+            validDirs.sort((a, b) => {
+              const distA = Math.hypot((gCurrentX + a.x) * tileSize - pacman.px, (gCurrentY + a.y) * tileSize - pacman.py);
+              const distB = Math.hypot((gCurrentX + b.x) * tileSize - pacman.px, (gCurrentY + b.y) * tileSize - pacman.py);
+              return distA - distB;
+            });
+            g.dirX = validDirs[0].x;
+            g.dirY = validDirs[0].y;
+          }
+        } else {
+          g.dirX = -g.dirX;
+          g.dirY = -g.dirY;
+        }
+      }
+
+      const spd = (frightTimer > 0 ? g.speed * 0.65 : g.speed) * mult;
+      g.px += g.dirX * spd;
+      g.py += g.dirY * spd;
+
+      // Check collision with Pac-Man
+      const dist = Math.hypot(g.px - pacman.px, g.py - pacman.py);
+      if (dist < 14) {
+        if (frightTimer > 0) {
+          // Ghost eaten
+          score += 200;
+          g.px = 10 * tileSize + tileSize / 2;
+          g.py = 10 * tileSize + tileSize / 2;
+          try { CyberAudio.boom(); } catch(e){}
+        } else {
+          // Pac-Man lost life
+          lives--;
+          try { CyberAudio.over(); } catch(e){}
+          if (lives <= 0) {
+            if (score > best) {
+              best = score;
+              localStorage.setItem('hf_pacman_best', best.toString());
+            }
+            score = 0;
+            lives = 3;
+            level = 1;
+            initMap();
+          } else {
+            pacman.px = 10 * tileSize + tileSize / 2;
+            pacman.py = 16 * tileSize + tileSize / 2;
+            pacman.dirX = 0; pacman.dirY = 0;
+          }
+        }
+      }
+    });
+
+    // Check level clear
+    let pelletsLeft = 0;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (grid[r][c] === 0 || grid[r][c] === 2) pelletsLeft++;
+      }
+    }
+    if (pelletsLeft === 0) {
+      level++;
+      score += 500;
+      try { CyberAudio.chime(); } catch(e){}
+      initMap();
+    }
+
+    if (score > best) best = score;
+
+    // HUD
+    const sEl = document.getElementById('pacman-score');
+    const bEl = document.getElementById('pacman-best');
+    const lEl = document.getElementById('pacman-lives');
+    const lvEl = document.getElementById('pacman-level');
+    if (sEl) sEl.textContent = score;
+    if (bEl) bEl.textContent = best;
+    if (lEl) lEl.textContent = '🟡'.repeat(Math.max(0, lives));
+    if (lvEl) lvEl.textContent = level;
+  }
+
+  function render() {
+    ctx.fillStyle = '#02050f';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+
+    // Draw maze walls and dots
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const val = grid[r][c];
+        const x = c * tileSize;
+        const y = r * tileSize;
+
+        if (val === 1) {
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.7)';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x + 2, y + 2, tileSize - 4, tileSize - 4);
+          ctx.fillStyle = 'rgba(0, 240, 255, 0.08)';
+          ctx.fillRect(x + 3, y + 3, tileSize - 6, tileSize - 6);
+        } else if (val === 0) {
+          ctx.fillStyle = '#fef08a';
+          ctx.beginPath();
+          ctx.arc(x + tileSize / 2, y + tileSize / 2, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (val === 2) {
+          ctx.fillStyle = '#00f0ff';
+          ctx.beginPath();
+          ctx.arc(x + tileSize / 2, y + tileSize / 2, 5.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 8;
+        }
+      }
+    }
+    ctx.shadowBlur = 0;
+
+    // Draw Pac-Man
+    ctx.fillStyle = '#fbbf24';
+    let baseAngle = 0;
+    if (pacman.dirX === 1) baseAngle = 0;
+    else if (pacman.dirX === -1) baseAngle = Math.PI;
+    else if (pacman.dirY === 1) baseAngle = Math.PI / 2;
+    else if (pacman.dirY === -1) baseAngle = -Math.PI / 2;
+
+    ctx.beginPath();
+    ctx.arc(pacman.px, pacman.py, 8, baseAngle + mouthAngle, baseAngle + Math.PI * 2 - mouthAngle);
+    ctx.lineTo(pacman.px, pacman.py);
+    ctx.fill();
+
+    // Draw Ghosts
+    ghosts.forEach(g => {
+      ctx.fillStyle = frightTimer > 0 ? (frightTimer < 80 && Math.floor(frightTimer / 10) % 2 === 0 ? '#fff' : '#1e3a8a') : g.color;
+      ctx.beginPath();
+      ctx.arc(g.px, g.py - 2, 7.5, Math.PI, 0, false);
+      ctx.lineTo(g.px + 7.5, g.py + 7);
+      ctx.lineTo(g.px + 3.75, g.py + 4);
+      ctx.lineTo(g.px, g.py + 7);
+      ctx.lineTo(g.px - 3.75, g.py + 4);
+      ctx.lineTo(g.px - 7.5, g.py + 7);
+      ctx.closePath();
+      ctx.fill();
+
+      // Eyes
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(g.px - 3, g.py - 3, 2.2, 0, Math.PI * 2);
+      ctx.arc(g.px + 3, g.py - 3, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(g.px - 3 + g.dirX, g.py - 3 + g.dirY, 1.2, 0, Math.PI * 2);
+      ctx.arc(g.px + 3 + g.dirX, g.py - 3 + g.dirY, 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function loop() {
+    update();
+    render();
+    animId = requestAnimationFrame(loop);
+  }
+
+  return {
+    init: () => {
+      cv = document.getElementById('canvas-pacman');
+      if (!cv) return;
+      ctx = cv.getContext('2d');
+      initMap();
+      window.addEventListener('keydown', handleInput);
+      const rBtn = document.getElementById('pacman-reset');
+      if (rBtn) rBtn.onclick = () => { score = 0; lives = 3; level = 1; initMap(); };
+
+      // On-screen D-pad
+      const bU = document.getElementById('pac-btn-up');
+      const bD = document.getElementById('pac-btn-down');
+      const bL = document.getElementById('pac-btn-left');
+      const bR = document.getElementById('pac-btn-right');
+      if (bU) bU.onclick = () => { pacman.nextDirX = 0; pacman.nextDirY = -1; };
+      if (bD) bD.onclick = () => { pacman.nextDirX = 0; pacman.nextDirY = 1; };
+      if (bL) bL.onclick = () => { pacman.nextDirX = -1; pacman.nextDirY = 0; };
+      if (bR) bR.onclick = () => { pacman.nextDirX = 1; pacman.nextDirY = 0; };
+    },
+    start: () => {
+      if (!animId) loop();
+    },
+    pause: () => {
+      if (animId) { cancelAnimationFrame(animId); animId = null; }
+    }
+  };
+})();
+
+// 2. SPACE INVADERS CYBER
+const SpaceInvadersGame = (() => {
+  let cv, ctx, animId, speedMul = 1.0;
+  let score = 0, best = parseInt(localStorage.getItem('hf_invaders_best') || '0', 10);
+  let wave = 1, lives = 3;
+  let player = { x: 300, y: 440, w: 32, h: 18, spd: 4.5, left: false, right: false, canShoot: true };
+  let bullets = [], alienBombs = [], aliens = [], bunkers = [], ufo = null;
+  let alienDir = 1, alienStepTimer = 0, stepInterval = 40, alienDrop = 0;
+
+  function initWave() {
+    bullets = [];
+    alienBombs = [];
+    aliens = [];
+    alienDir = 1;
+    stepInterval = Math.max(12, 45 - wave * 4);
+
+    for (let r = 0; r < 5; r++) {
+      for (let c = 0; c < 10; c++) {
+        aliens.push({
+          x: 60 + c * 50,
+          y: 60 + r * 35,
+          w: 28,
+          h: 20,
+          type: r === 0 ? 3 : (r < 3 ? 2 : 1),
+          color: r === 0 ? '#ec4899' : (r < 3 ? '#00f0ff' : '#10b981'),
+          points: r === 0 ? 30 : (r < 3 ? 20 : 10)
+        });
+      }
+    }
+
+    // Bunkers (4 pixel shields)
+    bunkers = [];
+    for (let b = 0; b < 4; b++) {
+      const bx = 90 + b * 135;
+      const by = 370;
+      const blocks = [];
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 6; c++) {
+          if (r === 3 && (c === 2 || c === 3)) continue; // archway
+          blocks.push({ x: bx + c * 8, y: by + r * 7, w: 8, h: 7, hp: 3 });
+        }
+      }
+      bunkers.push(blocks);
+    }
+  }
+
+  function shoot() {
+    if (!player.canShoot) return;
+    bullets.push({ x: player.x + player.w / 2 - 2, y: player.y - 6, w: 4, h: 10 });
+    player.canShoot = false;
+    setTimeout(() => { player.canShoot = true; }, 260);
+    try { CyberAudio.jump(); } catch(e){}
+  }
+
+  function update() {
+    const mult = (typeof SpeedRegulator !== 'undefined' ? SpeedRegulator.multiplier : 1.0) * speedMul;
+
+    // Player Move
+    if (player.left) player.x = Math.max(10, player.x - player.spd * mult);
+    if (player.right) player.x = Math.min(cv.width - player.w - 10, player.x + player.spd * mult);
+
+    // Bullets Move
+    for (let i = bullets.length - 1; i >= 0; i--) {
+      const b = bullets[i];
+      b.y -= 7.5 * mult;
+      if (b.y < 0) { bullets.splice(i, 1); continue; }
+
+      // Check hit aliens
+      let hitAlien = false;
+      for (let j = aliens.length - 1; j >= 0; j--) {
+        const a = aliens[j];
+        if (b.x < a.x + a.w && b.x + b.w > a.x && b.y < a.y + a.h && b.y + b.h > a.y) {
+          score += a.points;
+          try { CyberAudio.hit(); } catch(e){}
+          aliens.splice(j, 1);
+          bullets.splice(i, 1);
+          hitAlien = true;
+          stepInterval = Math.max(6, Math.floor(stepInterval * 0.98));
+          break;
+        }
+      }
+      if (hitAlien) continue;
+
+      // Check hit UFO
+      if (ufo && b.x < ufo.x + ufo.w && b.x + b.w > ufo.x && b.y < ufo.y + ufo.h && b.y + b.h > ufo.y) {
+        score += ufo.pts;
+        try { CyberAudio.score(); } catch(e){}
+        ufo = null;
+        bullets.splice(i, 1);
+        continue;
+      }
+
+      // Check hit bunkers
+      let hitBunker = false;
+      bunkers.forEach(bunker => {
+        bunker.forEach((blk, blkIdx) => {
+          if (!hitBunker && b.x < blk.x + blk.w && b.x + b.w > blk.x && b.y < blk.y + blk.h && b.y + b.h > blk.y) {
+            blk.hp--;
+            if (blk.hp <= 0) bunker.splice(blkIdx, 1);
+            bullets.splice(i, 1);
+            hitBunker = true;
+          }
+        });
+      });
+    }
+
+    // Alien Step March
+    alienStepTimer += 1 * mult;
+    if (alienStepTimer >= stepInterval) {
+      alienStepTimer = 0;
+      let reachEdge = false;
+      aliens.forEach(a => {
+        if ((alienDir > 0 && a.x + a.w >= cv.width - 20) || (alienDir < 0 && a.x <= 20)) {
+          reachEdge = true;
+        }
+      });
+
+      if (reachEdge) {
+        alienDir = -alienDir;
+        aliens.forEach(a => { a.y += 16; });
+      } else {
+        aliens.forEach(a => { a.x += alienDir * 10; });
+      }
+
+      // Random alien bomb
+      if (aliens.length > 0 && Math.random() < 0.6) {
+        const shooter = aliens[Math.floor(Math.random() * aliens.length)];
+        alienBombs.push({ x: shooter.x + shooter.w / 2, y: shooter.y + shooter.h, w: 3, h: 8 });
+      }
+    }
+
+    // UFO spawn
+    if (!ufo && Math.random() < 0.002) {
+      ufo = { x: -40, y: 35, w: 36, h: 16, pts: 150 + Math.floor(Math.random() * 3) * 50 };
+    }
+    if (ufo) {
+      ufo.x += 2.2 * mult;
+      if (ufo.x > cv.width + 50) ufo = null;
+    }
+
+    // Alien Bombs Move
+    for (let i = alienBombs.length - 1; i >= 0; i--) {
+      const bm = alienBombs[i];
+      bm.y += 4 * mult;
+      if (bm.y > cv.height) { alienBombs.splice(i, 1); continue; }
+
+      // Check hit bunker
+      let hitB = false;
+      bunkers.forEach(bunker => {
+        bunker.forEach((blk, idx) => {
+          if (!hitB && bm.x < blk.x + blk.w && bm.x + bm.w > blk.x && bm.y < blk.y + blk.h && bm.y + bm.h > blk.y) {
+            blk.hp--;
+            if (blk.hp <= 0) bunker.splice(idx, 1);
+            alienBombs.splice(i, 1);
+            hitB = true;
+          }
+        });
+      });
+      if (hitB) continue;
+
+      // Check hit player
+      if (bm.x < player.x + player.w && bm.x + bm.w > player.x && bm.y < player.y + player.h && bm.y + bm.h > player.y) {
+        lives--;
+        alienBombs.splice(i, 1);
+        try { CyberAudio.boom(); } catch(e){}
+        if (lives <= 0) {
+          if (score > best) { best = score; localStorage.setItem('hf_invaders_best', best.toString()); }
+          score = 0; wave = 1; lives = 3;
+          initWave();
+        }
+      }
+    }
+
+    // Wave Cleared
+    if (aliens.length === 0) {
+      wave++;
+      score += 300;
+      try { CyberAudio.chime(); } catch(e){}
+      initWave();
+    }
+
+    // Check alien reaching bottom
+    aliens.forEach(a => {
+      if (a.y + a.h >= player.y) {
+        lives = 0;
+        if (score > best) { best = score; localStorage.setItem('hf_invaders_best', best.toString()); }
+        score = 0; wave = 1; lives = 3;
+        initWave();
+      }
+    });
+
+    if (score > best) best = score;
+
+    // HUD
+    const sEl = document.getElementById('invaders-score');
+    const bEl = document.getElementById('invaders-best');
+    const wEl = document.getElementById('invaders-wave');
+    const lEl = document.getElementById('invaders-lives');
+    if (sEl) sEl.textContent = score;
+    if (bEl) bEl.textContent = best;
+    if (wEl) wEl.textContent = wave;
+    if (lEl) lEl.textContent = '🚀'.repeat(Math.max(0, lives));
+  }
+
+  function render() {
+    ctx.fillStyle = '#02050f';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+
+    // Stars
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    for (let i = 0; i < 30; i++) {
+      const sx = (i * 97) % cv.width;
+      const sy = (i * 73) % cv.height;
+      ctx.fillRect(sx, sy, 1.5, 1.5);
+    }
+
+    // Draw Aliens
+    aliens.forEach(a => {
+      ctx.fillStyle = a.color;
+      ctx.shadowColor = a.color;
+      ctx.shadowBlur = 6;
+      ctx.fillRect(a.x + 4, a.y + 2, a.w - 8, a.h - 4);
+      // Tentacles/Eyes
+      ctx.fillRect(a.x + 2, a.y + 6, 4, a.h - 8);
+      ctx.fillRect(a.x + a.w - 6, a.y + 6, 4, a.h - 8);
+      ctx.fillStyle = '#000';
+      ctx.fillRect(a.x + 7, a.y + 6, 3, 4);
+      ctx.fillRect(a.x + a.w - 10, a.y + 6, 3, 4);
+    });
+    ctx.shadowBlur = 0;
+
+    // Draw UFO
+    if (ufo) {
+      ctx.fillStyle = '#f43f5e';
+      ctx.shadowColor = '#f43f5e';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.ellipse(ufo.x + ufo.w / 2, ufo.y + ufo.h / 2, ufo.w / 2, ufo.h / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(ufo.x + ufo.w / 2 - 3, ufo.y + 2, 6, 3);
+      ctx.shadowBlur = 0;
+    }
+
+    // Draw Bunkers
+    bunkers.forEach(bunker => {
+      bunker.forEach(blk => {
+        const alpha = blk.hp === 3 ? 0.9 : (blk.hp === 2 ? 0.6 : 0.3);
+        ctx.fillStyle = `rgba(0, 240, 255, ${alpha})`;
+        ctx.fillRect(blk.x, blk.y, blk.w - 1, blk.h - 1);
+      });
+    });
+
+    // Draw Player Cannon
+    ctx.fillStyle = '#00f0ff';
+    ctx.shadowColor = '#00f0ff';
+    ctx.shadowBlur = 8;
+    ctx.fillRect(player.x, player.y + 6, player.w, player.h - 6);
+    ctx.fillRect(player.x + player.w / 2 - 3, player.y, 6, 8);
+    ctx.shadowBlur = 0;
+
+    // Draw Bullets
+    ctx.fillStyle = '#fbbf24';
+    bullets.forEach(b => { ctx.fillRect(b.x, b.y, b.w, b.h); });
+
+    // Draw Alien Bombs
+    ctx.fillStyle = '#f43f5e';
+    alienBombs.forEach(bm => { ctx.fillRect(bm.x, bm.y, bm.w, bm.h); });
+  }
+
+  function loop() {
+    update();
+    render();
+    animId = requestAnimationFrame(loop);
+  }
+
+  return {
+    init: () => {
+      cv = document.getElementById('canvas-invaders');
+      if (!cv) return;
+      ctx = cv.getContext('2d');
+      initWave();
+
+      window.addEventListener('keydown', e => {
+        if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(e.code)) player.left = true;
+        if (['ArrowRight', 'KeyD'].includes(e.code)) player.right = true;
+        if (e.code === 'Space') { e.preventDefault(); shoot(); }
+      });
+      window.addEventListener('keyup', e => {
+        if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(e.code)) player.left = false;
+        if (['ArrowRight', 'KeyD'].includes(e.code)) player.right = false;
+      });
+
+      const rBtn = document.getElementById('invaders-reset');
+      if (rBtn) rBtn.onclick = () => { score = 0; wave = 1; lives = 3; initWave(); };
+      const fBtn = document.getElementById('inv-btn-fire');
+      if (fBtn) fBtn.onclick = shoot;
+      const lBtn = document.getElementById('inv-btn-left');
+      const rtBtn = document.getElementById('inv-btn-right');
+      if (lBtn) {
+        lBtn.onmousedown = () => { player.left = true; };
+        lBtn.onmouseup = () => { player.left = false; };
+      }
+      if (rtBtn) {
+        rtBtn.onmousedown = () => { player.right = true; };
+        rtBtn.onmouseup = () => { player.right = false; };
+      }
+    },
+    start: () => { if (!animId) loop(); },
+    pause: () => { if (animId) { cancelAnimationFrame(animId); animId = null; } }
+  };
+})();
+
+// 3. CYBER CROSSY ROAD 2D
+const CrossyGame = (() => {
+  let cv, ctx, animId, speedMul = 1.0;
+  let score = 0, best = parseInt(localStorage.getItem('hf_crossy_best') || '0', 10);
+  let coins = 0, player = { x: 7, y: 0, px: 280, py: 480, targetPx: 280, targetPy: 480, jumpArc: 0 };
+  const tileSize = 40, cols = 14;
+  let rows = [], cameraY = 0;
+
+  function generateRow(rowIndex) {
+    if (rowIndex <= 2) return { type: 'grass', y: rowIndex, items: [] };
+    const rand = Math.random();
+    if (rand < 0.45) {
+      // Road with cars
+      const dir = Math.random() < 0.5 ? 1 : -1;
+      const spd = 1.8 + Math.random() * 2.5;
+      const cars = [];
+      for (let i = 0; i < 2; i++) {
+        cars.push({ x: i * 260 + Math.random() * 50, w: 55, h: 26, color: dir > 0 ? '#f43f5e' : '#ec4899', spd, dir });
+      }
+      return { type: 'road', y: rowIndex, items: cars };
+    } else if (rand < 0.75) {
+      // River with logs
+      const dir = Math.random() < 0.5 ? 1 : -1;
+      const spd = 1.2 + Math.random() * 1.8;
+      const logs = [];
+      for (let i = 0; i < 2; i++) {
+        logs.push({ x: i * 280 + Math.random() * 60, w: 90, h: 28, spd, dir });
+      }
+      return { type: 'river', y: rowIndex, items: logs };
+    } else if (rand < 0.88) {
+      // Train tracks
+      return { type: 'train', y: rowIndex, timer: Math.floor(Math.random() * 150), train: null, warning: false };
+    } else {
+      return { type: 'grass', y: rowIndex, items: [] };
+    }
+  }
+
+  function initGame() {
+    rows = [];
+    for (let i = 0; i < 25; i++) {
+      rows.push(generateRow(i));
+    }
+    player.x = 7;
+    player.y = 1;
+    player.px = player.x * tileSize + tileSize / 2;
+    player.py = cv ? cv.height - player.y * tileSize - tileSize / 2 : 480;
+    player.targetPx = player.px;
+    player.targetPy = player.py;
+    cameraY = 0;
+    score = 0;
+  }
+
+  function hop(dx, dy) {
+    const nx = player.x + dx;
+    const ny = player.y + dy;
+    if (nx < 0 || nx >= cols || ny < 0) return;
+
+    player.x = nx;
+    player.y = ny;
+    player.targetPx = player.x * tileSize + tileSize / 2;
+    player.targetPy = cv.height - player.y * tileSize - tileSize / 2;
+    player.jumpArc = 12;
+
+    if (player.y > score) {
+      score = player.y;
+      if (score > best) {
+        best = score;
+        localStorage.setItem('hf_crossy_best', best.toString());
+      }
+      try { CyberAudio.jump(); } catch(e){}
+    }
+
+    // Generate new rows if climbing
+    while (rows.length <= player.y + 18) {
+      rows.push(generateRow(rows.length));
+    }
+  }
+
+  function update() {
+    const mult = (typeof SpeedRegulator !== 'undefined' ? SpeedRegulator.multiplier : 1.0) * speedMul;
+
+    // Smooth player position
+    player.px += (player.targetPx - player.px) * 0.3 * mult;
+    player.py += (player.targetPy - player.py) * 0.3 * mult;
+    if (player.jumpArc > 0) player.jumpArc -= 1 * mult;
+
+    // Smooth camera
+    const desiredCameraY = player.py - cv.height * 0.65;
+    cameraY += (desiredCameraY - cameraY) * 0.1 * mult;
+
+    const currentRow = rows[player.y];
+
+    // Update rows
+    rows.forEach(r => {
+      if (r.type === 'road') {
+        r.items.forEach(car => {
+          car.x += car.dir * car.spd * mult;
+          if (car.dir > 0 && car.x > cv.width + 60) car.x = -70;
+          if (car.dir < 0 && car.x < -80) car.x = cv.width + 70;
+
+          // Check hit
+          if (r.y === player.y) {
+            if (player.px > car.x && player.px < car.x + car.w) {
+              try { CyberAudio.boom(); } catch(e){}
+              initGame();
+            }
+          }
+        });
+      } else if (r.type === 'river') {
+        let onLog = false;
+        r.items.forEach(log => {
+          log.x += log.dir * log.spd * mult;
+          if (log.dir > 0 && log.x > cv.width + 100) log.x = -110;
+          if (log.dir < 0 && log.x < -120) log.x = cv.width + 110;
+
+          if (r.y === player.y) {
+            if (player.px >= log.x && player.px <= log.x + log.w) {
+              onLog = true;
+              player.px += log.dir * log.spd * mult;
+              player.targetPx += log.dir * log.spd * mult;
+            }
+          }
+        });
+
+        // Drown if not on log
+        if (r.y === player.y && !onLog && player.jumpArc <= 2) {
+          try { CyberAudio.boom(); } catch(e){}
+          initGame();
+        }
+      } else if (r.type === 'train') {
+        r.timer += 1 * mult;
+        r.warning = (r.timer > 140 && r.timer < 190);
+        if (r.timer >= 190 && !r.train) {
+          r.train = { x: -300, spd: 14 };
+        }
+        if (r.train) {
+          r.train.x += r.train.spd * mult;
+          if (r.y === player.y && player.px > r.train.x && player.px < r.train.x + 300) {
+            try { CyberAudio.boom(); } catch(e){}
+            initGame();
+          }
+          if (r.train.x > cv.width + 300) {
+            r.train = null;
+            r.timer = 0;
+          }
+        }
+      }
+    });
+
+    // Fall off screen check
+    if (player.px < 10 || player.px > cv.width - 10) initGame();
+
+    // HUD
+    const sEl = document.getElementById('crossy-score');
+    const bEl = document.getElementById('crossy-best');
+    const cEl = document.getElementById('crossy-coins');
+    if (sEl) sEl.textContent = score;
+    if (bEl) bEl.textContent = best;
+    if (cEl) cEl.textContent = coins;
+  }
+
+  function render() {
+    ctx.fillStyle = '#050811';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+
+    ctx.save();
+    ctx.translate(0, -cameraY);
+
+    // Draw rows
+    rows.forEach(r => {
+      const yPos = cv.height - r.y * tileSize - tileSize;
+
+      if (r.type === 'grass') {
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, yPos, cv.width, tileSize);
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
+        for (let i = 0; i < cols; i++) {
+          ctx.fillRect(i * tileSize + 14, yPos + 14, 4, 4);
+        }
+      } else if (r.type === 'road') {
+        ctx.fillStyle = '#090d16';
+        ctx.fillRect(0, yPos, cv.width, tileSize);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(0, yPos + tileSize / 2);
+        ctx.lineTo(cv.width, yPos + tileSize / 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Cars
+        r.items.forEach(car => {
+          ctx.fillStyle = car.color;
+          ctx.shadowColor = car.color;
+          ctx.shadowBlur = 8;
+          ctx.fillRect(car.x, yPos + (tileSize - car.h) / 2, car.w, car.h);
+          // Headlights
+          ctx.fillStyle = '#fef08a';
+          const hx = car.dir > 0 ? car.x + car.w - 4 : car.x;
+          ctx.fillRect(hx, yPos + 8, 4, 5);
+          ctx.fillRect(hx, yPos + car.h - 1, 4, 5);
+          ctx.shadowBlur = 0;
+        });
+      } else if (r.type === 'river') {
+        ctx.fillStyle = '#062038';
+        ctx.fillRect(0, yPos, cv.width, tileSize);
+
+        // Logs
+        r.items.forEach(log => {
+          ctx.fillStyle = '#00f0ff';
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 6;
+          ctx.fillRect(log.x, yPos + (tileSize - log.h) / 2, log.w, log.h);
+          ctx.fillStyle = 'rgba(0,0,0,0.3)';
+          ctx.fillRect(log.x + 8, yPos + 8, log.w - 16, log.h - 16);
+          ctx.shadowBlur = 0;
+        });
+      } else if (r.type === 'train') {
+        ctx.fillStyle = '#171124';
+        ctx.fillRect(0, yPos, cv.width, tileSize);
+        // Laser rails
+        ctx.strokeStyle = r.warning ? '#f43f5e' : 'rgba(244, 63, 94, 0.25)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, yPos + 6); ctx.lineTo(cv.width, yPos + 6);
+        ctx.moveTo(0, yPos + tileSize - 6); ctx.lineTo(cv.width, yPos + tileSize - 6);
+        ctx.stroke();
+
+        // Train
+        if (r.train) {
+          ctx.fillStyle = '#f43f5e';
+          ctx.shadowColor = '#f43f5e';
+          ctx.shadowBlur = 14;
+          ctx.fillRect(r.train.x, yPos + 4, 300, tileSize - 8);
+          ctx.shadowBlur = 0;
+        }
+      }
+    });
+
+    // Draw Player
+    ctx.fillStyle = '#10b981';
+    ctx.shadowColor = '#10b981';
+    ctx.shadowBlur = 10;
+    const drawY = player.py - player.jumpArc;
+    ctx.fillRect(player.px - 11, drawY - 11, 22, 22);
+    // Cyber visor
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(player.px - 7, drawY - 7, 14, 5);
+    ctx.shadowBlur = 0;
+
+    ctx.restore();
+  }
+
+  function loop() {
+    update();
+    render();
+    animId = requestAnimationFrame(loop);
+  }
+
+  return {
+    init: () => {
+      cv = document.getElementById('canvas-crossy');
+      if (!cv) return;
+      ctx = cv.getContext('2d');
+      initGame();
+
+      window.addEventListener('keydown', e => {
+        if (['ArrowUp', 'KeyW', 'KeyZ'].includes(e.code)) { e.preventDefault(); hop(0, 1); }
+        else if (['ArrowDown', 'KeyS'].includes(e.code)) { e.preventDefault(); hop(0, -1); }
+        else if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(e.code)) { e.preventDefault(); hop(-1, 0); }
+        else if (['ArrowRight', 'KeyD'].includes(e.code)) { e.preventDefault(); hop(1, 0); }
+      });
+
+      const rBtn = document.getElementById('crossy-reset');
+      if (rBtn) rBtn.onclick = initGame;
+      const bU = document.getElementById('crossy-btn-up');
+      const bD = document.getElementById('crossy-btn-down');
+      const bL = document.getElementById('crossy-btn-left');
+      const bR = document.getElementById('crossy-btn-right');
+      if (bU) bU.onclick = () => hop(0, 1);
+      if (bD) bD.onclick = () => hop(0, -1);
+      if (bL) bL.onclick = () => hop(-1, 0);
+      if (bR) bR.onclick = () => hop(1, 0);
+    },
+    start: () => { if (!animId) loop(); },
+    pause: () => { if (animId) { cancelAnimationFrame(animId); animId = null; } }
+  };
+})();
+
+// 4. CYBER MEMORY MATRIX
+const MemoryGame = (() => {
+  const ICONS = ['🤖', '🚀', '⚡', '🧬', '👾', '🎮', '💎', '🛡️', '🛸', '💣', '🏎️', '🎯'];
+  let totalCards = 16, cards = [], flipped = [], matchedCount = 0;
+  let moves = 0, combo = 1, timerSec = 0, timerInterval = null, isLocked = false;
+  let best = localStorage.getItem('hf_memory_best') || '--';
+
+  function init(mode = 16) {
+    totalCards = mode;
+    matchedCount = 0;
+    moves = 0;
+    combo = 1;
+    timerSec = 0;
+    isLocked = false;
+    flipped = [];
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+      timerSec++;
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const tEl = document.getElementById('memory-timer');
+      if (tEl) tEl.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+    }, 1000);
+
+    const pairsNeeded = totalCards / 2;
+    const selectedIcons = ICONS.slice(0, pairsNeeded);
+    const deck = [...selectedIcons, ...selectedIcons].sort(() => Math.random() - 0.5);
+
+    const grid = document.getElementById('memory-grid');
+    if (!grid) return;
+    grid.className = `memory-grid mode-${totalCards}`;
+    grid.innerHTML = '';
+
+    deck.forEach((icon, idx) => {
+      const card = document.createElement('button');
+      card.className = 'memory-card';
+      card.dataset.index = idx;
+      card.dataset.icon = icon;
+      card.innerHTML = `
+        <div class="memory-card-face memory-card-back">⚡</div>
+        <div class="memory-card-face memory-card-front">${icon}</div>
+      `;
+      card.onclick = () => flipCard(card);
+      grid.appendChild(card);
+    });
+
+    updateHUD();
+  }
+
+  function flipCard(card) {
+    if (isLocked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+    card.classList.add('flipped');
+    flipped.push(card);
+    try { CyberAudio.click(); } catch(e){}
+
+    if (flipped.length === 2) {
+      moves++;
+      isLocked = true;
+      const [c1, c2] = flipped;
+
+      if (c1.dataset.icon === c2.dataset.icon) {
+        // Matched!
+        setTimeout(() => {
+          c1.classList.add('matched');
+          c2.classList.add('matched');
+          matchedCount += 2;
+          combo++;
+          try { CyberAudio.score(); } catch(e){}
+          flipped = [];
+          isLocked = false;
+          updateHUD();
+
+          if (matchedCount === totalCards) {
+            clearInterval(timerInterval);
+            try { CyberAudio.chime(); } catch(e){}
+            const recordStr = `${moves} coups (${timerSec}s)`;
+            best = recordStr;
+            localStorage.setItem('hf_memory_best', best);
+            updateHUD();
+          }
+        }, 320);
+      } else {
+        // Mismatch
+        combo = 1;
+        setTimeout(() => {
+          c1.classList.remove('flipped');
+          c2.classList.remove('flipped');
+          flipped = [];
+          isLocked = false;
+          updateHUD();
+        }, 850);
+      }
+    }
+    updateHUD();
+  }
+
+  function updateHUD() {
+    const pEl = document.getElementById('memory-pairs');
+    const mEl = document.getElementById('memory-moves');
+    const cEl = document.getElementById('memory-combo');
+    const bEl = document.getElementById('memory-best');
+    if (pEl) pEl.textContent = `${matchedCount / 2} / ${totalCards / 2}`;
+    if (mEl) mEl.textContent = moves;
+    if (cEl) cEl.textContent = `x${combo}`;
+    if (bEl) bEl.textContent = best;
+  }
+
+  return {
+    init: () => {
+      init(16);
+      const rBtn = document.getElementById('memory-reset');
+      if (rBtn) rBtn.onclick = () => init(totalCards);
+      const m16 = document.getElementById('memory-mode-16');
+      const m24 = document.getElementById('memory-mode-24');
+      if (m16) m16.onclick = () => { m16.classList.add('active'); m24.classList.remove('active'); init(16); };
+      if (m24) m24.onclick = () => { m24.classList.add('active'); m16.classList.remove('active'); init(24); };
+    },
+    start: () => {},
+    pause: () => { clearInterval(timerInterval); }
+  };
+})();
+
+/* ============================================================================
+   MODULE UNIVERSEL : COMPTEUR DE TEMPS ACTIF & REGISTRE DES JEUX
+   ============================================================================ */
+const ActiveTimeTracker = (() => {
+  const STORAGE_KEY_TOTAL = 'hf_active_seconds_total_v2';
+  const STORAGE_KEY_PLAYED = 'hf_played_games_v2';
+  const ALL_MODULES_TOTAL = 58;
+
+  let totalSeconds = parseInt(localStorage.getItem(STORAGE_KEY_TOTAL) || '0', 10);
+  if (isNaN(totalSeconds)) totalSeconds = 0;
+  let sessionSeconds = 0;
+  let isWindowActive = (document.visibilityState === 'visible' && (document.hasFocus ? document.hasFocus() : true));
+  let timerInterval = null;
+
+  function updateActiveState() {
+    const visible = document.visibilityState === 'visible';
+    const focused = typeof document.hasFocus === 'function' ? document.hasFocus() : true;
+    const nowActive = visible && focused;
+
+    if (nowActive !== isWindowActive) {
+      isWindowActive = nowActive;
+      renderUI();
+    }
+  }
+
+  function tick() {
+    if (isWindowActive) {
+      sessionSeconds++;
+      totalSeconds++;
+      if (sessionSeconds % 5 === 0) {
+        try { localStorage.setItem(STORAGE_KEY_TOTAL, totalSeconds.toString()); } catch(e){}
+      }
+    }
+    renderUI();
+  }
+
+  function formatTime(sec) {
+    if (sec < 60) return `${sec}s`;
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    if (m < 60) return `${m}m ${s < 10 ? '0' : ''}${s}s`;
+    const h = Math.floor(m / 60);
+    const remM = m % 60;
+    return `${h}h ${remM < 10 ? '0' : ''}${remM}m ${s < 10 ? '0' : ''}${s}s`;
+  }
+
+  function getPlayedGames() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY_PLAYED) || '[]');
+    } catch(e) {
+      return [];
+    }
+  }
+
+  function recordGamePlayed(sectionKey) {
+    if (!sectionKey || sectionKey === 'home' || sectionKey === 'cloak') return;
+    const played = getPlayedGames();
+    if (!played.includes(sectionKey)) {
+      played.push(sectionKey);
+      try { localStorage.setItem(STORAGE_KEY_PLAYED, JSON.stringify(played)); } catch(e){}
+      renderUI();
+    }
+  }
+
+  function getRank(totalSec, playedCount) {
+    if (totalSec >= 10800 || playedCount >= 40) return { title: '👑 Légende Absolue du Hub', color: 'text-amber' };
+    if (totalSec >= 3600 || playedCount >= 25) return { title: '💻 Maître Cyber des Salles Info', color: 'text-cyan' };
+    if (totalSec >= 1200 || playedCount >= 15) return { title: '⚡ Ninja Multitâche Pro', color: 'text-violet' };
+    if (totalSec >= 300 || playedCount >= 5) return { title: '🎒 Habitué du Fond de Classe', color: 'text-emerald' };
+    return { title: '👻 Agent Furtif Novice', color: 'text-muted' };
+  }
+
+  function renderUI() {
+    // Topbar
+    const dot = document.getElementById('topbar-timer-dot');
+    const text = document.getElementById('topbar-timer-text');
+    const badge = document.getElementById('topbar-games-badge');
+    const widget = document.getElementById('topbar-timer-widget');
+
+    if (dot) dot.className = isWindowActive ? 'timer-dot active' : 'timer-dot paused';
+    if (text) text.textContent = formatTime(sessionSeconds);
+    if (widget) widget.setAttribute('data-status', isWindowActive ? 'active' : 'paused');
+
+    const played = getPlayedGames();
+    if (badge) badge.textContent = `🎮 ${played.length}/${ALL_MODULES_TOTAL}`;
+
+    // Dashboard
+    const dSession = document.getElementById('dash-timer-session');
+    const dTotal = document.getElementById('dash-timer-total');
+    const dStatus = document.getElementById('dash-timer-status');
+    const dPlayedCount = document.getElementById('dash-games-count');
+    const dPlayedPercent = document.getElementById('dash-games-percent');
+    const dPlayedBar = document.getElementById('dash-games-bar');
+    const dRank = document.getElementById('dash-rank-badge');
+
+    if (dSession) dSession.textContent = formatTime(sessionSeconds);
+    if (dTotal) dTotal.textContent = formatTime(totalSeconds);
+    if (dStatus) {
+      if (isWindowActive) {
+        dStatus.innerHTML = '<span class="pulse-green">🟢</span> <strong>ACTIF</strong> (Chrono en direct)';
+        dStatus.className = 'timer-status-chip active';
+      } else {
+        dStatus.innerHTML = '<span class="pulse-amber">⏸️</span> <strong>EN PAUSE</strong> (Onglet masqué ou inactif)';
+        dStatus.className = 'timer-status-chip paused';
+      }
+    }
+    if (dPlayedCount) dPlayedCount.textContent = `${played.length} / ${ALL_MODULES_TOTAL}`;
+    const pct = Math.min(100, Math.round((played.length / ALL_MODULES_TOTAL) * 100));
+    if (dPlayedPercent) dPlayedPercent.textContent = `${pct}%`;
+    if (dPlayedBar) dPlayedBar.style.width = `${pct}%`;
+    if (dRank) {
+      const rank = getRank(totalSeconds, played.length);
+      dRank.textContent = rank.title;
+      dRank.className = `stat-value ${rank.color}`;
+    }
+  }
+
+  function init() {
+    document.addEventListener('visibilitychange', updateActiveState);
+    window.addEventListener('focus', updateActiveState);
+    window.addEventListener('blur', updateActiveState);
+    window.addEventListener('beforeunload', () => {
+      try { localStorage.setItem(STORAGE_KEY_TOTAL, totalSeconds.toString()); } catch(e){}
+    });
+
+    if (!timerInterval) {
+      timerInterval = setInterval(tick, 1000);
+    }
+    updateActiveState();
+    renderUI();
+
+    const resetBtn = document.getElementById('dash-timer-reset-btn');
+    if (resetBtn) {
+      resetBtn.onclick = () => {
+        if (confirm("Réinitialiser le compteur de temps et de jeux découverts ?")) {
+          totalSeconds = 0;
+          sessionSeconds = 0;
+          try {
+            localStorage.removeItem(STORAGE_KEY_TOTAL);
+            localStorage.removeItem(STORAGE_KEY_PLAYED);
+          } catch(e){}
+          renderUI();
+        }
+      };
+    }
+  }
+
+  return { init, recordGamePlayed, renderUI };
+})();
+
+// Initialisation des filtres et de la recherche du Dashboard
+function initDashboardFilters() {
+  const tabs = document.querySelectorAll('.dash-filter-btn');
+  const searchInput = document.getElementById('dash-search-input');
+  let currentFilter = 'all';
+  let searchQuery = '';
+
+  function applyFilter() {
+    const cards = document.querySelectorAll('#dash-games-grid .game-launch-card');
+    cards.forEach(card => {
+      const cat = card.dataset.cat || '';
+      const title = (card.querySelector('h4') || card.querySelector('h3') || {}).textContent || '';
+      const desc = (card.querySelector('p') || {}).textContent || '';
+      const textMatches = (title + ' ' + desc).toLowerCase().includes(searchQuery.toLowerCase());
+      const catMatches = (currentFilter === 'all' || cat === currentFilter);
+
+      if (catMatches && textMatches) {
+        card.classList.remove('filter-hidden');
+      } else {
+        card.classList.add('filter-hidden');
+      }
+    });
+  }
+
+  tabs.forEach(btn => {
+    btn.onclick = () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      applyFilter();
+    };
+  });
+
+  if (searchInput) {
+    searchInput.oninput = (e) => {
+      searchQuery = e.target.value.trim();
+      applyFilter();
+    };
+  }
+}
+
+
+const CYBER_MODULES = {
   doodle: DoodleGame,
   hook: HookGame,
   subway: SubwayGame,
@@ -15668,6 +17303,10 @@ const SilkCanvas = (() => {
   qrcode: StealthQR,
   pixelart: PixelStudio,
   matrix: MatrixScreensaver,
+  pacman: PacmanGame,
+  invaders: SpaceInvadersGame,
+  crossy: CrossyGame,
+  memory: MemoryGame,
 
 };
 
@@ -15688,6 +17327,8 @@ const SilkCanvas = (() => {
       window.addEventListener('resize', resizeActiveCanvas);
       window.addEventListener('load', () => {
         SpeedRegulator.initUI();
+        if (typeof ActiveTimeTracker !== 'undefined') ActiveTimeTracker.init();
+        if (typeof initDashboardFilters === 'function') initDashboardFilters();
         initCloakUI();
         updateDashboardStats();
         if (typeof AchievementsManager !== 'undefined') AchievementsManager.init();
