@@ -2705,6 +2705,216 @@
       box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
     }
 
+  
+    /* === ACCUEIL ULTRA-STYLISÉ & CYBERPUNK CHIC === */
+    .hero-banner-pro {
+      position: relative;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0, 240, 255, 0.16) 0%, rgba(139, 92, 246, 0.1) 45%, rgba(6, 9, 20, 0.98) 100%);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 32px 30px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    .hero-banner-pro::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, #00f0ff, #a78bfa, #00f0ff, transparent);
+      animation: heroScan 3.5s linear infinite;
+    }
+    @keyframes heroScan {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .hero-title-gradient {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 15%, #67e8f9 55%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    .hero-badges-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0 20px;
+    }
+    .hero-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #cbd5e1;
+      backdrop-filter: blur(8px);
+    }
+    .hero-quick-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .hero-quick-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+    .hero-quick-cyan {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(14, 165, 233, 0.35));
+      border-color: rgba(0, 240, 255, 0.55);
+      color: #e0f2fe;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    }
+    .hero-quick-cyan:hover {
+      background: linear-gradient(135deg, #00f0ff, #0ea5e9);
+      color: #050811;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.45);
+    }
+    .hero-quick-violet {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.35));
+      border-color: rgba(139, 92, 246, 0.55);
+      color: #f3e8ff;
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+    }
+    .hero-quick-violet:hover {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
+    }
+    .hero-quick-emerald {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.35));
+      border-color: rgba(16, 185, 129, 0.55);
+      color: #d1fae5;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+    .hero-quick-emerald:hover {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+    }
+    .hero-quick-amber {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.35));
+      border-color: rgba(245, 158, 11, 0.55);
+      color: #fef3c7;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+    }
+    .hero-quick-amber:hover {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #050811;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+    }
+
+    /* Rangee Coups de Coeur */
+    .featured-strip {
+      margin-bottom: 24px;
+    }
+    .featured-strip-title {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .featured-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+    .featured-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.45));
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+    .featured-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 8px 24px rgba(0, 240, 255, 0.2);
+    }
+    .featured-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .featured-card-ico { font-size: 26px; }
+    .featured-card-tag {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(0, 240, 255, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+    .featured-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .featured-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Grille de cartes normale améliorée */
+    .game-launch-card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(9, 13, 24, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .game-launch-card:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(145deg, rgba(20, 30, 55, 0.9), rgba(15, 23, 42, 0.95));
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(0, 240, 255, 0.15);
+    }
+    .game-launch-card[data-cat="arcade"]:hover { border-color: rgba(0, 240, 255, 0.6); box-shadow: 0 0 16px rgba(0, 240, 255, 0.18); }
+    .game-launch-card[data-cat="duel"]:hover { border-color: rgba(139, 92, 246, 0.6); box-shadow: 0 0 16px rgba(139, 92, 246, 0.18); }
+    .game-launch-card[data-cat="puzzle"]:hover { border-color: rgba(16, 185, 129, 0.6); box-shadow: 0 0 16px rgba(16, 185, 129, 0.18); }
+    .game-launch-card[data-cat="geek"]:hover { border-color: rgba(56, 189, 248, 0.6); box-shadow: 0 0 16px rgba(56, 189, 248, 0.18); }
+    .game-launch-card[data-cat="creative"]:hover { border-color: rgba(244, 63, 94, 0.6); box-shadow: 0 0 16px rgba(244, 63, 94, 0.18); }
+    .game-launch-card[data-cat="tools"]:hover { border-color: rgba(245, 158, 11, 0.6); box-shadow: 0 0 16px rgba(245, 158, 11, 0.18); }
+
   </style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -2821,11 +3031,8 @@
         <button class="nav-btn" data-section="achievements"><span class="nav-icon">🏆</span> Hauts Faits de l'École</button>
         <button class="nav-btn" data-section="cloak"><span class="nav-icon">🕵️</span> Camouflage &amp; Mode Cours</button>
 
-        <div class="nav-group-label">🕹️ Solo Arcade &amp; Réflexes (19)</div>
+        <div class="nav-group-label">🕹️ Solo Arcade &amp; Réflexes (16)</div>
         <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2 (1games.io)</button>
-        <button class="nav-btn" data-section="pacman"><span class="nav-icon">👾</span> Mini Pac-Man Néon <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
-        <button class="nav-btn" data-section="invaders"><span class="nav-icon">🛸</span> Space Invaders Cyber <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
-        <button class="nav-btn" data-section="crossy"><span class="nav-icon">🐸</span> Cyber Crossy Road <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
         <button class="nav-btn" data-section="wave"><span class="nav-icon">⚡</span> Neon Wave (Geometry)</button>
         <button class="nav-btn" data-section="tunnel"><span class="nav-icon">🌀</span> Tunnel Rush 3D</button>
         <button class="nav-btn" data-section="tetris"><span class="nav-icon">🧱</span> Tetris Néon</button>
@@ -2853,8 +3060,7 @@
         <button class="nav-btn" data-section="gunmayhem"><span class="nav-icon">🔫</span> Gun Mayhem 1v1</button>
         <button class="nav-btn" data-section="volley1v1"><span class="nav-icon">🏐</span> Volley Slime 1v1</button>
 
-        <div class="nav-group-label">🧠 Puzzles &amp; Stratégie (7)</div>
-        <button class="nav-btn" data-section="memory"><span class="nav-icon">🃏</span> Cyber Memory Matrix <span class="badge badge-cyan" style="font-size:9px; padding:1px 5px; margin-left:auto;">Nouveau</span></button>
+        <div class="nav-group-label">🧠 Puzzles &amp; Stratégie (6)</div>
         <button class="nav-btn" data-section="g2048"><span class="nav-icon">🔢</span> 2048 Néon</button>
         <button class="nav-btn" data-section="minesweeper"><span class="nav-icon">💣</span> Démineur Logique</button>
         <button class="nav-btn" data-section="sudoku"><span class="nav-icon">🔢</span> Sudoku Express</button>
@@ -2910,7 +3116,7 @@
             <span class="timer-dot active" id="topbar-timer-dot"></span>
             <span class="timer-icon">⏱️</span>
             <span class="timer-text" id="topbar-timer-text">00m 00s</span>
-            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/58</span>
+            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/54</span>
           </div>
 
           
@@ -2967,17 +3173,26 @@
              SECTION 1 : ACCUEIL
              =============================================================== -->
         <section id="sec-home" class="section active">
-          <!-- Bannière Héro -->
-          <div class="hero-banner">
-            <div>
-              <h2>Prêt pour survivre à cette heure de cours ?</h2>
-              <p>58 jeux d'arcade, duels 1v1, énigmes, labo geek et outils scolaires. Si quelqu'un s'approche, appuie sur <span class="kbd">Échap</span> pour afficher une vraie feuille Google Docs éditable en un éclair.</p>
+          <!-- Bannière Héro Cyber Pro -->
+          <div class="hero-banner-pro">
+            <div class="hero-title-gradient">Hub Furtif &amp; Arcade Cyberpunk</div>
+            <p style="font-size:14px; line-height:1.6; color:#94a3b8; max-width:760px; margin:0 0 10px;">
+              Le hub scolaire secret ultime : 54 jeux 2D/3D sans lag, duels 1v1 sur le même clavier, expériences de physique, studio d'art rétro et outils furtifs. 
+              Si un prof s'approche, appuie sur <span class="kbd">Échap</span> pour ouvrir instantanément de vraies notes Google Docs modifiables !
+            </p>
+
+            <div class="hero-badges-row">
+              <span class="hero-pill-badge">🛡️ Camouflage Docs (Échap)</span>
+              <span class="hero-pill-badge">⚡ Régulateur 120Hz ([ / ])</span>
+              <span class="hero-pill-badge">📶 Multijoueur Local &amp; P2P</span>
+              <span class="hero-pill-badge">🔒 100% Hors-Ligne &amp; Zéro Tracking</span>
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn btn-primary" data-goto="slope">⛷️ Slope 2</button>
-              <button class="btn btn-cyan" data-goto="pacman">👾 Mini Pac-Man</button>
-              <button class="btn btn-violet" data-goto="invaders">🛸 Space Invaders</button>
-              <button class="btn btn-emerald" data-goto="crossy">🐸 Cyber Crossy</button>
+
+            <div class="hero-quick-row">
+              <button class="hero-quick-btn hero-quick-cyan" data-goto="slope">⛷️ Slope 2 3D</button>
+              <button class="hero-quick-btn hero-quick-violet" data-goto="rooftop">🎯 Rooftop Snipers</button>
+              <button class="hero-quick-btn hero-quick-emerald" data-goto="tetris">🧱 Tetris Néon</button>
+              <button class="hero-quick-btn hero-quick-amber" data-goto="hackertyper">💻 Hacker Typer</button>
             </div>
           </div>
 
@@ -3012,7 +3227,7 @@
               <div class="stat-box" style="border-left:3px solid var(--accent-violet);">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <span class="stat-label">🎮 Jeux Découverts</span>
-                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 58</span>
+                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 54</span>
                 </div>
                 <div style="width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden; margin:8px 0 4px;">
                   <div id="dash-games-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--accent-cyan), var(--accent-violet)); transition:width 0.4s ease;"></div>
@@ -3030,13 +3245,55 @@
             </div>
           </div>
 
+          <!-- Rangée Coups de Cœur & Incontournables -->
+          <div class="featured-strip">
+            <div class="featured-strip-title">⭐ Coups de Cœur du Hub</div>
+            <div class="featured-cards-grid">
+              <div class="featured-card" data-goto="slope">
+                <div class="featured-card-top">
+                  <div class="featured-card-ico">⛷️</div>
+                  <span class="featured-card-tag">3D Culte</span>
+                </div>
+                <h4>Slope 2</h4>
+                <p>La référence absolue des jeux de pause : vitesse vertigineuse sur pente 3D.</p>
+              </div>
+
+              <div class="featured-card" data-goto="rooftop">
+                <div class="featured-card-top">
+                  <div class="featured-card-ico">🎯</div>
+                  <span class="featured-card-tag">1v1 Local</span>
+                </div>
+                <h4>Rooftop Snipers</h4>
+                <p>Physique ragdoll à deux joueurs sur le même clavier : duel de snipers délirant.</p>
+              </div>
+
+              <div class="featured-card" data-goto="tetris">
+                <div class="featured-card-top">
+                  <div class="featured-card-ico">🧱</div>
+                  <span class="featured-card-tag">Classique</span>
+                </div>
+                <h4>Tetris Néon</h4>
+                <p>Tétrominos lumineux, drop immédiat, son rétro et réactivité instantanée.</p>
+              </div>
+
+              <div class="featured-card" data-goto="hackertyper">
+                <div class="featured-card-top">
+                  <div class="featured-card-ico">💻</div>
+                  <span class="featured-card-tag">Illusion</span>
+                </div>
+                <h4>Hollywood Hacker</h4>
+                <p>Tape n'importe quoi au clavier pour afficher du code noyau Linux en direct.</p>
+              </div>
+            </div>
+          </div>
+
           <!-- Barre de Filtres par Catégorie et Recherche Rapide -->
           <div class="dash-controls-bar">
             <div class="dash-filter-tabs" id="dash-filter-tabs">
-              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">55</span>)</button>
-              <button class="dash-filter-btn" data-filter="arcade">🕹️ Solo Arcade (<span id="count-arcade">19</span>)</button>
+              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">51</span>)</button>
+              <button class="dash-filter-btn" data-filter="arcade">🕹️ Solo Arcade (<span id="count-arcade">16</span>)</button>
               <button class="dash-filter-btn" data-filter="duel">⚔️ Duels 1v1 (<span id="count-duel">9</span>)</button>
-              <button class="dash-filter-btn" data-filter="puzzle">🧠 Puzzles (<span id="count-puzzle">7</span>)</button>
+              <button class="dash-filter-btn" data-filter="puzzle">🧠 Puzzles (<span id="count-puzzle">6</span>)</button>
               <button class="dash-filter-btn" data-filter="geek">🧪 Lab Geek (<span id="count-geek">7</span>)</button>
               <button class="dash-filter-btn" data-filter="creative">🎨 Créa &amp; Détente (<span id="count-creative">6</span>)</button>
               <button class="dash-filter-btn" data-filter="tools">🛠️ Outils &amp; Furtivité (<span id="count-tools">7</span>)</button>
@@ -3046,35 +3303,14 @@
             </div>
           </div>
 
-          <!-- Grille des Cartes Triées par Catégorie -->
+          <!-- Grille Complète des 51 Cartes Triées par Catégorie -->
           <div class="game-launch-grid" id="dash-games-grid">
-            <!-- 1. SOLO ARCADE (19) -->
+            <!-- 1. SOLO ARCADE (16) -->
             <button class="game-launch-card" data-goto="slope" data-cat="arcade">
               <div class="card-ico">⛷️</div>
               <h4>Slope 2 (1games.io)</h4>
               <p>Descente 3D effrénée sur pistes polygonales avec réactivité 120Hz</p>
               <div class="game-launch-meta"><span class="text-cyan">3D Arcade</span><span>Jouer →</span></div>
-            </button>
-
-            <button class="game-launch-card" data-goto="pacman" data-cat="arcade">
-              <div class="card-ico">👾</div>
-              <h4>Mini Pac-Man Néon</h4>
-              <p>Labyrinthe classique, fantômes IA, pac-gommes et mode festin bleu</p>
-              <div class="game-launch-meta"><span class="text-amber">Nouveau</span><span>Manger →</span></div>
-            </button>
-
-            <button class="game-launch-card" data-goto="invaders" data-cat="arcade">
-              <div class="card-ico">🛸</div>
-              <h4>Space Invaders Cyber</h4>
-              <p>Escouade d'aliens rétro, bunkers destructibles et soucoupe bonus</p>
-              <div class="game-launch-meta"><span class="text-amber">Nouveau</span><span>Tirer →</span></div>
-            </button>
-
-            <button class="game-launch-card" data-goto="crossy" data-cat="arcade">
-              <div class="card-ico">🐸</div>
-              <h4>Cyber Crossy Road</h4>
-              <p>Traversée infinie d'autoroutes néon, rivières de données et trains TGV</p>
-              <div class="game-launch-meta"><span class="text-amber">Nouveau</span><span>Sauter →</span></div>
             </button>
 
             <button class="game-launch-card" data-goto="wave" data-cat="arcade">
@@ -3246,14 +3482,7 @@
               <div class="game-launch-meta"><span class="text-violet">1v1 Slime</span><span>Smasher →</span></div>
             </button>
 
-            <!-- 3. PUZZLES & STRATÉGIE (7) -->
-            <button class="game-launch-card" data-goto="memory" data-cat="puzzle">
-              <div class="card-ico">🃏</div>
-              <h4>Cyber Memory Matrix</h4>
-              <p>Paires de cartes holographiques 3D, multiplicateurs de combos et chrono</p>
-              <div class="game-launch-meta"><span class="text-emerald">Nouveau</span><span>Mémoriser →</span></div>
-            </button>
-
+            <!-- 3. PUZZLES & STRATÉGIE (6) -->
             <button class="game-launch-card" data-goto="g2048" data-cat="puzzle">
               <div class="card-ico">🔢</div>
               <h4>2048 Néon</h4>
@@ -5473,95 +5702,7 @@
           </div>
         </section>
 
-<!-- 1. MINI PAC-MAN NÉON -->
-<section id="sec-pacman" class="section">
-  <div class="csp-shell">
-    <div class="csp-hud">
-      <span>Score: <strong id="pacman-score">0</strong></span>
-      <span>Record: <strong id="pacman-best">0</strong></span>
-      <span>Vies: <span id="pacman-lives">🟡🟡🟡</span></span>
-      <span>Niveau: <strong id="pacman-level">1</strong></span>
-      <button class="csp-btn" id="pacman-reset">Rejouer</button>
-    </div>
-    <div style="position:relative; display:inline-block; border:1px solid rgba(0, 240, 255, 0.4); border-radius:var(--radius-md); overflow:hidden; box-shadow:0 0 30px rgba(0,240,255,0.15);">
-      <canvas id="canvas-pacman" width="440" height="500" style="display:block; background:#02050f;"></canvas>
-    </div>
-    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:6px;">
-      <button class="csp-btn" id="pac-btn-up" style="padding:6px 24px;">▲ Haut</button>
-      <div style="display:flex; gap:8px;">
-        <button class="csp-btn" id="pac-btn-left" style="padding:6px 18px;">◀ Gauche</button>
-        <button class="csp-btn" id="pac-btn-down" style="padding:6px 24px;">▼ Bas</button>
-        <button class="csp-btn" id="pac-btn-right" style="padding:6px 18px;">▶ Droite</button>
-      </div>
-      <span class="csp-hint" style="margin-top:4px;">Flèches ou ZQSD / WASD • Les grosses pastilles rendent les fantômes vulnérables !</span>
-    </div>
-  </div>
-</section>
 
-<!-- 2. SPACE INVADERS CYBER -->
-<section id="sec-invaders" class="section">
-  <div class="csp-shell">
-    <div class="csp-hud">
-      <span>Score: <strong id="invaders-score">0</strong></span>
-      <span>Record: <strong id="invaders-best">0</strong></span>
-      <span>Vague: <strong id="invaders-wave">1</strong></span>
-      <span>Vies: <span id="invaders-lives">🚀🚀🚀</span></span>
-      <button class="csp-btn" id="invaders-reset">Rejouer</button>
-    </div>
-    <div style="position:relative; display:inline-block; border:1px solid rgba(0, 240, 255, 0.4); border-radius:var(--radius-md); overflow:hidden; box-shadow:0 0 30px rgba(0,240,255,0.15);">
-      <canvas id="canvas-invaders" width="640" height="480" style="display:block; background:#02050f;"></canvas>
-    </div>
-    <div style="display:flex; gap:10px; margin-top:8px;">
-      <button class="csp-btn" id="inv-btn-left">◀ Gauche (Q/A)</button>
-      <button class="csp-btn" id="inv-btn-fire">🔥 Tirer (Espace)</button>
-      <button class="csp-btn" id="inv-btn-right">▶ Droite (D)</button>
-    </div>
-    <span class="csp-hint">Q/D ou ◀▶ pour viser • Espace pour tirer • Les bunkers protègent des tirs ennemis !</span>
-  </div>
-</section>
-
-<!-- 3. CYBER CROSSY ROAD 2D -->
-<section id="sec-crossy" class="section">
-  <div class="csp-shell">
-    <div class="csp-hud">
-      <span>Distance: <strong id="crossy-score">0</strong></span>
-      <span>Record: <strong id="crossy-best">0</strong></span>
-      <span>Pièces: <strong id="crossy-coins">0</strong></span>
-      <button class="csp-btn" id="crossy-reset">Rejouer</button>
-    </div>
-    <div style="position:relative; display:inline-block; border:1px solid rgba(0, 240, 255, 0.4); border-radius:var(--radius-md); overflow:hidden; box-shadow:0 0 30px rgba(0,240,255,0.15);">
-      <canvas id="canvas-crossy" width="560" height="560" style="display:block; background:#02050f;"></canvas>
-    </div>
-    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:6px;">
-      <button class="csp-btn" id="crossy-btn-up" style="padding:6px 28px;">▲ Avancer (Z/W/▲)</button>
-      <div style="display:flex; gap:8px;">
-        <button class="csp-btn" id="crossy-btn-left" style="padding:6px 18px;">◀ Gauche</button>
-        <button class="csp-btn" id="crossy-btn-down" style="padding:6px 18px;">▼ Reculer</button>
-        <button class="csp-btn" id="crossy-btn-right" style="padding:6px 18px;">▶ Droite</button>
-      </div>
-      <span class="csp-hint">Avancez à travers les voitures, sautez sur les plateformes de données et évitez les trains lasers !</span>
-    </div>
-  </div>
-</section>
-
-<!-- 4. CYBER MEMORY MATRIX -->
-<section id="sec-memory" class="section">
-  <div class="csp-shell">
-    <div class="csp-hud">
-      <span>Paires: <strong id="memory-pairs">0 / 8</strong></span>
-      <span>Coups: <strong id="memory-moves">0</strong></span>
-      <span>Combo: <strong id="memory-combo" class="text-cyan">x1</strong></span>
-      <span>Temps: <strong id="memory-timer">00:00</strong></span>
-      <span>Record: <strong id="memory-best">--</strong></span>
-      <button class="csp-btn" id="memory-reset">Nouvelle Partie</button>
-    </div>
-    <div style="display:flex; gap:8px; margin-bottom:12px;">
-      <button class="btn btn-secondary btn-sm active" id="memory-mode-16">16 Cartes (4x4)</button>
-      <button class="btn btn-secondary btn-sm" id="memory-mode-24">24 Cartes (6x4)</button>
-    </div>
-    <div id="memory-grid" class="memory-grid mode-16"></div>
-  </div>
-</section>
 
 </main>
     </div>
@@ -16015,1078 +16156,12 @@ const SilkCanvas = (() => {
 
       
 /* ============================================================================
-   SUITE NOUVEAUX JEUX : PAC-MAN, SPACE INVADERS, CROSSY ROAD, MEMORY MATRIX
-   ============================================================================ */
-
-// 1. MINI PAC-MAN NÉON
-const PacmanGame = (() => {
-  let cv, ctx, animId, speedMul = 1.0;
-  let score = 0, best = parseInt(localStorage.getItem('hf_pacman_best') || '0', 10);
-  let lives = 3, level = 1, frightTimer = 0, mouthAngle = 0.2, mouthDir = 1;
-  const tileSize = 20, cols = 22, rows = 25;
-
-  // Labyrinthe (0 = vide/couloir avec point, 1 = mur, 2 = energizer, 3 = maison fantômes, 4 = couloir vide sans point)
-  const baseMap = [
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,2,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,2,1],
-    [1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1],
-    [1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,1,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1],
-    [1,1,1,1,1,0,1,1,1,4,1,1,4,1,1,1,0,1,1,1,1,1],
-    [4,4,4,4,1,0,1,4,4,4,4,4,4,4,4,1,0,1,4,4,4,4],
-    [1,1,1,1,1,0,1,4,1,1,3,3,1,1,4,1,0,1,1,1,1,1],
-    [4,4,4,4,4,0,4,4,1,3,3,3,3,1,4,4,0,4,4,4,4,4],
-    [1,1,1,1,1,0,1,4,1,1,1,1,1,1,4,1,0,1,1,1,1,1],
-    [4,4,4,4,1,0,1,4,4,4,4,4,4,4,4,1,0,1,4,4,4,4],
-    [1,1,1,1,1,0,1,4,1,1,1,1,1,1,4,1,0,1,1,1,1,1],
-    [1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1],
-    [1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1],
-    [1,2,0,0,1,0,0,0,0,0,4,4,0,0,0,0,0,1,0,0,2,1],
-    [1,1,1,0,1,0,1,0,1,1,1,1,1,1,0,1,0,1,0,1,1,1],
-    [1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1],
-    [1,0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
-    [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
-    [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
-  ];
-
-  let grid = [];
-  let pacman = { x: 10, y: 16, px: 200, py: 320, dirX: 0, dirY: 0, nextDirX: 0, nextDirY: 0, speed: 2.2 };
-  let ghosts = [];
-
-  function initMap() {
-    grid = baseMap.map(row => [...row]);
-    pacman.x = 10; pacman.y = 16;
-    pacman.px = pacman.x * tileSize + tileSize / 2;
-    pacman.py = pacman.y * tileSize + tileSize / 2;
-    pacman.dirX = 0; pacman.dirY = 0;
-    pacman.nextDirX = -1; pacman.nextDirY = 0;
-
-    ghosts = [
-      { x: 10, y: 10, px: 210, py: 210, color: '#f43f5e', dirX: 1, dirY: 0, speed: 1.8, name: 'Blinky', inHouse: false },
-      { x: 11, y: 10, px: 230, py: 210, color: '#ec4899', dirX: -1, dirY: 0, speed: 1.7, name: 'Pinky', inHouse: false },
-      { x: 9, y: 10, px: 190, py: 210, color: '#00f0ff', dirX: 0, dirY: -1, speed: 1.6, name: 'Inky', inHouse: false },
-      { x: 12, y: 10, px: 250, py: 210, color: '#f59e0b', dirX: 0, dirY: 1, speed: 1.5, name: 'Clyde', inHouse: false }
-    ];
-  }
-
-  function canMove(gx, gy) {
-    if (gx < 0 || gx >= cols || gy < 0 || gy >= rows) return true; // tunnels
-    return grid[gy][gx] !== 1 && grid[gy][gx] !== 3;
-  }
-
-  function handleInput(e) {
-    const k = e.key;
-    if (['ArrowUp', 'KeyW', 'KeyZ'].includes(k)) { pacman.nextDirX = 0; pacman.nextDirY = -1; }
-    else if (['ArrowDown', 'KeyS'].includes(k)) { pacman.nextDirX = 0; pacman.nextDirY = 1; }
-    else if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(k)) { pacman.nextDirX = -1; pacman.nextDirY = 0; }
-    else if (['ArrowRight', 'KeyD'].includes(k)) { pacman.nextDirX = 1; pacman.nextDirY = 0; }
-  }
-
-  function update() {
-    const mult = (typeof SpeedRegulator !== 'undefined' ? SpeedRegulator.multiplier : 1.0) * speedMul;
-    mouthAngle += 0.05 * mouthDir;
-    if (mouthAngle > 0.38) mouthDir = -1;
-    if (mouthAngle < 0.05) mouthDir = 1;
-
-    // Movement Pac-Man
-    const currentGridX = Math.floor(pacman.px / tileSize);
-    const currentGridY = Math.floor(pacman.py / tileSize);
-    const centerX = currentGridX * tileSize + tileSize / 2;
-    const centerY = currentGridY * tileSize + tileSize / 2;
-
-    // Turn check
-    if (pacman.nextDirX !== 0 || pacman.nextDirY !== 0) {
-      if (Math.abs(pacman.px - centerX) < 3 && Math.abs(pacman.py - centerY) < 3) {
-        if (canMove(currentGridX + pacman.nextDirX, currentGridY + pacman.nextDirY)) {
-          pacman.px = centerX;
-          pacman.py = centerY;
-          pacman.dirX = pacman.nextDirX;
-          pacman.dirY = pacman.nextDirY;
-          pacman.nextDirX = 0;
-          pacman.nextDirY = 0;
-        }
-      }
-    }
-
-    // Move forward
-    const nextPx = pacman.px + pacman.dirX * pacman.speed * mult;
-    const nextPy = pacman.py + pacman.dirY * pacman.speed * mult;
-    const testGridX = Math.floor((nextPx + pacman.dirX * 9) / tileSize);
-    const testGridY = Math.floor((nextPy + pacman.dirY * 9) / tileSize);
-
-    if (canMove(testGridX, testGridY)) {
-      pacman.px = nextPx;
-      pacman.py = nextPy;
-    }
-
-    // Wrap-around tunnels
-    if (pacman.px < 0) pacman.px = cols * tileSize;
-    if (pacman.px > cols * tileSize) pacman.px = 0;
-
-    // Eat pellets
-    const gx = Math.floor(pacman.px / tileSize);
-    const gy = Math.floor(pacman.py / tileSize);
-    if (gx >= 0 && gx < cols && gy >= 0 && gy < rows) {
-      if (grid[gy][gx] === 0) {
-        grid[gy][gx] = 4;
-        score += 10;
-        try { CyberAudio.click(); } catch(e){}
-      } else if (grid[gy][gx] === 2) {
-        grid[gy][gx] = 4;
-        score += 50;
-        frightTimer = 400; // ~6-7 seconds
-        try { CyberAudio.score(); } catch(e){}
-      }
-    }
-
-    if (frightTimer > 0) frightTimer -= 1 * mult;
-
-    // Update ghosts
-    ghosts.forEach(g => {
-      const gCurrentX = Math.floor(g.px / tileSize);
-      const gCurrentY = Math.floor(g.py / tileSize);
-      const gCenterX = gCurrentX * tileSize + tileSize / 2;
-      const gCenterY = gCurrentY * tileSize + tileSize / 2;
-
-      if (Math.abs(g.px - gCenterX) < 2 && Math.abs(g.py - gCenterY) < 2) {
-        g.px = gCenterX;
-        g.py = gCenterY;
-        const validDirs = [];
-        const dirs = [{x:0, y:-1}, {x:0, y:1}, {x:-1, y:0}, {x:1, y:0}];
-        dirs.forEach(d => {
-          if (d.x === -g.dirX && d.y === -g.dirY) return; // don't reverse
-          if (canMove(gCurrentX + d.x, gCurrentY + d.y)) validDirs.push(d);
-        });
-
-        if (validDirs.length > 0) {
-          // target Pac-Man or random if frightened
-          if (frightTimer > 0) {
-            const chosen = validDirs[Math.floor(Math.random() * validDirs.length)];
-            g.dirX = chosen.x; g.dirY = chosen.y;
-          } else {
-            validDirs.sort((a, b) => {
-              const distA = Math.hypot((gCurrentX + a.x) * tileSize - pacman.px, (gCurrentY + a.y) * tileSize - pacman.py);
-              const distB = Math.hypot((gCurrentX + b.x) * tileSize - pacman.px, (gCurrentY + b.y) * tileSize - pacman.py);
-              return distA - distB;
-            });
-            g.dirX = validDirs[0].x;
-            g.dirY = validDirs[0].y;
-          }
-        } else {
-          g.dirX = -g.dirX;
-          g.dirY = -g.dirY;
-        }
-      }
-
-      const spd = (frightTimer > 0 ? g.speed * 0.65 : g.speed) * mult;
-      g.px += g.dirX * spd;
-      g.py += g.dirY * spd;
-
-      // Check collision with Pac-Man
-      const dist = Math.hypot(g.px - pacman.px, g.py - pacman.py);
-      if (dist < 14) {
-        if (frightTimer > 0) {
-          // Ghost eaten
-          score += 200;
-          g.px = 10 * tileSize + tileSize / 2;
-          g.py = 10 * tileSize + tileSize / 2;
-          try { CyberAudio.boom(); } catch(e){}
-        } else {
-          // Pac-Man lost life
-          lives--;
-          try { CyberAudio.over(); } catch(e){}
-          if (lives <= 0) {
-            if (score > best) {
-              best = score;
-              localStorage.setItem('hf_pacman_best', best.toString());
-            }
-            score = 0;
-            lives = 3;
-            level = 1;
-            initMap();
-          } else {
-            pacman.px = 10 * tileSize + tileSize / 2;
-            pacman.py = 16 * tileSize + tileSize / 2;
-            pacman.dirX = 0; pacman.dirY = 0;
-          }
-        }
-      }
-    });
-
-    // Check level clear
-    let pelletsLeft = 0;
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        if (grid[r][c] === 0 || grid[r][c] === 2) pelletsLeft++;
-      }
-    }
-    if (pelletsLeft === 0) {
-      level++;
-      score += 500;
-      try { CyberAudio.chime(); } catch(e){}
-      initMap();
-    }
-
-    if (score > best) best = score;
-
-    // HUD
-    const sEl = document.getElementById('pacman-score');
-    const bEl = document.getElementById('pacman-best');
-    const lEl = document.getElementById('pacman-lives');
-    const lvEl = document.getElementById('pacman-level');
-    if (sEl) sEl.textContent = score;
-    if (bEl) bEl.textContent = best;
-    if (lEl) lEl.textContent = '🟡'.repeat(Math.max(0, lives));
-    if (lvEl) lvEl.textContent = level;
-  }
-
-  function render() {
-    ctx.fillStyle = '#02050f';
-    ctx.fillRect(0, 0, cv.width, cv.height);
-
-    // Draw maze walls and dots
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const val = grid[r][c];
-        const x = c * tileSize;
-        const y = r * tileSize;
-
-        if (val === 1) {
-          ctx.strokeStyle = 'rgba(0, 240, 255, 0.7)';
-          ctx.lineWidth = 2;
-          ctx.strokeRect(x + 2, y + 2, tileSize - 4, tileSize - 4);
-          ctx.fillStyle = 'rgba(0, 240, 255, 0.08)';
-          ctx.fillRect(x + 3, y + 3, tileSize - 6, tileSize - 6);
-        } else if (val === 0) {
-          ctx.fillStyle = '#fef08a';
-          ctx.beginPath();
-          ctx.arc(x + tileSize / 2, y + tileSize / 2, 2.5, 0, Math.PI * 2);
-          ctx.fill();
-        } else if (val === 2) {
-          ctx.fillStyle = '#00f0ff';
-          ctx.beginPath();
-          ctx.arc(x + tileSize / 2, y + tileSize / 2, 5.5, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.shadowColor = '#00f0ff';
-          ctx.shadowBlur = 8;
-        }
-      }
-    }
-    ctx.shadowBlur = 0;
-
-    // Draw Pac-Man
-    ctx.fillStyle = '#fbbf24';
-    let baseAngle = 0;
-    if (pacman.dirX === 1) baseAngle = 0;
-    else if (pacman.dirX === -1) baseAngle = Math.PI;
-    else if (pacman.dirY === 1) baseAngle = Math.PI / 2;
-    else if (pacman.dirY === -1) baseAngle = -Math.PI / 2;
-
-    ctx.beginPath();
-    ctx.arc(pacman.px, pacman.py, 8, baseAngle + mouthAngle, baseAngle + Math.PI * 2 - mouthAngle);
-    ctx.lineTo(pacman.px, pacman.py);
-    ctx.fill();
-
-    // Draw Ghosts
-    ghosts.forEach(g => {
-      ctx.fillStyle = frightTimer > 0 ? (frightTimer < 80 && Math.floor(frightTimer / 10) % 2 === 0 ? '#fff' : '#1e3a8a') : g.color;
-      ctx.beginPath();
-      ctx.arc(g.px, g.py - 2, 7.5, Math.PI, 0, false);
-      ctx.lineTo(g.px + 7.5, g.py + 7);
-      ctx.lineTo(g.px + 3.75, g.py + 4);
-      ctx.lineTo(g.px, g.py + 7);
-      ctx.lineTo(g.px - 3.75, g.py + 4);
-      ctx.lineTo(g.px - 7.5, g.py + 7);
-      ctx.closePath();
-      ctx.fill();
-
-      // Eyes
-      ctx.fillStyle = '#fff';
-      ctx.beginPath();
-      ctx.arc(g.px - 3, g.py - 3, 2.2, 0, Math.PI * 2);
-      ctx.arc(g.px + 3, g.py - 3, 2.2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#000';
-      ctx.beginPath();
-      ctx.arc(g.px - 3 + g.dirX, g.py - 3 + g.dirY, 1.2, 0, Math.PI * 2);
-      ctx.arc(g.px + 3 + g.dirX, g.py - 3 + g.dirY, 1.2, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  }
-
-  function loop() {
-    update();
-    render();
-    animId = requestAnimationFrame(loop);
-  }
-
-  return {
-    init: () => {
-      cv = document.getElementById('canvas-pacman');
-      if (!cv) return;
-      ctx = cv.getContext('2d');
-      initMap();
-      window.addEventListener('keydown', handleInput);
-      const rBtn = document.getElementById('pacman-reset');
-      if (rBtn) rBtn.onclick = () => { score = 0; lives = 3; level = 1; initMap(); };
-
-      // On-screen D-pad
-      const bU = document.getElementById('pac-btn-up');
-      const bD = document.getElementById('pac-btn-down');
-      const bL = document.getElementById('pac-btn-left');
-      const bR = document.getElementById('pac-btn-right');
-      if (bU) bU.onclick = () => { pacman.nextDirX = 0; pacman.nextDirY = -1; };
-      if (bD) bD.onclick = () => { pacman.nextDirX = 0; pacman.nextDirY = 1; };
-      if (bL) bL.onclick = () => { pacman.nextDirX = -1; pacman.nextDirY = 0; };
-      if (bR) bR.onclick = () => { pacman.nextDirX = 1; pacman.nextDirY = 0; };
-    },
-    start: () => {
-      if (!animId) loop();
-    },
-    pause: () => {
-      if (animId) { cancelAnimationFrame(animId); animId = null; }
-    }
-  };
-})();
-
-// 2. SPACE INVADERS CYBER
-const SpaceInvadersGame = (() => {
-  let cv, ctx, animId, speedMul = 1.0;
-  let score = 0, best = parseInt(localStorage.getItem('hf_invaders_best') || '0', 10);
-  let wave = 1, lives = 3;
-  let player = { x: 300, y: 440, w: 32, h: 18, spd: 4.5, left: false, right: false, canShoot: true };
-  let bullets = [], alienBombs = [], aliens = [], bunkers = [], ufo = null;
-  let alienDir = 1, alienStepTimer = 0, stepInterval = 40, alienDrop = 0;
-
-  function initWave() {
-    bullets = [];
-    alienBombs = [];
-    aliens = [];
-    alienDir = 1;
-    stepInterval = Math.max(12, 45 - wave * 4);
-
-    for (let r = 0; r < 5; r++) {
-      for (let c = 0; c < 10; c++) {
-        aliens.push({
-          x: 60 + c * 50,
-          y: 60 + r * 35,
-          w: 28,
-          h: 20,
-          type: r === 0 ? 3 : (r < 3 ? 2 : 1),
-          color: r === 0 ? '#ec4899' : (r < 3 ? '#00f0ff' : '#10b981'),
-          points: r === 0 ? 30 : (r < 3 ? 20 : 10)
-        });
-      }
-    }
-
-    // Bunkers (4 pixel shields)
-    bunkers = [];
-    for (let b = 0; b < 4; b++) {
-      const bx = 90 + b * 135;
-      const by = 370;
-      const blocks = [];
-      for (let r = 0; r < 4; r++) {
-        for (let c = 0; c < 6; c++) {
-          if (r === 3 && (c === 2 || c === 3)) continue; // archway
-          blocks.push({ x: bx + c * 8, y: by + r * 7, w: 8, h: 7, hp: 3 });
-        }
-      }
-      bunkers.push(blocks);
-    }
-  }
-
-  function shoot() {
-    if (!player.canShoot) return;
-    bullets.push({ x: player.x + player.w / 2 - 2, y: player.y - 6, w: 4, h: 10 });
-    player.canShoot = false;
-    setTimeout(() => { player.canShoot = true; }, 260);
-    try { CyberAudio.jump(); } catch(e){}
-  }
-
-  function update() {
-    const mult = (typeof SpeedRegulator !== 'undefined' ? SpeedRegulator.multiplier : 1.0) * speedMul;
-
-    // Player Move
-    if (player.left) player.x = Math.max(10, player.x - player.spd * mult);
-    if (player.right) player.x = Math.min(cv.width - player.w - 10, player.x + player.spd * mult);
-
-    // Bullets Move
-    for (let i = bullets.length - 1; i >= 0; i--) {
-      const b = bullets[i];
-      b.y -= 7.5 * mult;
-      if (b.y < 0) { bullets.splice(i, 1); continue; }
-
-      // Check hit aliens
-      let hitAlien = false;
-      for (let j = aliens.length - 1; j >= 0; j--) {
-        const a = aliens[j];
-        if (b.x < a.x + a.w && b.x + b.w > a.x && b.y < a.y + a.h && b.y + b.h > a.y) {
-          score += a.points;
-          try { CyberAudio.hit(); } catch(e){}
-          aliens.splice(j, 1);
-          bullets.splice(i, 1);
-          hitAlien = true;
-          stepInterval = Math.max(6, Math.floor(stepInterval * 0.98));
-          break;
-        }
-      }
-      if (hitAlien) continue;
-
-      // Check hit UFO
-      if (ufo && b.x < ufo.x + ufo.w && b.x + b.w > ufo.x && b.y < ufo.y + ufo.h && b.y + b.h > ufo.y) {
-        score += ufo.pts;
-        try { CyberAudio.score(); } catch(e){}
-        ufo = null;
-        bullets.splice(i, 1);
-        continue;
-      }
-
-      // Check hit bunkers
-      let hitBunker = false;
-      bunkers.forEach(bunker => {
-        bunker.forEach((blk, blkIdx) => {
-          if (!hitBunker && b.x < blk.x + blk.w && b.x + b.w > blk.x && b.y < blk.y + blk.h && b.y + b.h > blk.y) {
-            blk.hp--;
-            if (blk.hp <= 0) bunker.splice(blkIdx, 1);
-            bullets.splice(i, 1);
-            hitBunker = true;
-          }
-        });
-      });
-    }
-
-    // Alien Step March
-    alienStepTimer += 1 * mult;
-    if (alienStepTimer >= stepInterval) {
-      alienStepTimer = 0;
-      let reachEdge = false;
-      aliens.forEach(a => {
-        if ((alienDir > 0 && a.x + a.w >= cv.width - 20) || (alienDir < 0 && a.x <= 20)) {
-          reachEdge = true;
-        }
-      });
-
-      if (reachEdge) {
-        alienDir = -alienDir;
-        aliens.forEach(a => { a.y += 16; });
-      } else {
-        aliens.forEach(a => { a.x += alienDir * 10; });
-      }
-
-      // Random alien bomb
-      if (aliens.length > 0 && Math.random() < 0.6) {
-        const shooter = aliens[Math.floor(Math.random() * aliens.length)];
-        alienBombs.push({ x: shooter.x + shooter.w / 2, y: shooter.y + shooter.h, w: 3, h: 8 });
-      }
-    }
-
-    // UFO spawn
-    if (!ufo && Math.random() < 0.002) {
-      ufo = { x: -40, y: 35, w: 36, h: 16, pts: 150 + Math.floor(Math.random() * 3) * 50 };
-    }
-    if (ufo) {
-      ufo.x += 2.2 * mult;
-      if (ufo.x > cv.width + 50) ufo = null;
-    }
-
-    // Alien Bombs Move
-    for (let i = alienBombs.length - 1; i >= 0; i--) {
-      const bm = alienBombs[i];
-      bm.y += 4 * mult;
-      if (bm.y > cv.height) { alienBombs.splice(i, 1); continue; }
-
-      // Check hit bunker
-      let hitB = false;
-      bunkers.forEach(bunker => {
-        bunker.forEach((blk, idx) => {
-          if (!hitB && bm.x < blk.x + blk.w && bm.x + bm.w > blk.x && bm.y < blk.y + blk.h && bm.y + bm.h > blk.y) {
-            blk.hp--;
-            if (blk.hp <= 0) bunker.splice(idx, 1);
-            alienBombs.splice(i, 1);
-            hitB = true;
-          }
-        });
-      });
-      if (hitB) continue;
-
-      // Check hit player
-      if (bm.x < player.x + player.w && bm.x + bm.w > player.x && bm.y < player.y + player.h && bm.y + bm.h > player.y) {
-        lives--;
-        alienBombs.splice(i, 1);
-        try { CyberAudio.boom(); } catch(e){}
-        if (lives <= 0) {
-          if (score > best) { best = score; localStorage.setItem('hf_invaders_best', best.toString()); }
-          score = 0; wave = 1; lives = 3;
-          initWave();
-        }
-      }
-    }
-
-    // Wave Cleared
-    if (aliens.length === 0) {
-      wave++;
-      score += 300;
-      try { CyberAudio.chime(); } catch(e){}
-      initWave();
-    }
-
-    // Check alien reaching bottom
-    aliens.forEach(a => {
-      if (a.y + a.h >= player.y) {
-        lives = 0;
-        if (score > best) { best = score; localStorage.setItem('hf_invaders_best', best.toString()); }
-        score = 0; wave = 1; lives = 3;
-        initWave();
-      }
-    });
-
-    if (score > best) best = score;
-
-    // HUD
-    const sEl = document.getElementById('invaders-score');
-    const bEl = document.getElementById('invaders-best');
-    const wEl = document.getElementById('invaders-wave');
-    const lEl = document.getElementById('invaders-lives');
-    if (sEl) sEl.textContent = score;
-    if (bEl) bEl.textContent = best;
-    if (wEl) wEl.textContent = wave;
-    if (lEl) lEl.textContent = '🚀'.repeat(Math.max(0, lives));
-  }
-
-  function render() {
-    ctx.fillStyle = '#02050f';
-    ctx.fillRect(0, 0, cv.width, cv.height);
-
-    // Stars
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-    for (let i = 0; i < 30; i++) {
-      const sx = (i * 97) % cv.width;
-      const sy = (i * 73) % cv.height;
-      ctx.fillRect(sx, sy, 1.5, 1.5);
-    }
-
-    // Draw Aliens
-    aliens.forEach(a => {
-      ctx.fillStyle = a.color;
-      ctx.shadowColor = a.color;
-      ctx.shadowBlur = 6;
-      ctx.fillRect(a.x + 4, a.y + 2, a.w - 8, a.h - 4);
-      // Tentacles/Eyes
-      ctx.fillRect(a.x + 2, a.y + 6, 4, a.h - 8);
-      ctx.fillRect(a.x + a.w - 6, a.y + 6, 4, a.h - 8);
-      ctx.fillStyle = '#000';
-      ctx.fillRect(a.x + 7, a.y + 6, 3, 4);
-      ctx.fillRect(a.x + a.w - 10, a.y + 6, 3, 4);
-    });
-    ctx.shadowBlur = 0;
-
-    // Draw UFO
-    if (ufo) {
-      ctx.fillStyle = '#f43f5e';
-      ctx.shadowColor = '#f43f5e';
-      ctx.shadowBlur = 10;
-      ctx.beginPath();
-      ctx.ellipse(ufo.x + ufo.w / 2, ufo.y + ufo.h / 2, ufo.w / 2, ufo.h / 2, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(ufo.x + ufo.w / 2 - 3, ufo.y + 2, 6, 3);
-      ctx.shadowBlur = 0;
-    }
-
-    // Draw Bunkers
-    bunkers.forEach(bunker => {
-      bunker.forEach(blk => {
-        const alpha = blk.hp === 3 ? 0.9 : (blk.hp === 2 ? 0.6 : 0.3);
-        ctx.fillStyle = `rgba(0, 240, 255, ${alpha})`;
-        ctx.fillRect(blk.x, blk.y, blk.w - 1, blk.h - 1);
-      });
-    });
-
-    // Draw Player Cannon
-    ctx.fillStyle = '#00f0ff';
-    ctx.shadowColor = '#00f0ff';
-    ctx.shadowBlur = 8;
-    ctx.fillRect(player.x, player.y + 6, player.w, player.h - 6);
-    ctx.fillRect(player.x + player.w / 2 - 3, player.y, 6, 8);
-    ctx.shadowBlur = 0;
-
-    // Draw Bullets
-    ctx.fillStyle = '#fbbf24';
-    bullets.forEach(b => { ctx.fillRect(b.x, b.y, b.w, b.h); });
-
-    // Draw Alien Bombs
-    ctx.fillStyle = '#f43f5e';
-    alienBombs.forEach(bm => { ctx.fillRect(bm.x, bm.y, bm.w, bm.h); });
-  }
-
-  function loop() {
-    update();
-    render();
-    animId = requestAnimationFrame(loop);
-  }
-
-  return {
-    init: () => {
-      cv = document.getElementById('canvas-invaders');
-      if (!cv) return;
-      ctx = cv.getContext('2d');
-      initWave();
-
-      window.addEventListener('keydown', e => {
-        if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(e.code)) player.left = true;
-        if (['ArrowRight', 'KeyD'].includes(e.code)) player.right = true;
-        if (e.code === 'Space') { e.preventDefault(); shoot(); }
-      });
-      window.addEventListener('keyup', e => {
-        if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(e.code)) player.left = false;
-        if (['ArrowRight', 'KeyD'].includes(e.code)) player.right = false;
-      });
-
-      const rBtn = document.getElementById('invaders-reset');
-      if (rBtn) rBtn.onclick = () => { score = 0; wave = 1; lives = 3; initWave(); };
-      const fBtn = document.getElementById('inv-btn-fire');
-      if (fBtn) fBtn.onclick = shoot;
-      const lBtn = document.getElementById('inv-btn-left');
-      const rtBtn = document.getElementById('inv-btn-right');
-      if (lBtn) {
-        lBtn.onmousedown = () => { player.left = true; };
-        lBtn.onmouseup = () => { player.left = false; };
-      }
-      if (rtBtn) {
-        rtBtn.onmousedown = () => { player.right = true; };
-        rtBtn.onmouseup = () => { player.right = false; };
-      }
-    },
-    start: () => { if (!animId) loop(); },
-    pause: () => { if (animId) { cancelAnimationFrame(animId); animId = null; } }
-  };
-})();
-
-// 3. CYBER CROSSY ROAD 2D
-const CrossyGame = (() => {
-  let cv, ctx, animId, speedMul = 1.0;
-  let score = 0, best = parseInt(localStorage.getItem('hf_crossy_best') || '0', 10);
-  let coins = 0, player = { x: 7, y: 0, px: 280, py: 480, targetPx: 280, targetPy: 480, jumpArc: 0 };
-  const tileSize = 40, cols = 14;
-  let rows = [], cameraY = 0;
-
-  function generateRow(rowIndex) {
-    if (rowIndex <= 2) return { type: 'grass', y: rowIndex, items: [] };
-    const rand = Math.random();
-    if (rand < 0.45) {
-      // Road with cars
-      const dir = Math.random() < 0.5 ? 1 : -1;
-      const spd = 1.8 + Math.random() * 2.5;
-      const cars = [];
-      for (let i = 0; i < 2; i++) {
-        cars.push({ x: i * 260 + Math.random() * 50, w: 55, h: 26, color: dir > 0 ? '#f43f5e' : '#ec4899', spd, dir });
-      }
-      return { type: 'road', y: rowIndex, items: cars };
-    } else if (rand < 0.75) {
-      // River with logs
-      const dir = Math.random() < 0.5 ? 1 : -1;
-      const spd = 1.2 + Math.random() * 1.8;
-      const logs = [];
-      for (let i = 0; i < 2; i++) {
-        logs.push({ x: i * 280 + Math.random() * 60, w: 90, h: 28, spd, dir });
-      }
-      return { type: 'river', y: rowIndex, items: logs };
-    } else if (rand < 0.88) {
-      // Train tracks
-      return { type: 'train', y: rowIndex, timer: Math.floor(Math.random() * 150), train: null, warning: false };
-    } else {
-      return { type: 'grass', y: rowIndex, items: [] };
-    }
-  }
-
-  function initGame() {
-    rows = [];
-    for (let i = 0; i < 25; i++) {
-      rows.push(generateRow(i));
-    }
-    player.x = 7;
-    player.y = 1;
-    player.px = player.x * tileSize + tileSize / 2;
-    player.py = cv ? cv.height - player.y * tileSize - tileSize / 2 : 480;
-    player.targetPx = player.px;
-    player.targetPy = player.py;
-    cameraY = 0;
-    score = 0;
-  }
-
-  function hop(dx, dy) {
-    const nx = player.x + dx;
-    const ny = player.y + dy;
-    if (nx < 0 || nx >= cols || ny < 0) return;
-
-    player.x = nx;
-    player.y = ny;
-    player.targetPx = player.x * tileSize + tileSize / 2;
-    player.targetPy = cv.height - player.y * tileSize - tileSize / 2;
-    player.jumpArc = 12;
-
-    if (player.y > score) {
-      score = player.y;
-      if (score > best) {
-        best = score;
-        localStorage.setItem('hf_crossy_best', best.toString());
-      }
-      try { CyberAudio.jump(); } catch(e){}
-    }
-
-    // Generate new rows if climbing
-    while (rows.length <= player.y + 18) {
-      rows.push(generateRow(rows.length));
-    }
-  }
-
-  function update() {
-    const mult = (typeof SpeedRegulator !== 'undefined' ? SpeedRegulator.multiplier : 1.0) * speedMul;
-
-    // Smooth player position
-    player.px += (player.targetPx - player.px) * 0.3 * mult;
-    player.py += (player.targetPy - player.py) * 0.3 * mult;
-    if (player.jumpArc > 0) player.jumpArc -= 1 * mult;
-
-    // Smooth camera
-    const desiredCameraY = player.py - cv.height * 0.65;
-    cameraY += (desiredCameraY - cameraY) * 0.1 * mult;
-
-    const currentRow = rows[player.y];
-
-    // Update rows
-    rows.forEach(r => {
-      if (r.type === 'road') {
-        r.items.forEach(car => {
-          car.x += car.dir * car.spd * mult;
-          if (car.dir > 0 && car.x > cv.width + 60) car.x = -70;
-          if (car.dir < 0 && car.x < -80) car.x = cv.width + 70;
-
-          // Check hit
-          if (r.y === player.y) {
-            if (player.px > car.x && player.px < car.x + car.w) {
-              try { CyberAudio.boom(); } catch(e){}
-              initGame();
-            }
-          }
-        });
-      } else if (r.type === 'river') {
-        let onLog = false;
-        r.items.forEach(log => {
-          log.x += log.dir * log.spd * mult;
-          if (log.dir > 0 && log.x > cv.width + 100) log.x = -110;
-          if (log.dir < 0 && log.x < -120) log.x = cv.width + 110;
-
-          if (r.y === player.y) {
-            if (player.px >= log.x && player.px <= log.x + log.w) {
-              onLog = true;
-              player.px += log.dir * log.spd * mult;
-              player.targetPx += log.dir * log.spd * mult;
-            }
-          }
-        });
-
-        // Drown if not on log
-        if (r.y === player.y && !onLog && player.jumpArc <= 2) {
-          try { CyberAudio.boom(); } catch(e){}
-          initGame();
-        }
-      } else if (r.type === 'train') {
-        r.timer += 1 * mult;
-        r.warning = (r.timer > 140 && r.timer < 190);
-        if (r.timer >= 190 && !r.train) {
-          r.train = { x: -300, spd: 14 };
-        }
-        if (r.train) {
-          r.train.x += r.train.spd * mult;
-          if (r.y === player.y && player.px > r.train.x && player.px < r.train.x + 300) {
-            try { CyberAudio.boom(); } catch(e){}
-            initGame();
-          }
-          if (r.train.x > cv.width + 300) {
-            r.train = null;
-            r.timer = 0;
-          }
-        }
-      }
-    });
-
-    // Fall off screen check
-    if (player.px < 10 || player.px > cv.width - 10) initGame();
-
-    // HUD
-    const sEl = document.getElementById('crossy-score');
-    const bEl = document.getElementById('crossy-best');
-    const cEl = document.getElementById('crossy-coins');
-    if (sEl) sEl.textContent = score;
-    if (bEl) bEl.textContent = best;
-    if (cEl) cEl.textContent = coins;
-  }
-
-  function render() {
-    ctx.fillStyle = '#050811';
-    ctx.fillRect(0, 0, cv.width, cv.height);
-
-    ctx.save();
-    ctx.translate(0, -cameraY);
-
-    // Draw rows
-    rows.forEach(r => {
-      const yPos = cv.height - r.y * tileSize - tileSize;
-
-      if (r.type === 'grass') {
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(0, yPos, cv.width, tileSize);
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
-        for (let i = 0; i < cols; i++) {
-          ctx.fillRect(i * tileSize + 14, yPos + 14, 4, 4);
-        }
-      } else if (r.type === 'road') {
-        ctx.fillStyle = '#090d16';
-        ctx.fillRect(0, yPos, cv.width, tileSize);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.setLineDash([8, 8]);
-        ctx.beginPath();
-        ctx.moveTo(0, yPos + tileSize / 2);
-        ctx.lineTo(cv.width, yPos + tileSize / 2);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        // Cars
-        r.items.forEach(car => {
-          ctx.fillStyle = car.color;
-          ctx.shadowColor = car.color;
-          ctx.shadowBlur = 8;
-          ctx.fillRect(car.x, yPos + (tileSize - car.h) / 2, car.w, car.h);
-          // Headlights
-          ctx.fillStyle = '#fef08a';
-          const hx = car.dir > 0 ? car.x + car.w - 4 : car.x;
-          ctx.fillRect(hx, yPos + 8, 4, 5);
-          ctx.fillRect(hx, yPos + car.h - 1, 4, 5);
-          ctx.shadowBlur = 0;
-        });
-      } else if (r.type === 'river') {
-        ctx.fillStyle = '#062038';
-        ctx.fillRect(0, yPos, cv.width, tileSize);
-
-        // Logs
-        r.items.forEach(log => {
-          ctx.fillStyle = '#00f0ff';
-          ctx.shadowColor = '#00f0ff';
-          ctx.shadowBlur = 6;
-          ctx.fillRect(log.x, yPos + (tileSize - log.h) / 2, log.w, log.h);
-          ctx.fillStyle = 'rgba(0,0,0,0.3)';
-          ctx.fillRect(log.x + 8, yPos + 8, log.w - 16, log.h - 16);
-          ctx.shadowBlur = 0;
-        });
-      } else if (r.type === 'train') {
-        ctx.fillStyle = '#171124';
-        ctx.fillRect(0, yPos, cv.width, tileSize);
-        // Laser rails
-        ctx.strokeStyle = r.warning ? '#f43f5e' : 'rgba(244, 63, 94, 0.25)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(0, yPos + 6); ctx.lineTo(cv.width, yPos + 6);
-        ctx.moveTo(0, yPos + tileSize - 6); ctx.lineTo(cv.width, yPos + tileSize - 6);
-        ctx.stroke();
-
-        // Train
-        if (r.train) {
-          ctx.fillStyle = '#f43f5e';
-          ctx.shadowColor = '#f43f5e';
-          ctx.shadowBlur = 14;
-          ctx.fillRect(r.train.x, yPos + 4, 300, tileSize - 8);
-          ctx.shadowBlur = 0;
-        }
-      }
-    });
-
-    // Draw Player
-    ctx.fillStyle = '#10b981';
-    ctx.shadowColor = '#10b981';
-    ctx.shadowBlur = 10;
-    const drawY = player.py - player.jumpArc;
-    ctx.fillRect(player.px - 11, drawY - 11, 22, 22);
-    // Cyber visor
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(player.px - 7, drawY - 7, 14, 5);
-    ctx.shadowBlur = 0;
-
-    ctx.restore();
-  }
-
-  function loop() {
-    update();
-    render();
-    animId = requestAnimationFrame(loop);
-  }
-
-  return {
-    init: () => {
-      cv = document.getElementById('canvas-crossy');
-      if (!cv) return;
-      ctx = cv.getContext('2d');
-      initGame();
-
-      window.addEventListener('keydown', e => {
-        if (['ArrowUp', 'KeyW', 'KeyZ'].includes(e.code)) { e.preventDefault(); hop(0, 1); }
-        else if (['ArrowDown', 'KeyS'].includes(e.code)) { e.preventDefault(); hop(0, -1); }
-        else if (['ArrowLeft', 'KeyA', 'KeyQ'].includes(e.code)) { e.preventDefault(); hop(-1, 0); }
-        else if (['ArrowRight', 'KeyD'].includes(e.code)) { e.preventDefault(); hop(1, 0); }
-      });
-
-      const rBtn = document.getElementById('crossy-reset');
-      if (rBtn) rBtn.onclick = initGame;
-      const bU = document.getElementById('crossy-btn-up');
-      const bD = document.getElementById('crossy-btn-down');
-      const bL = document.getElementById('crossy-btn-left');
-      const bR = document.getElementById('crossy-btn-right');
-      if (bU) bU.onclick = () => hop(0, 1);
-      if (bD) bD.onclick = () => hop(0, -1);
-      if (bL) bL.onclick = () => hop(-1, 0);
-      if (bR) bR.onclick = () => hop(1, 0);
-    },
-    start: () => { if (!animId) loop(); },
-    pause: () => { if (animId) { cancelAnimationFrame(animId); animId = null; } }
-  };
-})();
-
-// 4. CYBER MEMORY MATRIX
-const MemoryGame = (() => {
-  const ICONS = ['🤖', '🚀', '⚡', '🧬', '👾', '🎮', '💎', '🛡️', '🛸', '💣', '🏎️', '🎯'];
-  let totalCards = 16, cards = [], flipped = [], matchedCount = 0;
-  let moves = 0, combo = 1, timerSec = 0, timerInterval = null, isLocked = false;
-  let best = localStorage.getItem('hf_memory_best') || '--';
-
-  function init(mode = 16) {
-    totalCards = mode;
-    matchedCount = 0;
-    moves = 0;
-    combo = 1;
-    timerSec = 0;
-    isLocked = false;
-    flipped = [];
-    clearInterval(timerInterval);
-
-    timerInterval = setInterval(() => {
-      timerSec++;
-      const m = Math.floor(timerSec / 60);
-      const s = timerSec % 60;
-      const tEl = document.getElementById('memory-timer');
-      if (tEl) tEl.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-    }, 1000);
-
-    const pairsNeeded = totalCards / 2;
-    const selectedIcons = ICONS.slice(0, pairsNeeded);
-    const deck = [...selectedIcons, ...selectedIcons].sort(() => Math.random() - 0.5);
-
-    const grid = document.getElementById('memory-grid');
-    if (!grid) return;
-    grid.className = `memory-grid mode-${totalCards}`;
-    grid.innerHTML = '';
-
-    deck.forEach((icon, idx) => {
-      const card = document.createElement('button');
-      card.className = 'memory-card';
-      card.dataset.index = idx;
-      card.dataset.icon = icon;
-      card.innerHTML = `
-        <div class="memory-card-face memory-card-back">⚡</div>
-        <div class="memory-card-face memory-card-front">${icon}</div>
-      `;
-      card.onclick = () => flipCard(card);
-      grid.appendChild(card);
-    });
-
-    updateHUD();
-  }
-
-  function flipCard(card) {
-    if (isLocked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-
-    card.classList.add('flipped');
-    flipped.push(card);
-    try { CyberAudio.click(); } catch(e){}
-
-    if (flipped.length === 2) {
-      moves++;
-      isLocked = true;
-      const [c1, c2] = flipped;
-
-      if (c1.dataset.icon === c2.dataset.icon) {
-        // Matched!
-        setTimeout(() => {
-          c1.classList.add('matched');
-          c2.classList.add('matched');
-          matchedCount += 2;
-          combo++;
-          try { CyberAudio.score(); } catch(e){}
-          flipped = [];
-          isLocked = false;
-          updateHUD();
-
-          if (matchedCount === totalCards) {
-            clearInterval(timerInterval);
-            try { CyberAudio.chime(); } catch(e){}
-            const recordStr = `${moves} coups (${timerSec}s)`;
-            best = recordStr;
-            localStorage.setItem('hf_memory_best', best);
-            updateHUD();
-          }
-        }, 320);
-      } else {
-        // Mismatch
-        combo = 1;
-        setTimeout(() => {
-          c1.classList.remove('flipped');
-          c2.classList.remove('flipped');
-          flipped = [];
-          isLocked = false;
-          updateHUD();
-        }, 850);
-      }
-    }
-    updateHUD();
-  }
-
-  function updateHUD() {
-    const pEl = document.getElementById('memory-pairs');
-    const mEl = document.getElementById('memory-moves');
-    const cEl = document.getElementById('memory-combo');
-    const bEl = document.getElementById('memory-best');
-    if (pEl) pEl.textContent = `${matchedCount / 2} / ${totalCards / 2}`;
-    if (mEl) mEl.textContent = moves;
-    if (cEl) cEl.textContent = `x${combo}`;
-    if (bEl) bEl.textContent = best;
-  }
-
-  return {
-    init: () => {
-      init(16);
-      const rBtn = document.getElementById('memory-reset');
-      if (rBtn) rBtn.onclick = () => init(totalCards);
-      const m16 = document.getElementById('memory-mode-16');
-      const m24 = document.getElementById('memory-mode-24');
-      if (m16) m16.onclick = () => { m16.classList.add('active'); m24.classList.remove('active'); init(16); };
-      if (m24) m24.onclick = () => { m24.classList.add('active'); m16.classList.remove('active'); init(24); };
-    },
-    start: () => {},
-    pause: () => { clearInterval(timerInterval); }
-  };
-})();
-
-/* ============================================================================
    MODULE UNIVERSEL : COMPTEUR DE TEMPS ACTIF & REGISTRE DES JEUX
    ============================================================================ */
 const ActiveTimeTracker = (() => {
   const STORAGE_KEY_TOTAL = 'hf_active_seconds_total_v2';
   const STORAGE_KEY_PLAYED = 'hf_played_games_v2';
-  const ALL_MODULES_TOTAL = 58;
+  const ALL_MODULES_TOTAL = 54;
 
   let totalSeconds = parseInt(localStorage.getItem(STORAGE_KEY_TOTAL) || '0', 10);
   if (isNaN(totalSeconds)) totalSeconds = 0;
@@ -17303,10 +16378,6 @@ const CYBER_MODULES = {
   qrcode: StealthQR,
   pixelart: PixelStudio,
   matrix: MatrixScreensaver,
-  pacman: PacmanGame,
-  invaders: SpaceInvadersGame,
-  crossy: CrossyGame,
-  memory: MemoryGame,
 
 };
 
