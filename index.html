@@ -1938,180 +1938,59 @@
     }
 
     
+    
     /* =========================================================================
-       CYBER LAB & MINDBLOWING MODULES (DOOM 3D, STEGANO, ILLUSIONS, TERMINAL)
+       HITS SCOLAIRES INCONTOURNABLES (ROOFTOP SNIPERS, NEON WAVE, DRIVE MAD, TUNNEL RUSH)
        ========================================================================= */
-    /* DOOM 3D Canvas & HUD */
-    .doom-container {
+    .game-stage-container {
       position: relative;
       width: 100%;
       max-width: 860px;
       margin: 0 auto;
-      background: #000;
-      border: 2px solid var(--border-strong);
+      background: #030712;
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
     }
-    #doom-canvas {
+    .game-stage-canvas {
       display: block;
       width: 100%;
       height: auto;
       aspect-ratio: 16 / 9;
-      background: #02040a;
-      image-rendering: pixelated;
+      background: #020409;
     }
-    .doom-hud-overlay {
+    .game-stage-overlay {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 10px 16px;
-      background: linear-gradient(0deg, rgba(5,8,17,0.95) 0%, rgba(5,8,17,0) 100%);
+      top: 12px;
+      left: 14px;
+      right: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #fff;
+      pointer-events: none;
       font-family: ui-monospace, monospace;
       font-size: 13px;
-      pointer-events: none;
+      z-index: 5;
     }
-    .doom-stat-badge {
-      background: rgba(0, 240, 255, 0.15);
-      border: 1px solid rgba(0, 240, 255, 0.4);
-      padding: 4px 10px;
+    .game-stage-badge {
+      background: rgba(5, 8, 17, 0.85);
+      border: 1px solid var(--border);
       border-radius: 6px;
-      color: var(--accent-cyan);
-      font-weight: 700;
-    }
-
-    /* STÉGANOGRAPHIE */
-    .stegano-layout {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      margin-top: 16px;
-    }
-    .stegano-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .stegano-dropzone {
-      border: 2px dashed rgba(0, 240, 255, 0.35);
-      background: rgba(0, 240, 255, 0.03);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-    .stegano-dropzone:hover {
-      border-color: var(--accent-cyan);
-      background: rgba(0, 240, 255, 0.08);
-    }
-    .stegano-preview-img {
-      max-width: 100%;
-      max-height: 180px;
-      border-radius: 8px;
-      object-fit: contain;
-      border: 1px solid var(--border);
-    }
-
-    /* ILLUSIONS LAB */
-    .illusions-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      margin-top: 16px;
-    }
-    .illusion-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
-    }
-    .illusion-canvas-wrap {
-      position: relative;
-      margin: 0 auto;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: #000;
-    }
-
-    /* CYBER TERMINAL */
-    .terminal-window {
-      background: #020409;
-      border: 1px solid var(--accent-cyan);
-      border-radius: var(--radius-md);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.8);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      font-family: ui-monospace, 'Courier New', monospace;
-      position: relative;
-    }
-    .terminal-topbar {
-      background: #090e1c;
-      border-bottom: 1px solid var(--border);
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .terminal-dots {
-      display: flex;
-      gap: 6px;
-    }
-    .terminal-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .terminal-body {
-      padding: 16px;
-      min-height: 380px;
-      max-height: 480px;
-      overflow-y: auto;
-      color: #00f0ff;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    .terminal-body::-webkit-scrollbar { width: 6px; }
-    .terminal-body::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.3); border-radius: 3px; }
-    .terminal-line-prompt { color: #10b981; font-weight: bold; }
-    .terminal-line-cmd { color: #fff; }
-    .terminal-line-output { color: #94a3b8; }
-    .terminal-line-success { color: #34d399; }
-    .terminal-line-warn { color: #fbbf24; }
-    .terminal-line-error { color: #f87171; }
-    .terminal-input-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .terminal-input {
-      background: transparent;
-      border: none;
-      outline: none;
+      padding: 4px 10px;
       color: #fff;
-      font-family: inherit;
-      font-size: 13px;
-      flex: 1;
+      font-weight: 700;
+      backdrop-filter: blur(4px);
+    }
+    .game-stage-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
     }
 
     /* =========================================================================
@@ -2272,8 +2151,12 @@
         <button class="nav-btn" data-section="tron"><span class="nav-icon">🏍️</span> Tron Cycles 1v1</button>
         <button class="nav-btn" data-section="tanks"><span class="nav-icon">💣</span> Tank Battle 1v1</button>
         <button class="nav-btn" data-section="connect4"><span class="nav-icon">🔴</span> Puissance 4 (Local/P2P)</button>
+        <button class="nav-btn" data-section="rooftop"><span class="nav-icon">🎯</span> Rooftop Snipers 1v1</button>
 
         <div class="nav-group-label">🎮 Solo Rétro &amp; Arcade</div>
+        <button class="nav-btn" data-section="wave"><span class="nav-icon">⚡</span> Neon Wave (Geometry)</button>
+        <button class="nav-btn" data-section="drivemad"><span class="nav-icon">🚙</span> Drive Mad 2D</button>
+        <button class="nav-btn" data-section="tunnel"><span class="nav-icon">🌀</span> Tunnel Rush 3D</button>
         <button class="nav-btn" data-section="tetris"><span class="nav-icon">🧱</span> Tetris Néon</button>
         <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
         <button class="nav-btn" data-section="snake"><span class="nav-icon">🐍</span> Snake Néon</button>
@@ -2281,12 +2164,6 @@
         <button class="nav-btn" data-section="runner"><span class="nav-icon">🦖</span> Cyber Runner</button>
         <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim</button>
         <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
-
-        <div class="nav-group-label">🔮 Cyber Lab &amp; Mind-Benders</div>
-        <button class="nav-btn" data-section="doom"><span class="nav-icon">🕶️</span> Cyber DOOM 3D</button>
-        <button class="nav-btn" data-section="stegano"><span class="nav-icon">🔐</span> Coffre Stéganographique</button>
-        <button class="nav-btn" data-section="illusions"><span class="nav-icon">🌀</span> Illusions &amp; Ondes</button>
-        <button class="nav-btn" data-section="terminal"><span class="nav-icon">💻</span> Terminal Hacker</button>
 
         <div class="nav-group-label">🛡️ Furtivité &amp; Références</div>
         <button class="nav-btn" data-section="links"><span class="nav-icon">🔗</span> Bibliothèque de Liens</button>
@@ -3331,219 +3208,146 @@
         </section>
 
       
+        
         <!-- ===============================================================
-             SECTION : CYBER DOOM 3D (Moteur Raycaster Canvas Pur 60 FPS)
+             SECTION : ROOFTOP SNIPERS 1v1 (Duel Ragdoll Culte)
              =============================================================== -->
-        <section id="sec-doom" class="section">
+        <section id="sec-rooftop" class="section">
           <div class="card">
             <div class="card-header">
               <div>
-                <div class="card-title">🕶️ Cyber DOOM 3D (Moteur Raycasting Mathématique)</div>
-                <div class="card-subtitle">Moteur 3D en temps réel à 60 FPS codé en pur Canvas 2D (zéro bibliothèque, zéro WebGL). Élimine les drones cyber !</div>
+                <div class="card-title">🎯 Rooftop Snipers 1v1 (Duel Ragdoll sur le Toit)</div>
+                <div class="card-subtitle">Le jeu culte des salles d'informatique ! Éjecte ton adversaire du toit avec le recul et les balles de ton sniper.</div>
               </div>
-              <div style="display:flex; gap:8px;">
-                <button id="doom-restart-btn" class="btn btn-secondary btn-sm">🔄 Recommencer</button>
-                <button id="doom-fs-btn" class="btn btn-primary btn-sm">⛶ Plein Écran</button>
-              </div>
-            </div>
-
-            <div class="doom-container" id="doom-wrap">
-              <canvas id="doom-canvas" width="640" height="360"></canvas>
-              <div class="doom-hud-overlay">
-                <div>❤️ VIE : <span id="doom-hp" class="text-emerald">100%</span></div>
-                <div>⚡ LASER : <span id="doom-ammo" class="text-cyan">30 / 30</span></div>
-                <div>🎯 DRONES DÉTRUITS : <span id="doom-score" class="text-violet">0</span></div>
-                <div class="doom-stat-badge">60 FPS • DDA RAYCASTER</div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <div class="pill-tabs" id="rooftop-mode-tabs">
+                  <button class="pill-tab active" data-rmode="bot">🤖 1 Joueur vs Bot IA</button>
+                  <button class="pill-tab" data-rmode="pvp">👥 2 Joueurs (1 Clavier)</button>
+                </div>
+                <button id="rooftop-restart-btn" class="btn btn-secondary btn-sm">🔄 Recommencer</button>
               </div>
             </div>
 
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--text-muted);">
+            <div class="game-stage-container" id="rooftop-wrap">
+              <canvas id="rooftop-canvas" class="game-stage-canvas" width="800" height="450"></canvas>
+              <div class="game-stage-overlay">
+                <div class="game-stage-badge" style="color:#00f0ff;">🔵 JOUEUR 1 : <span id="roof-score-1">0</span></div>
+                <div class="game-stage-badge" style="color:#ef4444;">🔴 <span id="roof-label-2">BOT IA</span> : <span id="roof-score-2">0</span></div>
+              </div>
+            </div>
+
+            <div class="game-stage-footer">
               <div>
-                <strong>Contrôles :</strong> <span class="kbd">Z</span><span class="kbd">Q</span><span class="kbd">S</span><span class="kbd">D</span> ou <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span> pour te déplacer • <span class="kbd">←</span> <span class="kbd">→</span> pour tourner la caméra • <span class="kbd">Espace</span> ou <strong>Clic Gauche</strong> pour Tirer.
+                <strong>Joueur 1 (Bleu) :</strong> <span class="kbd">W</span> Sauter / Pencher • <span class="kbd">E</span> Tirer Sniper<br/>
+                <strong>Joueur 2 / Bot (Rouge) :</strong> <span class="kbd">I</span> Sauter / Pencher • <span class="kbd">O</span> Tirer Sniper
               </div>
-              <div>Radar mini-map en haut à droite • Touche <span class="kbd">Échap</span> pour cacher l'écran.</div>
+              <div>Premier à 5 victoires gagne le duel • Touche <span class="kbd">Échap</span> pour cacher l'écran.</div>
             </div>
           </div>
         </section>
 
         <!-- ===============================================================
-             SECTION : COFFRE STÉGANOGRAPHIQUE (Stéganographie LSB)
+             SECTION : NEON WAVE (Geometry Dash Wave)
              =============================================================== -->
-        <section id="sec-stegano" class="section">
+        <section id="sec-wave" class="section">
           <div class="card">
             <div class="card-header">
               <div>
-                <div class="card-title">🔐 Coffre Stéganographique (Stéganographie LSB Invisible)</div>
-                <div class="card-subtitle">Dissimule des antisèches, codes ou messages ultra-secrets directement dans les pixels d'une image. L'image finale est 100% identique à l'œil nu !</div>
+                <div class="card-title">⚡ Neon Wave (Geometry Dash Wave)</div>
+                <div class="card-subtitle">Maintiens la touche pour monter à 45°, relâche pour descendre. Slalome entre les pics néon sans toucher les parois !</div>
               </div>
-              <div class="pill-tabs" id="stegano-mode-tabs">
-                <button class="pill-tab active" data-smode="encode">🔒 Cacher un Secret (Encoder)</button>
-                <button class="pill-tab" data-smode="decode">🔓 Révéler un Secret (Décoder)</button>
-              </div>
-            </div>
-
-            <!-- Vue Encodeur -->
-            <div id="stegano-encode-view">
-              <div class="stegano-layout">
-                <div class="stegano-box">
-                  <h4 style="font-size:14px; font-weight:700; color:var(--accent-cyan);">1. Choisis une image support</h4>
-                  <div class="stegano-dropzone" id="stegano-encode-drop">
-                    <span style="font-size:32px;">🖼️</span>
-                    <span>Glisse une image ici ou clique pour sélectionner</span>
-                    <span style="font-size:11px; color:var(--text-muted);">PNG, JPEG, WebP</span>
-                    <input type="file" id="stegano-encode-file" accept="image/*" class="hidden" />
-                  </div>
-                  <button id="stegano-sample-img-btn" class="btn btn-secondary btn-sm" style="font-size:11px;">📄 Utiliser l'image Google Docs par défaut</button>
-                  <img id="stegano-encode-preview" class="stegano-preview-img hidden" alt="Aperçu support" />
+              <div style="display:flex; gap:8px; align-items:center;">
+                <div class="pill-tabs" id="wave-diff-tabs">
+                  <button class="pill-tab active" data-wdiff="normal">Normal</button>
+                  <button class="pill-tab" data-wdiff="hard">Difficile</button>
+                  <button class="pill-tab" data-wdiff="demon">Démoniaque</button>
                 </div>
-
-                <div class="stegano-box">
-                  <h4 style="font-size:14px; font-weight:700; color:var(--accent-purple);">2. Message secret à dissimuler</h4>
-                  <textarea id="stegano-secret-text" rows="5" placeholder="Tape ton texte secret ou ton antisèche ici... (aucun serveur, tout est encodé dans les bits de couleur RGBA de l'image)" style="background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px; font-size:12px; color:#fff; width:100%; resize:vertical;"></textarea>
-                  
-                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                    <span id="stegano-capacity-label" style="font-size:11px; color:var(--text-muted);">Capacité : En attente d'image</span>
-                    <button id="stegano-run-encode-btn" class="btn btn-primary">⚡ Injecter le secret dans l'image</button>
-                  </div>
-
-                  <div id="stegano-encode-result" class="hidden" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:var(--radius-sm); padding:12px; margin-top:8px;">
-                    <div style="font-size:12px; color:#34d399; font-weight:bold; margin-bottom:6px;">✅ Message dissimulé avec succès ! (Variation visuelle : 0.00%)</div>
-                    <button id="stegano-download-btn" class="btn btn-emerald btn-sm" style="width:100%;">📥 Télécharger l'image secrète (.PNG)</button>
-                  </div>
-                </div>
+                <button id="wave-restart-btn" class="btn btn-secondary btn-sm">🔄 Recommencer</button>
               </div>
             </div>
 
-            <!-- Vue Décodeur -->
-            <div id="stegano-decode-view" class="hidden">
-              <div class="stegano-layout">
-                <div class="stegano-box">
-                  <h4 style="font-size:14px; font-weight:700; color:var(--accent-emerald);">Glisse l'image contenant un secret</h4>
-                  <div class="stegano-dropzone" id="stegano-decode-drop">
-                    <span style="font-size:32px;">🔍</span>
-                    <span>Dépose l'image secrète PNG ici</span>
-                    <input type="file" id="stegano-decode-file" accept="image/*" class="hidden" />
-                  </div>
-                  <img id="stegano-decode-preview" class="stegano-preview-img hidden" alt="Aperçu décodeur" />
-                </div>
-
-                <div class="stegano-box">
-                  <h4 style="font-size:14px; font-weight:700; color:#00f0ff;">Secret extrait des pixels</h4>
-                  <div id="stegano-extracted-box" style="background:#020409; border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; min-height:120px; font-family:monospace; font-size:12px; color:#cffafe; white-space:pre-wrap; overflow-y:auto; max-height:220px;">
-                    En attente d'une image à décoder...
-                  </div>
-                  <button id="stegano-copy-secret-btn" class="btn btn-secondary btn-sm" style="align-self:flex-end;">📋 Copier le message</button>
-                </div>
+            <div class="game-stage-container" id="wave-wrap">
+              <canvas id="wave-canvas" class="game-stage-canvas" width="800" height="420"></canvas>
+              <div class="game-stage-overlay">
+                <div class="game-stage-badge" style="color:#00f0ff;">PROGRESSION : <span id="wave-progress">0%</span></div>
+                <div class="game-stage-badge" style="color:#f59e0b;">TENTATIVE : <span id="wave-attempts">1</span></div>
+                <div class="game-stage-badge" style="color:#10b981;">RECORD : <span id="wave-best">0%</span></div>
               </div>
+            </div>
+
+            <div class="game-stage-footer">
+              <div>
+                <strong>Contrôles :</strong> Maintiens <span class="kbd">Espace</span>, <strong>Clic Gauche</strong> ou <span class="kbd">↑</span> pour monter • Relâche pour descendre.
+              </div>
+              <div>Recommence instantanément après un crash • Mode ultra-rapide et nerveux.</div>
             </div>
           </div>
         </section>
 
         <!-- ===============================================================
-             SECTION : ILLUSIONS D'OPTIQUE & ONDES CÉRÉBRALES
+             SECTION : DRIVE MAD 2D (Physics Monster Truck)
              =============================================================== -->
-        <section id="sec-illusions" class="section">
+        <section id="sec-drivemad" class="section">
           <div class="card">
             <div class="card-header">
               <div>
-                <div class="card-title">🌀 Illusions d'Optique &amp; Ondes Cérébrales (Mind-Benders)</div>
-                <div class="card-subtitle">Expériences visuelles et auditives qui trompent les neurones du cerveau en temps réel.</div>
+                <div class="card-title">🚙 Drive Mad 2D (Physics Monster Truck)</div>
+                <div class="card-subtitle">Franchis les ponts suspendus, bosses et loopings sans te retourner. Gère les suspensions et équilibre ton véhicule en plein vol !</div>
               </div>
-              <div class="pill-tabs" id="illusions-tabs">
-                <button class="pill-tab active" data-ill="vortex">🌀 Vortex Cinétique</button>
-                <button class="pill-tab" data-ill="binaural">🧠 Ondes Alpha &amp; 432 Hz</button>
-                <button class="pill-tab" data-ill="cube4d">📐 Tesseract 4D</button>
-              </div>
-            </div>
-
-            <!-- Onglet 1 : Vortex Cinétique (Motion Aftereffect) -->
-            <div id="ill-view-vortex" style="text-align:center; padding:10px;">
-              <div style="font-size:13px; color:#cffafe; max-width:540px; margin:0 auto 14px; line-height:1.5;">
-                <strong>Effet de distorsion de la réalité :</strong> Clique sur Démarrer, fixe le point rouge au centre pendant 30 secondes sans cligner des yeux, puis regarde immédiatement ta main ou ton écran d'ordinateur !
-              </div>
-              <div class="illusion-canvas-wrap" style="width:340px; height:340px;">
-                <canvas id="vortex-canvas" width="340" height="340"></canvas>
-              </div>
-              <div style="margin-top:14px; display:flex; gap:10px; justify-content:center; align-items:center;">
-                <button id="vortex-toggle-btn" class="btn btn-primary">▶ Lancer l'illusion (30s)</button>
-                <span id="vortex-timer" style="font-family:monospace; font-size:18px; font-weight:bold; color:var(--accent-cyan); min-width:60px;">00:30</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span id="drivemad-level-label" class="badge badge-amber" style="font-size:12px;">Niveau 1 / 5</span>
+                <button id="drivemad-next-btn" class="btn btn-emerald btn-sm hidden">▶ Niveau Suivant</button>
+                <button id="drivemad-restart-btn" class="btn btn-secondary btn-sm">🔄 Recommencer (R)</button>
               </div>
             </div>
 
-            <!-- Onglet 2 : Ondes & Battements Binauraux -->
-            <div id="ill-view-binaural" class="hidden" style="padding:10px;">
-              <div style="font-size:13px; color:#cffafe; max-width:600px; margin:0 auto 16px; line-height:1.5; text-align:center;">
-                🎧 <strong>Mets tes écouteurs (obligatoire pour l'effet stéréophonique) :</strong> Deux fréquences légèrement différentes sont jouées dans l'oreille gauche et droite. Ton cerveau crée une onde d'interférence interne qui induit un état de concentration intense ou de calme.
-              </div>
-              <div style="display:flex; justify-content:center; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
-                <button class="btn btn-secondary btn-sm ill-preset-btn" data-freq="200" data-diff="10">🧠 Focus &amp; Révision (Alpha 10 Hz)</button>
-                <button class="btn btn-secondary btn-sm ill-preset-btn" data-freq="150" data-diff="6">🧘 Calme Anti-Stress (Thêta 6 Hz)</button>
-                <button class="btn btn-secondary btn-sm ill-preset-btn" data-freq="432" data-diff="0">✨ Fréquence Harmonieuse 432 Hz</button>
-              </div>
-              <div style="max-width:440px; margin:0 auto; background:var(--bg-input); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; gap:14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <span style="font-size:12px;">Fréquence de base :</span>
-                  <span id="binaural-freq-val" style="font-family:monospace; font-size:13px; color:var(--accent-cyan);">200 Hz</span>
-                </div>
-                <input type="range" id="binaural-freq-slider" min="100" max="500" step="1" value="200" style="cursor:pointer;" />
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <span style="font-size:12px;">Décalage binaural (onde perçue) :</span>
-                  <span id="binaural-diff-val" style="font-family:monospace; font-size:13px; color:var(--accent-purple);">10 Hz (Alpha)</span>
-                </div>
-                <input type="range" id="binaural-diff-slider" min="0" max="30" step="0.5" value="10" style="cursor:pointer;" />
-                <button id="binaural-toggle-btn" class="btn btn-emerald" style="width:100%; margin-top:8px;">▶ Démarrer le flux audio binaural</button>
+            <div class="game-stage-container" id="drivemad-wrap">
+              <canvas id="drivemad-canvas" class="game-stage-canvas" width="800" height="420"></canvas>
+              <div class="game-stage-overlay">
+                <div class="game-stage-badge" style="color:#f59e0b;">ÉTAT : <span id="drivemad-status">EN COURSE</span></div>
+                <div class="game-stage-badge" style="color:#00f0ff;">CHRONO : <span id="drivemad-timer">0.0s</span></div>
               </div>
             </div>
 
-            <!-- Onglet 3 : Tesseract 4D -->
-            <div id="ill-view-cube4d" class="hidden" style="text-align:center; padding:10px;">
-              <div style="font-size:13px; color:#cffafe; max-width:540px; margin:0 auto 14px; line-height:1.5;">
-                Hypercube à 4 dimensions géométriques (Tesseract) projeté en 3D puis rendu en direct sur le canvas. Glisse la souris pour faire pivoter la 4e dimension !
+            <div class="game-stage-footer">
+              <div>
+                <strong>Contrôles :</strong> <span class="kbd">D</span> ou <span class="kbd">→</span> Avancer • <span class="kbd">A</span> ou <span class="kbd">←</span> Reculer / Freiner • En l'air : incline pour atterrir à plat • <span class="kbd">R</span> Recommencer.
               </div>
-              <div class="illusion-canvas-wrap" style="width:360px; height:320px;">
-                <canvas id="tesseract-canvas" width="360" height="320"></canvas>
-              </div>
+              <div>Atteins le drapeau à damier sans casser la voiture !</div>
             </div>
           </div>
         </section>
 
         <!-- ===============================================================
-             SECTION : TERMINAL HACKER & MATRIX
+             SECTION : TUNNEL RUSH 3D (Course Néon dans le Tube)
              =============================================================== -->
-        <section id="sec-terminal" class="section">
+        <section id="sec-tunnel" class="section">
           <div class="card">
             <div class="card-header">
               <div>
-                <div class="card-title">💻 Cyber Terminal &amp; Matrix Shell</div>
-                <div class="card-subtitle">Console en ligne de commande interactive avec mode Hollywood Hacker. Fais semblant d'infiltrer le réseau de l'école !</div>
+                <div class="card-title">🌀 Tunnel Rush 3D (Course Néon 60 FPS)</div>
+                <div class="card-subtitle">Fonce à toute allure dans un tube 3D polygonal hypnotique. Tourne autour des parois pour esquiver les portes et obstacles rouges !</div>
               </div>
-              <div style="display:flex; gap:8px;">
-                <button id="term-hollywood-btn" class="btn btn-violet btn-sm">⚡ Mode Hollywood Hacker (Frappe libre)</button>
-                <button id="term-clear-btn" class="btn btn-secondary btn-sm">🧹 Effacer</button>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span class="badge badge-cyan" style="font-size:12px;">60 FPS 3D TUBE</span>
+                <button id="tunnel-restart-btn" class="btn btn-secondary btn-sm">🔄 Recommencer</button>
               </div>
             </div>
 
-            <div class="terminal-window">
-              <div class="terminal-topbar">
-                <div class="terminal-dots">
-                  <span class="terminal-dot" style="background:#ef4444;"></span>
-                  <span class="terminal-dot" style="background:#f59e0b;"></span>
-                  <span class="terminal-dot" style="background:#10b981;"></span>
-                </div>
-                <span style="font-size:11px; color:var(--text-muted);">med0@edu-vd-gateway: ~ (zsh)</span>
-                <span style="font-size:10px; color:#00f0ff;">AES-256 ENCRYPTED</span>
+            <div class="game-stage-container" id="tunnel-wrap">
+              <canvas id="tunnel-canvas" class="game-stage-canvas" width="800" height="450"></canvas>
+              <div class="game-stage-overlay">
+                <div class="game-stage-badge" style="color:#00f0ff;">SCORE : <span id="tunnel-score">0</span></div>
+                <div class="game-stage-badge" style="color:#10b981;">VITESSE : <span id="tunnel-speed">1.0x</span></div>
+                <div class="game-stage-badge" style="color:#f59e0b;">RECORD : <span id="tunnel-best">0</span></div>
               </div>
-              <div class="terminal-body" id="terminal-output">
-                <div class="terminal-line-success">CYBER PORTAL KERNEL v4.19-VD INITIALIZED</div>
-                <div class="terminal-line-output">Tape <strong style="color:#00f0ff">help</strong> pour afficher la liste des commandes cyber disponibles.</div>
-                <div class="terminal-line-output">Astuce : clique sur le bouton « Mode Hollywood Hacker » et tape n'importe quoi au clavier pour impressionner tes camarades !</div>
+            </div>
+
+            <div class="game-stage-footer">
+              <div>
+                <strong>Contrôles :</strong> <span class="kbd">A</span> ou <span class="kbd">←</span> Tourner à gauche • <span class="kbd">D</span> ou <span class="kbd">→</span> Tourner à droite.
               </div>
-              <div style="padding:10px 16px; background:#050811; border-top:1px solid rgba(0,240,255,0.2);">
-                <div class="terminal-input-row">
-                  <span class="terminal-line-prompt">med0@school-fun:~$</span>
-                  <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" placeholder="Tape une commande (ex: help, matrix, hack, scan-wifi, doom)..." />
-                </div>
-              </div>
+              <div>Esquive les obstacles rouges à l'approche • Le tube accélère sans fin !</div>
             </div>
           </div>
         </section>
@@ -3801,10 +3605,10 @@
         slope: '⛷️ Slope 2 (1games.io)',
         memes: '🖼️ Banque de Memes',
         soundboard: '🔊 Soundboard Scolaire',
-        doom: '🕶️ Cyber DOOM 3D',
-        stegano: '🔐 Coffre Stéganographique',
-        illusions: '🌀 Illusions & Ondes',
-        terminal: '💻 Terminal Hacker',
+        rooftop: '🎯 Rooftop Snipers 1v1',
+        wave: '⚡ Neon Wave (Geometry)',
+        drivemad: '🚙 Drive Mad 2D',
+        tunnel: '🌀 Tunnel Rush 3D',
         pong: '🏓 Cyber Pong 1v1',
         tron: '🏍️ Tron Cycles 1v1',
         tanks: '💣 Tank Battle 1v1',
@@ -3864,11 +3668,14 @@
         if (sectionKey === 'slope' && !AppState.slopeLoaded) loadSlopeIframe();
         if (sectionKey === 'memes' && !MemeGallery.initialized) MemeGallery.scan();
         if (sectionKey === 'soundboard' && typeof Soundboard !== 'undefined' && !Soundboard.initialized) Soundboard.scan();
-        if (sectionKey === 'doom' && typeof CyberDoom !== 'undefined') CyberDoom.start();
-        if (sectionKey !== 'doom' && typeof CyberDoom !== 'undefined') CyberDoom.pause();
-        if (sectionKey === 'illusions' && typeof IllusionsLab !== 'undefined') IllusionsLab.init();
-        if (sectionKey !== 'illusions' && typeof IllusionsLab !== 'undefined') IllusionsLab.stop();
-        if (sectionKey === 'terminal' && typeof TerminalShell !== 'undefined') TerminalShell.focus();
+        if (sectionKey === 'rooftop' && typeof RooftopSnipers !== 'undefined') RooftopSnipers.start();
+        if (sectionKey !== 'rooftop' && typeof RooftopSnipers !== 'undefined') RooftopSnipers.pause();
+        if (sectionKey === 'wave' && typeof NeonWave !== 'undefined') NeonWave.start();
+        if (sectionKey !== 'wave' && typeof NeonWave !== 'undefined') NeonWave.pause();
+        if (sectionKey === 'drivemad' && typeof DriveMad !== 'undefined') DriveMad.start();
+        if (sectionKey !== 'drivemad' && typeof DriveMad !== 'undefined') DriveMad.pause();
+        if (sectionKey === 'tunnel' && typeof TunnelRush !== 'undefined') TunnelRush.start();
+        if (sectionKey !== 'tunnel' && typeof TunnelRush !== 'undefined') TunnelRush.pause();
         if (sectionKey === 'snake') requestAnimationFrame(() => SnakeGame.resize());
         if (sectionKey === 'runner') requestAnimationFrame(() => RunnerGame.resize());
         if (sectionKey === 'flappy') requestAnimationFrame(() => FlappyGame.resize());
@@ -8109,225 +7916,329 @@
 
 
 
+      
       /* =======================================================================
-         24. CYBER DOOM 3D (MOTEUR RAYCASTING DDA 60 FPS PUR CANVAS)
+         24. ROOFTOP SNIPERS 1v1 (DUEL RAGDOLL SUR LE TOIT - 2J OU VS BOT)
          ======================================================================= */
-      const CyberDoom = (function () {
+      const RooftopSnipers = (function () {
         let canvas, ctx;
         let running = false;
         let animId = null;
-        let hp = 100;
-        let ammo = 30;
-        let score = 0;
-        let recoil = 0;
-        let muzzleFlash = 0;
+        let mode = 'bot'; // 'bot' | 'pvp'
+        let score1 = 0, score2 = 0;
+        let roundOver = false;
+        let roundBanner = '';
+        let roundTimer = 0;
 
-        // Carte 16x16 (1: Mur Cyan, 2: Mur Violet, 3: Mur Émeraude, 4: Mur Doré, 0: Vide)
-        const MAP_W = 16;
-        const MAP_H = 16;
-        const MAP = [
-          1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-          1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
-          1,0,2,2,0,0,1,0,3,3,3,0,0,0,0,1,
-          1,0,2,0,0,0,0,0,3,0,3,0,0,4,0,1,
-          1,0,2,0,0,0,1,0,3,0,3,0,0,4,0,1,
-          1,0,0,0,0,0,1,0,0,0,0,0,0,4,0,1,
-          1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,1,
-          1,0,0,0,0,0,0,0,0,2,2,2,0,0,0,1,
-          1,0,0,0,0,0,0,0,0,2,0,2,0,0,0,1,
-          1,0,3,3,3,0,0,0,0,2,2,2,0,3,0,1,
-          1,0,3,0,3,0,1,0,0,0,0,0,0,3,0,1,
-          1,0,3,0,3,0,1,0,0,4,4,0,0,3,0,1,
-          1,0,0,0,0,0,1,0,0,4,4,0,0,0,0,1,
-          1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-          1,0,4,0,0,4,0,0,0,0,0,0,0,0,0,1,
-          1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-        ];
+        // Plateforme du toit
+        const ROOF = { x: 160, y: 340, w: 480, h: 110 };
 
-        // Joueur
-        let px = 2.5, py = 2.5;
-        let dirX = 1.0, dirY = 0.0;
-        let planeX = 0.0, planeY = 0.66; // FOV ~ 66°
+        // Joueurs
+        let p1 = {
+          x: 260, y: 280, vx: 0, vy: 0, rot: 0, onGround: true,
+          armAngle: 0, armDir: 1, color: '#00f0ff', name: 'J1', dead: false
+        };
+        let p2 = {
+          x: 540, y: 280, vx: 0, vy: 0, rot: 0, onGround: true,
+          armAngle: 0, armDir: -1, color: '#ef4444', name: 'BOT', dead: false
+        };
 
-        // Ennemis (Drones Cyber)
-        let enemies = [
-          { x: 5.5, y: 3.5, hp: 2, alive: true },
-          { x: 10.5, y: 4.5, hp: 2, alive: true },
-          { x: 4.5, y: 10.5, hp: 2, alive: true },
-          { x: 12.5, y: 11.5, hp: 3, alive: true }
-        ];
-
+        const bullets = [];
+        const particles = [];
         const keys = {};
 
         function init() {
-          canvas = document.getElementById('doom-canvas');
+          canvas = document.getElementById('rooftop-canvas');
           if (!canvas) return;
           ctx = canvas.getContext('2d');
 
+          // Mode buttons
+          document.querySelectorAll('#rooftop-mode-tabs .pill-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+              document.querySelectorAll('#rooftop-mode-tabs .pill-tab').forEach(t => t.classList.remove('active'));
+              tab.classList.add('active');
+              mode = tab.dataset.rmode;
+              document.getElementById('roof-label-2').textContent = mode === 'bot' ? 'BOT IA' : 'JOUEUR 2';
+              p2.name = mode === 'bot' ? 'BOT' : 'J2';
+              resetMatch();
+            });
+          });
+
+          const restartBtn = document.getElementById('rooftop-restart-btn');
+          if (restartBtn) restartBtn.addEventListener('click', resetMatch);
+
           window.addEventListener('keydown', (e) => {
-            if (AppState.activeSection !== 'doom') return;
+            if (AppState.activeSection !== 'rooftop') return;
             keys[e.code] = true;
-            if (e.code === 'Space') {
-              e.preventDefault();
-              shoot();
+
+            // Joueur 1 (W: Saut/Pencher, E: Tirer)
+            if (e.code === 'KeyW') jump(p1, 1);
+            if (e.code === 'KeyE') shoot(p1, 1);
+
+            // Joueur 2 (I: Saut/Pencher, O: Tirer)
+            if (mode === 'pvp') {
+              if (e.code === 'KeyI') jump(p2, -1);
+              if (e.code === 'KeyO') shoot(p2, -1);
             }
           });
 
           window.addEventListener('keyup', (e) => {
             keys[e.code] = false;
           });
-
-          if (canvas) {
-            canvas.addEventListener('mousedown', (e) => {
-              if (e.button === 0) shoot();
-            });
-          }
-
-          const restartBtn = document.getElementById('doom-restart-btn');
-          if (restartBtn) restartBtn.addEventListener('click', reset);
-
-          const fsBtn = document.getElementById('doom-fs-btn');
-          if (fsBtn) {
-            fsBtn.addEventListener('click', () => {
-              const wrap = document.getElementById('doom-wrap');
-              if (!document.fullscreenElement) {
-                wrap.requestFullscreen().catch(() => {});
-              } else {
-                document.exitFullscreen().catch(() => {});
-              }
-            });
-          }
         }
 
-        function reset() {
-          hp = 100;
-          ammo = 30;
-          score = 0;
-          px = 2.5; py = 2.5;
-          dirX = 1.0; dirY = 0.0;
-          planeX = 0.0; planeY = 0.66;
-          enemies = [
-            { x: 5.5, y: 3.5, hp: 2, alive: true },
-            { x: 10.5, y: 4.5, hp: 2, alive: true },
-            { x: 4.5, y: 10.5, hp: 2, alive: true },
-            { x: 12.5, y: 11.5, hp: 3, alive: true }
-          ];
-          updateHUD();
+        function resetMatch() {
+          score1 = 0; score2 = 0;
+          updateScores();
+          resetRound();
         }
 
-        function updateHUD() {
-          const hpEl = document.getElementById('doom-hp');
-          const ammoEl = document.getElementById('doom-ammo');
-          const scoreEl = document.getElementById('doom-score');
-          if (hpEl) hpEl.textContent = `${hp}%`;
-          if (ammoEl) ammoEl.textContent = `${ammo} / 30`;
-          if (scoreEl) scoreEl.textContent = score;
+        function resetRound() {
+          p1.x = 260; p1.y = 280; p1.vx = 0; p1.vy = 0; p1.rot = 0; p1.dead = false; p1.onGround = true;
+          p2.x = 540; p2.y = 280; p2.vx = 0; p2.vy = 0; p2.rot = 0; p2.dead = false; p2.onGround = true;
+          bullets.length = 0;
+          particles.length = 0;
+          roundOver = false;
+          roundBanner = '';
         }
 
-        function shoot() {
-          if (!running || ammo <= 0) {
+        function updateScores() {
+          const s1 = document.getElementById('roof-score-1');
+          const s2 = document.getElementById('roof-score-2');
+          if (s1) s1.textContent = score1;
+          if (s2) s2.textContent = score2;
+        }
+
+        function jump(p, dir) {
+          if (roundOver || p.dead) return;
+          if (p.onGround) {
+            p.vy = -9.2;
+            p.vx = -dir * 2.2;
+            p.rot = -dir * 0.35;
+            p.onGround = false;
             if (typeof SoundEffects !== 'undefined') SoundEffects.bounce();
-            return;
+          } else {
+            // Coup de pied en l'air
+            p.vy -= 2.5;
+            p.vx -= dir * 1.5;
+            p.rot -= dir * 0.2;
           }
-          ammo--;
-          recoil = 18;
-          muzzleFlash = 4;
-          updateHUD();
+        }
+
+        function shoot(p, dir) {
+          if (roundOver || p.dead) return;
+          const gunLen = 32;
+          const bx = p.x + Math.cos(p.armAngle) * gunLen;
+          const by = p.y - 10 + Math.sin(p.armAngle) * gunLen;
+          const bvx = Math.cos(p.armAngle) * 19;
+          const bvy = Math.sin(p.armAngle) * 19;
+
+          bullets.push({ x: bx, y: by, vx: bvx, vy: bvy, owner: p, life: 60 });
+
+          // Recul violent
+          p.vx -= Math.cos(p.armAngle) * 3.8;
+          p.vy -= 1.0;
+          p.rot -= dir * 0.3;
+
+          // Étincelles de tir
+          for (let i = 0; i < 5; i++) {
+            particles.push({
+              x: bx, y: by,
+              vx: (Math.random() - 0.5) * 4 + bvx * 0.2,
+              vy: (Math.random() - 0.5) * 4,
+              color: '#00f0ff', life: 15
+            });
+          }
 
           if (typeof SoundEffects !== 'undefined') SoundEffects.laser();
+        }
 
-          // Vérifier si un ennemi est touché au centre de l'écran
-          enemies.forEach(en => {
-            if (!en.alive) return;
-            const dx = en.x - px;
-            const dy = en.y - py;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            // Angle vers ennemi vs direction joueur
-            const dot = (dx * dirX + dy * dirY) / dist;
-            if (dot > 0.94 && dist < 12) {
-              en.hp--;
-              if (en.hp <= 0) {
-                en.alive = false;
-                score += 100;
-                updateHUD();
-                showToast('Drone cyber détruit ! +100', '🎯');
-                if (typeof SoundEffects !== 'undefined') SoundEffects.smash();
-              } else {
-                if (typeof SoundEffects !== 'undefined') SoundEffects.score();
-              }
-            }
+        function botAI() {
+          if (mode !== 'bot' || roundOver || p2.dead) return;
+          // Le bot saute s'il est proche du bord
+          if (p2.x > ROOF.x + ROOF.w - 40 && Math.random() < 0.15) jump(p2, -1);
+          if (p2.x < ROOF.x + 40 && Math.random() < 0.15) jump(p2, -1);
+
+          // Si balle approche, esquive
+          bullets.forEach(b => {
+            if (b.owner !== p2 && Math.abs(b.x - p2.x) < 90 && Math.random() < 0.2) jump(p2, -1);
           });
+
+          // Tire quand son bras pointe vers P1
+          const targetAngle = Math.atan2((p1.y - 10) - (p2.y - 10), p1.x - p2.x);
+          if (Math.abs(p2.armAngle - targetAngle) < 0.35 && Math.random() < 0.12) {
+            shoot(p2, -1);
+          }
+        }
+
+        function updatePlayer(p) {
+          if (p.dead) return;
+          p.vy += 0.42; // Gravité
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.94; // Friction
+          p.rot *= 0.95; // Redressement
+
+          // Balancement continu du bras avec le sniper
+          p.armAngle += p.armDir * 0.055;
+          if (p.name === 'J1') {
+            if (p.armAngle > 0.6) p.armDir = -1;
+            if (p.armAngle < -0.8) p.armDir = 1;
+          } else {
+            // Regarde vers la gauche (PI +/-)
+            if (p.armAngle < Math.PI - 0.6) p.armDir = 1;
+            if (p.armAngle > Math.PI + 0.8) p.armDir = -1;
+          }
+
+          // Collision avec le toit
+          if (p.x > ROOF.x - 10 && p.x < ROOF.x + ROOF.w + 10 && p.y >= ROOF.y && p.y <= ROOF.y + 20 && p.vy >= 0) {
+            p.y = ROOF.y;
+            p.vy = 0;
+            p.onGround = true;
+          } else {
+            p.onGround = false;
+          }
+
+          // Chute dans le vide = Mort
+          if (p.y > 480 || p.x < -40 || p.x > 840) {
+            p.dead = true;
+            onPlayerFall(p);
+          }
+        }
+
+        function onPlayerFall(fallen) {
+          if (roundOver) return;
+          roundOver = true;
+          roundTimer = 90;
+
+          if (fallen === p1) {
+            score2++;
+            roundBanner = mode === 'bot' ? '🤖 LE BOT MARQUE UN POINT !' : '🔴 JOUEUR 2 MARQUE UN POINT !';
+          } else {
+            score1++;
+            roundBanner = '🔵 JOUEUR 1 MARQUE UN POINT !';
+          }
+          updateScores();
+
+          if (typeof SoundEffects !== 'undefined') SoundEffects.score();
+
+          if (score1 >= 5 || score2 >= 5) {
+            const winner = score1 >= 5 ? '🔵 JOUEUR 1' : (mode === 'bot' ? '🤖 LE BOT' : '🔴 JOUEUR 2');
+            roundBanner = `🏆 ${winner} REMPORTE LE DUEL !`;
+            setTimeout(() => { resetMatch(); }, 2200);
+          }
         }
 
         function update() {
-          const moveSpeed = 0.055;
-          const rotSpeed = 0.045;
+          botAI();
+          updatePlayer(p1);
+          updatePlayer(p2);
 
-          // Rotation
-          if (keys['ArrowLeft'] || keys['KeyQ']) {
-            const oldDirX = dirX;
-            dirX = dirX * Math.cos(-rotSpeed) - dirY * Math.sin(-rotSpeed);
-            dirY = oldDirX * Math.sin(-rotSpeed) + dirY * Math.cos(-rotSpeed);
-            const oldPlaneX = planeX;
-            planeX = planeX * Math.cos(-rotSpeed) - planeY * Math.sin(-rotSpeed);
-            planeY = oldPlaneX * Math.sin(-rotSpeed) + planeY * Math.cos(-rotSpeed);
-          }
-          if (keys['ArrowRight'] || keys['KeyE']) {
-            const oldDirX = dirX;
-            dirX = dirX * Math.cos(rotSpeed) - dirY * Math.sin(rotSpeed);
-            dirY = oldDirX * Math.sin(rotSpeed) + dirY * Math.cos(rotSpeed);
-            const oldPlaneX = planeX;
-            planeX = planeX * Math.cos(rotSpeed) - planeY * Math.sin(rotSpeed);
-            planeY = oldPlaneX * Math.sin(rotSpeed) + planeY * Math.cos(rotSpeed);
-          }
+          // Balles
+          for (let i = bullets.length - 1; i >= 0; i--) {
+            const b = bullets[i];
+            b.x += b.vx;
+            b.y += b.vy;
+            b.life--;
 
-          // Déplacement (Z/W: avant, S: arrière)
-          if (keys['KeyW'] || keys['KeyZ'] || keys['ArrowUp']) {
-            const nx = px + dirX * moveSpeed;
-            const ny = py + dirY * moveSpeed;
-            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
-            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
-          }
-          if (keys['KeyS'] || keys['ArrowDown']) {
-            const nx = px - dirX * moveSpeed;
-            const ny = py - dirY * moveSpeed;
-            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
-            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
-          }
+            // Collision avec l'autre joueur
+            const target = b.owner === p1 ? p2 : p1;
+            if (!target.dead && Math.abs(b.x - target.x) < 22 && Math.abs(b.y - (target.y - 15)) < 30) {
+              // Impact knockback violent !
+              target.vx += b.vx * 0.45;
+              target.vy -= 3.2;
+              target.rot += (b.vx > 0 ? 0.6 : -0.6);
+              if (typeof SoundEffects !== 'undefined') SoundEffects.smash();
 
-          // Strafe (A: gauche, D: droite)
-          if (keys['KeyA']) {
-            const nx = px - planeX * moveSpeed;
-            const ny = py - planeY * moveSpeed;
-            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
-            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
-          }
-          if (keys['KeyD']) {
-            const nx = px + planeX * moveSpeed;
-            const ny = py + planeY * moveSpeed;
-            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
-            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
-          }
-
-          // Recul arme
-          if (recoil > 0) recoil -= 2;
-          if (muzzleFlash > 0) muzzleFlash--;
-
-          // IA Drones : flottement et approche douce
-          enemies.forEach(en => {
-            if (!en.alive) return;
-            const dx = px - en.x;
-            const dy = py - en.y;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            if (d < 7 && d > 1.2) {
-              en.x += (dx / d) * 0.015;
-              en.y += (dy / d) * 0.015;
-            } else if (d <= 1.2) {
-              // Dégâts au joueur si trop proche
-              hp = Math.max(0, hp - 0.2);
-              if (Math.floor(hp) % 10 === 0) updateHUD();
+              for (let p = 0; p < 8; p++) {
+                particles.push({
+                  x: b.x, y: b.y,
+                  vx: (Math.random() - 0.5) * 6,
+                  vy: (Math.random() - 0.5) * 6,
+                  color: target.color, life: 20
+                });
+              }
+              bullets.splice(i, 1);
+              continue;
             }
-          });
+
+            if (b.life <= 0 || b.x < 0 || b.x > 800 || b.y > 450) {
+              bullets.splice(i, 1);
+            }
+          }
+
+          // Particules
+          for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life--;
+            if (p.life <= 0) particles.splice(i, 1);
+          }
+
+          if (roundOver) {
+            roundTimer--;
+            if (roundTimer <= 0 && score1 < 5 && score2 < 5) resetRound();
+          }
+        }
+
+        function drawRagdoll(p) {
+          if (p.dead) return;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+
+          // Jambes
+          ctx.strokeStyle = p.color;
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          if (p.onGround) {
+            ctx.moveTo(-6, 0); ctx.lineTo(-6, -18);
+            ctx.moveTo(6, 0); ctx.lineTo(6, -18);
+          } else {
+            // Jambes qui battent
+            ctx.moveTo(-10, -5); ctx.lineTo(-4, -18);
+            ctx.moveTo(8, -8); ctx.lineTo(4, -18);
+          }
+          ctx.stroke();
+
+          // Corps
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-8, -36, 16, 20);
+
+          // Tête
+          ctx.fillStyle = '#f8fafc';
+          ctx.beginPath();
+          ctx.arc(0, -44, 9, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Bandeau de couleur
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-9, -47, 18, 5);
+
+          // Bras & Sniper
+          ctx.save();
+          ctx.translate(0, -28);
+          ctx.rotate(p.armAngle - p.rot);
+
+          // Arme sniper longue
+          ctx.fillStyle = '#334155';
+          ctx.fillRect(0, -3, 30, 6);
+          // Canon fin
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(28, -2, 12, 4);
+          // Viseur
+          ctx.fillStyle = p.color;
+          ctx.fillRect(10, -7, 10, 4);
+
+          // Main
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(10, 0, 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+          ctx.restore();
         }
 
         function render() {
@@ -8335,217 +8246,381 @@
           const w = canvas.width;
           const h = canvas.height;
 
-          // 1. Ciel & Sol Cyberpunk
-          const skyGrad = ctx.createLinearGradient(0, 0, 0, h / 2);
-          skyGrad.addColorStop(0, '#030712');
-          skyGrad.addColorStop(1, '#0f172a');
+          // Ciel de nuit Cyberpunk
+          const skyGrad = ctx.createLinearGradient(0, 0, 0, h);
+          skyGrad.addColorStop(0, '#020617');
+          skyGrad.addColorStop(0.7, '#0f172a');
+          skyGrad.addColorStop(1, '#1e1b4b');
           ctx.fillStyle = skyGrad;
-          ctx.fillRect(0, 0, w, h / 2);
+          ctx.fillRect(0, 0, w, h);
 
-          const floorGrad = ctx.createLinearGradient(0, h / 2, 0, h);
-          floorGrad.addColorStop(0, '#0a0f1d');
-          floorGrad.addColorStop(1, '#020408');
-          ctx.fillStyle = floorGrad;
-          ctx.fillRect(0, h / 2, w, h / 2);
+          // Étoiles scintillantes
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+          for (let i = 0; i < 20; i++) {
+            ctx.fillRect((i * 47) % w, (i * 29) % (h / 2), 2, 2);
+          }
 
-          // Grille laser au sol
-          ctx.strokeStyle = 'rgba(0, 240, 255, 0.08)';
-          ctx.lineWidth = 1;
-          for (let y = h / 2 + 10; y < h; y += 14) {
+          // Gratte-ciel en arrière-plan
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+          ctx.fillRect(60, 180, 80, 270);
+          ctx.fillRect(180, 140, 100, 310);
+          ctx.fillRect(580, 160, 90, 290);
+          ctx.fillRect(700, 200, 70, 250);
+
+          // Fenêtres allumées
+          ctx.fillStyle = 'rgba(0, 240, 255, 0.25)';
+          for (let r = 0; r < 5; r++) {
+            ctx.fillRect(200, 160 + r * 25, 12, 12);
+            ctx.fillRect(620, 180 + r * 25, 12, 12);
+          }
+
+          // Le Toit du Bâtiment (Plateforme)
+          const roofGrad = ctx.createLinearGradient(ROOF.x, ROOF.y, ROOF.x, ROOF.y + ROOF.h);
+          roofGrad.addColorStop(0, '#1e293b');
+          roofGrad.addColorStop(1, '#090d16');
+          ctx.fillStyle = roofGrad;
+          ctx.fillRect(ROOF.x, ROOF.y, ROOF.w, ROOF.h);
+
+          // Bordure lumineuse néon du toit
+          ctx.strokeStyle = '#00f0ff';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(ROOF.x, ROOF.y);
+          ctx.lineTo(ROOF.x + ROOF.w, ROOF.y);
+          ctx.stroke();
+
+          // Dessiner les deux ragdolls
+          drawRagdoll(p1);
+          drawRagdoll(p2);
+
+          // Balles
+          bullets.forEach(b => {
+            ctx.fillStyle = '#fbbf24';
             ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(w, y);
+            ctx.arc(b.x, b.y, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Traînée
+            ctx.strokeStyle = 'rgba(251, 191, 36, 0.4)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(b.x, b.y);
+            ctx.lineTo(b.x - b.vx * 1.5, b.y - b.vy * 1.5);
             ctx.stroke();
+          });
+
+          // Particules
+          particles.forEach(p => {
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, 3, 3);
+          });
+
+          // Bannière de fin de manche
+          if (roundOver && roundBanner) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(5, 8, 17, 0.85)';
+            ctx.fillRect(w / 2 - 220, 80, 440, 46);
+            ctx.strokeStyle = '#00f0ff';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(w / 2 - 220, 80, 440, 46);
+
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 16px monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(roundBanner, w / 2, 108);
+            ctx.restore();
+          }
+        }
+
+        function loop() {
+          if (!running) return;
+          update();
+          render();
+          animId = requestAnimationFrame(loop);
+        }
+
+        return {
+          init,
+          start() {
+            if (!canvas) init();
+            if (running) return;
+            running = true;
+            loop();
+          },
+          pause() {
+            running = false;
+            if (animId) cancelAnimationFrame(animId);
+          }
+        };
+      })();
+
+      /* =======================================================================
+         25. NEON WAVE (GEOMETRY DASH WAVE - ZIG-ZAG 45° RÉFLEXE)
+         ======================================================================= */
+      const NeonWave = (function () {
+        let canvas, ctx;
+        let running = false;
+        let animId = null;
+        let difficulty = 'normal'; // 'normal' | 'hard' | 'demon'
+        let attempts = 1;
+        let bestPercent = 0;
+        let progress = 0;
+        let distance = 0;
+        let isHolding = false;
+        let dead = false;
+        let deathTimer = 0;
+
+        // Joueur
+        let px = 120;
+        let py = 210;
+        let vy = 0;
+        const trail = [];
+        const particles = [];
+
+        // Obstacles (Spikes hauts et bas + diamants)
+        let obstacles = [];
+        const LEVEL_LENGTH = 3200;
+
+        function init() {
+          canvas = document.getElementById('wave-canvas');
+          if (!canvas) return;
+          ctx = canvas.getContext('2d');
+
+          // Difficultés
+          document.querySelectorAll('#wave-diff-tabs .pill-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+              document.querySelectorAll('#wave-diff-tabs .pill-tab').forEach(t => t.classList.remove('active'));
+              tab.classList.add('active');
+              difficulty = tab.dataset.wdiff;
+              resetGame();
+            });
+          });
+
+          const restartBtn = document.getElementById('wave-restart-btn');
+          if (restartBtn) restartBtn.addEventListener('click', resetGame);
+
+          // Contrôle Wave (Maintien = Monter 45°, Relâche = Descendre 45°)
+          window.addEventListener('keydown', (e) => {
+            if (AppState.activeSection !== 'wave') return;
+            if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+              e.preventDefault();
+              isHolding = true;
+            }
+          });
+          window.addEventListener('keyup', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+              isHolding = false;
+            }
+          });
+
+          if (canvas) {
+            canvas.addEventListener('mousedown', (e) => { if (e.button === 0) isHolding = true; });
+            window.addEventListener('mouseup', () => { isHolding = false; });
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); isHolding = true; });
+            window.addEventListener('touchend', () => { isHolding = false; });
+          }
+        }
+
+        function generateLevel() {
+          obstacles = [];
+          const speed = 4.8;
+          let gap = difficulty === 'normal' ? 110 : (difficulty === 'hard' ? 85 : 65);
+
+          for (let x = 400; x < LEVEL_LENGTH; x += 160) {
+            const centerY = 120 + Math.sin(x * 0.008) * 90;
+            obstacles.push({
+              x: x,
+              topY: centerY - gap / 2,
+              botY: centerY + gap / 2,
+              passed: false
+            });
+          }
+        }
+
+        function resetGame() {
+          py = 210;
+          vy = 0;
+          distance = 0;
+          progress = 0;
+          dead = false;
+          deathTimer = 0;
+          trail.length = 0;
+          particles.length = 0;
+          generateLevel();
+          updateHUD();
+        }
+
+        function updateHUD() {
+          const progEl = document.getElementById('wave-progress');
+          const attEl = document.getElementById('wave-attempts');
+          const bestEl = document.getElementById('wave-best');
+          if (progEl) progEl.textContent = `${Math.floor(progress)}%`;
+          if (attEl) attEl.textContent = attempts;
+          if (bestEl) bestEl.textContent = `${Math.floor(bestPercent)}%`;
+        }
+
+        function crash() {
+          if (dead) return;
+          dead = true;
+          deathTimer = 25; // Respawn instantané en 0.4s
+          attempts++;
+
+          // Explosion de particules néon
+          for (let i = 0; i < 24; i++) {
+            particles.push({
+              x: px, y: py,
+              vx: (Math.random() - 0.5) * 8,
+              vy: (Math.random() - 0.5) * 8,
+              color: '#00f0ff', life: 25
+            });
           }
 
-          // 2. DDA Raycasting
-          const zBuffer = new Array(w);
-          for (let x = 0; x < w; x++) {
-            const cameraX = (2 * x) / w - 1;
-            const rayDirX = dirX + planeX * cameraX;
-            const rayDirY = dirY + planeY * cameraX;
+          if (typeof SoundEffects !== 'undefined') SoundEffects.smash();
+        }
 
-            let mapX = Math.floor(px);
-            let mapY = Math.floor(py);
-
-            const deltaDistX = Math.abs(1 / rayDirX);
-            const deltaDistY = Math.abs(1 / rayDirY);
-
-            let stepX, stepY;
-            let sideDistX, sideDistY;
-
-            if (rayDirX < 0) {
-              stepX = -1;
-              sideDistX = (px - mapX) * deltaDistX;
-            } else {
-              stepX = 1;
-              sideDistX = (mapX + 1.0 - px) * deltaDistX;
-            }
-
-            if (rayDirY < 0) {
-              stepY = -1;
-              sideDistY = (py - mapY) * deltaDistY;
-            } else {
-              stepY = 1;
-              sideDistY = (mapY + 1.0 - py) * deltaDistY;
-            }
-
-            let hit = 0;
-            let side = 0;
-            while (hit === 0) {
-              if (sideDistX < sideDistY) {
-                sideDistX += deltaDistX;
-                mapX += stepX;
-                side = 0;
-              } else {
-                sideDistY += deltaDistY;
-                mapY += stepY;
-                side = 1;
-              }
-              if (MAP[mapY * MAP_W + mapX] > 0) hit = MAP[mapY * MAP_W + mapX];
-            }
-
-            let perpWallDist;
-            if (side === 0) perpWallDist = (mapX - px + (1 - stepX) / 2) / rayDirX;
-            else perpWallDist = (mapY - py + (1 - stepY) / 2) / rayDirY;
-
-            zBuffer[x] = perpWallDist;
-
-            const lineHeight = Math.floor(h / perpWallDist);
-            const drawStart = Math.max(0, -lineHeight / 2 + h / 2);
-            const drawEnd = Math.min(h - 1, lineHeight / 2 + h / 2);
-
-            // Couleur du mur avec ombrage de profondeur
-            const brightness = Math.max(0.15, Math.min(1.0, 1.8 / perpWallDist));
-            let r, g, b;
-            if (hit === 1) { r = 0; g = 240; b = 255; } // Cyan
-            else if (hit === 2) { r = 139; g = 92; b = 246; } // Violet
-            else if (hit === 3) { r = 16; g = 185; b = 129; } // Émeraude
-            else { r = 245; g = 158; b = 11; } // Doré
-
-            if (side === 1) { r *= 0.75; g *= 0.75; b *= 0.75; } // Face latérale plus sombre
-            r = Math.floor(r * brightness);
-            g = Math.floor(g * brightness);
-            b = Math.floor(b * brightness);
-
-            ctx.fillStyle = `rgb(${r},${g},${b})`;
-            ctx.fillRect(x, drawStart, 1, drawEnd - drawStart);
-
-            // Trait néon bord haut/bas
-            ctx.fillStyle = `rgba(255,255,255,${0.3 * brightness})`;
-            ctx.fillRect(x, drawStart, 1, 2);
+        function update() {
+          if (dead) {
+            deathTimer--;
+            if (deathTimer <= 0) resetGame();
+            return;
           }
 
-          // 3. Rendu Ennemis Drones (Sprites Billboarding 3D)
-          enemies.forEach(en => {
-            if (!en.alive) return;
-            const spriteX = en.x - px;
-            const spriteY = en.y - py;
+          const speed = difficulty === 'demon' ? 5.8 : (difficulty === 'hard' ? 5.2 : 4.6);
+          distance += speed;
+          progress = Math.min(100, (distance / LEVEL_LENGTH) * 100);
+          if (progress > bestPercent) bestPercent = progress;
 
-            const invDet = 1.0 / (planeX * dirY - dirX * planeY);
-            const transformX = invDet * (dirY * spriteX - dirX * spriteY);
-            const transformY = invDet * (-planeY * spriteX + planeX * spriteY);
+          // Mouvement à 45°
+          vy = isHolding ? -speed : speed;
+          py += vy;
 
-            if (transformY > 0.2) {
-              const spriteScreenX = Math.floor((w / 2) * (1 + transformX / transformY));
-              const spriteHeight = Math.abs(Math.floor(h / transformY));
-              const drawStartY = Math.max(0, -spriteHeight / 2 + h / 2);
-              const spriteWidth = Math.abs(Math.floor(h / transformY));
-              const drawStartX = Math.floor(-spriteWidth / 2 + spriteScreenX);
+          // Traînée
+          trail.unshift({ x: px, y: py });
+          if (trail.length > 50) trail.pop();
 
-              if (transformY < zBuffer[spriteScreenX]) {
-                const size = Math.max(12, spriteWidth * 0.4);
-                ctx.save();
-                ctx.translate(spriteScreenX, h / 2);
-                ctx.fillStyle = '#ef4444';
-                ctx.beginPath();
-                ctx.arc(0, 0, size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.strokeStyle = '#fff';
-                ctx.lineWidth = 2;
-                ctx.stroke();
+          // Collision Plafond & Sol
+          if (py <= 25 || py >= 420 - 25) {
+            crash();
+            return;
+          }
 
-                // Lueur néon drone
-                ctx.fillStyle = '#00f0ff';
-                ctx.beginPath();
-                ctx.arc(0, 0, size * 0.4, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
+          // Collision Obstacles
+          const waveRadius = 7;
+          obstacles.forEach(ob => {
+            const relX = ob.x - distance + px;
+            if (relX > px - 25 && relX < px + 25) {
+              if (py - waveRadius < ob.topY || py + waveRadius > ob.botY) {
+                crash();
               }
             }
           });
 
-          // 4. Arme HUD & Effet Muzzle Flash
-          const gunX = w / 2;
-          const gunY = h - 20 + recoil;
-
-          ctx.save();
-          // Canon du Cyber Blaster
-          ctx.fillStyle = '#1e293b';
-          ctx.beginPath();
-          ctx.moveTo(gunX - 25, h);
-          ctx.lineTo(gunX - 15, gunY - 35);
-          ctx.lineTo(gunX + 15, gunY - 35);
-          ctx.lineTo(gunX + 25, h);
-          ctx.closePath();
-          ctx.fill();
-
-          // Bandes lumineuses néon sur l'arme
-          ctx.fillStyle = '#00f0ff';
-          ctx.fillRect(gunX - 4, gunY - 32, 8, 20);
-
-          // Éclair de tir
-          if (muzzleFlash > 0) {
-            ctx.fillStyle = 'rgba(0, 240, 255, 0.9)';
-            ctx.beginPath();
-            ctx.arc(gunX, gunY - 45, 22, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.arc(gunX, gunY - 45, 10, 0, Math.PI * 2);
-            ctx.fill();
+          // Victoire 100%
+          if (progress >= 100) {
+            showToast('NIVEAU COMPLÉTÉ À 100% ! GÉGÉ !', '🏆');
+            if (typeof SoundEffects !== 'undefined') SoundEffects.score();
+            setTimeout(() => resetGame(), 2000);
           }
-          ctx.restore();
 
-          // 5. Réticule de visée (Crosshair)
-          ctx.strokeStyle = 'rgba(0, 240, 255, 0.7)';
+          updateHUD();
+        }
+
+        function render() {
+          if (!ctx) return;
+          const w = canvas.width;
+          const h = canvas.height;
+
+          // Fond
+          ctx.fillStyle = '#020409';
+          ctx.fillRect(0, 0, w, h);
+
+          // Ligne de progrès néon en haut
+          ctx.fillStyle = 'rgba(0, 240, 255, 0.2)';
+          ctx.fillRect(0, 0, w, 4);
+          ctx.fillStyle = '#00f0ff';
+          ctx.fillRect(0, 0, (w * progress) / 100, 4);
+
+          // Plafond et Sol à pics néon
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(0, 0, w, 24);
+          ctx.fillRect(0, h - 24, w, 24);
+
+          ctx.strokeStyle = '#00f0ff';
           ctx.lineWidth = 2;
           ctx.beginPath();
-          ctx.moveTo(w / 2 - 8, h / 2);
-          ctx.lineTo(w / 2 + 8, h / 2);
-          ctx.moveTo(w / 2, h / 2 - 8);
-          ctx.lineTo(w / 2, h / 2 + 8);
+          ctx.moveTo(0, 24); ctx.lineTo(w, 24);
+          ctx.moveTo(0, h - 24); ctx.lineTo(w, h - 24);
           ctx.stroke();
 
-          // 6. Mini-map Radar (Haut-Droit)
-          const mmSize = 70;
-          const mmScale = mmSize / MAP_W;
-          ctx.fillStyle = 'rgba(5, 8, 17, 0.75)';
-          ctx.fillRect(w - mmSize - 10, 10, mmSize, mmSize);
-          ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
-          ctx.strokeRect(w - mmSize - 10, 10, mmSize, mmSize);
+          // Obstacles & Portails néon
+          obstacles.forEach(ob => {
+            const relX = ob.x - distance + px;
+            if (relX > -50 && relX < w + 50) {
+              // Pilier haut
+              ctx.fillStyle = '#1e293b';
+              ctx.fillRect(relX - 14, 24, 28, Math.max(0, ob.topY - 24));
+              ctx.strokeStyle = '#ef4444';
+              ctx.strokeRect(relX - 14, 24, 28, Math.max(0, ob.topY - 24));
 
-          for (let my = 0; my < MAP_H; my++) {
-            for (let mx = 0; mx < MAP_W; mx++) {
-              if (MAP[my * MAP_W + mx] > 0) {
-                ctx.fillStyle = 'rgba(0, 240, 255, 0.5)';
-                ctx.fillRect(w - mmSize - 10 + mx * mmScale, 10 + my * mmScale, mmScale, mmScale);
-              }
+              // Pilier bas
+              ctx.fillStyle = '#1e293b';
+              ctx.fillRect(relX - 14, ob.botY, 28, h - 24 - ob.botY);
+              ctx.strokeStyle = '#ef4444';
+              ctx.strokeRect(relX - 14, ob.botY, 28, h - 24 - ob.botY);
             }
-          }
-          // Point Joueur et cône
-          ctx.fillStyle = '#10b981';
-          ctx.beginPath();
-          ctx.arc(w - mmSize - 10 + px * mmScale, 10 + py * mmScale, 2.5, 0, Math.PI * 2);
-          ctx.fill();
+          });
 
-          // Points Ennemis
-          enemies.forEach(en => {
-            if (!en.alive) return;
-            ctx.fillStyle = '#ef4444';
+          // Traînée néon de la Wave (Ribbon Zig-Zag)
+          if (trail.length > 1) {
+            ctx.save();
+            ctx.strokeStyle = '#00f0ff';
+            ctx.lineWidth = 4;
+            ctx.lineJoin = 'round';
+            ctx.shadowColor = '#00f0ff';
+            ctx.shadowBlur = 10;
             ctx.beginPath();
-            ctx.arc(w - mmSize - 10 + en.x * mmScale, 10 + en.y * mmScale, 2, 0, Math.PI * 2);
+            ctx.moveTo(trail[0].x, trail[0].y);
+            for (let i = 1; i < trail.length; i++) {
+              ctx.lineTo(trail[i].x - (i * 3.5), trail[i].y);
+            }
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          // Joueur Wave (Icône triangulaire néon)
+          if (!dead) {
+            ctx.save();
+            ctx.translate(px, py);
+            const rot = isHolding ? -Math.PI / 4 : Math.PI / 4;
+            ctx.rotate(rot);
+
+            ctx.fillStyle = '#00f0ff';
+            ctx.shadowColor = '#00f0ff';
+            ctx.shadowBlur = 12;
+
+            ctx.beginPath();
+            ctx.moveTo(12, 0);
+            ctx.lineTo(-10, -8);
+            ctx.lineTo(-4, 0);
+            ctx.lineTo(-10, 8);
+            ctx.closePath();
             ctx.fill();
+
+            // Cœur blanc
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(0, 0, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+          }
+
+          // Particules d'explosion
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, 3, 3);
           });
         }
 
@@ -8567,707 +8642,511 @@
           pause() {
             running = false;
             if (animId) cancelAnimationFrame(animId);
-          },
-          resize() {}
+          }
         };
       })();
 
       /* =======================================================================
-         25. COFFRE STÉGANOGRAPHIQUE (STÉGANOGRAPHIE LSB DANS LES PIXELS RGBA)
+         26. DRIVE MAD 2D (PHYSICS MONSTER TRUCK & SUSPENSIONS)
          ======================================================================= */
-      const SteganoVault = (function () {
-        let encodeImgData = null;
-        let encodedBlob = null;
+      const DriveMad = (function () {
+        let canvas, ctx;
+        let running = false;
+        let animId = null;
+        let currentLevel = 1;
+        let timeElapsed = 0;
+        let state = 'running'; // 'running' | 'won' | 'crashed'
+
+        // Physique Véhicule (Châssis + 2 Roues avec Suspensions)
+        let car = {
+          cx: 80, cy: 300, vx: 0, vy: 0, angle: 0, av: 0,
+          wL: { x: 55, y: 320, vx: 0, vy: 0 },
+          wR: { x: 105, y: 320, vx: 0, vy: 0 },
+          radius: 14
+        };
+
+        let terrain = [];
+        const keys = {};
 
         function init() {
-          const tabs = document.querySelectorAll('#stegano-mode-tabs .pill-tab');
-          tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-              tabs.forEach(t => t.classList.remove('active'));
-              tab.classList.add('active');
-              const mode = tab.dataset.smode;
-              document.getElementById('stegano-encode-view').classList.toggle('hidden', mode !== 'encode');
-              document.getElementById('stegano-decode-view').classList.toggle('hidden', mode !== 'decode');
-            });
-          });
-
-          // Upload image encodeur
-          const encDrop = document.getElementById('stegano-encode-drop');
-          const encFile = document.getElementById('stegano-encode-file');
-          if (encDrop && encFile) {
-            encDrop.addEventListener('click', () => encFile.click());
-            encFile.addEventListener('change', (e) => loadEncodeImage(e.target.files[0]));
-          }
-
-          // Image démo
-          const sampleBtn = document.getElementById('stegano-sample-img-btn');
-          if (sampleBtn) {
-            sampleBtn.addEventListener('click', () => {
-              // Créer une fausse page de cours Google Docs en canvas pur
-              const c = document.createElement('canvas');
-              c.width = 600; c.height = 400;
-              const ctx = c.getContext('2d');
-              ctx.fillStyle = '#ffffff';
-              ctx.fillRect(0, 0, 600, 400);
-              ctx.fillStyle = '#4285f4';
-              ctx.fillRect(20, 20, 160, 24);
-              ctx.fillStyle = '#e2e8f0';
-              ctx.fillRect(20, 60, 560, 2);
-              ctx.fillStyle = '#334155';
-              ctx.font = '16px sans-serif';
-              ctx.fillText('Notes de cours d\'Histoire - Chapitre 4 : La Guerre Froide', 20, 100);
-              ctx.fillStyle = '#64748b';
-              ctx.font = '13px sans-serif';
-              ctx.fillText('Introduction aux relations internationales et blocs idéologiques.', 20, 130);
-              c.toBlob(blob => loadEncodeImage(blob));
-            });
-          }
-
-          // Encoder
-          const runEncBtn = document.getElementById('stegano-run-encode-btn');
-          if (runEncBtn) runEncBtn.addEventListener('click', processEncoding);
-
-          // Télécharger image secrète
-          const dlBtn = document.getElementById('stegano-download-btn');
-          if (dlBtn) {
-            dlBtn.addEventListener('click', () => {
-              if (!encodedBlob) return;
-              const url = URL.createObjectURL(encodedBlob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = 'document_cours_secret.png';
-              a.click();
-              URL.revokeObjectURL(url);
-            });
-          }
-
-          // Décodeur
-          const decDrop = document.getElementById('stegano-decode-drop');
-          const decFile = document.getElementById('stegano-decode-file');
-          if (decDrop && decFile) {
-            decDrop.addEventListener('click', () => decFile.click());
-            decFile.addEventListener('change', (e) => decodeImage(e.target.files[0]));
-          }
-
-          const copyBtn = document.getElementById('stegano-copy-secret-btn');
-          if (copyBtn) {
-            copyBtn.addEventListener('click', () => {
-              const text = document.getElementById('stegano-extracted-box').textContent;
-              navigator.clipboard.writeText(text);
-              showToast('Secret copié dans le presse-papier !', '📋');
-            });
-          }
-        }
-
-        function loadEncodeImage(file) {
-          if (!file) return;
-          const img = new Image();
-          img.onload = () => {
-            const preview = document.getElementById('stegano-encode-preview');
-            preview.src = img.src;
-            preview.classList.remove('hidden');
-
-            const c = document.createElement('canvas');
-            c.width = img.width; c.height = img.height;
-            const ctx = c.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            encodeImgData = ctx.getImageData(0, 0, c.width, c.height);
-
-            const maxBytes = Math.floor((encodeImgData.data.length / 4) * 3 / 8) - 4;
-            document.getElementById('stegano-capacity-label').textContent = `Capacité max : ~${maxBytes.toLocaleString()} caractères`;
-          };
-          img.src = URL.createObjectURL(file);
-        }
-
-        function processEncoding() {
-          const text = document.getElementById('stegano-secret-text').value;
-          if (!encodeImgData) {
-            showToast('Sélectionne d\'abord une image support !', '⚠️');
-            return;
-          }
-          if (!text) {
-            showToast('Écris un message secret à cacher !', '⚠️');
-            return;
-          }
-
-          const encoder = new TextEncoder();
-          const textBytes = encoder.encode(text);
-          const length = textBytes.length;
-
-          // Header 4 octets de taille + octets de texte
-          const dataBytes = new Uint8Array(4 + length);
-          dataBytes[0] = (length >> 24) & 0xFF;
-          dataBytes[1] = (length >> 16) & 0xFF;
-          dataBytes[2] = (length >> 8) & 0xFF;
-          dataBytes[3] = length & 0xFF;
-          dataBytes.set(textBytes, 4);
-
-          // Transformer en flux de bits
-          const bits = [];
-          for (let i = 0; i < dataBytes.length; i++) {
-            const b = dataBytes[i];
-            for (let bitIdx = 7; bitIdx >= 0; bitIdx--) {
-              bits.push((b >> bitIdx) & 1);
-            }
-          }
-
-          const pixels = encodeImgData.data;
-          if (bits.length > pixels.length) {
-            showToast('Image trop petite pour contenir ce texte !', '⚠️');
-            return;
-          }
-
-          // Injection LSB dans les canaux R, G, B (pas l'Alpha)
-          let bitPointer = 0;
-          for (let i = 0; i < pixels.length && bitPointer < bits.length; i++) {
-            if ((i + 1) % 4 === 0) continue; // Sauter Alpha
-            pixels[i] = (pixels[i] & 0xFE) | bits[bitPointer];
-            bitPointer++;
-          }
-
-          // Créer image PNG de sortie
-          const c = document.createElement('canvas');
-          c.width = encodeImgData.width;
-          c.height = encodeImgData.height;
-          const ctx = c.getContext('2d');
-          ctx.putImageData(encodeImgData, 0, 0);
-
-          c.toBlob(blob => {
-            encodedBlob = blob;
-            document.getElementById('stegano-encode-result').classList.remove('hidden');
-            showToast('Secret injecté dans les pixels avec succès !', '🔐');
-          }, 'image/png');
-        }
-
-        function decodeImage(file) {
-          if (!file) return;
-          const img = new Image();
-          img.onload = () => {
-            const preview = document.getElementById('stegano-decode-preview');
-            preview.src = img.src;
-            preview.classList.remove('hidden');
-
-            const c = document.createElement('canvas');
-            c.width = img.width; c.height = img.height;
-            const ctx = c.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            const imgData = ctx.getImageData(0, 0, c.width, c.height);
-            const pixels = imgData.data;
-
-            // Extraire les bits LSB
-            const bits = [];
-            for (let i = 0; i < pixels.length; i++) {
-              if ((i + 1) % 4 === 0) continue;
-              bits.push(pixels[i] & 1);
-            }
-
-            // Lire les 32 premiers bits (taille du secret)
-            let secretLength = 0;
-            for (let i = 0; i < 32; i++) {
-              secretLength = (secretLength << 1) | bits[i];
-            }
-
-            if (secretLength <= 0 || secretLength > (bits.length / 8)) {
-              document.getElementById('stegano-extracted-box').textContent = '⚠️ Aucun message secret détecté dans cette image (ou format corrompu).';
-              return;
-            }
-
-            // Lire les octets
-            const outBytes = new Uint8Array(secretLength);
-            let bitIdx = 32;
-            for (let byteIdx = 0; byteIdx < secretLength; byteIdx++) {
-              let val = 0;
-              for (let b = 0; b < 8; b++) {
-                val = (val << 1) | bits[bitIdx++];
-              }
-              outBytes[byteIdx] = val;
-            }
-
-            const decoder = new TextDecoder('utf-8');
-            try {
-              const decodedText = decoder.decode(outBytes);
-              document.getElementById('stegano-extracted-box').textContent = decodedText;
-              showToast('Message secret extrait avec succès !', '🔓');
-            } catch (e) {
-              document.getElementById('stegano-extracted-box').textContent = 'Erreur lors du décodage du secret UTF-8.';
-            }
-          };
-          img.src = URL.createObjectURL(file);
-        }
-
-        return { init };
-      })();
-
-      /* =======================================================================
-         26. LABORATOIRE D'ILLUSIONS D'OPTIQUE & ONDES CÉRÉBRALES
-         ======================================================================= */
-      const IllusionsLab = (function () {
-        let vortexRunning = false;
-        let vortexAnim = null;
-        let vortexAngle = 0;
-        let vortexTimeLeft = 30;
-        let vortexInterval = null;
-
-        let binauralCtx = null;
-        let oscL = null, oscR = null;
-        let binauralActive = false;
-        let baseFreq = 200;
-        let diffFreq = 10;
-
-        let tesseractAnim = null;
-        let tRotX = 0, tRotY = 0;
-
-        function init() {
-          // Onglets
-          const tabs = document.querySelectorAll('#illusions-tabs .pill-tab');
-          tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-              tabs.forEach(t => t.classList.remove('active'));
-              tab.classList.add('active');
-              const ill = tab.dataset.ill;
-              document.getElementById('ill-view-vortex').classList.toggle('hidden', ill !== 'vortex');
-              document.getElementById('ill-view-binaural').classList.toggle('hidden', ill !== 'binaural');
-              document.getElementById('ill-view-cube4d').classList.toggle('hidden', ill !== 'cube4d');
-              if (ill === 'cube4d') startTesseract();
-              else stopTesseract();
-            });
-          });
-
-          // Vortex
-          const vBtn = document.getElementById('vortex-toggle-btn');
-          if (vBtn) {
-            vBtn.addEventListener('click', toggleVortex);
-          }
-
-          // Binaural
-          const bBtn = document.getElementById('binaural-toggle-btn');
-          if (bBtn) {
-            bBtn.addEventListener('click', toggleBinaural);
-          }
-
-          const freqSlider = document.getElementById('binaural-freq-slider');
-          const diffSlider = document.getElementById('binaural-diff-slider');
-          if (freqSlider) {
-            freqSlider.addEventListener('input', (e) => {
-              baseFreq = parseFloat(e.target.value);
-              document.getElementById('binaural-freq-val').textContent = `${baseFreq} Hz`;
-              updateBinauralNodes();
-            });
-          }
-          if (diffSlider) {
-            diffSlider.addEventListener('input', (e) => {
-              diffFreq = parseFloat(e.target.value);
-              const label = diffFreq <= 4 ? 'Delta' : (diffFreq <= 8 ? 'Thêta' : (diffFreq <= 14 ? 'Alpha' : 'Bêta'));
-              document.getElementById('binaural-diff-val').textContent = `${diffFreq} Hz (${label})`;
-              updateBinauralNodes();
-            });
-          }
-
-          document.querySelectorAll('.ill-preset-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-              baseFreq = parseFloat(btn.dataset.freq);
-              diffFreq = parseFloat(btn.dataset.diff);
-              if (freqSlider) freqSlider.value = baseFreq;
-              if (diffSlider) diffSlider.value = diffFreq;
-              document.getElementById('binaural-freq-val').textContent = `${baseFreq} Hz`;
-              document.getElementById('binaural-diff-val').textContent = `${diffFreq} Hz`;
-              updateBinauralNodes();
-            });
-          });
-        }
-
-        // --- 1. Vortex Spirale Cinétique (Motion Aftereffect) ---
-        function toggleVortex() {
-          vortexRunning = !vortexRunning;
-          const btn = document.getElementById('vortex-toggle-btn');
-          if (vortexRunning) {
-            btn.textContent = '⏹ Arrêter l\'illusion';
-            vortexTimeLeft = 30;
-            vortexInterval = setInterval(() => {
-              vortexTimeLeft--;
-              document.getElementById('vortex-timer').textContent = `00:${vortexTimeLeft < 10 ? '0' : ''}${vortexTimeLeft}`;
-              if (vortexTimeLeft <= 0) {
-                toggleVortex();
-                showToast('REGARDE TA MAIN OU TON ÉCRAN MAINTENANT !', '🌀');
-              }
-            }, 1000);
-            renderVortex();
-          } else {
-            btn.textContent = '▶ Lancer l\'illusion (30s)';
-            clearInterval(vortexInterval);
-            if (vortexAnim) cancelAnimationFrame(vortexAnim);
-          }
-        }
-
-        function renderVortex() {
-          if (!vortexRunning) return;
-          const canvas = document.getElementById('vortex-canvas');
+          canvas = document.getElementById('drivemad-canvas');
           if (!canvas) return;
-          const ctx = canvas.getContext('2d');
-          const cx = canvas.width / 2;
-          const cy = canvas.height / 2;
-          const maxR = cx * 1.2;
+          ctx = canvas.getContext('2d');
 
-          ctx.fillStyle = '#000';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          const restartBtn = document.getElementById('drivemad-restart-btn');
+          if (restartBtn) restartBtn.addEventListener('click', () => loadLevel(currentLevel));
 
-          vortexAngle += 0.08;
-
-          // Dessin de spirales entrelacées à fort contraste
-          const numArms = 12;
-          for (let r = 0; r < maxR; r += 4) {
-            for (let arm = 0; arm < numArms; arm++) {
-              const theta = vortexAngle + (arm * Math.PI * 2) / numArms + (r * 0.06);
-              const x = cx + Math.cos(theta) * r;
-              const y = cy + Math.sin(theta) * r;
-              ctx.fillStyle = (arm % 2 === 0) ? '#fff' : '#000';
-              ctx.beginPath();
-              ctx.arc(x, y, 4, 0, Math.PI * 2);
-              ctx.fill();
-            }
+          const nextBtn = document.getElementById('drivemad-next-btn');
+          if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+              currentLevel = (currentLevel % 5) + 1;
+              loadLevel(currentLevel);
+              nextBtn.classList.add('hidden');
+            });
           }
 
-          // Point rouge de fixation au centre
-          ctx.fillStyle = '#ef4444';
+          window.addEventListener('keydown', (e) => {
+            if (AppState.activeSection !== 'drivemad') return;
+            keys[e.code] = true;
+            if (e.code === 'KeyR') loadLevel(currentLevel);
+          });
+          window.addEventListener('keyup', (e) => {
+            keys[e.code] = false;
+          });
+        }
+
+        function buildTerrain(lvl) {
+          terrain = [];
+          if (lvl === 1) {
+            // Pente douce et saut simple
+            terrain.push({ x: 0, y: 340 }, { x: 250, y: 340 }, { x: 380, y: 280 }, { x: 480, y: 340 }, { x: 750, y: 340 });
+          } else if (lvl === 2) {
+            // Pont suspendu oscillant
+            terrain.push({ x: 0, y: 330 }, { x: 220, y: 330 }, { x: 320, y: 355 }, { x: 440, y: 355 }, { x: 540, y: 330 }, { x: 760, y: 330 });
+          } else if (lvl === 3) {
+            // Grand tremplin
+            terrain.push({ x: 0, y: 340 }, { x: 240, y: 340 }, { x: 360, y: 230 }, { x: 440, y: 440 }, { x: 520, y: 340 }, { x: 780, y: 340 });
+          } else if (lvl === 4) {
+            // Marches d'escalier
+            terrain.push({ x: 0, y: 350 }, { x: 200, y: 350 }, { x: 200, y: 320 }, { x: 320, y: 320 }, { x: 320, y: 290 }, { x: 440, y: 290 }, { x: 760, y: 290 });
+          } else {
+            // Looping / Rampe inversée
+            terrain.push({ x: 0, y: 340 }, { x: 200, y: 340 }, { x: 340, y: 240 }, { x: 440, y: 240 }, { x: 560, y: 340 }, { x: 780, y: 340 });
+          }
+        }
+
+        function loadLevel(lvl) {
+          currentLevel = lvl;
+          buildTerrain(lvl);
+          car.cx = 80; car.cy = 300; car.vx = 0; car.vy = 0; car.angle = 0; car.av = 0;
+          car.wL.x = 55; car.wL.y = 320; car.wL.vx = 0; car.wL.vy = 0;
+          car.wR.x = 105; car.wR.y = 320; car.wR.vx = 0; car.wR.vy = 0;
+          state = 'running';
+          timeElapsed = 0;
+
+          document.getElementById('drivemad-level-label').textContent = `Niveau ${currentLevel} / 5`;
+          document.getElementById('drivemad-status').textContent = 'EN COURSE';
+          document.getElementById('drivemad-status').style.color = '#f59e0b';
+          document.getElementById('drivemad-next-btn').classList.add('hidden');
+        }
+
+        function getGroundY(x) {
+          for (let i = 0; i < terrain.length - 1; i++) {
+            const p1 = terrain[i];
+            const p2 = terrain[i + 1];
+            if (x >= p1.x && x <= p2.x) {
+              const t = (x - p1.x) / (p2.x - p1.x);
+              return p1.y + t * (p2.y - p1.y);
+            }
+          }
+          return 500; // Hors terrain
+        }
+
+        function update() {
+          if (state !== 'running') return;
+          timeElapsed += 0.016;
+          document.getElementById('drivemad-timer').textContent = `${timeElapsed.toFixed(1)}s`;
+
+          // Contrôles moteur
+          const motorPower = 0.55;
+          if (keys['KeyD'] || keys['ArrowRight']) {
+            car.wL.vx += motorPower;
+            car.wR.vx += motorPower;
+            car.av += 0.008; // Cabrage
+          }
+          if (keys['KeyA'] || keys['ArrowLeft']) {
+            car.wL.vx -= motorPower * 0.7;
+            car.wR.vx -= motorPower * 0.7;
+            car.av -= 0.008; // Pique du nez
+          }
+
+          // Gravité
+          const grav = 0.38;
+          car.vy += grav;
+          car.wL.vy += grav;
+          car.wR.vy += grav;
+
+          // Déplacement roues
+          car.wL.x += car.wL.vx; car.wL.y += car.wL.vy;
+          car.wR.x += car.wR.vx; car.wR.y += car.wR.vy;
+          car.wL.vx *= 0.96; car.wR.vx *= 0.96;
+
+          // Collision roues avec sol
+          const gL = getGroundY(car.wL.x) - car.radius;
+          if (car.wL.y >= gL) {
+            car.wL.y = gL;
+            car.wL.vy = 0;
+          }
+          const gR = getGroundY(car.wR.x) - car.radius;
+          if (car.wR.y >= gR) {
+            car.wR.y = gR;
+            car.wR.vy = 0;
+          }
+
+          // Position du châssis dérivée des roues et suspensions
+          const midX = (car.wL.x + car.wR.x) / 2;
+          const midY = (car.wL.y + car.wR.y) / 2;
+          const targetAngle = Math.atan2(car.wR.y - car.wL.y, car.wR.x - car.wL.x);
+
+          car.cx = midX;
+          car.cy = midY - 18;
+          car.angle += car.av;
+          car.angle += (targetAngle - car.angle) * 0.12; // Ressort suspension
+          car.av *= 0.92;
+
+          // Crash si le toit touche le sol (retournement > 90°)
+          const groundAtChassis = getGroundY(car.cx);
+          if (Math.abs(car.angle) > 1.8 && car.cy > groundAtChassis - 25) {
+            state = 'crashed';
+            document.getElementById('drivemad-status').textContent = 'CRASH ! 💥 (R pour rejouer)';
+            document.getElementById('drivemad-status').style.color = '#ef4444';
+            if (typeof SoundEffects !== 'undefined') SoundEffects.smash();
+          }
+
+          // Victoire si drapeau franchi (X > 710)
+          if (car.cx > 710 && state === 'running') {
+            state = 'won';
+            document.getElementById('drivemad-status').textContent = 'NIVEAU RÉUSSI ! 🏁';
+            document.getElementById('drivemad-status').style.color = '#10b981';
+            document.getElementById('drivemad-next-btn').classList.remove('hidden');
+            if (typeof SoundEffects !== 'undefined') SoundEffects.score();
+          }
+        }
+
+        function render() {
+          if (!ctx) return;
+          const w = canvas.width;
+          const h = canvas.height;
+
+          // Ciel
+          ctx.fillStyle = '#050811';
+          ctx.fillRect(0, 0, w, h);
+
+          // Dessin du terrain polygonal
+          ctx.fillStyle = '#1e293b';
           ctx.beginPath();
-          ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+          ctx.moveTo(terrain[0].x, terrain[0].y);
+          for (let i = 1; i < terrain.length; i++) {
+            ctx.lineTo(terrain[i].x, terrain[i].y);
+          }
+          ctx.lineTo(w, h);
+          ctx.lineTo(0, h);
+          ctx.closePath();
           ctx.fill();
 
-          vortexAnim = requestAnimationFrame(renderVortex);
-        }
-
-        // --- 2. Battements Binauraux ---
-        function toggleBinaural() {
-          binauralActive = !binauralActive;
-          const btn = document.getElementById('binaural-toggle-btn');
-          if (binauralActive) {
-            startBinaural();
-            btn.textContent = '⏹ Couper le flux audio binaural';
-            btn.className = 'btn btn-secondary';
-          } else {
-            stopBinaural();
-            btn.textContent = '▶ Démarrer le flux audio binaural';
-            btn.className = 'btn btn-emerald';
+          // Bordure néon herbe/sol
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(terrain[0].x, terrain[0].y);
+          for (let i = 1; i < terrain.length; i++) {
+            ctx.lineTo(terrain[i].x, terrain[i].y);
           }
-        }
+          ctx.stroke();
 
-        function startBinaural() {
-          try {
-            const AudioCtx = window.AudioContext || window.webkitAudioContext;
-            binauralCtx = new AudioCtx();
+          // Drapeau d'arrivée à damier
+          const flagX = 720;
+          const flagY = getGroundY(flagX);
+          ctx.strokeStyle = '#fff';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(flagX, flagY); ctx.lineTo(flagX, flagY - 50);
+          ctx.stroke();
 
-            const merger = binauralCtx.createChannelMerger(2);
-            const masterGain = binauralCtx.createGain();
-            masterGain.gain.setValueAtTime(0.18, binauralCtx.currentTime);
+          // Damier
+          ctx.fillStyle = '#10b981';
+          ctx.fillRect(flagX, flagY - 50, 24, 16);
 
-            // Oreille Gauche
-            oscL = binauralCtx.createOscillator();
-            oscL.type = 'sine';
-            oscL.frequency.setValueAtTime(baseFreq, binauralCtx.currentTime);
-            oscL.connect(merger, 0, 0);
+          // Roues
+          ctx.fillStyle = '#0f172a';
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 3;
 
-            // Oreille Droite
-            oscR = binauralCtx.createOscillator();
-            oscR.type = 'sine';
-            oscR.frequency.setValueAtTime(baseFreq + diffFreq, binauralCtx.currentTime);
-            oscR.connect(merger, 0, 1);
+          [car.wL, car.wR].forEach(wh => {
+            ctx.beginPath();
+            ctx.arc(wh.x, wh.y, car.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
 
-            merger.connect(masterGain);
-            masterGain.connect(binauralCtx.destination);
-
-            oscL.start();
-            oscR.start();
-          } catch (e) {
-            console.error('Erreur binaural audio:', e);
-          }
-        }
-
-        function updateBinauralNodes() {
-          if (!binauralActive || !binauralCtx) return;
-          if (oscL) oscL.frequency.setValueAtTime(baseFreq, binauralCtx.currentTime);
-          if (oscR) oscR.frequency.setValueAtTime(baseFreq + diffFreq, binauralCtx.currentTime);
-        }
-
-        function stopBinaural() {
-          if (oscL) { try { oscL.stop(); } catch (e) {} oscL = null; }
-          if (oscR) { try { oscR.stop(); } catch (e) {} oscR = null; }
-          if (binauralCtx) { try { binauralCtx.close(); } catch (e) {} binauralCtx = null; }
-          binauralActive = false;
-        }
-
-        // --- 3. Tesseract 4D ---
-        function startTesseract() {
-          const canvas = document.getElementById('tesseract-canvas');
-          if (!canvas) return;
-          const ctx = canvas.getContext('2d');
-          const cx = canvas.width / 2;
-          const cy = canvas.height / 2;
-
-          // 16 sommets d'un hypercube 4D (-1 ou 1 sur chaque axe)
-          const vertices = [];
-          for (let i = 0; i < 16; i++) {
-            vertices.push([
-              (i & 1) ? 1 : -1,
-              (i & 2) ? 1 : -1,
-              (i & 4) ? 1 : -1,
-              (i & 8) ? 1 : -1
-            ]);
-          }
-
-          function loop() {
-            tRotX += 0.015;
-            tRotY += 0.02;
-
-            ctx.fillStyle = '#020409';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Projection 4D -> 3D -> 2D
-            const projected = vertices.map(v => {
-              // Rotation 4D dans le plan Z-W
-              let [x, y, z, w] = v;
-              const cosW = Math.cos(tRotX), sinW = Math.sin(tRotX);
-              const z2 = z * cosW - w * sinW;
-              const w2 = z * sinW + w * cosW;
-
-              // Rotation 3D dans le plan X-Z
-              const cosY = Math.cos(tRotY), sinY = Math.sin(tRotY);
-              const x2 = x * cosY - z2 * sinY;
-              const z3 = x * sinY + z2 * cosY;
-
-              // Perspective 4D vers 3D
-              const dist4D = 2.5;
-              const f = 1 / (dist4D - w2);
-              const p3x = x2 * f;
-              const p3y = y * f;
-              const p3z = z3 * f;
-
-              // Perspective 3D vers 2D
-              const dist3D = 3.0;
-              const f2 = 1 / (dist3D - p3z);
-              return [cx + p3x * f2 * 280, cy + p3y * f2 * 280];
-            });
-
-            // Arêtes (connecter les sommets qui diffèrent d'exactement 1 coordonnée)
-            ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+            // Rayons de jante
+            ctx.strokeStyle = 'rgba(255,255,255,0.4)';
             ctx.lineWidth = 1.5;
-            for (let i = 0; i < 16; i++) {
-              for (let j = i + 1; j < 16; j++) {
-                // Différence de bits = 1 (Hamming distance == 1)
-                const diff = i ^ j;
-                if ((diff & (diff - 1)) === 0) {
-                  ctx.beginPath();
-                  ctx.moveTo(projected[i][0], projected[i][1]);
-                  ctx.lineTo(projected[j][0], projected[j][1]);
-                  ctx.stroke();
-                }
-              }
-            }
+            ctx.beginPath();
+            ctx.moveTo(wh.x - car.radius, wh.y); ctx.lineTo(wh.x + car.radius, wh.y);
+            ctx.moveTo(wh.x, wh.y - car.radius); ctx.lineTo(wh.x, wh.y + car.radius);
+            ctx.stroke();
+          });
 
-            // Sommets
-            ctx.fillStyle = '#8b5cf6';
-            projected.forEach(([px, py]) => {
-              ctx.beginPath();
-              ctx.arc(px, py, 3, 0, Math.PI * 2);
-              ctx.fill();
-            });
+          // Châssis Monster Truck
+          ctx.save();
+          ctx.translate(car.cx, car.cy);
+          ctx.rotate(car.angle);
 
-            tesseractAnim = requestAnimationFrame(loop);
-          }
-          loop();
+          // Carrosserie
+          ctx.fillStyle = state === 'crashed' ? '#ef4444' : '#00f0ff';
+          ctx.fillRect(-28, -14, 56, 16);
+
+          // Cabine & pare-brise
+          ctx.fillStyle = '#1e293b';
+          ctx.fillRect(-10, -26, 26, 12);
+          ctx.fillStyle = 'rgba(255,255,255,0.7)';
+          ctx.fillRect(4, -24, 10, 8);
+
+          ctx.restore();
         }
 
-        function stopTesseract() {
-          if (tesseractAnim) cancelAnimationFrame(tesseractAnim);
+        function loop() {
+          if (!running) return;
+          update();
+          render();
+          animId = requestAnimationFrame(loop);
         }
 
         return {
           init,
-          stop() {
-            if (vortexRunning) toggleVortex();
-            stopBinaural();
-            stopTesseract();
+          start() {
+            if (!canvas) init();
+            loadLevel(currentLevel);
+            if (running) return;
+            running = true;
+            loop();
+          },
+          pause() {
+            running = false;
+            if (animId) cancelAnimationFrame(animId);
           }
         };
       })();
 
       /* =======================================================================
-         27. CYBER TERMINAL & HACKER SHELL (AVEC MODE HOLLYWOOD HACKER)
+         27. TUNNEL RUSH 3D (COURSE HYPNOTIQUE DANS LE TUBE 60 FPS)
          ======================================================================= */
-      const TerminalShell = (function () {
-        let hollywoodMode = false;
-        let hollywoodIndex = 0;
+      const TunnelRush = (function () {
+        let canvas, ctx;
+        let running = false;
+        let animId = null;
+        let score = 0;
+        let bestScore = 0;
+        let speed = 1.0;
+        let playerAngle = Math.PI / 2; // Position angulaire du joueur (0 à 2*PI)
+        let dead = false;
 
-        const HOLLYWOOD_CODE = [
-          "// Initializing zero-day exploit payload...",
-          "int exploit_chain(void *base_addr) {",
-          "    asm volatile(\"mov %0, %%rax; int $0x80\" : : \"r\"(base_addr));",
-          "    return bypass_edu_vd_firewall(0x7fff_ffff);",
-          "}",
-          "[+] Establishing encrypted TLS 1.3 reverse shell...",
-          "[+] Tunneling through proxy: 10.144.0.1:8080 [Bypassed]",
-          "[+] Injecting heap spray into memory segment 0x00400000...",
-          "[!] KERNEL PRIVILEGE ESCALATION: ROOT ACCESS GRANTED (uid=0)",
-          "cat /etc/shadow | grep -i admin",
-          "root:$6$vQ2h$K7e1k9F9...:19420:0:99999:7:::",
-          "[+] Disabling auditd and syslog telemetry logging...",
-          "[+] System status: 100% STEALTH COMPLIANT."
-        ];
+        const SIDES = 8;
+        const rings = [];
+        const barriers = [];
+        const keys = {};
 
         function init() {
-          const input = document.getElementById('terminal-input');
-          const output = document.getElementById('terminal-output');
-          const clearBtn = document.getElementById('term-clear-btn');
-          const hollyBtn = document.getElementById('term-hollywood-btn');
+          canvas = document.getElementById('tunnel-canvas');
+          if (!canvas) return;
+          ctx = canvas.getContext('2d');
 
-          if (input) {
-            input.addEventListener('keydown', (e) => {
-              if (hollywoodMode) {
-                e.preventDefault();
-                typeHollywoodLine();
-                return;
-              }
-              if (e.key === 'Enter') {
-                const cmd = input.value.trim();
-                input.value = '';
-                executeCommand(cmd);
-              }
-            });
-          }
+          const restartBtn = document.getElementById('tunnel-restart-btn');
+          if (restartBtn) restartBtn.addEventListener('click', reset);
 
-          if (clearBtn && output) {
-            clearBtn.addEventListener('click', () => {
-              output.innerHTML = '<div class="terminal-line-output">Terminal effacé. Tape <strong style="color:#00f0ff">help</strong> pour voir les commandes.</div>';
-            });
-          }
-
-          if (hollyBtn) {
-            hollyBtn.addEventListener('click', () => {
-              hollywoodMode = !hollywoodMode;
-              hollyBtn.classList.toggle('btn-emerald', hollywoodMode);
-              hollyBtn.classList.toggle('btn-violet', !hollywoodMode);
-              hollyBtn.textContent = hollywoodMode ? '⚡ Mode Hollywood ACTIF (Tape n\'importe quoi !)' : '⚡ Mode Hollywood Hacker (Frappe libre)';
-              if (hollywoodMode) {
-                printLine('=== MODE HOLLYWOOD HACKER ACTIVÉ : TAPE N\'IMPORTE QUELLE TOUCHE AU CLAVIER ===', 'terminal-line-warn');
-                if (input) input.focus();
-              } else {
-                printLine('Mode Hollywood désactivé.', 'terminal-line-output');
-              }
-            });
-          }
+          window.addEventListener('keydown', (e) => {
+            if (AppState.activeSection !== 'tunnel') return;
+            keys[e.code] = true;
+            if (dead && e.code === 'Space') reset();
+          });
+          window.addEventListener('keyup', (e) => {
+            keys[e.code] = false;
+          });
         }
 
-        function printLine(text, className = 'terminal-line-output') {
-          const output = document.getElementById('terminal-output');
-          if (!output) return;
-          const line = document.createElement('div');
-          line.className = className;
-          line.textContent = text;
-          output.appendChild(line);
-          output.scrollTop = output.scrollHeight;
+        function reset() {
+          score = 0;
+          speed = 1.0;
+          playerAngle = Math.PI / 2;
+          dead = false;
+          barriers.length = 0;
+
+          // Générer les premières barrières
+          for (let z = 60; z < 400; z += 40) {
+            spawnBarrier(z);
+          }
+          updateHUD();
         }
 
-        function typeHollywoodLine() {
-          const line = HOLLYWOOD_CODE[hollywoodIndex % HOLLYWOOD_CODE.length];
-          hollywoodIndex++;
-          printLine(line, 'terminal-line-success');
-          if (typeof SoundEffects !== 'undefined') SoundEffects.click();
+        function spawnBarrier(z) {
+          // Bloquer 2 ou 3 segments consécutifs
+          const blockedStart = Math.floor(Math.random() * SIDES);
+          barriers.push({
+            z: z,
+            startSegment: blockedStart,
+            span: Math.random() < 0.5 ? 2 : 3
+          });
         }
 
-        function executeCommand(rawCmd) {
-          if (!rawCmd) return;
-          printLine(`med0@school-fun:~$ ${rawCmd}`, 'terminal-line-cmd');
+        function updateHUD() {
+          const sEl = document.getElementById('tunnel-score');
+          const spEl = document.getElementById('tunnel-speed');
+          const bEl = document.getElementById('tunnel-best');
+          if (sEl) sEl.textContent = score;
+          if (spEl) spEl.textContent = `${speed.toFixed(1)}x`;
+          if (bEl) bEl.textContent = bestScore;
+        }
 
-          const parts = rawCmd.split(' ');
-          const cmd = parts[0].toLowerCase();
-          const arg = parts.slice(1).join(' ');
+        function update() {
+          if (dead) return;
 
-          switch (cmd) {
-            case 'help':
-              printLine('Commandes disponibles :', 'terminal-line-success');
-              printLine('  matrix      - Lance la cascade de pluie Matrix verte', 'terminal-line-output');
-              printLine('  doom        - Lance le moteur 3D Cyber DOOM', 'terminal-line-output');
-              printLine('  hack        - Simule une intrusion réseau avec scan IP', 'terminal-line-output');
-              printLine('  scan-wifi   - Scanne les réseaux Wi-Fi de l\'école (EDU_VD...)', 'terminal-line-output');
-              printLine('  stegano     - Ouvre le coffre stéganographique d\'antisèches', 'terminal-line-output');
-              printLine('  panic       - Active la touche panique immédiate (Google Docs)', 'terminal-line-output');
-              printLine('  calc <expr> - Évalue une formule mathématique (ex: calc 42 * 13)', 'terminal-line-output');
-              printLine('  clear       - Nettoie l\'écran du terminal', 'terminal-line-output');
-              printLine('  about       - Affiche les crédits et stats du système', 'terminal-line-output');
-              break;
+          // Rotation du joueur autour du tube
+          const rotSpeed = 0.055;
+          if (keys['KeyA'] || keys['ArrowLeft']) playerAngle -= rotSpeed;
+          if (keys['KeyD'] || keys['ArrowRight']) playerAngle += rotSpeed;
 
-            case 'matrix':
-              printLine('Démarrage de la Matrice cybernétique...', 'terminal-line-success');
-              for (let i = 0; i < 6; i++) {
-                setTimeout(() => {
-                  const chars = '01アカサタナハマヤラワイキシチニヒミリウクスツヌフムユルエケセテネヘメレオコソトノホモヨロヲ0123456789';
-                  let str = '';
-                  for (let j = 0; j < 35; j++) str += chars[Math.floor(Math.random() * chars.length)] + ' ';
-                  printLine(str, 'terminal-line-success');
-                }, i * 150);
-              }
-              break;
+          // Normaliser l'angle entre 0 et 2*PI
+          playerAngle = (playerAngle % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
 
-            case 'doom':
-              navigateTo('doom');
-              break;
+          // Accélération progressive
+          speed += 0.0003;
+          score++;
+          if (score > bestScore) bestScore = score;
+          if (score % 60 === 0) updateHUD();
 
-            case 'stegano':
-              navigateTo('stegano');
-              break;
+          // Mouvement des barrières vers le joueur
+          for (let i = barriers.length - 1; i >= 0; i--) {
+            const b = barriers[i];
+            b.z -= 1.8 * speed;
 
-            case 'panic':
-            case 'cloak':
-              setPanicMode(true);
-              break;
-
-            case 'scan-wifi':
-              printLine('[*] Scan des fréquences 2.4 GHz & 5 GHz...', 'terminal-line-warn');
-              setTimeout(() => printLine('  [+] SSID: EDU_VD (Signal: -42dBm, Sec: 802.1x EAP)', 'terminal-line-success'), 300);
-              setTimeout(() => printLine('  [+] SSID: DIR-HP-LaserJet-M402 (Signal: -58dBm, Sec: OPEN)', 'terminal-line-output'), 600);
-              setTimeout(() => printLine('  [+] SSID: Staff-Prof-VD (Signal: -65dBm, Sec: WPA3-Enterprise)', 'terminal-line-output'), 900);
-              setTimeout(() => printLine('[✓] 3 points d\'accès identifiés dans le bâtiment.', 'terminal-line-success'), 1200);
-              break;
-
-            case 'hack':
-              printLine('[*] Ciblage du serveur pédagogique Moodle...', 'terminal-line-warn');
-              setTimeout(() => printLine('[-] Injection de paquets SYN... [Port 443 ouvert]', 'terminal-line-output'), 400);
-              setTimeout(() => printLine('[+] Buffer overflow confirmé sur le démon d\'authentification !', 'terminal-line-output'), 800);
-              setTimeout(() => printLine('[✓] Accès administrateur temporaire accordé (Session token capturé)', 'terminal-line-success'), 1300);
-              break;
-
-            case 'calc':
-              if (!arg) {
-                printLine('Usage: calc <expression> (ex: calc 25 * 4 + 10)', 'terminal-line-warn');
-              } else {
-                try {
-                  const res = Function(`'use strict'; return (${arg})`)();
-                  printLine(`= ${res}`, 'terminal-line-success');
-                } catch (e) {
-                  printLine('Erreur de calcul : expression invalide.', 'terminal-line-error');
+            // Détection de collision quand la barrière franchit la caméra (z proche de 0)
+            if (b.z <= 12 && b.z >= 0) {
+              const currentSegment = Math.floor((playerAngle / (Math.PI * 2)) * SIDES) % SIDES;
+              for (let s = 0; s < b.span; s++) {
+                const blockedSeg = (b.startSegment + s) % SIDES;
+                if (currentSegment === blockedSeg) {
+                  dead = true;
+                  if (typeof SoundEffects !== 'undefined') SoundEffects.smash();
+                  showToast(`CRASH DANS LE TUBE ! Score final : ${score}`, '💥');
+                  break;
                 }
               }
-              break;
+            }
 
-            case 'clear':
-              document.getElementById('terminal-output').innerHTML = '';
-              break;
-
-            case 'about':
-              printLine('🎮 Cyber School Portal (School-Fun) v2.5 Neon', 'terminal-line-success');
-              printLine('Créé par Med0-n pour survivre aux heures de cours avec style.', 'terminal-line-output');
-              printLine('100% Client-Side • Zéro trace serveur • WebRTC P2P • Web Audio API', 'terminal-line-output');
-              break;
-
-            default:
-              printLine(`Commande inconnue : « ${cmd} ». Tape « help » pour la liste.`, 'terminal-line-error');
+            if (b.z < 0) {
+              barriers.splice(i, 1);
+              spawnBarrier(380);
+              if (typeof SoundEffects !== 'undefined') SoundEffects.score();
+            }
           }
+        }
+
+        function render() {
+          if (!ctx) return;
+          const w = canvas.width;
+          const h = canvas.height;
+          const cx = w / 2;
+          const cy = h / 2;
+
+          ctx.fillStyle = '#020409';
+          ctx.fillRect(0, 0, w, h);
+
+          // Anneaux 3D du tube
+          const numRings = 14;
+          for (let i = numRings; i >= 0; i--) {
+            const z = (i * 25 + (Date.now() * 0.08 * speed) % 25);
+            const scale = 320 / (z + 20);
+            const radius = 120 * scale;
+
+            // Segments octogonaux
+            ctx.strokeStyle = `hsla(${(Date.now() * 0.05 + i * 20) % 360}, 80%, 60%, ${Math.min(1.0, 1.8 / (z * 0.03 + 1))})`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let s = 0; s <= SIDES; s++) {
+              const theta = (s * Math.PI * 2) / SIDES;
+              const x = cx + Math.cos(theta) * radius;
+              const y = cy + Math.sin(theta) * radius;
+              if (s === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+          }
+
+          // Barrières d'obstacles néon rouges
+          barriers.forEach(b => {
+            if (b.z > 350 || b.z < 2) return;
+            const scale = 320 / (b.z + 20);
+            const radius = 120 * scale;
+
+            ctx.fillStyle = 'rgba(239, 68, 68, 0.75)';
+            ctx.strokeStyle = '#ef4444';
+            ctx.lineWidth = 3;
+
+            for (let s = 0; s < b.span; s++) {
+              const seg = (b.startSegment + s) % SIDES;
+              const th1 = (seg * Math.PI * 2) / SIDES;
+              const th2 = ((seg + 1) * Math.PI * 2) / SIDES;
+
+              ctx.beginPath();
+              ctx.moveTo(cx, cy);
+              ctx.lineTo(cx + Math.cos(th1) * radius, cy + Math.sin(th1) * radius);
+              ctx.lineTo(cx + Math.cos(th2) * radius, cy + Math.sin(th2) * radius);
+              ctx.closePath();
+              ctx.fill();
+              ctx.stroke();
+            }
+          });
+
+          // Vaisseau / Pointeur du joueur
+          const pRadius = 120 * (320 / 30);
+          const px = cx + Math.cos(playerAngle) * (pRadius * 0.42);
+          const py = cy + Math.sin(playerAngle) * (pRadius * 0.42);
+
+          ctx.save();
+          ctx.translate(px, py);
+          ctx.rotate(playerAngle + Math.PI / 2);
+
+          ctx.fillStyle = '#00f0ff';
+          ctx.shadowColor = '#00f0ff';
+          ctx.shadowBlur = 12;
+
+          ctx.beginPath();
+          ctx.moveTo(0, -12);
+          ctx.lineTo(-8, 8);
+          ctx.lineTo(0, 4);
+          ctx.lineTo(8, 8);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.restore();
+
+          if (dead) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(5, 8, 17, 0.85)';
+            ctx.fillRect(w / 2 - 200, h / 2 - 40, 400, 80);
+            ctx.strokeStyle = '#ef4444';
+            ctx.strokeRect(w / 2 - 200, h / 2 - 40, 400, 80);
+
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 18px monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('CRASH ! APPUYE SUR ESPACE', w / 2, h / 2);
+            ctx.font = '14px monospace';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(`Score final : ${score}`, w / 2, h / 2 + 25);
+            ctx.restore();
+          }
+        }
+
+        function loop() {
+          if (!running) return;
+          update();
+          render();
+          animId = requestAnimationFrame(loop);
         }
 
         return {
           init,
-          focus() {
-            const input = document.getElementById('terminal-input');
-            if (input) input.focus();
+          start() {
+            if (!canvas) init();
+            reset();
+            if (running) return;
+            running = true;
+            loop();
+          },
+          pause() {
+            running = false;
+            if (animId) cancelAnimationFrame(animId);
           }
         };
       })();
@@ -9359,9 +9238,10 @@
         initCloakUI();
         updateDashboardStats();
         if (typeof AchievementsManager !== 'undefined') AchievementsManager.init();
-        if (typeof CyberDoom !== 'undefined') CyberDoom.init();
-        if (typeof SteganoVault !== 'undefined') SteganoVault.init();
-        if (typeof IllusionsLab !== 'undefined') IllusionsLab.init();
+        if (typeof RooftopSnipers !== 'undefined') RooftopSnipers.init();
+        if (typeof NeonWave !== 'undefined') NeonWave.init();
+        if (typeof DriveMad !== 'undefined') DriveMad.init();
+        if (typeof TunnelRush !== 'undefined') TunnelRush.init();
         if (typeof TerminalShell !== 'undefined') TerminalShell.init();
 
         // Détection automatique de lien d'invitation multijoueur en ligne

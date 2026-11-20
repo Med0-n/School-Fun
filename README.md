@@ -34,10 +34,10 @@
 
 ## ✨ Fonctionnalités Principales
 
-- **🕶️ Cyber DOOM 3D** : Véritable moteur de raycasting 3D à 60 FPS programmé en pur Canvas 2D mathématique (zéro bibliothèque, zéro WebGL). Arme laser avec recul, radar mini-map et drones ennemis !
-- **🔐 Coffre Stéganographique** : Dissimule des antisèches et textes secrets au cœur des pixels invisibles (LSB) d'une image PNG. 100% indétectable à l'œil nu.
-- **🌀 Illusions d'Optique & Ondes** : Vortex cinétique de distorsion de la réalité (Motion Aftereffect), Tesseract 4D rotatif et générateur de battements binauraux 432 Hz / ondes Alpha de concentration.
-- **💻 Cyber Terminal & Matrix** : Console hacker interactive avec commandes réelles, pluie de code Matrix et mode Hollywood Hacker pour taper du code en direct.
+- **🎯 Rooftop Snipers 1v1** : Le duel de snipers culte des salles d'informatique ! Physique ragdoll hilarante sur le toit, jouable à 2 sur 1 clavier ou contre l'IA.
+- **⚡ Neon Wave (Geometry Dash)** : Le célèbre mode Wave de Geometry Dash ! Maintiens pour monter à 45°, relâche pour descendre. Barrière de pics et chrono de progression.
+- **🚙 Drive Mad 2D** : Franchis les ponts suspendus, tremplins et loopings en monster truck sans te retourner. Physique de suspensions ultra-addictive.
+- **🌀 Tunnel Rush 3D** : Course ultra-rapide à 60 FPS dans un tube 3D polygonal hypnotique. Tourne autour des parois pour esquiver les portes et obstacles.
 - **🎮 14+ Jeux & Outils Cyber intégrés** : Solo, 2 joueurs sur un même clavier, et multijoueur en ligne P2P.
 - **⛷️ Slope 2 (1games.io)** : Intégration optimisée plein écran avec iframe wrapper officiel.
 - **🖼️ Banque de Memes** : Auto-détection des images (`.jpeg`, `.png`, `.gif`, `.webp`) triées par dossiers (`11VP`, `HP`, `Ultérieur`...).
