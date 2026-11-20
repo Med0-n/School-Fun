@@ -2029,6 +2029,64 @@
         display: none;
       }
     }
+    /* =========================================================================
+       BROUILLEUR ULTRA-SONS & FRÉQUENCES FURTIVES HZ
+       ========================================================================= */
+    .hz-preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .hz-preset-btn {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .hz-preset-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+    .hz-preset-btn.active {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+      background: rgba(0, 240, 255, 0.05);
+    }
+    .hz-preset-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hz-preset-icon {
+      font-size: 20px;
+    }
+    .hz-preset-hz {
+      font-size: 11px;
+      font-weight: 800;
+      font-family: monospace;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 4px;
+      color: var(--accent-cyan);
+    }
+    .hz-preset-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+    .hz-preset-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
   </style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -2166,6 +2224,7 @@
         <button class="nav-btn" data-section="flappy"><span class="nav-icon">🐦</span> Flappy Néon</button>
 
         <div class="nav-group-label">🛡️ Furtivité &amp; Références</div>
+        <button class="nav-btn" data-section="ultrasonic"><span class="nav-icon">🦇</span> Brouilleur Ultra-Sons Hz</button>
         <button class="nav-btn" data-section="links"><span class="nav-icon">🔗</span> Bibliothèque de Liens</button>
         <button class="nav-btn" data-section="calc"><span class="nav-icon">🧮</span> Calculatrice EDU_VD</button>
         <button class="nav-btn" data-section="achievements"><span class="nav-icon">🏆</span> Hauts Faits de l'École</button>
@@ -2356,6 +2415,13 @@
               <h3>Hauts Faits de l'École</h3>
               <p>10 succès débloquables en jouant et en explorant les mèmes (Meylan, Scheurer, 11VP, EDU_VD...).</p>
               <div class="game-launch-meta"><span id="dash-achievements-btn-stat" class="text-amber">Voir trophées</span><span>Ouvrir →</span></div>
+            </button>
+
+            <button class="game-launch-card" data-goto="ultrasonic">
+              <div class="game-launch-icon">🦇</div>
+              <h3>Brouilleur Ultra-Sons Hz</h3>
+              <p>Émetteur haute fréquence et sons fantômes impossibles à localiser. Presets Mosquito anti-prof, déphasage stéréo Mac.</p>
+              <div class="game-launch-meta"><span class="text-rose">Acoustique Furtive</span><span>Brouiller →</span></div>
             </button>
 </div>
         </section>
@@ -3352,6 +3418,226 @@
           </div>
         </section>
 
+        <!-- ===============================================================
+             SECTION : BROUILLEUR ULTRA-SONS & FRÉQUENCES FURTIVES
+             =============================================================== -->
+        <section id="sec-ultrasonic" class="section">
+          <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+              <div class="card-title">🦇 Brouilleur Ultra-Sons Hz &amp; Acoustique Fantôme</div>
+              <span id="hz-status-pill" class="badge badge-dim">Inactif</span>
+            </div>
+            <p class="text-muted" style="font-size:14px; line-height:1.5;">
+              Générateur d'ondes acoustiques sinusoïdales pures calibré pour Mac &amp; PC d'école. Exploite la <strong>presbyacousie</strong> (les adultes et profs perdent la sensibilité au-dessus de 15 kHz) et le <strong>déphasage stéréo 180°</strong> qui annule les indices ITD et rend la source impossible à trianguler dans une classe.
+            </p>
+          </div>
+
+          <!-- Panneau principal : Affichage Hz et Oscilloscope -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:18px; margin-bottom:20px;">
+            
+            <!-- Carte d'émission & Contrôle principal -->
+            <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                  <span class="text-dim" style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px;">Fréquence Émise</span>
+                  <span id="hz-target-label" class="badge badge-cyan">Fantôme Déphasé Mac</span>
+                </div>
+                
+                <div style="text-align:center; padding:18px 10px; background:var(--bg-input); border:1px solid var(--border-strong); border-radius:var(--radius-md); margin-bottom:16px;">
+                  <div id="hz-val-display" style="font-size:46px; font-weight:900; font-family:monospace; color:var(--accent-cyan); line-height:1; letter-spacing:1px;">
+                    15 200 <span style="font-size:20px; color:var(--text-muted); font-weight:400;">Hz</span>
+                  </div>
+                  <div id="hz-desc-display" style="font-size:13px; color:var(--text-muted); margin-top:8px;">
+                    👻 Bruit de fond strident impossible à localiser, les profs cherchent partout.
+                  </div>
+                </div>
+
+                <!-- Curseur principal -->
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim); margin-bottom:6px;">
+                    <span>20 Hz (Basses)</span>
+                    <span id="hz-slider-val" style="color:var(--text-main); font-weight:700;">15 200 Hz</span>
+                    <span>21 000 Hz (Inaudible profs)</span>
+                  </div>
+                  <input type="range" id="hz-freq-slider" min="20" max="21000" step="10" value="15200" style="width:100%; cursor:pointer;" />
+                </div>
+
+                <!-- Boutons d'ajustement fin -->
+                <div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap; margin-bottom:18px;">
+                  <button class="btn btn-secondary btn-sm" id="hz-step-m100">-100</button>
+                  <button class="btn btn-secondary btn-sm" id="hz-step-m10">-10</button>
+                  <button class="btn btn-secondary btn-sm" id="hz-step-m1">-1</button>
+                  <button class="btn btn-secondary btn-sm" id="hz-step-p1">+1</button>
+                  <button class="btn btn-secondary btn-sm" id="hz-step-p10">+10</button>
+                  <button class="btn btn-secondary btn-sm" id="hz-step-p100">+100</button>
+                </div>
+              </div>
+
+              <!-- Bouton Lancement Géant & Kill Switch -->
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button id="hz-toggle-btn" class="btn btn-primary" style="padding:14px; font-size:15px; font-weight:800; letter-spacing:0.5px; box-shadow:0 0 20px rgba(0,240,255,0.25);">
+                  ▶ ÉMETTRE LE SON
+                </button>
+                <button id="hz-panic-kill-btn" class="btn btn-rose" style="padding:10px; font-weight:700;">
+                  🛑 COUPER TOUT INSTANTANÉMENT (Échap)
+                </button>
+              </div>
+            </div>
+
+            <!-- Oscilloscope et Modes Furtifs Spécial Mac -->
+            <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div class="card-title" style="font-size:15px; margin-bottom:10px;">📊 Moniteur Acoustique &amp; Phase Stéréo</div>
+                
+                <!-- Canvas Oscilloscope -->
+                <div style="position:relative; width:100%; height:130px; background:#07090e; border-radius:var(--radius-sm); border:1px solid var(--border); overflow:hidden; margin-bottom:14px;">
+                  <canvas id="hz-scope-canvas" style="width:100%; height:100%; display:block;"></canvas>
+                  <div id="hz-audio-tag" style="position:absolute; top:8px; right:10px; font-size:11px; padding:2px 8px; border-radius:4px; background:rgba(0,0,0,0.6); color:var(--text-dim);">
+                    SILENCE
+                  </div>
+                </div>
+
+                <!-- Paramètres Spécial Mac & Furtivité -->
+                <div style="display:flex; flex-direction:column; gap:10px; background:var(--bg-input); padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                  <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-size:13px;">
+                    <span>
+                      <strong>🔄 Déphasage Stéréo Mac (180°)</strong>
+                      <small style="display:block; color:var(--text-dim);">Inverse le canal droit pour détruire la localisation spatiale.</small>
+                    </span>
+                    <input type="checkbox" id="hz-opt-phase" checked style="width:18px; height:18px; accent-color:var(--accent-cyan);" />
+                  </label>
+
+                  <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-size:13px;">
+                    <span>
+                      <strong>〰️ Micro-Balayage Acoustique (Wobble)</strong>
+                      <small style="display:block; color:var(--text-dim);">Fait dériver les ondes stationnaires au plafond de la pièce.</small>
+                    </span>
+                    <input type="checkbox" id="hz-opt-wobble" style="width:18px; height:18px; accent-color:var(--accent-cyan);" />
+                  </label>
+
+                  <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-size:13px;">
+                    <span>
+                      <strong>🌐 Garder actif en arrière-plan</strong>
+                      <small style="display:block; color:var(--text-dim);">Continue d'émettre pendant que tu joues ou navigues.</small>
+                    </span>
+                    <input type="checkbox" id="hz-opt-bg" checked style="width:18px; height:18px; accent-color:var(--accent-cyan);" />
+                  </label>
+                </div>
+              </div>
+
+              <!-- Réglage de Volume avec Limiteur de sécurité -->
+              <div style="margin-top:14px;">
+                <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px;">
+                  <span class="text-muted">Volume de Sortie</span>
+                  <span id="hz-vol-label" style="font-weight:700; color:var(--accent-cyan);">25%</span>
+                </div>
+                <input type="range" id="hz-vol-slider" min="1" max="100" value="25" style="width:100%; cursor:pointer;" />
+                <div style="font-size:11px; color:var(--text-dim); margin-top:4px;">
+                  ⚠️ Niveau conseillé 20% à 35% sur haut-parleurs Mac pour un rendu pur sans vibration de coque.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Grille des Presets Furtifs Cultes -->
+          <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+              <div class="card-title">⚡ Presets Furtifs d'École</div>
+              <span class="badge badge-violet">1 Clic pour Activer</span>
+            </div>
+            <div class="hz-preset-grid">
+
+              <button class="hz-preset-btn" data-freq="17400" data-mode="continuous" data-phase="true">
+                <div class="hz-preset-top">
+                  <span class="hz-preset-icon">🦟</span>
+                  <span class="hz-preset-hz">17 400 Hz</span>
+                </div>
+                <div class="hz-preset-title">Mosquito Anti-Adulte</div>
+                <div class="hz-preset-sub">Inaudible pour la plupart des profs (> 25 ans). Les élèves entendent un sifflement direct.</div>
+              </button>
+
+              <button class="hz-preset-btn active" data-freq="15200" data-mode="continuous" data-phase="true">
+                <div class="hz-preset-top">
+                  <span class="hz-preset-icon">👻</span>
+                  <span class="hz-preset-hz">15 200 Hz</span>
+                </div>
+                <div class="hz-preset-title">Fantôme Déphasé Mac</div>
+                <div class="hz-preset-sub">Onde stationnaire pure avec canaux D/G inversés. La classe entière cherche d'où ça vient.</div>
+              </button>
+
+              <button class="hz-preset-btn" data-freq="15000" data-mode="burst" data-phase="true">
+                <div class="hz-preset-top">
+                  <span class="hz-preset-icon">💥</span>
+                  <span class="hz-preset-hz">15 000 Hz Bip</span>
+                </div>
+                <div class="hz-preset-title">Micro-Bips Fantômes</div>
+                <div class="hz-preset-sub">Bip furtif de 0.2s aléatoire : quand quelqu'un tourne la tête, le son s'est déjà arrêté.</div>
+              </button>
+
+              <button class="hz-preset-btn" data-freq="12500" data-mode="continuous" data-phase="false">
+                <div class="hz-preset-top">
+                  <span class="hz-preset-icon">⚡</span>
+                  <span class="hz-preset-hz">12 500 Hz</span>
+                </div>
+                <div class="hz-preset-title">Aigu Perforant</div>
+                <div class="hz-preset-sub">Extrêmement énervant et perçant. Entendu par absolument tout le monde dans la salle.</div>
+              </button>
+
+              <button class="hz-preset-btn" data-freq="18500" data-mode="continuous" data-phase="true">
+                <div class="hz-preset-top">
+                  <span class="hz-preset-icon">🦇</span>
+                  <span class="hz-preset-hz">18 500 Hz</span>
+                </div>
+                <div class="hz-preset-title">Ultra-Aigu Extrême</div>
+                <div class="hz-preset-sub">Seuls quelques rares jeunes entendent. Teste la fidélité acoustique du Mac.</div>
+              </button>
+
+              <button class="hz-preset-btn" data-freq="60" data-mode="continuous" data-phase="false">
+                <div class="hz-preset-top">
+                  <span class="hz-preset-icon">🔊</span>
+                  <span class="hz-preset-hz">60 Hz</span>
+                </div>
+                <div class="hz-preset-title">Infrason Vibreur</div>
+                <div class="hz-preset-sub">Fréquence secteur / ronflement électrique qui fait vibrer discrètement les pupitres.</div>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Retardateur Furtif (Countdown) & Explications Scientifiques -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:18px;">
+            
+            <!-- Retardateur -->
+            <div class="card">
+              <div class="card-title" style="margin-bottom:8px;">⏱️ Retardateur d'Émission Furtif</div>
+              <p class="text-muted" style="font-size:13px; margin-bottom:12px;">
+                Arme le son, pose ton Mac et croise les bras innocemment. Le son se lancera automatiquement sans que tu ne touches à l'ordinateur !
+              </p>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+                <button class="btn btn-secondary btn-sm" id="hz-delay-10">Dans 10s</button>
+                <button class="btn btn-secondary btn-sm" id="hz-delay-30">Dans 30s</button>
+                <button class="btn btn-secondary btn-sm" id="hz-delay-60">Dans 1 min</button>
+                <button class="btn btn-secondary btn-sm" id="hz-delay-cancel" style="display:none; color:var(--accent-rose);">Annuler chrono</button>
+              </div>
+              <div id="hz-delay-status" style="font-size:12px; color:var(--accent-amber); font-weight:700; display:none;">
+                ⏳ Déclenchement dans <span id="hz-delay-sec">0</span>s...
+              </div>
+            </div>
+
+            <!-- Guide Acoustique Scientifique -->
+            <div class="card">
+              <div class="card-title" style="margin-bottom:8px;">🧠 Pourquoi le prof ne peut pas te repérer ?</div>
+              <ul style="font-size:12px; color:var(--text-muted); line-height:1.6; padding-left:18px;">
+                <li><strong>Presbyacousie naturelle :</strong> Passé 25-30 ans, les cellules ciliées de l'oreille interne s'usent. À 17,4 kHz, les profs n'entendent strictement rien alors que les élèves l'entendent à fond.</li>
+                <li><strong>Ondes stationnaires :</strong> À 15 kHz, l'onde mesure 2,2 cm. Les réflexions sur les vitres, tables et tableaux créent des ventres et nœuds d'amplitude : le son semble venir du plafond ou des murs.</li>
+                <li><strong>Déphasage stéréo Mac :</strong> L'inversion de phase (180°) entre les haut-parleurs détruit les indices binauraux (ITD/ILD) que le cerveau humain utilise pour localiser l'angle d'un son.</li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
@@ -3623,11 +3909,13 @@
         links: '🔗 Bibliothèque de Liens (lien.json)',
         calc: '🧮 Calculatrice EDU_VD',
         achievements: '🏆 Hauts Faits de l\'École',
-        cloak: '🕵️ Camouflage & Mode Cours'
+        cloak: '🕵️ Camouflage & Mode Cours',
+        ultrasonic: '🦇 Brouilleur Ultra-Sons Hz (Furtif)'
       };
 
       function pauseAllGames() {
         if (typeof Soundboard !== 'undefined') Soundboard.stopAll();
+        if (typeof UltrasonicJammer !== 'undefined') UltrasonicJammer.stop();
         SnakeGame.pause();
         RunnerGame.pause();
         FlappyGame.pause();
@@ -3684,6 +3972,8 @@
         if (sectionKey === 'tanks' && typeof TanksGame !== 'undefined') requestAnimationFrame(() => TanksGame.resize());
         if (sectionKey === 'achievements' && typeof AchievementsManager !== 'undefined') AchievementsManager.render();
         if (sectionKey === 'links' && typeof LinksLibrary !== 'undefined') LinksLibrary.load();
+        if (sectionKey === 'ultrasonic' && typeof UltrasonicJammer !== 'undefined') UltrasonicJammer.onEnter();
+        if (sectionKey !== 'ultrasonic' && typeof UltrasonicJammer !== 'undefined' && !UltrasonicJammer.keepInBackground) UltrasonicJammer.stop();
       }
 
       function closeMobileSidebar() {
@@ -9230,6 +9520,534 @@
         }
       });
 
+      /* =========================================================================
+         BROUILLEUR ULTRA-SONS & FRÉQUENCES ACOUSTIQUES FURTIVES HZ
+         ========================================================================= */
+      const UltrasonicJammer = (() => {
+        let ctx = null;
+        let isEmitting = false;
+        let freq = 15200;
+        let volume = 0.25;
+        let mode = 'continuous'; // 'continuous' | 'burst'
+        let phaseInvert = true;
+        let wobble = false;
+        let keepInBackground = true;
+
+        let oscL = null;
+        let oscR = null;
+        let gainL = null;
+        let gainR = null;
+        let merger = null;
+        let masterGain = null;
+        let analyser = null;
+        let lfo = null;
+        let lfoGain = null;
+
+        let burstTimer = null;
+        let isBurstActive = false;
+        let delayTimer = null;
+        let delayCountdown = 0;
+        let animId = null;
+
+        function getCtx() {
+          if (!ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) ctx = new AudioCtx();
+          }
+          if (ctx && ctx.state === 'suspended') {
+            ctx.resume();
+          }
+          return ctx;
+        }
+
+        function createAudioGraph() {
+          const c = getCtx();
+          if (!c) return false;
+
+          analyser = c.createAnalyser();
+          analyser.fftSize = 256;
+          analyser.smoothingTimeConstant = 0.8;
+
+          masterGain = c.createGain();
+          masterGain.gain.setValueAtTime(0, c.currentTime);
+
+          merger = c.createChannelMerger(2);
+
+          // Left channel
+          oscL = c.createOscillator();
+          oscL.type = 'sine';
+          oscL.frequency.setValueAtTime(freq, c.currentTime);
+
+          gainL = c.createGain();
+          gainL.gain.setValueAtTime(volume, c.currentTime);
+
+          oscL.connect(gainL);
+          gainL.connect(merger, 0, 0);
+
+          // Right channel (allows 180° inverted phase for spatial confusion)
+          oscR = c.createOscillator();
+          oscR.type = 'sine';
+          oscR.frequency.setValueAtTime(freq, c.currentTime);
+
+          gainR = c.createGain();
+          gainR.gain.setValueAtTime(phaseInvert ? -volume : volume, c.currentTime);
+
+          oscR.connect(gainR);
+          gainR.connect(merger, 0, 1);
+
+          // Wobble LFO
+          lfo = c.createOscillator();
+          lfo.frequency.setValueAtTime(0.5, c.currentTime);
+          lfoGain = c.createGain();
+          lfoGain.gain.setValueAtTime(wobble ? 40 : 0, c.currentTime);
+          lfo.connect(lfoGain);
+          lfoGain.connect(oscL.frequency);
+          lfoGain.connect(oscR.frequency);
+
+          merger.connect(masterGain);
+          masterGain.connect(analyser);
+          analyser.connect(c.destination);
+
+          oscL.start();
+          oscR.start();
+          lfo.start();
+          return true;
+        }
+
+        function teardownAudioGraph() {
+          if (masterGain && ctx) {
+            try {
+              masterGain.gain.setValueAtTime(0, ctx.currentTime);
+            } catch (e) {}
+          }
+          if (oscL) {
+            try { oscL.stop(); oscL.disconnect(); } catch (e) {}
+            oscL = null;
+          }
+          if (oscR) {
+            try { oscR.stop(); oscR.disconnect(); } catch (e) {}
+            oscR = null;
+          }
+          if (lfo) {
+            try { lfo.stop(); lfo.disconnect(); } catch (e) {}
+            lfo = null;
+          }
+          if (masterGain) {
+            try { masterGain.disconnect(); } catch (e) {}
+            masterGain = null;
+          }
+          if (merger) {
+            try { merger.disconnect(); } catch (e) {}
+            merger = null;
+          }
+        }
+
+        function startEmitting() {
+          if (isEmitting) return;
+          const c = getCtx();
+          if (!c) return;
+
+          cancelDelay();
+          if (!createAudioGraph()) return;
+
+          isEmitting = true;
+          updateUIState();
+
+          if (mode === 'continuous') {
+            const now = c.currentTime;
+            masterGain.gain.cancelScheduledValues(now);
+            masterGain.gain.setValueAtTime(0, now);
+            masterGain.gain.linearRampToValueAtTime(1.0, now + 0.02);
+          } else if (mode === 'burst') {
+            masterGain.gain.setValueAtTime(0, c.currentTime);
+            triggerBurstLoop();
+          }
+
+          startVisualizer();
+        }
+
+        function stopEmitting() {
+          if (!isEmitting && !delayTimer) return;
+          cancelDelay();
+
+          if (burstTimer) {
+            clearTimeout(burstTimer);
+            burstTimer = null;
+          }
+          isBurstActive = false;
+
+          if (masterGain && ctx) {
+            const now = ctx.currentTime;
+            masterGain.gain.cancelScheduledValues(now);
+            masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+            masterGain.gain.linearRampToValueAtTime(0, now + 0.015);
+            setTimeout(() => {
+              teardownAudioGraph();
+            }, 30);
+          } else {
+            teardownAudioGraph();
+          }
+
+          isEmitting = false;
+          updateUIState();
+        }
+
+        function triggerBurstLoop() {
+          if (!isEmitting || mode !== 'burst') return;
+          const c = getCtx();
+          if (!c || !masterGain) return;
+
+          const waitMs = 4000 + Math.random() * 5500;
+          burstTimer = setTimeout(() => {
+            if (!isEmitting || mode !== 'burst' || !masterGain || !ctx) return;
+            const now = ctx.currentTime;
+            masterGain.gain.cancelScheduledValues(now);
+            masterGain.gain.setValueAtTime(0, now);
+            masterGain.gain.linearRampToValueAtTime(1.0, now + 0.015);
+            isBurstActive = true;
+            updateBurstTag();
+
+            const burstLen = 180 + Math.random() * 100;
+            setTimeout(() => {
+              if (masterGain && ctx) {
+                const offNow = ctx.currentTime;
+                masterGain.gain.cancelScheduledValues(offNow);
+                masterGain.gain.setValueAtTime(masterGain.gain.value, offNow);
+                masterGain.gain.linearRampToValueAtTime(0, offNow + 0.015);
+              }
+              isBurstActive = false;
+              updateBurstTag();
+              triggerBurstLoop();
+            }, burstLen);
+          }, waitMs);
+        }
+
+        function setFrequency(newFreq) {
+          freq = Math.max(20, Math.min(22000, Math.round(newFreq)));
+          if (oscL && oscR && ctx) {
+            const now = ctx.currentTime;
+            oscL.frequency.cancelScheduledValues(now);
+            oscR.frequency.cancelScheduledValues(now);
+            oscL.frequency.setValueAtTime(freq, now);
+            oscR.frequency.setValueAtTime(freq, now);
+          }
+          updateFreqDisplay();
+        }
+
+        function setVolume(pct) {
+          volume = Math.max(0.01, Math.min(1.0, pct / 100));
+          if (gainL && gainR && ctx) {
+            const now = ctx.currentTime;
+            gainL.gain.cancelScheduledValues(now);
+            gainR.gain.cancelScheduledValues(now);
+            gainL.gain.setValueAtTime(volume, now);
+            gainR.gain.setValueAtTime(phaseInvert ? -volume : volume, now);
+          }
+          const volLbl = document.getElementById('hz-vol-label');
+          if (volLbl) volLbl.textContent = Math.round(pct) + '%';
+        }
+
+        function setPhaseInvert(val) {
+          phaseInvert = !!val;
+          if (gainR && ctx) {
+            const now = ctx.currentTime;
+            gainR.gain.cancelScheduledValues(now);
+            gainR.gain.setValueAtTime(phaseInvert ? -volume : volume, now);
+          }
+        }
+
+        function setWobble(val) {
+          wobble = !!val;
+          if (lfoGain && ctx) {
+            const now = ctx.currentTime;
+            lfoGain.gain.cancelScheduledValues(now);
+            lfoGain.gain.setValueAtTime(wobble ? 40 : 0, now);
+          }
+        }
+
+        function armDelay(seconds) {
+          stopEmitting();
+          delayCountdown = seconds;
+          const statusDiv = document.getElementById('hz-delay-status');
+          const secSpan = document.getElementById('hz-delay-sec');
+          const cancelBtn = document.getElementById('hz-delay-cancel');
+          if (statusDiv) statusDiv.style.display = 'block';
+          if (cancelBtn) cancelBtn.style.display = 'inline-block';
+          if (secSpan) secSpan.textContent = delayCountdown;
+
+          delayTimer = setInterval(() => {
+            delayCountdown--;
+            if (secSpan) secSpan.textContent = delayCountdown;
+            if (delayCountdown <= 0) {
+              cancelDelay();
+              startEmitting();
+            }
+          }, 1000);
+        }
+
+        function cancelDelay() {
+          if (delayTimer) {
+            clearInterval(delayTimer);
+            delayTimer = null;
+          }
+          const statusDiv = document.getElementById('hz-delay-status');
+          const cancelBtn = document.getElementById('hz-delay-cancel');
+          if (statusDiv) statusDiv.style.display = 'none';
+          if (cancelBtn) cancelBtn.style.display = 'none';
+        }
+
+        function getFrequencyCategory(f) {
+          if (f < 200) return { label: 'Basse Sub-Infrason', badge: 'badge-dim', desc: 'Vibration sourde qui fait trembler les pupitres sans aigu.' };
+          if (f < 8000) return { label: 'Fréquence Audible Normale', badge: 'badge-dim', desc: 'Entendu par tout le monde très nettement.' };
+          if (f < 14000) return { label: 'Aigu Pénétrant & Irritant', badge: 'badge-rose', desc: 'Son strident très inconfortable dans toute la pièce.' };
+          if (f < 16500) return { label: 'Fantôme Déphasé Mac', badge: 'badge-cyan', desc: '👻 Bruit de fond impossible à localiser, les profs cherchent partout.' };
+          if (f < 18500) return { label: 'Mosquito Anti-Adulte (< 25 ans)', badge: 'badge-emerald', desc: '🦟 Les ados entendent un sifflement direct. Inaudible pour le prof !' };
+          return { label: 'Ultra-Aigu Extrême (> 18.5 kHz)', badge: 'badge-violet', desc: '🦇 Limite absolue de l\'oreille humaine. Teste les enceintes Mac.' };
+        }
+
+        function updateFreqDisplay() {
+          const valDisplay = document.getElementById('hz-val-display');
+          const descDisplay = document.getElementById('hz-desc-display');
+          const slider = document.getElementById('hz-freq-slider');
+          const sliderVal = document.getElementById('hz-slider-val');
+          const targetBadge = document.getElementById('hz-target-label');
+
+          const formatted = freq.toLocaleString('fr-FR');
+          if (valDisplay) valDisplay.innerHTML = formatted + ' <span style="font-size:20px; color:var(--text-muted); font-weight:400;">Hz</span>';
+          if (slider) slider.value = freq;
+          if (sliderVal) sliderVal.textContent = formatted + ' Hz';
+
+          const info = getFrequencyCategory(freq);
+          if (descDisplay) descDisplay.textContent = info.desc;
+          if (targetBadge) {
+            targetBadge.textContent = info.label;
+            targetBadge.className = 'badge ' + info.badge;
+          }
+        }
+
+        function updateUIState() {
+          const toggleBtn = document.getElementById('hz-toggle-btn');
+          const statusPill = document.getElementById('hz-status-pill');
+          const audioTag = document.getElementById('hz-audio-tag');
+
+          if (isEmitting) {
+            if (toggleBtn) {
+              toggleBtn.textContent = '⏹ ARRÊTER L\'ÉMISSION';
+              toggleBtn.className = 'btn btn-rose';
+              toggleBtn.style.boxShadow = '0 0 25px rgba(244, 63, 94, 0.4)';
+            }
+            if (statusPill) {
+              statusPill.textContent = mode === 'burst' ? '💥 Mode Bip Fantôme Actif' : '⚡ Émission Continue Active';
+              statusPill.className = 'badge badge-rose';
+            }
+            if (audioTag) {
+              audioTag.textContent = mode === 'burst' ? (isBurstActive ? '💥 BIP ACTIF' : '⏳ ATTENTE SILENCE...') : '🔊 SON ACTIF';
+              audioTag.style.color = 'var(--accent-cyan)';
+            }
+          } else {
+            if (toggleBtn) {
+              toggleBtn.textContent = '▶ ÉMETTRE LE SON';
+              toggleBtn.className = 'btn btn-primary';
+              toggleBtn.style.boxShadow = '0 0 20px rgba(0, 240, 255, 0.25)';
+            }
+            if (statusPill) {
+              statusPill.textContent = 'Inactif';
+              statusPill.className = 'badge badge-dim';
+            }
+            if (audioTag) {
+              audioTag.textContent = 'SILENCE';
+              audioTag.style.color = 'var(--text-dim)';
+            }
+          }
+        }
+
+        function updateBurstTag() {
+          const audioTag = document.getElementById('hz-audio-tag');
+          if (!audioTag || !isEmitting) return;
+          if (mode === 'burst') {
+            audioTag.textContent = isBurstActive ? '💥 BIP ÉMIS !' : '⏳ ATTENTE SILENCE...';
+            audioTag.style.color = isBurstActive ? 'var(--accent-rose)' : 'var(--accent-amber)';
+          }
+        }
+
+        function startVisualizer() {
+          if (animId) cancelAnimationFrame(animId);
+          const canvas = document.getElementById('hz-scope-canvas');
+          if (!canvas) return;
+          const dpr = window.devicePixelRatio || 1;
+          const rect = canvas.getBoundingClientRect();
+          if (rect.width === 0) return;
+          canvas.width = rect.width * dpr;
+          canvas.height = rect.height * dpr;
+          const ctx2d = canvas.getContext('2d');
+          ctx2d.scale(dpr, dpr);
+
+          let phaseOffset = 0;
+
+          function draw() {
+            animId = requestAnimationFrame(draw);
+            ctx2d.fillStyle = 'rgba(7, 9, 14, 0.35)';
+            ctx2d.fillRect(0, 0, rect.width, rect.height);
+
+            ctx2d.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx2d.lineWidth = 1;
+            ctx2d.beginPath();
+            ctx2d.moveTo(0, rect.height / 2);
+            ctx2d.lineTo(rect.width, rect.height / 2);
+            ctx2d.stroke();
+
+            if (!isEmitting || (mode === 'burst' && !isBurstActive)) {
+              ctx2d.strokeStyle = 'rgba(0, 240, 255, 0.25)';
+              ctx2d.lineWidth = 1.5;
+              ctx2d.beginPath();
+              ctx2d.moveTo(0, rect.height / 2);
+              ctx2d.lineTo(rect.width, rect.height / 2);
+              ctx2d.stroke();
+              return;
+            }
+
+            ctx2d.strokeStyle = phaseInvert ? '#00f0ff' : '#10b981';
+            ctx2d.shadowColor = phaseInvert ? '#00f0ff' : '#10b981';
+            ctx2d.shadowBlur = 8;
+            ctx2d.lineWidth = 2.5;
+            ctx2d.beginPath();
+
+            const cycles = Math.max(3, Math.min(28, (freq / 800)));
+            const amp = (rect.height / 2 - 16) * Math.min(1, volume * 2.5);
+            phaseOffset += 0.08 * (freq / 3000);
+
+            for (let x = 0; x < rect.width; x += 2) {
+              const progress = x / rect.width;
+              const angle = progress * cycles * Math.PI * 2 + phaseOffset;
+              const y = rect.height / 2 + Math.sin(angle) * amp;
+              if (x === 0) ctx2d.moveTo(x, y);
+              else ctx2d.lineTo(x, y);
+            }
+            ctx2d.stroke();
+            ctx2d.shadowBlur = 0;
+
+            if (phaseInvert) {
+              ctx2d.strokeStyle = 'rgba(244, 63, 94, 0.65)';
+              ctx2d.lineWidth = 1.5;
+              ctx2d.beginPath();
+              for (let x = 0; x < rect.width; x += 2) {
+                const progress = x / rect.width;
+                const angle = progress * cycles * Math.PI * 2 + phaseOffset;
+                const y = rect.height / 2 - Math.sin(angle) * amp * 0.9;
+                if (x === 0) ctx2d.moveTo(x, y);
+                else ctx2d.lineTo(x, y);
+              }
+              ctx2d.stroke();
+            }
+          }
+          draw();
+        }
+
+        function init() {
+          updateFreqDisplay();
+
+          const slider = document.getElementById('hz-freq-slider');
+          if (slider) {
+            slider.addEventListener('input', (e) => setFrequency(Number(e.target.value)));
+          }
+
+          const volSlider = document.getElementById('hz-vol-slider');
+          if (volSlider) {
+            volSlider.addEventListener('input', (e) => setVolume(Number(e.target.value)));
+          }
+
+          const toggleBtn = document.getElementById('hz-toggle-btn');
+          if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+              if (isEmitting) stopEmitting();
+              else startEmitting();
+            });
+          }
+
+          const killBtn = document.getElementById('hz-panic-kill-btn');
+          if (killBtn) {
+            killBtn.addEventListener('click', () => stopEmitting());
+          }
+
+          const stepMap = [
+            ['hz-step-m100', -100], ['hz-step-m10', -10], ['hz-step-m1', -1],
+            ['hz-step-p1', 1], ['hz-step-p10', 10], ['hz-step-p100', 100]
+          ];
+          stepMap.forEach(([id, delta]) => {
+            const btn = document.getElementById(id);
+            if (btn) btn.addEventListener('click', () => setFrequency(freq + delta));
+          });
+
+          const optPhase = document.getElementById('hz-opt-phase');
+          if (optPhase) {
+            optPhase.addEventListener('change', (e) => setPhaseInvert(e.target.checked));
+          }
+          const optWobble = document.getElementById('hz-opt-wobble');
+          if (optWobble) {
+            optWobble.addEventListener('change', (e) => setWobble(e.target.checked));
+          }
+          const optBg = document.getElementById('hz-opt-bg');
+          if (optBg) {
+            optBg.addEventListener('change', (e) => {
+              keepInBackground = e.target.checked;
+            });
+          }
+
+          document.querySelectorAll('.hz-preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              document.querySelectorAll('.hz-preset-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+
+              const f = parseInt(btn.dataset.freq, 10);
+              const m = btn.dataset.mode || 'continuous';
+              const ph = btn.dataset.phase === 'true';
+
+              mode = m;
+              setPhaseInvert(ph);
+              if (optPhase) optPhase.checked = ph;
+              setFrequency(f);
+
+              if (isEmitting) {
+                stopEmitting();
+                setTimeout(() => startEmitting(), 50);
+              }
+            });
+          });
+
+          const d10 = document.getElementById('hz-delay-10');
+          if (d10) d10.addEventListener('click', () => armDelay(10));
+          const d30 = document.getElementById('hz-delay-30');
+          if (d30) d30.addEventListener('click', () => armDelay(30));
+          const d60 = document.getElementById('hz-delay-60');
+          if (d60) d60.addEventListener('click', () => armDelay(60));
+          const dCancel = document.getElementById('hz-delay-cancel');
+          if (dCancel) dCancel.addEventListener('click', () => cancelDelay());
+
+          window.addEventListener('keydown', (e) => {
+            if (AppState.activeSection !== 'ultrasonic') return;
+            if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+            if (e.code === 'Space') {
+              e.preventDefault();
+              if (isEmitting) stopEmitting();
+              else startEmitting();
+            }
+          });
+
+          startVisualizer();
+        }
+
+        return {
+          init,
+          start: startEmitting,
+          stop: stopEmitting,
+          onEnter: () => {
+            startVisualizer();
+          },
+          get keepInBackground() { return keepInBackground; },
+          get isEmitting() { return isEmitting; }
+        };
+      })();
+
       /* -----------------------------------------------------------------------
          13. INITIALISATION AU CHARGEMENT
          ----------------------------------------------------------------------- */
@@ -9243,6 +10061,7 @@
         if (typeof DriveMad !== 'undefined') DriveMad.init();
         if (typeof TunnelRush !== 'undefined') TunnelRush.init();
         if (typeof TerminalShell !== 'undefined') TerminalShell.init();
+        if (typeof UltrasonicJammer !== 'undefined') UltrasonicJammer.init();
 
         // Détection automatique de lien d'invitation multijoueur en ligne
         try {

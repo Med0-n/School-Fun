@@ -25,6 +25,7 @@
 - [🕹️ Jeux Solo Rétro & Utilitaires](#️-jeux-solo-rétro--utilitaires)
 - [🖼️ Banque de Memes & Sous-dossiers](#️-banque-de-memes--sous-dossiers)
 - [🔊 Soundboard Scolaire & Sous-dossiers](#-soundboard-scolaire--sous-dossiers)
+- [🦇 Brouilleur Ultra-Sons & Sons Hz Furtifs](#-brouilleur-ultra-sons--sons-hz-furtifs)
 - [🔗 Bibliothèque de Liens (`lien.json`)](#-bibliothèque-de-liens-lienjson)
 - [🛡️ Camouflage & Mode Panique (Boss Key)](#️-camouflage--mode-panique-boss-key)
 - [📁 Structure des Fichiers & Configuration](#-structure-des-fichiers--configuration)
@@ -115,6 +116,17 @@ Un Soundboard interactif ultra-rapide basé sur le même système d'auto-détect
   - Bouton **« ⏹️ Tout Couper »** (urgence sonore).
   - 8 sons de démo synthétiques intégrés (Airhorn MLG, Vine Boom, Bruh, 8-bit Jump, Fanfare, Laser, Alerte Rouge, Buzzer).
   - Coupure automatique instantanée si la Touche Panique (<kbd>Échap</kbd>) est pressée.
+
+---
+
+## 🦇 Brouilleur Ultra-Sons & Sons Hz Furtifs
+
+Un générateur d'ondes acoustiques sinusoïdales pures calibré pour les haut-parleurs de Mac et PC d'école :
+- **🦟 Mosquito Anti-Adulte (17 400 Hz)** : Exploit de presbyacousie naturelle. Au-dessus de 25 ans, les profs ne perçoivent plus cette fréquence, alors que tous les élèves entendent un sifflement direct.
+- **👻 Fantôme Déphasé Mac (15 200 Hz)** : Inversion de phase stéréo à 180° entre les haut-parleurs gauche et droit. Le cerveau humain perd ses repères ITD/ILD, rendant le son impossible à trianguler dans la classe (le son semble venir des murs ou du plafond).
+- **💥 Micro-Bips Fantômes (15 000 Hz)** : Bip aléatoire de 0.2s toutes les 5 à 10 secondes. Dès que quelqu'un tourne la tête pour chercher, le son s'est déjà arrêté.
+- **⏱️ Retardateur d'Émission Furtif** : Déclenchement automatique différé (10s, 30s, 1 min) pour poser l'ordinateur et croiser les bras innocemment.
+- **🛑 Coupure d'urgence** : La touche <kbd>Échap</kbd> (Mode Panique) ou <kbd>Espace</kbd> coupe immédiatement le son avec un fondu de 15ms pour éviter tout clic traître sur les haut-parleurs.
 
 ---
 
