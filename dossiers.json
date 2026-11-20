@@ -9,5 +9,12 @@
     "",
     "memes",
     "bruits"
+  ],
+  "customSounds": [
+    {
+      "name": "Tim Bendzko - Programmiert",
+      "folder": "Musique",
+      "src": "./sound/Tim Bendzko - Programmiert (Offizielles Video).mp3"
+    }
   ]
 }

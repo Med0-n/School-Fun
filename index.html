@@ -4094,6 +4094,18 @@
           await fetchDossiersConfig();
 
           const found = [];
+          if (customSoundsList.length > 0) {
+            customSoundsList.forEach((cs, i) => {
+              found.push({
+                id: `gh-custom-sound-${i}`,
+                name: cs.name || cs.src,
+                title: cs.name || 'Piste audio',
+                folder: cs.folder || 'Musique',
+                ext: 'mp3',
+                src: cs.src
+              });
+            });
+          }
           const MAX_MISSES = 5;
           const MAX_INDEX = 150;
 
@@ -7519,6 +7531,1747 @@
           render
         };
       })();
+
+      
+      /* =======================================================================
+         23. SOUNDBOARD SCOLAIRE (sound/ & SOUS-DOSSIERS VIA dossiers.json)
+         ======================================================================= */
+      const Soundboard = (function () {
+        let initialized = false;
+        let scanning = false;
+        let items = [];
+        let activeFolder = 'all';
+        let searchQuery = '';
+        let masterVolume = 0.8;
+        let knownFolders = ['', 'memes', 'bruits'];
+        const activeAudios = new Map(); // id -> { audio, card }
+        const loopStates = new Map(); // id -> boolean
+
+        const AUDIO_EXTS = ['wav', 'mp3', 'ogg', 'm4a', 'aac', 'flac', 'webm', 'waw'];
+
+        // Synthétiseur d'effets sonores de démonstration (Web Audio API)
+        function playDemoSynth(type) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          const ctx = new AudioCtx();
+          const now = ctx.currentTime;
+          const master = ctx.createGain();
+          master.gain.setValueAtTime(masterVolume, now);
+          master.connect(ctx.destination);
+
+          if (type === 'airhorn') {
+            [466.16, 466.16 * 1.5, 466.16 * 2].forEach(freq => {
+              const osc = ctx.createOscillator();
+              const g = ctx.createGain();
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(freq, now);
+              g.gain.setValueAtTime(0.12, now);
+              g.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+              osc.connect(g);
+              g.connect(master);
+              osc.start(now);
+              osc.stop(now + 0.45);
+            });
+          } else if (type === 'vineboom') {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(110, now);
+            osc.frequency.exponentialRampToValueAtTime(30, now + 0.8);
+            g.gain.setValueAtTime(0.35, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+            osc.connect(g);
+            g.connect(master);
+            osc.start(now);
+            osc.stop(now + 0.8);
+          } else if (type === 'bruh') {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(260, now);
+            osc.frequency.exponentialRampToValueAtTime(110, now + 0.5);
+            g.gain.setValueAtTime(0.25, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            osc.connect(g);
+            g.connect(master);
+            osc.start(now);
+            osc.stop(now + 0.5);
+          } else if (type === 'jump') {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(220, now);
+            osc.frequency.linearRampToValueAtTime(880, now + 0.25);
+            g.gain.setValueAtTime(0.15, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+            osc.connect(g);
+            g.connect(master);
+            osc.start(now);
+            osc.stop(now + 0.25);
+          } else if (type === 'victory') {
+            [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+              const osc = ctx.createOscillator();
+              const g = ctx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+              g.gain.setValueAtTime(0.18, now + idx * 0.1);
+              g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.35);
+              osc.connect(g);
+              g.connect(master);
+              osc.start(now + idx * 0.1);
+              osc.stop(now + idx * 0.1 + 0.35);
+            });
+          } else if (type === 'laser') {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(1400, now);
+            osc.frequency.exponentialRampToValueAtTime(80, now + 0.2);
+            g.gain.setValueAtTime(0.2, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+            osc.connect(g);
+            g.connect(master);
+            osc.start(now);
+            osc.stop(now + 0.2);
+          } else if (type === 'alert') {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.setValueAtTime(600, now + 0.15);
+            osc.frequency.setValueAtTime(800, now + 0.3);
+            g.gain.setValueAtTime(0.15, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+            osc.connect(g);
+            g.connect(master);
+            osc.start(now);
+            osc.stop(now + 0.45);
+          } else {
+            // Buzzer
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(150, now);
+            g.gain.setValueAtTime(0.2, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+            osc.connect(g);
+            g.connect(master);
+            osc.start(now);
+            osc.stop(now + 0.35);
+          }
+        }
+
+        const DEMO_SOUNDS = [
+          { id: 'demo-airhorn', name: 'MLG Airhorn', folder: 'Démo', duration: '0.45s', isDemo: true, synth: 'airhorn' },
+          { id: 'demo-vineboom', name: 'Vine Boom Bass', folder: 'Démo', duration: '0.8s', isDemo: true, synth: 'vineboom' },
+          { id: 'demo-bruh', name: 'Bruh Comique', folder: 'Démo', duration: '0.5s', isDemo: true, synth: 'bruh' },
+          { id: 'demo-jump', name: '8-Bit Jump', folder: 'Démo', duration: '0.25s', isDemo: true, synth: 'jump' },
+          { id: 'demo-victory', name: 'Fanfare Victoire', folder: 'Démo', duration: '0.65s', isDemo: true, synth: 'victory' },
+          { id: 'demo-laser', name: 'Laser Cyberpunk', folder: 'Démo', duration: '0.2s', isDemo: true, synth: 'laser' },
+          { id: 'demo-alert', name: 'Alerte Rouge', folder: 'Démo', duration: '0.45s', isDemo: true, synth: 'alert' },
+          { id: 'demo-buzzer', name: 'Buzzer Erreur', folder: 'Démo', duration: '0.35s', isDemo: true, synth: 'buzzer' }
+        ];
+
+        // Sonde ultra-rapide via HEAD ou objet Audio
+        function probeAudio(url) {
+          if (window.location.protocol.startsWith('http')) {
+            return fetch(url, { method: 'HEAD' })
+              .then(res => res.ok ? url : null)
+              .catch(() => probeAudioElement(url));
+          }
+          return probeAudioElement(url);
+        }
+
+        function probeAudioElement(url) {
+          return new Promise(resolve => {
+            const audio = new Audio();
+            let done = false;
+            const timer = setTimeout(() => {
+              if (!done) { done = true; audio.src = ''; resolve(null); }
+            }, 1800);
+            audio.onloadedmetadata = () => {
+              if (!done) { done = true; clearTimeout(timer); resolve(url); }
+            };
+            audio.oncanplaythrough = () => {
+              if (!done) { done = true; clearTimeout(timer); resolve(url); }
+            };
+            audio.onerror = () => {
+              if (!done) { done = true; clearTimeout(timer); resolve(null); }
+            };
+            audio.src = url;
+          });
+        }
+
+        let customSoundsList = [];
+        async function fetchDossiersConfig() {
+          try {
+            const res = await fetch('dossiers.json', { cache: 'no-cache' });
+            if (res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data.sound)) {
+                data.sound.forEach(f => {
+                  if (!knownFolders.includes(f)) knownFolders.push(f);
+                });
+              }
+              if (Array.isArray(data.customSounds)) {
+                customSoundsList = data.customSounds;
+              }
+            }
+          } catch (e) {}
+          if (Store.customSoundFolders && Array.isArray(Store.customSoundFolders)) {
+            Store.customSoundFolders.forEach(f => {
+              if (!knownFolders.includes(f)) knownFolders.push(f);
+            });
+          }
+        }
+
+        function updateFolderTabs() {
+          const container = document.getElementById('sound-folder-tabs');
+          if (!container) return;
+          const detectedFolders = ['all', ...new Set(items.map(s => s.folder || 'Racine'))];
+          container.innerHTML = detectedFolders.map(f => {
+            const label = f === 'all' ? '📁 Tous' : (f === 'Racine' ? '🏠 Racine' : `📁 ${f}`);
+            const count = f === 'all' ? items.length : items.filter(s => (s.folder || 'Racine') === f).length;
+            const isActive = activeFolder === f ? 'active' : '';
+            return `<button class="pill-tab ${isActive}" data-sfolder="${f}">${label} <span style="opacity:0.75; font-size:10px;">(${count})</span></button>`;
+          }).join('');
+
+          container.querySelectorAll('.pill-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+              container.querySelectorAll('.pill-tab').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              activeFolder = btn.dataset.sfolder;
+              render();
+            });
+          });
+        }
+
+        async function scan() {
+          if (scanning) return;
+          scanning = true;
+          initialized = true;
+          const badge = document.getElementById('sound-status-badge');
+          const banner = document.getElementById('sound-fallback-banner');
+          if (badge) badge.textContent = 'Scan de ./sound/ et sous-dossiers...';
+
+          await fetchDossiersConfig();
+
+          const found = [];
+          const MAX_MISSES = 5;
+          const MAX_INDEX = 150;
+
+          for (const folder of knownFolders) {
+            const folderPrefix = folder ? (folder.endsWith('/') ? folder : folder + '/') : '';
+            const folderLabel = folder || 'Racine';
+            let consecutiveMisses = 0;
+
+            for (let i = 1; i <= MAX_INDEX && consecutiveMisses < MAX_MISSES; i++) {
+              const probes = AUDIO_EXTS.map(ext => {
+                const actualExt = ext === 'waw' ? 'wav' : ext;
+                const path = `./sound/${folderPrefix}${i}.${actualExt}`;
+                return probeAudio(path).then(ok => ok ? {
+                  id: `gh-sound-${folderLabel.toLowerCase().replace(/[^a-z0-9]/g, '_')}-${i}.${actualExt}`,
+                  name: `${folder ? folder + '/' : ''}${i}.${actualExt}`,
+                  title: `Son #${i} (${folderLabel})`,
+                  folder: folderLabel,
+                  ext: actualExt,
+                  src: path
+                } : null);
+              });
+              const results = await Promise.all(probes);
+              const valid = results.filter(Boolean);
+              if (valid.length > 0) {
+                // Éviter les doublons si même numéro avec extension différente
+                valid.forEach(v => {
+                  if (!found.some(f => f.src === v.src)) found.push(v);
+                });
+                consecutiveMisses = 0;
+              } else {
+                consecutiveMisses++;
+              }
+            }
+          }
+
+          if (found.length > 0) {
+            items = found;
+            if (banner) banner.classList.add('hidden');
+            if (badge) badge.textContent = `${found.length} son(s) détecté(s)`;
+          } else {
+            items = [...DEMO_SOUNDS];
+            if (banner) banner.classList.remove('hidden');
+            if (badge) badge.textContent = `${items.length} démos (./sound/ vide)`;
+          }
+
+          const dashSound = document.getElementById('dash-sound-count');
+          if (dashSound) dashSound.textContent = `${items.length} sons prêts`;
+
+          updateFolderTabs();
+          scanning = false;
+          render();
+        }
+
+        function getFiltered() {
+          return items.filter(s => {
+            const matchFolder = activeFolder === 'all' || (s.folder || 'Racine') === activeFolder;
+            const matchSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery.toLowerCase()) || (s.folder && s.folder.toLowerCase().includes(searchQuery.toLowerCase()));
+            return matchFolder && matchSearch;
+          });
+        }
+
+        function stopSound(id) {
+          if (activeAudios.has(id)) {
+            const entry = activeAudios.get(id);
+            if (entry.audio) {
+              entry.audio.pause();
+              entry.audio.currentTime = 0;
+            }
+            if (entry.card) {
+              entry.card.classList.remove('playing');
+              const btn = entry.card.querySelector('.sound-play-btn');
+              if (btn) btn.textContent = '▶';
+            }
+            activeAudios.delete(id);
+          }
+        }
+
+        function stopAll() {
+          activeAudios.forEach((entry, id) => {
+            if (entry.audio) {
+              entry.audio.pause();
+              entry.audio.currentTime = 0;
+            }
+            if (entry.card) {
+              entry.card.classList.remove('playing');
+              const btn = entry.card.querySelector('.sound-play-btn');
+              if (btn) btn.textContent = '▶';
+            }
+          });
+          activeAudios.clear();
+        }
+
+        function playSound(item, card) {
+          const id = item.id;
+
+          // Si déjà en cours, arrêter
+          if (activeAudios.has(id)) {
+            stopSound(id);
+            return;
+          }
+
+          // Si démo synthétique
+          if (item.isDemo) {
+            playDemoSynth(item.synth);
+            if (card) {
+              card.classList.add('playing');
+              const btn = card.querySelector('.sound-play-btn');
+              if (btn) btn.textContent = '■';
+              setTimeout(() => {
+                card.classList.remove('playing');
+                if (btn) btn.textContent = '▶';
+              }, 600);
+            }
+            return;
+          }
+
+          // Lecture fichier audio réel
+          try {
+            const audio = new Audio(item.src);
+            audio.volume = masterVolume;
+            audio.loop = !!loopStates.get(id);
+
+            audio.onplay = () => {
+              if (card) {
+                card.classList.add('playing');
+                const btn = card.querySelector('.sound-play-btn');
+                if (btn) btn.textContent = '■';
+              }
+            };
+
+            audio.onended = () => {
+              if (!audio.loop) {
+                stopSound(id);
+              }
+            };
+
+            audio.onerror = (e) => {
+              console.warn('Erreur lecture son:', e);
+              stopSound(id);
+              showToast('Impossible de lire ce fichier audio.', '⚠️');
+            };
+
+            activeAudios.set(id, { audio, card });
+            audio.play().catch(err => {
+              console.warn('Autoplay bloqué ou erreur:', err);
+              stopSound(id);
+            });
+          } catch (e) {
+            console.error('Erreur lancement audio:', e);
+          }
+        }
+
+        function render() {
+          const grid = document.getElementById('soundboard-grid');
+          if (!grid) return;
+          const list = getFiltered();
+          grid.innerHTML = '';
+
+          if (list.length === 0) {
+            grid.innerHTML = `<div class="text-muted" style="grid-column:1/-1; text-align:center; padding:40px;">Aucun son dans cette catégorie.</div>`;
+            return;
+          }
+
+          list.forEach((item, idx) => {
+            const isPlaying = activeAudios.has(item.id);
+            const isLoop = !!loopStates.get(item.id);
+            const folderTag = item.folder ? `<span class="folder-badge">${item.folder}</span>` : '';
+            const keyShortcut = idx < 9 ? `<span style="font-size:10px; opacity:0.6; font-family:monospace;">[${idx + 1}]</span>` : '';
+
+            const card = document.createElement('div');
+            card.className = `sound-card ${isPlaying ? 'playing' : ''}`;
+            card.dataset.soundId = item.id;
+            card.innerHTML = `
+              <div class="sound-card-header">
+                <span class="sound-title" title="${item.name}">${keyShortcut} ${item.name}</span>
+                ${folderTag}
+              </div>
+              <div class="sound-card-body">
+                <button class="sound-play-btn" type="button" aria-label="Jouer">${isPlaying ? '■' : '▶'}</button>
+                <div class="sound-viz" title="Visualiseur audio">
+                  <div class="sound-viz-bar"></div>
+                  <div class="sound-viz-bar"></div>
+                  <div class="sound-viz-bar"></div>
+                  <div class="sound-viz-bar"></div>
+                  <div class="sound-viz-bar"></div>
+                </div>
+              </div>
+              <div class="sound-card-footer">
+                <span>${item.duration || 'Audio'}</span>
+                <button class="sound-loop-btn ${isLoop ? 'active' : ''}" type="button" title="Répéter en boucle">
+                  🔁 Loop
+                </button>
+              </div>
+            `;
+
+            // Événements de la carte
+            const playBtn = card.querySelector('.sound-play-btn');
+            playBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              playSound(item, card);
+            });
+
+            card.addEventListener('click', () => {
+              playSound(item, card);
+            });
+
+            const loopBtn = card.querySelector('.sound-loop-btn');
+            loopBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const nextLoop = !loopStates.get(item.id);
+              loopStates.set(item.id, nextLoop);
+              loopBtn.classList.toggle('active', nextLoop);
+              if (activeAudios.has(item.id)) {
+                activeAudios.get(item.id).audio.loop = nextLoop;
+              }
+            });
+
+            grid.appendChild(card);
+          });
+        }
+
+        // Raccourcis clavier (1 à 9) quand la section Soundboard est active
+        window.addEventListener('keydown', (e) => {
+          if (AppState.activeSection !== 'soundboard') return;
+          if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+          const keyNum = parseInt(e.key, 10);
+          if (keyNum >= 1 && keyNum <= 9) {
+            const list = getFiltered();
+            const target = list[keyNum - 1];
+            if (target) {
+              const card = document.querySelector(`.sound-card[data-sound-id="${target.id}"]`);
+              playSound(target, card);
+            }
+          }
+        });
+
+        // Liaison des contrôles globaux
+        const searchInput = document.getElementById('sound-search-input');
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            render();
+          });
+        }
+
+        const volSlider = document.getElementById('sound-master-vol');
+        const volLabel = document.getElementById('sound-vol-label');
+        if (volSlider) {
+          volSlider.addEventListener('input', (e) => {
+            masterVolume = parseFloat(e.target.value);
+            if (volLabel) volLabel.textContent = `${Math.round(masterVolume * 100)}%`;
+            activeAudios.forEach(entry => {
+              if (entry.audio) entry.audio.volume = masterVolume;
+            });
+          });
+        }
+
+        const stopAllBtn = document.getElementById('sound-stop-all-btn');
+        if (stopAllBtn) {
+          stopAllBtn.addEventListener('click', () => {
+            stopAll();
+            showToast('Tous les sons ont été coupés !', '⏹️');
+          });
+        }
+
+        const randomBtn = document.getElementById('sound-random-btn');
+        if (randomBtn) {
+          randomBtn.addEventListener('click', () => {
+            const list = getFiltered();
+            if (!list.length) return;
+            const rand = list[Math.floor(Math.random() * list.length)];
+            const card = document.querySelector(`.sound-card[data-sound-id="${rand.id}"]`);
+            playSound(rand, card);
+          });
+        }
+
+        const refreshBtn = document.getElementById('sound-refresh-btn');
+        if (refreshBtn) {
+          refreshBtn.addEventListener('click', () => {
+            scan();
+            showToast('Actualisation du dossier ./sound/...', '🔄');
+          });
+        }
+
+        const localInput = document.getElementById('sound-local-input');
+        if (localInput) {
+          localInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (!files || !files.length) return;
+            const added = [];
+            Array.from(files).forEach((file, idx) => {
+              const url = URL.createObjectURL(file);
+              added.push({
+                id: `local-sound-${file.name}-${idx}`,
+                name: file.name,
+                title: file.name,
+                folder: 'Local',
+                src: url
+              });
+            });
+            if (items.length && items[0].isDemo) {
+              items = added;
+            } else {
+              items = [...added, ...items];
+            }
+            updateFolderTabs();
+            render();
+            showToast(`${added.length} son(s) importé(s) pour test !`, '🔊');
+            e.target.value = '';
+          });
+        }
+
+        // Accordéon ajout de sous-dossier
+        const manageBtn = document.getElementById('sound-manage-folders-btn');
+        const form = document.getElementById('sound-folder-form');
+        const closeBtn = document.getElementById('close-sound-folder-form-btn');
+        const addBtn = document.getElementById('add-sound-folder-btn');
+
+        if (manageBtn && form) {
+          manageBtn.addEventListener('click', () => form.classList.toggle('hidden'));
+        }
+        if (closeBtn && form) {
+          closeBtn.addEventListener('click', () => form.classList.add('hidden'));
+        }
+        if (addBtn) {
+          addBtn.addEventListener('click', () => {
+            const inp = document.getElementById('new-sound-folder-input');
+            const val = inp.value.trim();
+            if (!val) return;
+            if (!knownFolders.includes(val)) {
+              knownFolders.push(val);
+              if (!Store.customSoundFolders) Store.customSoundFolders = [];
+              if (!Store.customSoundFolders.includes(val)) Store.customSoundFolders.push(val);
+              saveData();
+            }
+            inp.value = '';
+            form.classList.add('hidden');
+            showToast(`Sous-dossier son « ${val} » ajouté ! Scan en cours...`, '📁');
+            scan();
+          });
+        }
+
+        return {
+          get initialized() { return initialized; },
+          scan,
+          stopAll,
+          playSound
+        };
+      })();
+
+
+
+      /* =======================================================================
+         24. CYBER DOOM 3D (MOTEUR RAYCASTING DDA 60 FPS PUR CANVAS)
+         ======================================================================= */
+      const CyberDoom = (function () {
+        let canvas, ctx;
+        let running = false;
+        let animId = null;
+        let hp = 100;
+        let ammo = 30;
+        let score = 0;
+        let recoil = 0;
+        let muzzleFlash = 0;
+
+        // Carte 16x16 (1: Mur Cyan, 2: Mur Violet, 3: Mur Émeraude, 4: Mur Doré, 0: Vide)
+        const MAP_W = 16;
+        const MAP_H = 16;
+        const MAP = [
+          1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+          1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,
+          1,0,2,2,0,0,1,0,3,3,3,0,0,0,0,1,
+          1,0,2,0,0,0,0,0,3,0,3,0,0,4,0,1,
+          1,0,2,0,0,0,1,0,3,0,3,0,0,4,0,1,
+          1,0,0,0,0,0,1,0,0,0,0,0,0,4,0,1,
+          1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,2,2,2,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,2,0,2,0,0,0,1,
+          1,0,3,3,3,0,0,0,0,2,2,2,0,3,0,1,
+          1,0,3,0,3,0,1,0,0,0,0,0,0,3,0,1,
+          1,0,3,0,3,0,1,0,0,4,4,0,0,3,0,1,
+          1,0,0,0,0,0,1,0,0,4,4,0,0,0,0,1,
+          1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+          1,0,4,0,0,4,0,0,0,0,0,0,0,0,0,1,
+          1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+        ];
+
+        // Joueur
+        let px = 2.5, py = 2.5;
+        let dirX = 1.0, dirY = 0.0;
+        let planeX = 0.0, planeY = 0.66; // FOV ~ 66°
+
+        // Ennemis (Drones Cyber)
+        let enemies = [
+          { x: 5.5, y: 3.5, hp: 2, alive: true },
+          { x: 10.5, y: 4.5, hp: 2, alive: true },
+          { x: 4.5, y: 10.5, hp: 2, alive: true },
+          { x: 12.5, y: 11.5, hp: 3, alive: true }
+        ];
+
+        const keys = {};
+
+        function init() {
+          canvas = document.getElementById('doom-canvas');
+          if (!canvas) return;
+          ctx = canvas.getContext('2d');
+
+          window.addEventListener('keydown', (e) => {
+            if (AppState.activeSection !== 'doom') return;
+            keys[e.code] = true;
+            if (e.code === 'Space') {
+              e.preventDefault();
+              shoot();
+            }
+          });
+
+          window.addEventListener('keyup', (e) => {
+            keys[e.code] = false;
+          });
+
+          if (canvas) {
+            canvas.addEventListener('mousedown', (e) => {
+              if (e.button === 0) shoot();
+            });
+          }
+
+          const restartBtn = document.getElementById('doom-restart-btn');
+          if (restartBtn) restartBtn.addEventListener('click', reset);
+
+          const fsBtn = document.getElementById('doom-fs-btn');
+          if (fsBtn) {
+            fsBtn.addEventListener('click', () => {
+              const wrap = document.getElementById('doom-wrap');
+              if (!document.fullscreenElement) {
+                wrap.requestFullscreen().catch(() => {});
+              } else {
+                document.exitFullscreen().catch(() => {});
+              }
+            });
+          }
+        }
+
+        function reset() {
+          hp = 100;
+          ammo = 30;
+          score = 0;
+          px = 2.5; py = 2.5;
+          dirX = 1.0; dirY = 0.0;
+          planeX = 0.0; planeY = 0.66;
+          enemies = [
+            { x: 5.5, y: 3.5, hp: 2, alive: true },
+            { x: 10.5, y: 4.5, hp: 2, alive: true },
+            { x: 4.5, y: 10.5, hp: 2, alive: true },
+            { x: 12.5, y: 11.5, hp: 3, alive: true }
+          ];
+          updateHUD();
+        }
+
+        function updateHUD() {
+          const hpEl = document.getElementById('doom-hp');
+          const ammoEl = document.getElementById('doom-ammo');
+          const scoreEl = document.getElementById('doom-score');
+          if (hpEl) hpEl.textContent = `${hp}%`;
+          if (ammoEl) ammoEl.textContent = `${ammo} / 30`;
+          if (scoreEl) scoreEl.textContent = score;
+        }
+
+        function shoot() {
+          if (!running || ammo <= 0) {
+            if (typeof SoundEffects !== 'undefined') SoundEffects.bounce();
+            return;
+          }
+          ammo--;
+          recoil = 18;
+          muzzleFlash = 4;
+          updateHUD();
+
+          if (typeof SoundEffects !== 'undefined') SoundEffects.laser();
+
+          // Vérifier si un ennemi est touché au centre de l'écran
+          enemies.forEach(en => {
+            if (!en.alive) return;
+            const dx = en.x - px;
+            const dy = en.y - py;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            // Angle vers ennemi vs direction joueur
+            const dot = (dx * dirX + dy * dirY) / dist;
+            if (dot > 0.94 && dist < 12) {
+              en.hp--;
+              if (en.hp <= 0) {
+                en.alive = false;
+                score += 100;
+                updateHUD();
+                showToast('Drone cyber détruit ! +100', '🎯');
+                if (typeof SoundEffects !== 'undefined') SoundEffects.smash();
+              } else {
+                if (typeof SoundEffects !== 'undefined') SoundEffects.score();
+              }
+            }
+          });
+        }
+
+        function update() {
+          const moveSpeed = 0.055;
+          const rotSpeed = 0.045;
+
+          // Rotation
+          if (keys['ArrowLeft'] || keys['KeyQ']) {
+            const oldDirX = dirX;
+            dirX = dirX * Math.cos(-rotSpeed) - dirY * Math.sin(-rotSpeed);
+            dirY = oldDirX * Math.sin(-rotSpeed) + dirY * Math.cos(-rotSpeed);
+            const oldPlaneX = planeX;
+            planeX = planeX * Math.cos(-rotSpeed) - planeY * Math.sin(-rotSpeed);
+            planeY = oldPlaneX * Math.sin(-rotSpeed) + planeY * Math.cos(-rotSpeed);
+          }
+          if (keys['ArrowRight'] || keys['KeyE']) {
+            const oldDirX = dirX;
+            dirX = dirX * Math.cos(rotSpeed) - dirY * Math.sin(rotSpeed);
+            dirY = oldDirX * Math.sin(rotSpeed) + dirY * Math.cos(rotSpeed);
+            const oldPlaneX = planeX;
+            planeX = planeX * Math.cos(rotSpeed) - planeY * Math.sin(rotSpeed);
+            planeY = oldPlaneX * Math.sin(rotSpeed) + planeY * Math.cos(rotSpeed);
+          }
+
+          // Déplacement (Z/W: avant, S: arrière)
+          if (keys['KeyW'] || keys['KeyZ'] || keys['ArrowUp']) {
+            const nx = px + dirX * moveSpeed;
+            const ny = py + dirY * moveSpeed;
+            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
+            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
+          }
+          if (keys['KeyS'] || keys['ArrowDown']) {
+            const nx = px - dirX * moveSpeed;
+            const ny = py - dirY * moveSpeed;
+            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
+            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
+          }
+
+          // Strafe (A: gauche, D: droite)
+          if (keys['KeyA']) {
+            const nx = px - planeX * moveSpeed;
+            const ny = py - planeY * moveSpeed;
+            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
+            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
+          }
+          if (keys['KeyD']) {
+            const nx = px + planeX * moveSpeed;
+            const ny = py + planeY * moveSpeed;
+            if (MAP[Math.floor(py) * MAP_W + Math.floor(nx)] === 0) px = nx;
+            if (MAP[Math.floor(ny) * MAP_W + Math.floor(px)] === 0) py = ny;
+          }
+
+          // Recul arme
+          if (recoil > 0) recoil -= 2;
+          if (muzzleFlash > 0) muzzleFlash--;
+
+          // IA Drones : flottement et approche douce
+          enemies.forEach(en => {
+            if (!en.alive) return;
+            const dx = px - en.x;
+            const dy = py - en.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 7 && d > 1.2) {
+              en.x += (dx / d) * 0.015;
+              en.y += (dy / d) * 0.015;
+            } else if (d <= 1.2) {
+              // Dégâts au joueur si trop proche
+              hp = Math.max(0, hp - 0.2);
+              if (Math.floor(hp) % 10 === 0) updateHUD();
+            }
+          });
+        }
+
+        function render() {
+          if (!ctx) return;
+          const w = canvas.width;
+          const h = canvas.height;
+
+          // 1. Ciel & Sol Cyberpunk
+          const skyGrad = ctx.createLinearGradient(0, 0, 0, h / 2);
+          skyGrad.addColorStop(0, '#030712');
+          skyGrad.addColorStop(1, '#0f172a');
+          ctx.fillStyle = skyGrad;
+          ctx.fillRect(0, 0, w, h / 2);
+
+          const floorGrad = ctx.createLinearGradient(0, h / 2, 0, h);
+          floorGrad.addColorStop(0, '#0a0f1d');
+          floorGrad.addColorStop(1, '#020408');
+          ctx.fillStyle = floorGrad;
+          ctx.fillRect(0, h / 2, w, h / 2);
+
+          // Grille laser au sol
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.08)';
+          ctx.lineWidth = 1;
+          for (let y = h / 2 + 10; y < h; y += 14) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(w, y);
+            ctx.stroke();
+          }
+
+          // 2. DDA Raycasting
+          const zBuffer = new Array(w);
+          for (let x = 0; x < w; x++) {
+            const cameraX = (2 * x) / w - 1;
+            const rayDirX = dirX + planeX * cameraX;
+            const rayDirY = dirY + planeY * cameraX;
+
+            let mapX = Math.floor(px);
+            let mapY = Math.floor(py);
+
+            const deltaDistX = Math.abs(1 / rayDirX);
+            const deltaDistY = Math.abs(1 / rayDirY);
+
+            let stepX, stepY;
+            let sideDistX, sideDistY;
+
+            if (rayDirX < 0) {
+              stepX = -1;
+              sideDistX = (px - mapX) * deltaDistX;
+            } else {
+              stepX = 1;
+              sideDistX = (mapX + 1.0 - px) * deltaDistX;
+            }
+
+            if (rayDirY < 0) {
+              stepY = -1;
+              sideDistY = (py - mapY) * deltaDistY;
+            } else {
+              stepY = 1;
+              sideDistY = (mapY + 1.0 - py) * deltaDistY;
+            }
+
+            let hit = 0;
+            let side = 0;
+            while (hit === 0) {
+              if (sideDistX < sideDistY) {
+                sideDistX += deltaDistX;
+                mapX += stepX;
+                side = 0;
+              } else {
+                sideDistY += deltaDistY;
+                mapY += stepY;
+                side = 1;
+              }
+              if (MAP[mapY * MAP_W + mapX] > 0) hit = MAP[mapY * MAP_W + mapX];
+            }
+
+            let perpWallDist;
+            if (side === 0) perpWallDist = (mapX - px + (1 - stepX) / 2) / rayDirX;
+            else perpWallDist = (mapY - py + (1 - stepY) / 2) / rayDirY;
+
+            zBuffer[x] = perpWallDist;
+
+            const lineHeight = Math.floor(h / perpWallDist);
+            const drawStart = Math.max(0, -lineHeight / 2 + h / 2);
+            const drawEnd = Math.min(h - 1, lineHeight / 2 + h / 2);
+
+            // Couleur du mur avec ombrage de profondeur
+            const brightness = Math.max(0.15, Math.min(1.0, 1.8 / perpWallDist));
+            let r, g, b;
+            if (hit === 1) { r = 0; g = 240; b = 255; } // Cyan
+            else if (hit === 2) { r = 139; g = 92; b = 246; } // Violet
+            else if (hit === 3) { r = 16; g = 185; b = 129; } // Émeraude
+            else { r = 245; g = 158; b = 11; } // Doré
+
+            if (side === 1) { r *= 0.75; g *= 0.75; b *= 0.75; } // Face latérale plus sombre
+            r = Math.floor(r * brightness);
+            g = Math.floor(g * brightness);
+            b = Math.floor(b * brightness);
+
+            ctx.fillStyle = `rgb(${r},${g},${b})`;
+            ctx.fillRect(x, drawStart, 1, drawEnd - drawStart);
+
+            // Trait néon bord haut/bas
+            ctx.fillStyle = `rgba(255,255,255,${0.3 * brightness})`;
+            ctx.fillRect(x, drawStart, 1, 2);
+          }
+
+          // 3. Rendu Ennemis Drones (Sprites Billboarding 3D)
+          enemies.forEach(en => {
+            if (!en.alive) return;
+            const spriteX = en.x - px;
+            const spriteY = en.y - py;
+
+            const invDet = 1.0 / (planeX * dirY - dirX * planeY);
+            const transformX = invDet * (dirY * spriteX - dirX * spriteY);
+            const transformY = invDet * (-planeY * spriteX + planeX * spriteY);
+
+            if (transformY > 0.2) {
+              const spriteScreenX = Math.floor((w / 2) * (1 + transformX / transformY));
+              const spriteHeight = Math.abs(Math.floor(h / transformY));
+              const drawStartY = Math.max(0, -spriteHeight / 2 + h / 2);
+              const spriteWidth = Math.abs(Math.floor(h / transformY));
+              const drawStartX = Math.floor(-spriteWidth / 2 + spriteScreenX);
+
+              if (transformY < zBuffer[spriteScreenX]) {
+                const size = Math.max(12, spriteWidth * 0.4);
+                ctx.save();
+                ctx.translate(spriteScreenX, h / 2);
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath();
+                ctx.arc(0, 0, size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Lueur néon drone
+                ctx.fillStyle = '#00f0ff';
+                ctx.beginPath();
+                ctx.arc(0, 0, size * 0.4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+              }
+            }
+          });
+
+          // 4. Arme HUD & Effet Muzzle Flash
+          const gunX = w / 2;
+          const gunY = h - 20 + recoil;
+
+          ctx.save();
+          // Canon du Cyber Blaster
+          ctx.fillStyle = '#1e293b';
+          ctx.beginPath();
+          ctx.moveTo(gunX - 25, h);
+          ctx.lineTo(gunX - 15, gunY - 35);
+          ctx.lineTo(gunX + 15, gunY - 35);
+          ctx.lineTo(gunX + 25, h);
+          ctx.closePath();
+          ctx.fill();
+
+          // Bandes lumineuses néon sur l'arme
+          ctx.fillStyle = '#00f0ff';
+          ctx.fillRect(gunX - 4, gunY - 32, 8, 20);
+
+          // Éclair de tir
+          if (muzzleFlash > 0) {
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.9)';
+            ctx.beginPath();
+            ctx.arc(gunX, gunY - 45, 22, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(gunX, gunY - 45, 10, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+
+          // 5. Réticule de visée (Crosshair)
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.7)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(w / 2 - 8, h / 2);
+          ctx.lineTo(w / 2 + 8, h / 2);
+          ctx.moveTo(w / 2, h / 2 - 8);
+          ctx.lineTo(w / 2, h / 2 + 8);
+          ctx.stroke();
+
+          // 6. Mini-map Radar (Haut-Droit)
+          const mmSize = 70;
+          const mmScale = mmSize / MAP_W;
+          ctx.fillStyle = 'rgba(5, 8, 17, 0.75)';
+          ctx.fillRect(w - mmSize - 10, 10, mmSize, mmSize);
+          ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+          ctx.strokeRect(w - mmSize - 10, 10, mmSize, mmSize);
+
+          for (let my = 0; my < MAP_H; my++) {
+            for (let mx = 0; mx < MAP_W; mx++) {
+              if (MAP[my * MAP_W + mx] > 0) {
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.5)';
+                ctx.fillRect(w - mmSize - 10 + mx * mmScale, 10 + my * mmScale, mmScale, mmScale);
+              }
+            }
+          }
+          // Point Joueur et cône
+          ctx.fillStyle = '#10b981';
+          ctx.beginPath();
+          ctx.arc(w - mmSize - 10 + px * mmScale, 10 + py * mmScale, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Points Ennemis
+          enemies.forEach(en => {
+            if (!en.alive) return;
+            ctx.fillStyle = '#ef4444';
+            ctx.beginPath();
+            ctx.arc(w - mmSize - 10 + en.x * mmScale, 10 + en.y * mmScale, 2, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        }
+
+        function loop() {
+          if (!running) return;
+          update();
+          render();
+          animId = requestAnimationFrame(loop);
+        }
+
+        return {
+          init,
+          start() {
+            if (!canvas) init();
+            if (running) return;
+            running = true;
+            loop();
+          },
+          pause() {
+            running = false;
+            if (animId) cancelAnimationFrame(animId);
+          },
+          resize() {}
+        };
+      })();
+
+      /* =======================================================================
+         25. COFFRE STÉGANOGRAPHIQUE (STÉGANOGRAPHIE LSB DANS LES PIXELS RGBA)
+         ======================================================================= */
+      const SteganoVault = (function () {
+        let encodeImgData = null;
+        let encodedBlob = null;
+
+        function init() {
+          const tabs = document.querySelectorAll('#stegano-mode-tabs .pill-tab');
+          tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+              tabs.forEach(t => t.classList.remove('active'));
+              tab.classList.add('active');
+              const mode = tab.dataset.smode;
+              document.getElementById('stegano-encode-view').classList.toggle('hidden', mode !== 'encode');
+              document.getElementById('stegano-decode-view').classList.toggle('hidden', mode !== 'decode');
+            });
+          });
+
+          // Upload image encodeur
+          const encDrop = document.getElementById('stegano-encode-drop');
+          const encFile = document.getElementById('stegano-encode-file');
+          if (encDrop && encFile) {
+            encDrop.addEventListener('click', () => encFile.click());
+            encFile.addEventListener('change', (e) => loadEncodeImage(e.target.files[0]));
+          }
+
+          // Image démo
+          const sampleBtn = document.getElementById('stegano-sample-img-btn');
+          if (sampleBtn) {
+            sampleBtn.addEventListener('click', () => {
+              // Créer une fausse page de cours Google Docs en canvas pur
+              const c = document.createElement('canvas');
+              c.width = 600; c.height = 400;
+              const ctx = c.getContext('2d');
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(0, 0, 600, 400);
+              ctx.fillStyle = '#4285f4';
+              ctx.fillRect(20, 20, 160, 24);
+              ctx.fillStyle = '#e2e8f0';
+              ctx.fillRect(20, 60, 560, 2);
+              ctx.fillStyle = '#334155';
+              ctx.font = '16px sans-serif';
+              ctx.fillText('Notes de cours d\'Histoire - Chapitre 4 : La Guerre Froide', 20, 100);
+              ctx.fillStyle = '#64748b';
+              ctx.font = '13px sans-serif';
+              ctx.fillText('Introduction aux relations internationales et blocs idéologiques.', 20, 130);
+              c.toBlob(blob => loadEncodeImage(blob));
+            });
+          }
+
+          // Encoder
+          const runEncBtn = document.getElementById('stegano-run-encode-btn');
+          if (runEncBtn) runEncBtn.addEventListener('click', processEncoding);
+
+          // Télécharger image secrète
+          const dlBtn = document.getElementById('stegano-download-btn');
+          if (dlBtn) {
+            dlBtn.addEventListener('click', () => {
+              if (!encodedBlob) return;
+              const url = URL.createObjectURL(encodedBlob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'document_cours_secret.png';
+              a.click();
+              URL.revokeObjectURL(url);
+            });
+          }
+
+          // Décodeur
+          const decDrop = document.getElementById('stegano-decode-drop');
+          const decFile = document.getElementById('stegano-decode-file');
+          if (decDrop && decFile) {
+            decDrop.addEventListener('click', () => decFile.click());
+            decFile.addEventListener('change', (e) => decodeImage(e.target.files[0]));
+          }
+
+          const copyBtn = document.getElementById('stegano-copy-secret-btn');
+          if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+              const text = document.getElementById('stegano-extracted-box').textContent;
+              navigator.clipboard.writeText(text);
+              showToast('Secret copié dans le presse-papier !', '📋');
+            });
+          }
+        }
+
+        function loadEncodeImage(file) {
+          if (!file) return;
+          const img = new Image();
+          img.onload = () => {
+            const preview = document.getElementById('stegano-encode-preview');
+            preview.src = img.src;
+            preview.classList.remove('hidden');
+
+            const c = document.createElement('canvas');
+            c.width = img.width; c.height = img.height;
+            const ctx = c.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            encodeImgData = ctx.getImageData(0, 0, c.width, c.height);
+
+            const maxBytes = Math.floor((encodeImgData.data.length / 4) * 3 / 8) - 4;
+            document.getElementById('stegano-capacity-label').textContent = `Capacité max : ~${maxBytes.toLocaleString()} caractères`;
+          };
+          img.src = URL.createObjectURL(file);
+        }
+
+        function processEncoding() {
+          const text = document.getElementById('stegano-secret-text').value;
+          if (!encodeImgData) {
+            showToast('Sélectionne d\'abord une image support !', '⚠️');
+            return;
+          }
+          if (!text) {
+            showToast('Écris un message secret à cacher !', '⚠️');
+            return;
+          }
+
+          const encoder = new TextEncoder();
+          const textBytes = encoder.encode(text);
+          const length = textBytes.length;
+
+          // Header 4 octets de taille + octets de texte
+          const dataBytes = new Uint8Array(4 + length);
+          dataBytes[0] = (length >> 24) & 0xFF;
+          dataBytes[1] = (length >> 16) & 0xFF;
+          dataBytes[2] = (length >> 8) & 0xFF;
+          dataBytes[3] = length & 0xFF;
+          dataBytes.set(textBytes, 4);
+
+          // Transformer en flux de bits
+          const bits = [];
+          for (let i = 0; i < dataBytes.length; i++) {
+            const b = dataBytes[i];
+            for (let bitIdx = 7; bitIdx >= 0; bitIdx--) {
+              bits.push((b >> bitIdx) & 1);
+            }
+          }
+
+          const pixels = encodeImgData.data;
+          if (bits.length > pixels.length) {
+            showToast('Image trop petite pour contenir ce texte !', '⚠️');
+            return;
+          }
+
+          // Injection LSB dans les canaux R, G, B (pas l'Alpha)
+          let bitPointer = 0;
+          for (let i = 0; i < pixels.length && bitPointer < bits.length; i++) {
+            if ((i + 1) % 4 === 0) continue; // Sauter Alpha
+            pixels[i] = (pixels[i] & 0xFE) | bits[bitPointer];
+            bitPointer++;
+          }
+
+          // Créer image PNG de sortie
+          const c = document.createElement('canvas');
+          c.width = encodeImgData.width;
+          c.height = encodeImgData.height;
+          const ctx = c.getContext('2d');
+          ctx.putImageData(encodeImgData, 0, 0);
+
+          c.toBlob(blob => {
+            encodedBlob = blob;
+            document.getElementById('stegano-encode-result').classList.remove('hidden');
+            showToast('Secret injecté dans les pixels avec succès !', '🔐');
+          }, 'image/png');
+        }
+
+        function decodeImage(file) {
+          if (!file) return;
+          const img = new Image();
+          img.onload = () => {
+            const preview = document.getElementById('stegano-decode-preview');
+            preview.src = img.src;
+            preview.classList.remove('hidden');
+
+            const c = document.createElement('canvas');
+            c.width = img.width; c.height = img.height;
+            const ctx = c.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            const imgData = ctx.getImageData(0, 0, c.width, c.height);
+            const pixels = imgData.data;
+
+            // Extraire les bits LSB
+            const bits = [];
+            for (let i = 0; i < pixels.length; i++) {
+              if ((i + 1) % 4 === 0) continue;
+              bits.push(pixels[i] & 1);
+            }
+
+            // Lire les 32 premiers bits (taille du secret)
+            let secretLength = 0;
+            for (let i = 0; i < 32; i++) {
+              secretLength = (secretLength << 1) | bits[i];
+            }
+
+            if (secretLength <= 0 || secretLength > (bits.length / 8)) {
+              document.getElementById('stegano-extracted-box').textContent = '⚠️ Aucun message secret détecté dans cette image (ou format corrompu).';
+              return;
+            }
+
+            // Lire les octets
+            const outBytes = new Uint8Array(secretLength);
+            let bitIdx = 32;
+            for (let byteIdx = 0; byteIdx < secretLength; byteIdx++) {
+              let val = 0;
+              for (let b = 0; b < 8; b++) {
+                val = (val << 1) | bits[bitIdx++];
+              }
+              outBytes[byteIdx] = val;
+            }
+
+            const decoder = new TextDecoder('utf-8');
+            try {
+              const decodedText = decoder.decode(outBytes);
+              document.getElementById('stegano-extracted-box').textContent = decodedText;
+              showToast('Message secret extrait avec succès !', '🔓');
+            } catch (e) {
+              document.getElementById('stegano-extracted-box').textContent = 'Erreur lors du décodage du secret UTF-8.';
+            }
+          };
+          img.src = URL.createObjectURL(file);
+        }
+
+        return { init };
+      })();
+
+      /* =======================================================================
+         26. LABORATOIRE D'ILLUSIONS D'OPTIQUE & ONDES CÉRÉBRALES
+         ======================================================================= */
+      const IllusionsLab = (function () {
+        let vortexRunning = false;
+        let vortexAnim = null;
+        let vortexAngle = 0;
+        let vortexTimeLeft = 30;
+        let vortexInterval = null;
+
+        let binauralCtx = null;
+        let oscL = null, oscR = null;
+        let binauralActive = false;
+        let baseFreq = 200;
+        let diffFreq = 10;
+
+        let tesseractAnim = null;
+        let tRotX = 0, tRotY = 0;
+
+        function init() {
+          // Onglets
+          const tabs = document.querySelectorAll('#illusions-tabs .pill-tab');
+          tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+              tabs.forEach(t => t.classList.remove('active'));
+              tab.classList.add('active');
+              const ill = tab.dataset.ill;
+              document.getElementById('ill-view-vortex').classList.toggle('hidden', ill !== 'vortex');
+              document.getElementById('ill-view-binaural').classList.toggle('hidden', ill !== 'binaural');
+              document.getElementById('ill-view-cube4d').classList.toggle('hidden', ill !== 'cube4d');
+              if (ill === 'cube4d') startTesseract();
+              else stopTesseract();
+            });
+          });
+
+          // Vortex
+          const vBtn = document.getElementById('vortex-toggle-btn');
+          if (vBtn) {
+            vBtn.addEventListener('click', toggleVortex);
+          }
+
+          // Binaural
+          const bBtn = document.getElementById('binaural-toggle-btn');
+          if (bBtn) {
+            bBtn.addEventListener('click', toggleBinaural);
+          }
+
+          const freqSlider = document.getElementById('binaural-freq-slider');
+          const diffSlider = document.getElementById('binaural-diff-slider');
+          if (freqSlider) {
+            freqSlider.addEventListener('input', (e) => {
+              baseFreq = parseFloat(e.target.value);
+              document.getElementById('binaural-freq-val').textContent = `${baseFreq} Hz`;
+              updateBinauralNodes();
+            });
+          }
+          if (diffSlider) {
+            diffSlider.addEventListener('input', (e) => {
+              diffFreq = parseFloat(e.target.value);
+              const label = diffFreq <= 4 ? 'Delta' : (diffFreq <= 8 ? 'Thêta' : (diffFreq <= 14 ? 'Alpha' : 'Bêta'));
+              document.getElementById('binaural-diff-val').textContent = `${diffFreq} Hz (${label})`;
+              updateBinauralNodes();
+            });
+          }
+
+          document.querySelectorAll('.ill-preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              baseFreq = parseFloat(btn.dataset.freq);
+              diffFreq = parseFloat(btn.dataset.diff);
+              if (freqSlider) freqSlider.value = baseFreq;
+              if (diffSlider) diffSlider.value = diffFreq;
+              document.getElementById('binaural-freq-val').textContent = `${baseFreq} Hz`;
+              document.getElementById('binaural-diff-val').textContent = `${diffFreq} Hz`;
+              updateBinauralNodes();
+            });
+          });
+        }
+
+        // --- 1. Vortex Spirale Cinétique (Motion Aftereffect) ---
+        function toggleVortex() {
+          vortexRunning = !vortexRunning;
+          const btn = document.getElementById('vortex-toggle-btn');
+          if (vortexRunning) {
+            btn.textContent = '⏹ Arrêter l\'illusion';
+            vortexTimeLeft = 30;
+            vortexInterval = setInterval(() => {
+              vortexTimeLeft--;
+              document.getElementById('vortex-timer').textContent = `00:${vortexTimeLeft < 10 ? '0' : ''}${vortexTimeLeft}`;
+              if (vortexTimeLeft <= 0) {
+                toggleVortex();
+                showToast('REGARDE TA MAIN OU TON ÉCRAN MAINTENANT !', '🌀');
+              }
+            }, 1000);
+            renderVortex();
+          } else {
+            btn.textContent = '▶ Lancer l\'illusion (30s)';
+            clearInterval(vortexInterval);
+            if (vortexAnim) cancelAnimationFrame(vortexAnim);
+          }
+        }
+
+        function renderVortex() {
+          if (!vortexRunning) return;
+          const canvas = document.getElementById('vortex-canvas');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          const cx = canvas.width / 2;
+          const cy = canvas.height / 2;
+          const maxR = cx * 1.2;
+
+          ctx.fillStyle = '#000';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          vortexAngle += 0.08;
+
+          // Dessin de spirales entrelacées à fort contraste
+          const numArms = 12;
+          for (let r = 0; r < maxR; r += 4) {
+            for (let arm = 0; arm < numArms; arm++) {
+              const theta = vortexAngle + (arm * Math.PI * 2) / numArms + (r * 0.06);
+              const x = cx + Math.cos(theta) * r;
+              const y = cy + Math.sin(theta) * r;
+              ctx.fillStyle = (arm % 2 === 0) ? '#fff' : '#000';
+              ctx.beginPath();
+              ctx.arc(x, y, 4, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+
+          // Point rouge de fixation au centre
+          ctx.fillStyle = '#ef4444';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+          ctx.fill();
+
+          vortexAnim = requestAnimationFrame(renderVortex);
+        }
+
+        // --- 2. Battements Binauraux ---
+        function toggleBinaural() {
+          binauralActive = !binauralActive;
+          const btn = document.getElementById('binaural-toggle-btn');
+          if (binauralActive) {
+            startBinaural();
+            btn.textContent = '⏹ Couper le flux audio binaural';
+            btn.className = 'btn btn-secondary';
+          } else {
+            stopBinaural();
+            btn.textContent = '▶ Démarrer le flux audio binaural';
+            btn.className = 'btn btn-emerald';
+          }
+        }
+
+        function startBinaural() {
+          try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            binauralCtx = new AudioCtx();
+
+            const merger = binauralCtx.createChannelMerger(2);
+            const masterGain = binauralCtx.createGain();
+            masterGain.gain.setValueAtTime(0.18, binauralCtx.currentTime);
+
+            // Oreille Gauche
+            oscL = binauralCtx.createOscillator();
+            oscL.type = 'sine';
+            oscL.frequency.setValueAtTime(baseFreq, binauralCtx.currentTime);
+            oscL.connect(merger, 0, 0);
+
+            // Oreille Droite
+            oscR = binauralCtx.createOscillator();
+            oscR.type = 'sine';
+            oscR.frequency.setValueAtTime(baseFreq + diffFreq, binauralCtx.currentTime);
+            oscR.connect(merger, 0, 1);
+
+            merger.connect(masterGain);
+            masterGain.connect(binauralCtx.destination);
+
+            oscL.start();
+            oscR.start();
+          } catch (e) {
+            console.error('Erreur binaural audio:', e);
+          }
+        }
+
+        function updateBinauralNodes() {
+          if (!binauralActive || !binauralCtx) return;
+          if (oscL) oscL.frequency.setValueAtTime(baseFreq, binauralCtx.currentTime);
+          if (oscR) oscR.frequency.setValueAtTime(baseFreq + diffFreq, binauralCtx.currentTime);
+        }
+
+        function stopBinaural() {
+          if (oscL) { try { oscL.stop(); } catch (e) {} oscL = null; }
+          if (oscR) { try { oscR.stop(); } catch (e) {} oscR = null; }
+          if (binauralCtx) { try { binauralCtx.close(); } catch (e) {} binauralCtx = null; }
+          binauralActive = false;
+        }
+
+        // --- 3. Tesseract 4D ---
+        function startTesseract() {
+          const canvas = document.getElementById('tesseract-canvas');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          const cx = canvas.width / 2;
+          const cy = canvas.height / 2;
+
+          // 16 sommets d'un hypercube 4D (-1 ou 1 sur chaque axe)
+          const vertices = [];
+          for (let i = 0; i < 16; i++) {
+            vertices.push([
+              (i & 1) ? 1 : -1,
+              (i & 2) ? 1 : -1,
+              (i & 4) ? 1 : -1,
+              (i & 8) ? 1 : -1
+            ]);
+          }
+
+          function loop() {
+            tRotX += 0.015;
+            tRotY += 0.02;
+
+            ctx.fillStyle = '#020409';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Projection 4D -> 3D -> 2D
+            const projected = vertices.map(v => {
+              // Rotation 4D dans le plan Z-W
+              let [x, y, z, w] = v;
+              const cosW = Math.cos(tRotX), sinW = Math.sin(tRotX);
+              const z2 = z * cosW - w * sinW;
+              const w2 = z * sinW + w * cosW;
+
+              // Rotation 3D dans le plan X-Z
+              const cosY = Math.cos(tRotY), sinY = Math.sin(tRotY);
+              const x2 = x * cosY - z2 * sinY;
+              const z3 = x * sinY + z2 * cosY;
+
+              // Perspective 4D vers 3D
+              const dist4D = 2.5;
+              const f = 1 / (dist4D - w2);
+              const p3x = x2 * f;
+              const p3y = y * f;
+              const p3z = z3 * f;
+
+              // Perspective 3D vers 2D
+              const dist3D = 3.0;
+              const f2 = 1 / (dist3D - p3z);
+              return [cx + p3x * f2 * 280, cy + p3y * f2 * 280];
+            });
+
+            // Arêtes (connecter les sommets qui diffèrent d'exactement 1 coordonnée)
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i < 16; i++) {
+              for (let j = i + 1; j < 16; j++) {
+                // Différence de bits = 1 (Hamming distance == 1)
+                const diff = i ^ j;
+                if ((diff & (diff - 1)) === 0) {
+                  ctx.beginPath();
+                  ctx.moveTo(projected[i][0], projected[i][1]);
+                  ctx.lineTo(projected[j][0], projected[j][1]);
+                  ctx.stroke();
+                }
+              }
+            }
+
+            // Sommets
+            ctx.fillStyle = '#8b5cf6';
+            projected.forEach(([px, py]) => {
+              ctx.beginPath();
+              ctx.arc(px, py, 3, 0, Math.PI * 2);
+              ctx.fill();
+            });
+
+            tesseractAnim = requestAnimationFrame(loop);
+          }
+          loop();
+        }
+
+        function stopTesseract() {
+          if (tesseractAnim) cancelAnimationFrame(tesseractAnim);
+        }
+
+        return {
+          init,
+          stop() {
+            if (vortexRunning) toggleVortex();
+            stopBinaural();
+            stopTesseract();
+          }
+        };
+      })();
+
+      /* =======================================================================
+         27. CYBER TERMINAL & HACKER SHELL (AVEC MODE HOLLYWOOD HACKER)
+         ======================================================================= */
+      const TerminalShell = (function () {
+        let hollywoodMode = false;
+        let hollywoodIndex = 0;
+
+        const HOLLYWOOD_CODE = [
+          "// Initializing zero-day exploit payload...",
+          "int exploit_chain(void *base_addr) {",
+          "    asm volatile(\"mov %0, %%rax; int $0x80\" : : \"r\"(base_addr));",
+          "    return bypass_edu_vd_firewall(0x7fff_ffff);",
+          "}",
+          "[+] Establishing encrypted TLS 1.3 reverse shell...",
+          "[+] Tunneling through proxy: 10.144.0.1:8080 [Bypassed]",
+          "[+] Injecting heap spray into memory segment 0x00400000...",
+          "[!] KERNEL PRIVILEGE ESCALATION: ROOT ACCESS GRANTED (uid=0)",
+          "cat /etc/shadow | grep -i admin",
+          "root:$6$vQ2h$K7e1k9F9...:19420:0:99999:7:::",
+          "[+] Disabling auditd and syslog telemetry logging...",
+          "[+] System status: 100% STEALTH COMPLIANT."
+        ];
+
+        function init() {
+          const input = document.getElementById('terminal-input');
+          const output = document.getElementById('terminal-output');
+          const clearBtn = document.getElementById('term-clear-btn');
+          const hollyBtn = document.getElementById('term-hollywood-btn');
+
+          if (input) {
+            input.addEventListener('keydown', (e) => {
+              if (hollywoodMode) {
+                e.preventDefault();
+                typeHollywoodLine();
+                return;
+              }
+              if (e.key === 'Enter') {
+                const cmd = input.value.trim();
+                input.value = '';
+                executeCommand(cmd);
+              }
+            });
+          }
+
+          if (clearBtn && output) {
+            clearBtn.addEventListener('click', () => {
+              output.innerHTML = '<div class="terminal-line-output">Terminal effacé. Tape <strong style="color:#00f0ff">help</strong> pour voir les commandes.</div>';
+            });
+          }
+
+          if (hollyBtn) {
+            hollyBtn.addEventListener('click', () => {
+              hollywoodMode = !hollywoodMode;
+              hollyBtn.classList.toggle('btn-emerald', hollywoodMode);
+              hollyBtn.classList.toggle('btn-violet', !hollywoodMode);
+              hollyBtn.textContent = hollywoodMode ? '⚡ Mode Hollywood ACTIF (Tape n\'importe quoi !)' : '⚡ Mode Hollywood Hacker (Frappe libre)';
+              if (hollywoodMode) {
+                printLine('=== MODE HOLLYWOOD HACKER ACTIVÉ : TAPE N\'IMPORTE QUELLE TOUCHE AU CLAVIER ===', 'terminal-line-warn');
+                if (input) input.focus();
+              } else {
+                printLine('Mode Hollywood désactivé.', 'terminal-line-output');
+              }
+            });
+          }
+        }
+
+        function printLine(text, className = 'terminal-line-output') {
+          const output = document.getElementById('terminal-output');
+          if (!output) return;
+          const line = document.createElement('div');
+          line.className = className;
+          line.textContent = text;
+          output.appendChild(line);
+          output.scrollTop = output.scrollHeight;
+        }
+
+        function typeHollywoodLine() {
+          const line = HOLLYWOOD_CODE[hollywoodIndex % HOLLYWOOD_CODE.length];
+          hollywoodIndex++;
+          printLine(line, 'terminal-line-success');
+          if (typeof SoundEffects !== 'undefined') SoundEffects.click();
+        }
+
+        function executeCommand(rawCmd) {
+          if (!rawCmd) return;
+          printLine(`med0@school-fun:~$ ${rawCmd}`, 'terminal-line-cmd');
+
+          const parts = rawCmd.split(' ');
+          const cmd = parts[0].toLowerCase();
+          const arg = parts.slice(1).join(' ');
+
+          switch (cmd) {
+            case 'help':
+              printLine('Commandes disponibles :', 'terminal-line-success');
+              printLine('  matrix      - Lance la cascade de pluie Matrix verte', 'terminal-line-output');
+              printLine('  doom        - Lance le moteur 3D Cyber DOOM', 'terminal-line-output');
+              printLine('  hack        - Simule une intrusion réseau avec scan IP', 'terminal-line-output');
+              printLine('  scan-wifi   - Scanne les réseaux Wi-Fi de l\'école (EDU_VD...)', 'terminal-line-output');
+              printLine('  stegano     - Ouvre le coffre stéganographique d\'antisèches', 'terminal-line-output');
+              printLine('  panic       - Active la touche panique immédiate (Google Docs)', 'terminal-line-output');
+              printLine('  calc <expr> - Évalue une formule mathématique (ex: calc 42 * 13)', 'terminal-line-output');
+              printLine('  clear       - Nettoie l\'écran du terminal', 'terminal-line-output');
+              printLine('  about       - Affiche les crédits et stats du système', 'terminal-line-output');
+              break;
+
+            case 'matrix':
+              printLine('Démarrage de la Matrice cybernétique...', 'terminal-line-success');
+              for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                  const chars = '01アカサタナハマヤラワイキシチニヒミリウクスツヌフムユルエケセテネヘメレオコソトノホモヨロヲ0123456789';
+                  let str = '';
+                  for (let j = 0; j < 35; j++) str += chars[Math.floor(Math.random() * chars.length)] + ' ';
+                  printLine(str, 'terminal-line-success');
+                }, i * 150);
+              }
+              break;
+
+            case 'doom':
+              navigateTo('doom');
+              break;
+
+            case 'stegano':
+              navigateTo('stegano');
+              break;
+
+            case 'panic':
+            case 'cloak':
+              setPanicMode(true);
+              break;
+
+            case 'scan-wifi':
+              printLine('[*] Scan des fréquences 2.4 GHz & 5 GHz...', 'terminal-line-warn');
+              setTimeout(() => printLine('  [+] SSID: EDU_VD (Signal: -42dBm, Sec: 802.1x EAP)', 'terminal-line-success'), 300);
+              setTimeout(() => printLine('  [+] SSID: DIR-HP-LaserJet-M402 (Signal: -58dBm, Sec: OPEN)', 'terminal-line-output'), 600);
+              setTimeout(() => printLine('  [+] SSID: Staff-Prof-VD (Signal: -65dBm, Sec: WPA3-Enterprise)', 'terminal-line-output'), 900);
+              setTimeout(() => printLine('[✓] 3 points d\'accès identifiés dans le bâtiment.', 'terminal-line-success'), 1200);
+              break;
+
+            case 'hack':
+              printLine('[*] Ciblage du serveur pédagogique Moodle...', 'terminal-line-warn');
+              setTimeout(() => printLine('[-] Injection de paquets SYN... [Port 443 ouvert]', 'terminal-line-output'), 400);
+              setTimeout(() => printLine('[+] Buffer overflow confirmé sur le démon d\'authentification !', 'terminal-line-output'), 800);
+              setTimeout(() => printLine('[✓] Accès administrateur temporaire accordé (Session token capturé)', 'terminal-line-success'), 1300);
+              break;
+
+            case 'calc':
+              if (!arg) {
+                printLine('Usage: calc <expression> (ex: calc 25 * 4 + 10)', 'terminal-line-warn');
+              } else {
+                try {
+                  const res = Function(`'use strict'; return (${arg})`)();
+                  printLine(`= ${res}`, 'terminal-line-success');
+                } catch (e) {
+                  printLine('Erreur de calcul : expression invalide.', 'terminal-line-error');
+                }
+              }
+              break;
+
+            case 'clear':
+              document.getElementById('terminal-output').innerHTML = '';
+              break;
+
+            case 'about':
+              printLine('🎮 Cyber School Portal (School-Fun) v2.5 Neon', 'terminal-line-success');
+              printLine('Créé par Med0-n pour survivre aux heures de cours avec style.', 'terminal-line-output');
+              printLine('100% Client-Side • Zéro trace serveur • WebRTC P2P • Web Audio API', 'terminal-line-output');
+              break;
+
+            default:
+              printLine(`Commande inconnue : « ${cmd} ». Tape « help » pour la liste.`, 'terminal-line-error');
+          }
+        }
+
+        return {
+          init,
+          focus() {
+            const input = document.getElementById('terminal-input');
+            if (input) input.focus();
+          }
+        };
+      })();
+
 
       /* -----------------------------------------------------------------------
          12. GESTIONNAIRE CLAVIER GLOBAL STRICT (Panique, Focus Input, Anti-Scroll)
