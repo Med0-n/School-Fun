@@ -3670,13 +3670,11 @@
           </div>
         </section>
 
-        <!-- ===============================================================
-             SECTION 2 : SLOPE 2 CUSTOM
-             =============================================================== -->
+        <!-- SECTION 2 : SLOPE 2 CUSTOM -->
         <section id="sec-slope" class="section">
           <div class="card">
             <div class="slope-controls">
-              <div class="card-title">⛷️ Slope 2 Custom</div>
+              <div class="card-title">⛷ Slope 2 Custom</div>
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
                 <button id="slope-reload-btn" class="btn btn-primary btn-sm">🔄 Recharger</button>
                 <button id="slope-fs-btn" class="btn btn-secondary btn-sm">⛶ Plein écran</button>
@@ -3684,11 +3682,11 @@
               </div>
             </div>
 
-            <!-- Conteneur sans popup ni overlay : jeu directement actif -->
+            <!-- Conteneur 16:9 sans popup ni intermédiaire -->
             <div id="slope-frame-wrap" class="slope-frame-wrap">
               <iframe
                 id="slope-iframe"
-                src="slope2/index.html"
+                src="slope2/index.html?v=custom_v2"
                 title="Slope 2 Custom"
                 allow="fullscreen; autoplay; gamepad; keyboard-map *"
                 allowfullscreen
@@ -6379,8 +6377,10 @@
           if (sectionKey === 'home') updateDashboardStats();
         if (typeof MemeGallery !== 'undefined') MemeGallery.init();
           if (sectionKey === 'slope') {
-            const f = document.getElementById('slope-iframe');
-            if (f && (!f.src || f.src.endsWith('about:blank'))) f.src = 'slope2/index.html';
+            const iframe = document.getElementById('slope-iframe');
+            if (iframe && (!iframe.src || iframe.src.includes('about:blank'))) {
+              iframe.src = 'slope2/index.html?v=' + Date.now();
+            }
             AppState.slopeLoaded = true;
           }
           if (sectionKey === 'memes' && !MemeGallery.initialized) MemeGallery.scan();
@@ -6478,19 +6478,16 @@
       /* -----------------------------------------------------------------------
          4. SLOPE 2 CUSTOM (Intégration directe & Plein écran)
          ----------------------------------------------------------------------- */
-      function reloadSlopeIframe() {
-        const iframe = document.getElementById('slope-iframe');
-        if (!iframe) return;
-        iframe.src = 'about:blank';
-        setTimeout(() => {
-          iframe.src = 'slope2/index.html';
-        }, 80);
-        showToast('Rechargement de Slope 2 Custom...', '⛷️');
-      }
-
       const slopeReloadBtn = document.getElementById('slope-reload-btn');
       if (slopeReloadBtn) {
-        slopeReloadBtn.addEventListener('click', reloadSlopeIframe);
+        slopeReloadBtn.addEventListener('click', () => {
+          const iframe = document.getElementById('slope-iframe');
+          if (iframe) {
+            iframe.src = 'about:blank';
+            setTimeout(() => { iframe.src = 'slope2/index.html?v=' + Date.now(); }, 80);
+            showToast('Rechargement de Slope 2 Custom...', '⛷');
+          }
+        });
       }
 
       const slopeFsBtn = document.getElementById('slope-fs-btn');

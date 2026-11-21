@@ -213,6 +213,34 @@
         adBreak: function(o) { if (o && o.adComplete) o.adComplete(); }
       };
 
+      // Neutralisation des popups et des requêtes réseau externes résiduelles (anti-ads / télémétrie)
+      window.open = function(url) {
+        console.log("[Slope2] Popup externe bloquée :", url);
+        return null;
+      };
+
+      const _origXhrOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function(method, url) {
+        if (typeof url === 'string' && (url.includes('1games.io') || url.includes('azgame.io') || url.includes('infourl.js') || url.includes('gameinfo'))) {
+          return _origXhrOpen.call(this, 'GET', 'data:application/json;charset=utf-8,{"status":"success","allow_play":true}');
+        }
+        return _origXhrOpen.apply(this, arguments);
+      };
+
+      const _origFetch = window.fetch;
+      if (typeof _origFetch === 'function') {
+        window.fetch = function(input, init) {
+          const urlStr = typeof input === 'string' ? input : (input && input.url ? input.url : '');
+          if (urlStr.includes('1games.io') || urlStr.includes('azgame.io') || urlStr.includes('infourl.js') || urlStr.includes('gameinfo')) {
+            return Promise.resolve(new Response(JSON.stringify({ status: "success", allow_play: true }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }));
+          }
+          return _origFetch.apply(this, arguments);
+        };
+      }
+
       // ========================================================
       // 3. Configuration Unity WebGL
       // ========================================================
