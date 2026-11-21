@@ -37,6 +37,7 @@
 ## ✨ Fonctionnalités Principales
 
 - **🎯 Rooftop Snipers 1v1** : Le duel de snipers culte des salles d'informatique ! Physique ragdoll hilarante sur le toit, jouable à 2 sur 1 clavier ou contre l'IA.
+- **🦠 Ebola Clicker** : Enregistre ta voix avec le micro du Mac en disant "Ebola" ! Chaque appui sur la barre <kbd>Espace</kbd> joue ta voix et ouvre l'image `Enola.png` dans un nouvel onglet, avec boutique d'améliorations, multiplicateurs de vitesse et effets de pitch.
 - **🔪 CS:GO Bhop & Surf 3D** : Simulation physique Source Engine authentique (Air-strafing, surf sur rampes inclinées, bunny hop à plus de 2000 u/s, couteau Karambit 3D avec inspection <kbd>F</kbd> et 3 cartes dédiées).
 - **⚡ Neon Wave (Geometry Dash)** : Le célèbre mode Wave de Geometry Dash ! Maintiens pour monter à 45°, relâche pour descendre. Barrière de pics et chrono de progression.
 - **🚙 Drive Mad 2D** : Franchis les ponts suspendus, tremplins et loopings en monster truck sans te retourner. Physique de suspensions ultra-addictive.
@@ -51,9 +52,9 @@
 
 ---
 
-## ⚡ Pack Dopamine Rush (26 Jeux Réflexes & Addiction)
+## ⚡ Pack Dopamine Rush (27 Jeux Réflexes & Addiction)
 
-Une collection complète de 26 mini-jeux ultra-addictifs conçus pour un pic de dopamine immédiat (synthèse audio Web Audio, combos, secousses d'écran, particules et réactivité instantanée) :
+Une collection complète de 27 mini-jeux ultra-addictifs conçus pour un pic de dopamine immédiat (synthèse audio Web Audio, combos, secousses d'écran, particules et réactivité instantanée) :
 1. **🏎️ Neon Highway 3D** : Slalom à contre-sens, nitro boost (<kbd>Espace</kbd>) et frôlements de bolides.
 2. **⚡ Neon Gravity Ball** : Chute libre infinie à travers les failles avec pics mortels au plafond.
 3. **🔷 Hyper Hexagon** : Esquive géométrique hypnotique au rythme d'un vortex néon frénétique.
@@ -80,6 +81,7 @@ Une collection complète de 26 mini-jeux ultra-addictifs conçus pour un pic de 
 24. **🎵 Cyber Simon Matrix** : Mémorisation de séquences sonores et lumineuses à tempo accéléré.
 25. **🪙 Cyber Coin Pusher** : Machine de fête foraine 3D à poussoir mécanique et cascades de pièces.
 26. **🔪 CS:GO Bhop & Surf 3D** : Mouvement CS Source pur, air-strafing, surf sur rampes inclinées, auto-bhop et couteau Karambit 3D inspectable.
+27. **🦠 Ebola Clicker** : Enregistreur vocal micro Mac, spammeur d'onglets Enola.png sur barre espace et clicker exponentiel.
 
 ---
 

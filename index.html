@@ -2915,6 +2915,66 @@
     .game-launch-card[data-cat="creative"]:hover { border-color: rgba(244, 63, 94, 0.6); box-shadow: 0 0 16px rgba(244, 63, 94, 0.18); }
     .game-launch-card[data-cat="tools"]:hover { border-color: rgba(245, 158, 11, 0.6); box-shadow: 0 0 16px rgba(245, 158, 11, 0.18); }
 
+      /* Ebola Clicker */
+    .ebola-big-btn {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 4px solid #00f0ff;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.2) 0%, rgba(15, 23, 42, 0.9) 70%);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.35);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      user-select: none;
+      outline: none;
+      position: relative;
+    }
+    .ebola-big-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 50px rgba(0, 255, 136, 0.5);
+      border-color: #00ff88;
+    }
+    .ebola-big-btn:active, .ebola-pop-anim {
+      transform: scale(0.92) !important;
+      box-shadow: 0 0 60px rgba(255, 0, 119, 0.8) !important;
+      border-color: #ff0077 !important;
+    }
+    .ebola-floater {
+      position: absolute;
+      pointer-events: none;
+      z-index: 50;
+      animation: ebolaFloatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    @keyframes ebolaFloatUp {
+      0% { opacity: 1; transform: translate(0, 0) scale(0.8); }
+      100% { opacity: 0; transform: translate(0, -140px) scale(1.3); }
+    }
+    .pulse-recording {
+      animation: pulseRec 1s infinite alternate;
+    }
+    @keyframes pulseRec {
+      0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+      100% { box-shadow: 0 0 22px rgba(239, 68, 68, 1); }
+    }
+    .ebola-shop-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .ebola-shop-item.can-buy:hover {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(0, 240, 255, 0.4);
+    }
   </style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -3049,7 +3109,8 @@
         <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim Trainer</button>
         <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
 
-        <div class="nav-group-label">⚡ Dopamine Rush &amp; Réflexes (26)</div>
+        <div class="nav-group-label">⚡ Dopamine Rush &amp; Réflexes (27)</div>
+        <button class="nav-btn" data-section="ebolaclicker"><span class="nav-icon">🦠</span> Ebola Clicker</button>
         <button class="nav-btn" data-section="csbhop"><span class="nav-icon">🔪</span> CS:GO Bhop &amp; Surf 3D</button>
         <button class="nav-btn" data-section="highway"><span class="nav-icon">🏎️</span> Neon Highway 3D</button>
         <button class="nav-btn" data-section="gravityball"><span class="nav-icon">⚡</span> Neon Gravity Ball</button>
@@ -3144,7 +3205,7 @@
             <span class="timer-dot active" id="topbar-timer-dot"></span>
             <span class="timer-icon">⏱️</span>
             <span class="timer-text" id="topbar-timer-text">00m 00s</span>
-            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/80</span>
+            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/81</span>
           </div>
 
           
@@ -3205,7 +3266,7 @@
           <div class="hero-banner-pro">
             <div class="hero-title-gradient">Hub Furtif &amp; Arcade Cyberpunk</div>
             <p style="font-size:14px; line-height:1.6; color:#94a3b8; max-width:760px; margin:0 0 10px;">
-              Le hub scolaire secret ultime : 80 jeux 2D/3D sans lag, duels 1v1 sur le même clavier, expériences de physique, studio d'art rétro et outils furtifs. 
+              Le hub scolaire secret ultime : 81 jeux 2D/3D sans lag, duels 1v1 sur le même clavier, expériences de physique, studio d'art rétro et outils furtifs. 
               Si un prof s'approche, appuie sur <span class="kbd">Échap</span> pour ouvrir instantanément de vraies notes Google Docs modifiables !
             </p>
 
@@ -3255,7 +3316,7 @@
               <div class="stat-box" style="border-left:3px solid var(--accent-violet);">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <span class="stat-label">🎮 Jeux Découverts</span>
-                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 80</span>
+                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 81</span>
                 </div>
                 <div style="width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden; margin:8px 0 4px;">
                   <div id="dash-games-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--accent-cyan), var(--accent-violet)); transition:width 0.4s ease;"></div>
@@ -3318,8 +3379,8 @@
           <!-- Barre de Filtres par Catégorie et Recherche Rapide -->
           <div class="dash-controls-bar">
             <div class="dash-filter-tabs" id="dash-filter-tabs">
-              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">77</span>)</button>
-              <button class="dash-filter-btn" data-filter="dopamine">⚡ Dopamine Rush (<span id="count-dopamine">26</span>)</button>
+              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">78</span>)</button>
+              <button class="dash-filter-btn" data-filter="dopamine">⚡ Dopamine Rush (<span id="count-dopamine">27</span>)</button>
               <button class="dash-filter-btn" data-filter="arcade">🕹️ Solo Arcade (<span id="count-arcade">16</span>)</button>
               <button class="dash-filter-btn" data-filter="duel">⚔️ Duels 1v1 (<span id="count-duel">9</span>)</button>
               <button class="dash-filter-btn" data-filter="puzzle">🧠 Puzzles (<span id="count-puzzle">6</span>)</button>
@@ -3697,7 +3758,14 @@
               <div class="game-launch-meta"><span class="text-amber">73+ Liens</span><span>Consulter →</span></div>
             </button>
 
-            <!-- DOPAMINE RUSH PACK (26 JEUX ADDICTIFS) -->
+            <!-- DOPAMINE RUSH PACK (27 JEUX ADDICTIFS) -->
+            <!-- EBOLA CLICKER -->
+            <button class="game-launch-card" data-goto="ebolaclicker" data-cat="dopamine">
+              <div class="card-ico">🦠</div>
+              <h4>Ebola Clicker</h4>
+              <p>Enregistre ta voix avec le micro du Mac, spamme la barre espace et ouvre Enola.png à l'infini</p>
+              <div class="game-launch-meta"><span class="text-rose">Micro &amp; Espace</span><span>Spammer →</span></div>
+            </button>
             <button class="game-launch-card" data-goto="csbhop" data-cat="dopamine">
               <div class="card-ico">🔪</div>
               <h4>CS:GO Bhop &amp; Surf 3D</h4>
@@ -6329,6 +6397,91 @@
     </div>
     <div>
       🏄 <strong>Astuce Surf :</strong> Sur les rampes, tiens <span class="kbd">D</span> si la rampe est à ta droite (ou <span class="kbd">A</span> si à gauche) sans jamais appuyer sur W/Avancer !
+    </div>
+  </div>
+</section>
+
+<!-- SECTION : EBOLA CLICKER -->
+<section id="sec-ebolaclicker" class="section">
+  <!-- Barre d'Enregistrement Vocale Micro Mac & Options -->
+  <div class="card" style="padding: 16px; margin-bottom: 14px; border: 1px solid rgba(0, 240, 255, 0.3); background: rgba(15, 23, 42, 0.85);">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="font-size: 32px;">🦠</div>
+        <div>
+          <h3 style="margin: 0; font-size: 19px; color: #fff;">Ebola Clicker</h3>
+          <span id="ebola-voice-status" style="font-size: 12px; color: var(--text-muted);">
+            🎙️ Voix par défaut active (Enregistre ta propre voix avec le micro de ton Mac !)
+          </span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <button id="ebola-rec-btn" class="btn btn-primary btn-sm">🎙️ Enregistrer ma voix "Ebola"</button>
+        <button id="ebola-test-voice-btn" class="btn btn-secondary btn-sm" style="display: none;">▶️ Tester ma voix</button>
+        <button id="ebola-clear-voice-btn" class="btn btn-secondary btn-sm" style="display: none;">🗑️ Réinitialiser</button>
+      </div>
+    </div>
+
+    <!-- Sélecteurs de Pitch & Option Onglet Enola.png -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 12px; color: var(--text-muted);">Effet Vocal :</span>
+        <button class="btn btn-secondary btn-sm ebola-pitch-btn active" data-pitch="normal">Normal</button>
+        <button class="btn btn-secondary btn-sm ebola-pitch-btn" data-pitch="chipmunk">🐿️ Aiguë</button>
+        <button class="btn btn-secondary btn-sm ebola-pitch-btn" data-pitch="demon">👹 Démon</button>
+        <button class="btn btn-secondary btn-sm ebola-pitch-btn" data-pitch="fast">⚡ Turbo</button>
+      </div>
+
+      <div>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #e2e8f0; cursor: pointer; user-select: none;">
+          <input type="checkbox" id="ebola-tab-toggle" checked style="accent-color: var(--accent-cyan); cursor: pointer;" />
+          <span>📑 Ouvrir un nouvel onglet avec <strong class="text-cyan">Enola.png</strong> à chaque frappe d'espace</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grille Principale : Arène Clicker + Boutique -->
+  <div style="display: grid; grid-template-columns: 1fr 340px; gap: 16px;" id="ebola-layout-grid">
+    <!-- Colonne Gauche : Arène Centrale -->
+    <div class="card" id="ebola-stage" style="position: relative; overflow: hidden; min-height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 24px; text-align: center; border: 1px solid rgba(0, 240, 255, 0.25);">
+      <!-- Stats en tête -->
+      <div>
+        <div style="font-size: 13px; letter-spacing: 2px; color: #94a3b8; font-weight: 700; margin-bottom: 4px;">TOTAL EBOLAS</div>
+        <div style="display: flex; align-items: baseline; justify-content: center; gap: 6px;">
+          <span id="ebola-count-display" class="mono text-cyan" style="font-size: 48px; font-weight: 900; text-shadow: 0 0 25px rgba(0,240,255,0.4);">0</span>
+          <span style="font-size: 16px; font-weight: 700; color: #94a3b8;">Ebolas</span>
+        </div>
+        <div style="display: flex; gap: 16px; justify-content: center; font-size: 13px; margin-top: 6px;">
+          <span style="color: #94a3b8;">Auto : <strong id="ebola-eps-display" class="mono text-emerald">0 /s</strong></span>
+          <span style="color: #94a3b8;">Par frappe : <strong id="ebola-perclick-display" class="mono text-violet">+1</strong></span>
+          <span style="color: #94a3b8;">Frappes : <strong id="ebola-clicks-display" class="mono text-amber">0</strong></span>
+        </div>
+      </div>
+
+      <!-- Gros Bouton Central Enola Virus -->
+      <button id="ebola-big-button" class="ebola-big-btn" title="Appuie sur la touche ESPACE ou clique ici !">
+        <img src="Enola.png" alt="Enola" style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 3px solid #00f0ff; pointer-events: none; box-shadow: 0 0 25px rgba(0,240,255,0.4);" />
+        <div style="font-size: 11px; font-weight: 800; color: #fff; margin-top: 8px; letter-spacing: 1px; text-shadow: 0 0 10px #000;">
+          EBOLA !
+        </div>
+      </button>
+
+      <!-- Message d'aide en bas de l'arène -->
+      <div style="background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); padding: 8px 18px; border-radius: 20px; font-size: 12px; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08);">
+        ⌨️ Appuie sur la <span class="kbd">Barre Espace</span> pour déclencher ta voix et ouvrir <strong class="text-cyan">Enola.png</strong> !
+      </div>
+    </div>
+
+    <!-- Colonne Droite : Boutique d'Améliorations Épidémiques -->
+    <div class="card" style="padding: 16px; border: 1px solid rgba(0, 240, 255, 0.2);">
+      <div class="card-title" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+        <span>🧬 Améliorations</span>
+        <span class="badge" style="background: rgba(0,240,255,0.15); color: #00f0ff;">Boutique</span>
+      </div>
+      <div id="ebola-shop-list" style="display: flex; flex-direction: column;">
+        <!-- Injecté dynamiquement par JavaScript -->
+      </div>
     </div>
   </div>
 </section>
@@ -16882,7 +17035,7 @@ const SilkCanvas = (() => {
 const ActiveTimeTracker = (() => {
   const STORAGE_KEY_TOTAL = 'hf_active_seconds_total_v2';
   const STORAGE_KEY_PLAYED = 'hf_played_games_v2';
-  const ALL_MODULES_TOTAL = 80;
+  const ALL_MODULES_TOTAL = 81;
 
   let totalSeconds = parseInt(localStorage.getItem(STORAGE_KEY_TOTAL) || '0', 10);
   if (isNaN(totalSeconds)) totalSeconds = 0;
@@ -17213,5 +17366,6 @@ window.CYBER_MODULES = CYBER_MODULES;
   <script src="three.min.js"></script>
   <script src="games_dopamine.js"></script>
   <script src="game_cs_bhop.js"></script>
+  <script src="game_ebola_clicker.js"></script>
 </body>
 </html>
