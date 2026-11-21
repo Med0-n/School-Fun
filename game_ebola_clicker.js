@@ -14,7 +14,7 @@ const EbolaClickerGame = (() => {
   let ebolasPerClick = 1;
   let autoEps = 0;
   let autoInterval = null;
-  let openTabsEnabled = true;
+  let openTabsEnabled = (localStorage.getItem('ebola_open_tabs_enabled') === 'true'); // Par défaut false (Désactivé)
   let pitchMode = 'normal'; // 'normal', 'chipmunk', 'demon', 'fast'
 
   // Upgrades Configuration
@@ -341,6 +341,37 @@ const EbolaClickerGame = (() => {
     return Math.floor(num).toString();
   }
 
+  function setOpenTabs(enabled, notify = true) {
+    openTabsEnabled = !!enabled;
+    try { localStorage.setItem('ebola_open_tabs_enabled', openTabsEnabled ? 'true' : 'false'); } catch (e) {}
+
+    const chk = document.getElementById('ebola-tab-toggle');
+    if (chk) chk.checked = openTabsEnabled;
+
+    const btnStatus = document.getElementById('ebola-btn-status');
+    if (btnStatus) {
+      btnStatus.textContent = openTabsEnabled ? 'ACTIVÉ ✓' : 'DÉSACTIVÉ ✕';
+      btnStatus.className = openTabsEnabled ? 'text-emerald' : 'text-rose';
+    }
+
+    const badge = document.getElementById('ebola-tab-badge');
+    if (badge) {
+      badge.textContent = openTabsEnabled ? 'ACTIVÉ' : 'DÉSACTIVÉ';
+      badge.style.background = openTabsEnabled ? 'rgba(16,185,129,0.2)' : 'rgba(244,63,94,0.2)';
+      badge.style.color = openTabsEnabled ? '#10b981' : '#f43f5e';
+    }
+
+    const indicator = document.getElementById('ebola-mode-indicator');
+    if (indicator) {
+      indicator.textContent = openTabsEnabled ? 'ACTIVÉ (Ouvre Enola.png à chaque frappe)' : 'DÉSACTIVÉ (Zéro onglet - Idéal pour spammer)';
+      indicator.className = openTabsEnabled ? 'text-emerald' : 'text-rose';
+    }
+
+    if (notify && typeof showToast === 'function') {
+      showToast(openTabsEnabled ? "📑 Onglets Enola.png : ACTIVÉ" : "📑 Onglets Enola.png : DÉSACTIVÉ (Mode sans lag)", "📑");
+    }
+  }
+
   function buyUpgrade(id) {
     const upg = UPGRADES.find(u => u.id === id);
     if (!upg || ebolas < upg.cost) return;
@@ -440,14 +471,15 @@ const EbolaClickerGame = (() => {
 
     const tabToggle = document.getElementById('ebola-tab-toggle');
     if (tabToggle) {
-      tabToggle.checked = openTabsEnabled;
-      tabToggle.onchange = (e) => {
-        openTabsEnabled = e.target.checked;
-        if (typeof showToast === 'function') {
-          showToast(openTabsEnabled ? "Ouverture d'onglets Enola.png : ACTIVE" : "Ouverture d'onglets désactivée", "📑");
-        }
-      };
+      tabToggle.onchange = (e) => setOpenTabs(e.target.checked, true);
     }
+
+    const toggleBtn = document.getElementById('ebola-toggle-tab-btn');
+    if (toggleBtn) {
+      toggleBtn.onclick = () => setOpenTabs(!openTabsEnabled, true);
+    }
+
+    setOpenTabs(openTabsEnabled, false);
 
     // Sélecteur de Pitch Voice
     document.querySelectorAll('.ebola-pitch-btn').forEach(btn => {

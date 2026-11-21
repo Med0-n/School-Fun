@@ -6416,6 +6416,7 @@
         </div>
       </div>
       <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <button id="ebola-toggle-tab-btn" class="btn btn-secondary btn-sm" title="Activer ou désactiver l'ouverture d'onglet Enola.png">📑 Onglet Enola : <strong id="ebola-btn-status" class="text-rose">DÉSACTIVÉ ✕</strong></button>
         <button id="ebola-rec-btn" class="btn btn-primary btn-sm">🎙️ Enregistrer ma voix "Ebola"</button>
         <button id="ebola-test-voice-btn" class="btn btn-secondary btn-sm" style="display: none;">▶️ Tester ma voix</button>
         <button id="ebola-clear-voice-btn" class="btn btn-secondary btn-sm" style="display: none;">🗑️ Réinitialiser</button>
@@ -6433,9 +6434,10 @@
       </div>
 
       <div>
-        <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #e2e8f0; cursor: pointer; user-select: none;">
-          <input type="checkbox" id="ebola-tab-toggle" checked style="accent-color: var(--accent-cyan); cursor: pointer;" />
+        <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #e2e8f0; cursor: pointer; user-select: none; background: rgba(30,41,59,0.7); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12);">
+          <input type="checkbox" id="ebola-tab-toggle" style="width: 17px; height: 17px; accent-color: var(--accent-cyan); cursor: pointer;" />
           <span>📑 Ouvrir un nouvel onglet avec <strong class="text-cyan">Enola.png</strong> à chaque frappe d'espace</span>
+          <span id="ebola-tab-badge" class="badge" style="background: rgba(244,63,94,0.2); color: #f43f5e; font-size: 10px;">DÉSACTIVÉ</span>
         </label>
       </div>
     </div>
@@ -6469,7 +6471,7 @@
 
       <!-- Message d'aide en bas de l'arène -->
       <div style="background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); padding: 8px 18px; border-radius: 20px; font-size: 12px; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08);">
-        ⌨️ Appuie sur la <span class="kbd">Barre Espace</span> pour déclencher ta voix et ouvrir <strong class="text-cyan">Enola.png</strong> !
+        ⌨️ Appuie sur la <span class="kbd">Barre Espace</span> pour déclencher ta voix ! • Mode onglet : <strong id="ebola-mode-indicator" class="text-rose">DÉSACTIVÉ (Recommandé : aucun onglet)</strong>
       </div>
     </div>
 
