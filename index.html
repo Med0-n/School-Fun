@@ -3049,7 +3049,8 @@
         <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim Trainer</button>
         <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
 
-        <div class="nav-group-label">⚡ Dopamine Rush &amp; Réflexes (25)</div>
+        <div class="nav-group-label">⚡ Dopamine Rush &amp; Réflexes (26)</div>
+        <button class="nav-btn" data-section="csbhop"><span class="nav-icon">🔪</span> CS:GO Bhop &amp; Surf 3D</button>
         <button class="nav-btn" data-section="highway"><span class="nav-icon">🏎️</span> Neon Highway 3D</button>
         <button class="nav-btn" data-section="gravityball"><span class="nav-icon">⚡</span> Neon Gravity Ball</button>
         <button class="nav-btn" data-section="hexagon"><span class="nav-icon">🔷</span> Hyper Hexagon</button>
@@ -3143,7 +3144,7 @@
             <span class="timer-dot active" id="topbar-timer-dot"></span>
             <span class="timer-icon">⏱️</span>
             <span class="timer-text" id="topbar-timer-text">00m 00s</span>
-            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/79</span>
+            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/80</span>
           </div>
 
           
@@ -3204,7 +3205,7 @@
           <div class="hero-banner-pro">
             <div class="hero-title-gradient">Hub Furtif &amp; Arcade Cyberpunk</div>
             <p style="font-size:14px; line-height:1.6; color:#94a3b8; max-width:760px; margin:0 0 10px;">
-              Le hub scolaire secret ultime : 79 jeux 2D/3D sans lag, duels 1v1 sur le même clavier, expériences de physique, studio d'art rétro et outils furtifs. 
+              Le hub scolaire secret ultime : 80 jeux 2D/3D sans lag, duels 1v1 sur le même clavier, expériences de physique, studio d'art rétro et outils furtifs. 
               Si un prof s'approche, appuie sur <span class="kbd">Échap</span> pour ouvrir instantanément de vraies notes Google Docs modifiables !
             </p>
 
@@ -3254,7 +3255,7 @@
               <div class="stat-box" style="border-left:3px solid var(--accent-violet);">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <span class="stat-label">🎮 Jeux Découverts</span>
-                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 79</span>
+                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 80</span>
                 </div>
                 <div style="width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden; margin:8px 0 4px;">
                   <div id="dash-games-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--accent-cyan), var(--accent-violet)); transition:width 0.4s ease;"></div>
@@ -3317,8 +3318,8 @@
           <!-- Barre de Filtres par Catégorie et Recherche Rapide -->
           <div class="dash-controls-bar">
             <div class="dash-filter-tabs" id="dash-filter-tabs">
-              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">76</span>)</button>
-              <button class="dash-filter-btn" data-filter="dopamine">⚡ Dopamine Rush (<span id="count-dopamine">25</span>)</button>
+              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">77</span>)</button>
+              <button class="dash-filter-btn" data-filter="dopamine">⚡ Dopamine Rush (<span id="count-dopamine">26</span>)</button>
               <button class="dash-filter-btn" data-filter="arcade">🕹️ Solo Arcade (<span id="count-arcade">16</span>)</button>
               <button class="dash-filter-btn" data-filter="duel">⚔️ Duels 1v1 (<span id="count-duel">9</span>)</button>
               <button class="dash-filter-btn" data-filter="puzzle">🧠 Puzzles (<span id="count-puzzle">6</span>)</button>
@@ -3696,7 +3697,13 @@
               <div class="game-launch-meta"><span class="text-amber">73+ Liens</span><span>Consulter →</span></div>
             </button>
 
-            <!-- DOPAMINE RUSH PACK (25 JEUX ADDICTIFS) -->
+            <!-- DOPAMINE RUSH PACK (26 JEUX ADDICTIFS) -->
+            <button class="game-launch-card" data-goto="csbhop" data-cat="dopamine">
+              <div class="card-ico">🔪</div>
+              <h4>CS:GO Bhop &amp; Surf 3D</h4>
+              <p>Mouvement Source Engine authentique : air-strafing, surf sur rampes et bunny hop à 2000+ u/s</p>
+              <div class="game-launch-meta"><span class="text-cyan">3D FPS Source</span><span>Surfer →</span></div>
+            </button>
             <button class="game-launch-card" data-goto="highway" data-cat="dopamine">
               <div class="card-ico">🏎️</div>
               <h4>Neon Highway 3D</h4>
@@ -6248,6 +6255,81 @@
       <button class="csp-btn" id="coindozer-reset">Rejouer</button>
     </div>
     <canvas id="canvas-coindozer" class="csp-canvas" width="500" height="600"></canvas>
+  </div>
+</section>
+
+<!-- SECTION : CS:GO BHOP & SURF 3D -->
+<section id="sec-csbhop" class="section">
+  <div class="card" style="padding: 12px; margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="font-size: 28px;">🔪</div>
+        <div>
+          <h3 style="margin: 0; font-size: 18px; color: #fff;">CS:GO Bhop &amp; Surf 3D</h3>
+          <span style="font-size: 12px; color: var(--text-muted);">Mouvement Source Engine (Air-Strafe &amp; Surf Physics) • Map : <strong id="csbhop-map-name" class="text-cyan">surf_cyber_utopia</strong></span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <button class="btn btn-secondary btn-sm csbhop-map-btn active" data-map="surf1">🌊 Surf Utopia</button>
+        <button class="btn btn-secondary btn-sm csbhop-map-btn" data-map="bhop1">🧱 Bhop Matrix</button>
+        <button class="btn btn-secondary btn-sm csbhop-map-btn" data-map="hybrid1">⚡ Hybrid Omega</button>
+        <button id="csbhop-autobhop-btn" class="btn btn-secondary btn-sm"><span id="csbhop-autobhop-status">AUTO-BHOP: ON</span></button>
+        <button id="csbhop-reset" class="btn btn-primary btn-sm">🔄 Recommencer (R)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="csp-shell" style="position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid rgba(0, 240, 255, 0.3); background: #04060d;">
+    <!-- Overlay HUD CS:GO en haut et au centre -->
+    <div style="position: absolute; top: 12px; left: 16px; z-index: 10; pointer-events: none; display: flex; flex-direction: column; gap: 4px;">
+      <div style="background: rgba(10, 15, 28, 0.75); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(0,240,255,0.25);">
+        <span style="font-size: 12px; color: var(--text-muted);">TEMPS : </span>
+        <strong id="csbhop-timer" class="mono text-cyan" style="font-size: 18px;">00:00.000</strong>
+      </div>
+      <div style="background: rgba(10, 15, 28, 0.75); backdrop-filter: blur(8px); padding: 4px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+        <span style="font-size: 11px; color: var(--text-muted);">RECORD : </span>
+        <strong id="csbhop-best-time" class="mono text-amber" style="font-size: 14px;">--:--.---</strong>
+      </div>
+    </div>
+
+    <!-- Speedometer CS:GO Digital au centre bas -->
+    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; pointer-events: none; text-align: center;">
+      <div id="csbhop-streak" style="display: none; background: rgba(255,0,119,0.85); color: #fff; font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 20px; margin-bottom: 6px; letter-spacing: 1px; box-shadow: 0 0 15px rgba(255,0,119,0.6);">
+        BHOP STREAK x2 !
+      </div>
+      <div style="background: rgba(5, 8, 16, 0.85); backdrop-filter: blur(10px); padding: 8px 24px; border-radius: 12px; border: 2px solid rgba(0, 240, 255, 0.4); box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);">
+        <div style="font-size: 11px; letter-spacing: 2px; color: #94a3b8; font-weight: 700; margin-bottom: 2px;">SPEEDOMETER</div>
+        <div style="display: flex; align-items: baseline; justify-content: center; gap: 4px;">
+          <span id="csbhop-speed-val" class="mono" style="font-size: 38px; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px currentColor;">0</span>
+          <span style="font-size: 13px; font-weight: 700; color: #94a3b8;">u/s</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sensibilité Souris en haut à droite -->
+    <div style="position: absolute; top: 12px; right: 16px; z-index: 10; pointer-events: auto; display: flex; align-items: center; gap: 8px; background: rgba(10, 15, 28, 0.75); backdrop-filter: blur(8px); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+      <span style="font-size: 11px; color: var(--text-muted);">Sensibilité : </span>
+      <input type="range" id="csbhop-sens" min="0.5" max="5.0" step="0.1" value="2.2" style="width: 70px; cursor: pointer;" />
+      <span id="csbhop-sens-val" class="mono" style="font-size: 11px; color: #00f0ff;">2.2</span>
+    </div>
+
+    <!-- Crosshair CS Vert au centre -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; width: 12px; height: 12px; opacity: 0.85;">
+      <div style="position: absolute; top: 5px; left: 0; width: 12px; height: 2px; background: #00ff88; box-shadow: 0 0 5px #00ff88;"></div>
+      <div style="position: absolute; top: 0; left: 5px; width: 2px; height: 12px; background: #00ff88; box-shadow: 0 0 5px #00ff88;"></div>
+    </div>
+
+    <!-- Canvas WebGL 3D -->
+    <canvas id="canvas-csbhop" style="display: block; width: 100%; height: 580px; cursor: crosshair;"></canvas>
+  </div>
+
+  <div style="margin-top: 10px; padding: 10px 14px; background: rgba(15, 23, 42, 0.6); border-radius: var(--radius-md); font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+    <div>
+      🎮 <strong>Contrôles :</strong> <span class="kbd">Clic</span> capturer souris • <span class="kbd">Z/W</span> <span class="kbd">Q/A</span> <span class="kbd">S</span> <span class="kbd">D</span> avancer / strafe • <span class="kbd">Espace</span> ou <span class="kbd">Molette</span> sauter / bhop • <span class="kbd">B</span> bascule Auto-Bhop • <span class="kbd">F</span> inspecter couteau • <span class="kbd">R</span> respawn • <span class="kbd">Échap</span> libérer souris.
+    </div>
+    <div>
+      🏄 <strong>Astuce Surf :</strong> Sur les rampes, tiens <span class="kbd">D</span> si la rampe est à ta droite (ou <span class="kbd">A</span> si à gauche) sans jamais appuyer sur W/Avancer !
+    </div>
   </div>
 </section>
 
@@ -16800,7 +16882,7 @@ const SilkCanvas = (() => {
 const ActiveTimeTracker = (() => {
   const STORAGE_KEY_TOTAL = 'hf_active_seconds_total_v2';
   const STORAGE_KEY_PLAYED = 'hf_played_games_v2';
-  const ALL_MODULES_TOTAL = 79;
+  const ALL_MODULES_TOTAL = 80;
 
   let totalSeconds = parseInt(localStorage.getItem(STORAGE_KEY_TOTAL) || '0', 10);
   if (isNaN(totalSeconds)) totalSeconds = 0;
@@ -17128,6 +17210,8 @@ window.CYBER_MODULES = CYBER_MODULES;
   <!-- Écran de veille Matrix Plein Écran -->
   <canvas id="matrix-screensaver" title="Clique ou appuie sur une touche pour quitter"></canvas>
 
+  <script src="three.min.js"></script>
   <script src="games_dopamine.js"></script>
+  <script src="game_cs_bhop.js"></script>
 </body>
 </html>
