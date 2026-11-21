@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Slope 2 (Original 25051901) - Local</title>
+
+    <!-- Script ancre garantissant que getElementsByTagName('script')[0] a toujours un parentNode valide -->
+    <script>/* Anchor script */</script>
+
+    <!-- Script id="gmsoft-jssdk" attendu au démarrage par le code injecté dans framework.js -->
+    <script id="gmsoft-jssdk" src="data:text/javascript;base64,"></script>
+
+    <!-- Slope 2 Modular Mods & Settings Suite -->
+    <link rel="stylesheet" href="mods/mods.css">
+    <script src="mods/i18n.js"></script>
+    <script src="mods/mods.js"></script>
+    <script src="mods/ui.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+      }
+      #unity-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      #unity-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        cursor: default;
+      }
+      #loading-bar {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #00ff00;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 22px;
+        text-align: center;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px #00ff00;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #progress-bar {
+        width: 320px;
+        height: 16px;
+        background: #111;
+        border: 2px solid #00ff00;
+        box-shadow: 0 0 12px rgba(0, 255, 0, 0.4);
+        margin: 16px auto 0;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      #progress-fill {
+        height: 100%;
+        width: 0%;
+        background: #00ff00;
+        box-shadow: 0 0 10px #00ff00;
+        transition: width 0.2s;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Conteneur Unity principal et alias canvas -->
+    <div id="unity-container">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+
+    <!-- UI de chargement personnalisée -->
+    <div id="loading-bar">
+      <div>CHARGEMENT SLOPE 2 ORIGINAL...</div>
+      <div id="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+
+    <!-- Éléments DOM originaux attendus par le code télémétrique/ad du jeu -->
+    <div id="loadingBlock" style="display: none;">
+      <div class="gameloader-progressbar">
+        <div class="gameloader-progressbar-progress" id="progress_fill" style="width: 0%;"></div>
+      </div>
+      <div class="gameloader-progress-info">Game Loading...</div>
+      <img id="game-logo" style="display: none;" />
+    </div>
+
+    <script>
+      // ========================================================
+      // 1. Sécurité DOM, insertBefore & Sélecteurs
+      // ========================================================
+      const _origInsertBefore = Node.prototype.insertBefore;
+      Node.prototype.insertBefore = function(newNode, referenceNode) {
+        if (!referenceNode || !referenceNode.parentNode) {
+          return document.head.appendChild(newNode);
+        }
+        return _origInsertBefore.call(this, newNode, referenceNode);
+      };
+
+      const _origQuerySelector = document.querySelector.bind(document);
+      document.querySelector = function(selector) {
+        if (selector === '#canvas') {
+          return document.getElementById('unity-canvas') || _origQuerySelector(selector);
+        }
+        return _origQuerySelector(selector);
+      };
+
+      // ========================================================
+      // 2. Mocks et Stubs Globaux pour Firebase, Ad SDKs & Télémétrie
+      // ========================================================
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() {};
+      window.GMDEBUG = { isDebug: false };
+      window.GMPERFORM = { LOAD: Date.now() };
+
+      window.GMSOFT_OPTIONS = {
+        allow_play: true,
+        enable_ads: false,
+        debug_mode: "no",
+        hostindex: 2,
+        sdkType: "none",
+        timeShowInter: 999999,
+        timeShowReward: 999999,
+        domainHost: window.location.hostname
+      };
+
+      // Stubs Firebase attendus globalement par framework.js
+      window.firebaseLogEvent = function(eventName, params) {
+        // console.log("[Mock Firebase] LogEvent:", eventName, params);
+      };
+      window.firebaseLogEventParameter = function(eventName, eventParams) {
+        // console.log("[Mock Firebase] LogEventParam:", eventName, eventParams);
+      };
+      window.firebaseSetUserProperties = function(props) {
+        // console.log("[Mock Firebase] SetUserProperties:", props);
+      };
+
+      window.firebase = {
+        initializeApp: function() { return {}; },
+        analytics: function() {
+          return {
+            logEvent: window.firebaseLogEvent,
+            setUserProperties: window.firebaseSetUserProperties
+          };
+        },
+        firestore: function() {
+          return {
+            collection: function(colName) {
+              return {
+                doc: function(docId) {
+                  return {
+                    onSnapshot: function() { return function unsubscribe() {}; }
+                  };
+                },
+                onSnapshot: function() { return function unsubscribe() {}; }
+              };
+            }
+          };
+        },
+        auth: function() {
+          return {
+            currentUser: { uid: "local-user" },
+            signInAnonymously: function() { return Promise.resolve(); }
+          };
+        }
+      };
+
+      window.firestorelisteners = {};
+      window.time_counter_gm = 0;
+      window.gmRepeatEvery30Seconds = function() {};
+      window.gmEvent = function(eventName, data) {};
+      window.gmdebug = function() {};
+      window.gmdebugtime = function() {};
+      window.loadGMData = function() {};
+      window.xorEncryptMsg = function(msg) { return ""; };
+      window.isDiffHost = function() { return false; };
+
+      // Stubs GameDistribution & WeeGoo Ads
+      window.gdsdk = {
+        showBanner: function() {},
+        preloadAd: function() { return Promise.resolve(); },
+        showAd: function() { return Promise.resolve(); },
+        AdType: { Rewarded: 0, Interstitial: 1 }
+      };
+
+      window.preroll = {
+        config: { loaderObjectName: "preroll" },
+        log: function() {},
+        ping: function() {},
+        rewarded: { initSlot: function() {} },
+        registerGameControls: function() {},
+        registerRewardCallbacks: function() {},
+        fetchAd: function(cb) { if (cb) cb(); },
+        refetchAd: function(cb) { if (cb) cb(); },
+        showRewardAd: function() {}
+      };
+
+      window.afg = {
+        ready: false,
+        adBreak: function(o) { if (o && o.adComplete) o.adComplete(); }
+      };
+
+      // ========================================================
+      // 3. Configuration Unity WebGL
+      // ========================================================
+      var config = {
+        dataUrl: "Build/slope-2-v25051901.data",
+        frameworkUrl: "Build/slope-2-v25051901.framework.js",
+        codeUrl: "Build/slope-2-v25051901.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "1games.io",
+        productName: "Slope 2",
+        productVersion: "25051901",
+        pubId: ""
+      };
+      config.hostindex = 2;
+      config.gameId = "slope-2";
+      config.eventLog = false;
+      config.enableMoreGame = "no";
+      config.enablePromotion = false;
+      config.gdHost = false;
+
+    </script>
+    <script src="Build/slope-2-v25051901.loader.js"></script>
+    <script>
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingBar = document.querySelector("#loading-bar");
+      const progressFill = document.querySelector("#progress-fill");
+
+      createUnityInstance(canvas, config, (progress) => {
+        progressFill.style.width = (100 * progress) + "%";
+        if (progress >= 0.99) {
+          loadingBar.querySelector("div").innerText = "LANCEMENT DE LA COURSE...";
+        }
+      }).then((unityInstance) => {
+        window.unityInstance = unityInstance;
+        setTimeout(() => { loadingBar.style.display = "none"; }, 800);
+        window.focus();
+
+        // Envoi unique et propre pour charger la scène principale sans spam
+        setTimeout(() => {
+          try {
+            console.log("[Slope2] Initialisation propre : envoi de LoadTargetScene à GmSoft...");
+            window.unityInstance.SendMessage("GmSoft", "LoadTargetScene");
+            console.log("[Slope2] Scène cible chargée avec succès !");
+          } catch(e) {
+            console.warn("[Slope2] LoadTargetScene error:", e);
+          }
+        }, 1000);
+      }).catch((message) => {
+        console.error("Unity Error:", message);
+      });
+    </script>
+  </body>
+</html>

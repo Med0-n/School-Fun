@@ -1,0 +1,664 @@
+/* ========================================================
+   Slope 2 WebGL - Modern Glassmorphism Mod Menu & UI
+   ======================================================== */
+
+:root {
+  --neon-green: #00ff66;
+  --neon-cyan: #00f0ff;
+  --neon-red: #ff0055;
+  --bg-dark: rgba(10, 10, 20, 0.88);
+  --panel-bg: rgba(18, 18, 32, 0.75);
+  --border-neon: rgba(0, 255, 120, 0.35);
+  --border-glow: 0 0 16px rgba(0, 255, 100, 0.25);
+  --text-main: #f0f0ff;
+  --text-muted: #8899aa;
+  --transition-smooth: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Background & Canvas Strict Layering */
+#slope2-custom-bg {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+#unity-canvas {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+/* Vignette & Chromatic Aberration Overlay */
+#slope2-vignette-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(circle at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.9);
+}
+
+/* Gear Button (Top-Right Floating Trigger) */
+#slope2-menu-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  background: rgba(15, 15, 25, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-neon);
+  border-radius: 12px;
+  color: var(--neon-green);
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+#slope2-menu-btn:hover {
+  transform: scale(1.08) rotate(25deg);
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+#slope2-menu-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* Nerd Stats (Minecraft F3 Inspired) */
+#slope2-nerd-stats {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  background: rgba(5, 5, 15, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 255, 150, 0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #00ff88;
+  font-family: monospace, "Courier New", sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  pointer-events: none;
+  z-index: 990;
+  display: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.6);
+}
+
+#slope2-nerd-stats .stat-val {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#slope2-nerd-stats .stat-alert {
+  color: #ff3366;
+}
+
+/* Mod Menu Backdrop & Modal Container */
+#slope2-mod-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 3, 10, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+#slope2-mod-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slope2-modal {
+  width: 820px;
+  max-width: 92vw;
+  height: 640px;
+  max-height: 88vh;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-neon);
+  box-shadow: var(--border-glow), 0 24px 60px rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(18px) scale(0.97);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#slope2-mod-menu.open .slope2-modal {
+  transform: translateY(0) scale(1);
+}
+
+/* Modal Header */
+.slope2-header {
+  padding: 16px 24px;
+  background: rgba(15, 15, 30, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slope2-title-box h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--neon-green);
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+  margin-bottom: 2px;
+}
+
+.slope2-title-box p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.slope2-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slope2-lang-select {
+  background: rgba(30, 30, 50, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.slope2-lang-select:hover {
+  border-color: var(--neon-cyan);
+}
+
+.slope2-close-btn {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.slope2-close-btn:hover {
+  background: var(--neon-red);
+  border-color: var(--neon-red);
+  box-shadow: 0 0 12px rgba(255, 0, 85, 0.5);
+}
+
+/* Modal Body: Sidebar Tabs + Content Panel */
+.slope2-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.slope2-sidebar {
+  width: 210px;
+  background: rgba(12, 12, 24, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.slope2-tab-btn {
+  padding: 12px 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slope2-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+}
+
+.slope2-tab-btn.active {
+  background: rgba(0, 255, 120, 0.12);
+  border-color: rgba(0, 255, 120, 0.35);
+  color: var(--neon-green);
+  box-shadow: inset 0 0 12px rgba(0, 255, 100, 0.15);
+}
+
+.slope2-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Tab Panels */
+.slope2-panel {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.slope2-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Layouts */
+.slope2-section {
+  background: var(--panel-bg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.slope2-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slope2-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.slope2-row:last-child {
+  border-bottom: none;
+}
+
+.slope2-label {
+  font-size: 14px;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slope2-label span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Controls: Toggle Switch */
+.slope2-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.slope2-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slope2-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: var(--transition-smooth);
+  border-radius: 26px;
+}
+
+.slope2-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #fff;
+  transition: var(--transition-smooth);
+  border-radius: 50%;
+}
+
+input:checked + .slope2-slider {
+  background-color: var(--neon-green);
+  box-shadow: 0 0 12px rgba(0, 255, 100, 0.5);
+}
+
+input:checked + .slope2-slider:before {
+  transform: translateX(22px);
+  background-color: #000;
+}
+
+/* Controls: Sliders with value display */
+.slope2-range-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slope2-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 180px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  outline: none;
+}
+
+.slope2-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--neon-cyan);
+  transition: transform 0.1s;
+}
+
+.slope2-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slope2-range-val {
+  min-width: 42px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  text-align: right;
+  font-family: monospace;
+}
+
+/* Controls: Color Picker */
+.slope2-color-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slope2-color-input {
+  -webkit-appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+  overflow: hidden;
+}
+
+.slope2-color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.slope2-color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 8px;
+}
+
+/* Select & Inputs */
+.slope2-select, .slope2-input {
+  background: rgba(25, 25, 45, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  min-width: 160px;
+  transition: var(--transition-smooth);
+}
+
+.slope2-select:focus, .slope2-input:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+/* Action Buttons */
+.slope2-btn {
+  padding: 9px 18px;
+  background: rgba(0, 255, 120, 0.12);
+  border: 1px solid var(--border-neon);
+  border-radius: 10px;
+  color: var(--neon-green);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.slope2-btn:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 14px rgba(0, 255, 100, 0.5);
+}
+
+.slope2-btn-danger {
+  background: rgba(255, 0, 85, 0.12);
+  border-color: rgba(255, 0, 85, 0.35);
+  color: var(--neon-red);
+}
+
+.slope2-btn-danger:hover {
+  background: var(--neon-red);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(255, 0, 85, 0.5);
+}
+
+/* File Upload Button */
+.slope2-file-label {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 8px;
+  color: var(--neon-cyan);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.slope2-file-label:hover {
+  background: var(--neon-cyan);
+  color: #000;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.5);
+}
+
+/* Notification Toast */
+#slope2-notification {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: rgba(10, 10, 25, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--neon-green);
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.4);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#slope2-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Custom Music Player */
+.slope2-music-card {
+  background: rgba(12, 16, 32, 0.75);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.slope2-music-track-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.slope2-music-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 255, 120, 0.12);
+  border: 1px solid var(--neon-green);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--neon-green);
+  box-shadow: 0 0 12px rgba(0, 255, 100, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.slope2-music-icon.playing {
+  animation: pulseNeon 1.2s infinite alternate;
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+@keyframes pulseNeon {
+  from { box-shadow: 0 0 8px rgba(0, 255, 100, 0.3); transform: scale(1); }
+  to { box-shadow: 0 0 22px rgba(0, 240, 255, 0.7); transform: scale(1.06); }
+}
+
+.slope2-music-details {
+  flex: 1;
+  overflow: hidden;
+}
+
+.slope2-music-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.5px;
+}
+
+.slope2-music-status {
+  font-size: 12px;
+  color: var(--neon-cyan);
+  margin-top: 2px;
+}
+
+.slope2-music-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.slope2-music-ctrl-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: var(--text-main);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slope2-music-ctrl-btn:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+.slope2-music-ctrl-btn.active {
+  background: rgba(0, 255, 120, 0.22);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 12px rgba(0, 255, 100, 0.4);
+}
+
+.slope2-music-ctrl-btn.play-btn {
+  padding: 8px 24px;
+  background: rgba(0, 255, 120, 0.15);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.slope2-music-ctrl-btn.play-btn:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 18px rgba(0, 255, 100, 0.6);
+}

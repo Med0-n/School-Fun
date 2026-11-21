@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#050510"/>
+      <stop offset="50%" stop-color="#0d0221"/>
+      <stop offset="100%" stop-color="#15002a"/>
+    </linearGradient>
+    <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00ffcc" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#00ff88" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00ff55" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <g stroke="url(#gridFade)" stroke-width="1.5">
+    <line x1="960" y1="450" x2="-200" y2="1080"/>
+    <line x1="960" y1="450" x2="100" y2="1080"/>
+    <line x1="960" y1="450" x2="400" y2="1080"/>
+    <line x1="960" y1="450" x2="700" y2="1080"/>
+    <line x1="960" y1="450" x2="960" y2="1080"/>
+    <line x1="960" y1="450" x2="1220" y2="1080"/>
+    <line x1="960" y1="450" x2="1520" y2="1080"/>
+    <line x1="960" y1="450" x2="1820" y2="1080"/>
+    <line x1="960" y1="450" x2="2120" y2="1080"/>
+    <line x1="0" y1="520" x2="1920" y2="520" stroke-opacity="0.2"/>
+    <line x1="0" y1="580" x2="1920" y2="580" stroke-opacity="0.35"/>
+    <line x1="0" y1="660" x2="1920" y2="660" stroke-opacity="0.5"/>
+    <line x1="0" y1="760" x2="1920" y2="760" stroke-opacity="0.65"/>
+    <line x1="0" y1="890" x2="1920" y2="890" stroke-opacity="0.8"/>
+    <line x1="0" y1="1040" x2="1920" y2="1040" stroke-opacity="0.95"/>
+  </g>
+</svg>
