@@ -20,6 +20,7 @@
 ## 📑 Sommaire
 
 - [✨ Fonctionnalités Principales](#-fonctionnalités-principales)
+- [⚡ Pack Dopamine Rush (25 Jeux)](#-pack-dopamine-rush-25-jeux-réflexes--addiction)
 - [⛷️ Slope 2](#️-slope-2)
 - [⚔️ Jeux Multijoueur](#️-jeux-multijoueur-local--en-ligne)
 - [🕹️ Jeux Solo Rétro & Utilitaires](#️-jeux-solo-rétro--utilitaires)
@@ -46,6 +47,37 @@
 - **🔗 Bibliothèque de Liens** : Charge tes sites favoris depuis `lien.json` et les ouvre dans un nouvel onglet avec leurs favicons.
 - **🛡️ Touche Panique (<kbd>Échap</kbd>)** : Bascule instantanément sur un faux Google Docs éditable, change le favicon de l'onglet et coupe immédiatement tous les sons en cours.
 - **🌐 100% Client-Side** : Zéro serveur requis, fonctionne directement sur GitHub Pages et compatible avec le Wi-Fi des écoles (`EDU_VD`).
+
+---
+
+## ⚡ Pack Dopamine Rush (25 Jeux Réflexes & Addiction)
+
+Une collection complète de 25 mini-jeux ultra-addictifs conçus pour un pic de dopamine immédiat (synthèse audio Web Audio, combos, secousses d'écran, particules et réactivité instantanée) :
+1. **🏎️ Neon Highway 3D** : Slalom à contre-sens, nitro boost (<kbd>Espace</kbd>) et frôlements de bolides.
+2. **⚡ Neon Gravity Ball** : Chute libre infinie à travers les failles avec pics mortels au plafond.
+3. **🔷 Hyper Hexagon** : Esquive géométrique hypnotique au rythme d'un vortex néon frénétique.
+4. **🗡️ Cyber Knife Hit** : Lancers de dagues laser sur cible rotative et duels de boss.
+5. **🎨 Color Switch Neon** : Synchronisation de couleurs à travers anneaux et barrières rotatives.
+6. **🌀 Helix Jump Neon** : Descente sur spirale cylindrique et traînées de feu smashing.
+7. **💥 Ball Blast Cannon** : Canon laser à cadence destructrice contre météores géants numérotés.
+8. **🧱 Stack Tower 3D** : Empilement de blocs isométriques avec accords parfaits et découpes laser.
+9. **🪓 Cyber Timber Chopper** : Bûcheron cyber APM max à gauche/droite contre la jauge d'énergie.
+10. **🏀 Flappy Dunk Hoops** : Ballon de basket ailé, traversée d'arceaux et combos swish.
+11. **⭕ Breakout 360 Ring** : Casse-briques circulaire à 360° défendant le noyau concentrique.
+12. **🚀 Asteroids Neon Blaster** : Pilotage vectoriel à inertie spatiale et tirs blaster.
+13. **⚡ Tap Tap Zigzag** : Virages à 90° à la milliseconde près sur une crête étroite dans le vide.
+14. **✨ Bullet Hell Grazing** : Danmaku intense où frôler les tirs charge une impulsion EMP.
+15. **🐸 Cyber Crossy Road** : Traversée d'autoroutes de hovercars et trains à sustentation magnétique.
+16. **🐍 Chroma Wave Snake** : Onde sinusoïdale fluide dans un canyon néon hyper-resserré.
+17. **🎰 Neon Pinball Bouncer** : Flipper rétro-futuriste avec bumpers multiplicateurs de score.
+18. **⚔️ Cyber Blade Slicer** : Tranchage katana laser d'orbes aériennes et esquive de bombes.
+19. **👾 Pac-Man Neon Cyber** : Labyrinthe vectoriel, fantômes traqueurs et pastilles d'énergie.
+20. **🛸 Space Invaders Cyber** : Vagues extraterrestres descendantes, boucliers et ovni mère.
+21. **🛡️ Laser Deflector 4-Way** : Déflecteur 4 directions protégeant le réacteur contre les tirs laser.
+22. **🚀 Lunar Lander Zero-G** : Physique d'alunissage sans gravité avec gestion du carburant.
+23. **🪐 Orbit Jump Planet** : Course circulaire autour d'une planète et sauts d'obstacles orbitaux.
+24. **🎵 Cyber Simon Matrix** : Mémorisation de séquences sonores et lumineuses à tempo accéléré.
+25. **🪙 Cyber Coin Pusher** : Machine de fête foraine 3D à poussoir mécanique et cascades de pièces.
 
 ---
 
