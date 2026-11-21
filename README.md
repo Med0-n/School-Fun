@@ -40,7 +40,7 @@
 - **🚙 Drive Mad 2D** : Franchis les ponts suspendus, tremplins et loopings en monster truck sans te retourner. Physique de suspensions ultra-addictive.
 - **🌀 Tunnel Rush 3D** : Course ultra-rapide à 60 FPS dans un tube 3D polygonal hypnotique. Tourne autour des parois pour esquiver les portes et obstacles.
 - **🎮 14+ Jeux & Outils Cyber intégrés** : Solo, 2 joueurs sur un même clavier, et multijoueur en ligne P2P.
-- **⛷️ Slope 2 (1games.io)** : Intégration optimisée plein écran avec iframe wrapper officiel.
+- **⛷️ Slope 2 Custom** : Intégration optimisée plein écran avec suite de modding modulaire (arrière-plans personnalisés, polices, couleurs néon, post-process, lecteur audio).
 - **🖼️ Banque de Memes** : Auto-détection des images (`.jpeg`, `.png`, `.gif`, `.webp`) triées par dossiers (`11VP`, `HP`, `Ultérieur`...).
 - **🔊 Soundboard Scolaire** : Pads interactifs néon, égaliseur visuel animé, mode Loop, volume général et coupure d'urgence (`.wav`, `.mp3`, `.ogg`...).
 - **🔗 Bibliothèque de Liens** : Charge tes sites favoris depuis `lien.json` et les ouvre dans un nouvel onglet avec leurs favicons.
@@ -49,11 +49,12 @@
 
 ---
 
-## ⛷️ Slope 2
+## ⛷️ Slope 2 Custom
 
-- Version officielle intégrée via le wrapper sécurisé de **1games.io** (`https://1games.io/embed/slope-2`).
+- Version locale moddée intégrée directement (`slope2/index.html`).
+- Suite de mods complète accessible en jeu avec la touche <kbd>P</kbd> ou l'icône réglages en haut à droite.
 - Mode plein écran immersif avec déblocage direct des touches <kbd>A</kbd>/<kbd>D</kbd> et <kbd>←</kbd>/<kbd>→</kbd>.
-- Bouton de secours pour ouverture dans un nouvel onglet si le réseau scolaire filtre les iframes.
+- Bouton de secours pour ouverture dans un nouvel onglet si souhaité.
 
 ---
 
@@ -140,7 +141,7 @@ Configure tes sites préférés directement dans le fichier `lien.json` à la ra
   "2": "wikipedia.org",
   "3": "youtube.com",
   "4": "github.com",
-  "5": "https://1games.io/game/slope-2/",
+  "5": "slope2/index.html",
   "Pronote": "pronote.ch"
 }
 ```

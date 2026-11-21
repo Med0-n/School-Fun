@@ -3032,7 +3032,7 @@
         <button class="nav-btn" data-section="cloak"><span class="nav-icon">🕵️</span> Camouflage &amp; Mode Cours</button>
 
         <div class="nav-group-label">🕹️ Solo Arcade &amp; Réflexes (16)</div>
-        <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2 (1games.io)</button>
+        <button class="nav-btn" data-section="slope"><span class="nav-icon">⛷️</span> Slope 2 Custom</button>
         <button class="nav-btn" data-section="wave"><span class="nav-icon">⚡</span> Neon Wave (Geometry)</button>
         <button class="nav-btn" data-section="tunnel"><span class="nav-icon">🌀</span> Tunnel Rush 3D</button>
         <button class="nav-btn" data-section="tetris"><span class="nav-icon">🧱</span> Tetris Néon</button>
@@ -3308,7 +3308,7 @@
             <!-- 1. SOLO ARCADE (16) -->
             <button class="game-launch-card" data-goto="slope" data-cat="arcade">
               <div class="card-ico">⛷️</div>
-              <h4>Slope 2 (1games.io)</h4>
+              <h4>Slope 2 Custom</h4>
               <p>Descente 3D effrénée sur pistes polygonales avec réactivité 120Hz</p>
               <div class="game-launch-meta"><span class="text-cyan">3D Arcade</span><span>Jouer →</span></div>
             </button>
@@ -3671,37 +3671,31 @@
         </section>
 
         <!-- ===============================================================
-             SECTION 2 : SLOPE 2
+             SECTION 2 : SLOPE 2 CUSTOM
              =============================================================== -->
         <section id="sec-slope" class="section">
           <div class="card">
             <div class="slope-controls">
-              <div class="card-title">⛷️ Slope 2</div>
+              <div class="card-title">⛷️ Slope 2 Custom</div>
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button id="slope-reload-btn" class="btn btn-primary btn-sm">▶ Lancer / Recharger</button>
+                <button id="slope-reload-btn" class="btn btn-primary btn-sm">🔄 Recharger</button>
                 <button id="slope-fs-btn" class="btn btn-secondary btn-sm">⛶ Plein écran</button>
                 <a href="slope2/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">↗ Nouvel onglet</a>
               </div>
             </div>
 
-            <!-- Conteneur 16:9 intégrant l'attribut data-iframe demandé -->
-            <div id="slope-frame-wrap" class="slope-frame-wrap" data-iframe="slope2/index.html">
+            <!-- Conteneur sans popup ni overlay : jeu directement actif -->
+            <div id="slope-frame-wrap" class="slope-frame-wrap">
               <iframe
                 id="slope-iframe"
-                data-iframe="slope2/index.html"
-                title="Slope 2"
+                src="slope2/index.html"
+                title="Slope 2 Custom"
                 allow="fullscreen; autoplay; gamepad; keyboard-map *"
                 allowfullscreen
               ></iframe>
-              <div id="slope-placeholder" class="slope-placeholder">
-                <div style="font-size:48px;">⛷️</div>
-                <h3>Slope 2 prêt à démarrer</h3>
-                <p class="text-muted" style="max-width:440px; font-size:13px;">Clique sur le bouton ci-dessous pour charger le jeu. Si le réseau bloque l'iframe, utilise le bouton « Nouvel onglet ».</p>
-                <button id="slope-start-overlay-btn" class="btn btn-primary">▶ Lancer Slope 2</button>
-              </div>
             </div>
             <p class="text-muted" style="font-size:12px; margin-top:10px;">
-              Astuce : clique dans la zone du jeu pour activer les touches <span class="kbd">←</span> <span class="kbd">→</span> ou <span class="kbd">A</span> <span class="kbd">D</span>. Appuie sur <span class="kbd">Échap</span> pour cacher immédiatement l'écran.
+              Contrôles : touches <span class="kbd">←</span> <span class="kbd">→</span> ou <span class="kbd">A</span> <span class="kbd">D</span>. Appuie sur <span class="kbd">P</span> pour le menu Mods &amp; Réglages néon. Appuie sur <span class="kbd">Échap</span> pour la touche panique.
             </p>
           </div>
         </section>
@@ -5621,7 +5615,7 @@
               <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
                 <span style="font-size:12px; color:var(--text-muted);">Raccourcis :</span>
                 <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="https://med0-n.github.io/School-Fun/">🌐 Ce Site Web</button>
-                <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="https://1games.io/game/slope-2">⛷️ Slope 2 Direct</button>
+                <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="https://med0-n.github.io/School-Fun/slope2/index.html">⛷️ Slope 2 Custom</button>
                 <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="WIFI:S:EDU_VD;T:WPA;P:;; ">📶 Wi-Fi EDU_VD</button>
                 <button class="btn btn-sm btn-secondary qr-preset-btn" data-text="Aide Révision : Chapitre 3 formules clés E=mc2 / Pythagore / Formules chimiques">📝 Antisèche Discrète</button>
               </div>
@@ -6249,7 +6243,7 @@
          ----------------------------------------------------------------------- */
       const SECTION_TITLES = {
         home: '🏠 Accueil',
-        slope: '⛷️ Slope 2 (1games.io)',
+        slope: '⛷️ Slope 2 Custom',
         memes: '🖼️ Banque de Memes',
         soundboard: '🔊 Soundboard Scolaire',
         rooftop: '🎯 Rooftop Snipers 1v1',
@@ -6384,7 +6378,11 @@
         try {
           if (sectionKey === 'home') updateDashboardStats();
         if (typeof MemeGallery !== 'undefined') MemeGallery.init();
-          if (sectionKey === 'slope' && !AppState.slopeLoaded) loadSlopeIframe();
+          if (sectionKey === 'slope') {
+            const f = document.getElementById('slope-iframe');
+            if (f && (!f.src || f.src.endsWith('about:blank'))) f.src = 'slope2/index.html';
+            AppState.slopeLoaded = true;
+          }
           if (sectionKey === 'memes' && !MemeGallery.initialized) MemeGallery.scan();
           if (sectionKey === 'soundboard' && typeof Soundboard !== 'undefined' && !Soundboard.initialized) Soundboard.scan();
           if (sectionKey === 'rooftop' && typeof RooftopSnipers !== 'undefined') RooftopSnipers.start();
@@ -6449,59 +6447,71 @@
       });
 
       function updateDashboardStats() {
-        const bestCps = Math.max(
-          Store.clicker.speedBest[5] || 0,
-          Store.clicker.speedBest[10] || 0,
-          Store.clicker.speedBest[30] || 0
-        );
-        document.getElementById('dash-rec-cps').textContent = `${bestCps.toFixed(1)} CPS`;
-        document.getElementById('dash-rec-snake2048').textContent = `${Store.records.snake} / ${Store.records.g2048}`;
-        document.getElementById('dash-rec-runflap').textContent = `${Store.records.runner} / ${Store.records.flappy}`;
-        document.getElementById('dash-clicker-pts').textContent = `${Math.floor(Store.clicker.points).toLocaleString('fr-FR')} pts`;
-        document.getElementById('dash-snake-best').textContent = `Record : ${Store.records.snake}`;
-        document.getElementById('dash-2048-best').textContent = `Record : ${Store.records.g2048}`;
-        document.getElementById('dash-runner-best').textContent = `Record : ${Store.records.runner}`;
-        document.getElementById('dash-flappy-best').textContent = `Record : ${Store.records.flappy}`;
-        document.getElementById('dash-reflex-best').textContent = `Aim : ${Store.records.aim}`;
+        try {
+          const bestCps = Math.max(
+            (Store.clicker && Store.clicker.speedBest && Store.clicker.speedBest[5]) || 0,
+            (Store.clicker && Store.clicker.speedBest && Store.clicker.speedBest[10]) || 0,
+            (Store.clicker && Store.clicker.speedBest && Store.clicker.speedBest[30]) || 0
+          );
+          const setText = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+          };
+          setText('dash-rec-cps', `${bestCps.toFixed(1)} CPS`);
+          if (Store.records) {
+            setText('dash-rec-snake2048', `${Store.records.snake || 0} / ${Store.records.g2048 || 0}`);
+            setText('dash-rec-runflap', `${Store.records.runner || 0} / ${Store.records.flappy || 0}`);
+            setText('dash-snake-best', `Record : ${Store.records.snake || 0}`);
+            setText('dash-2048-best', `Record : ${Store.records.g2048 || 0}`);
+            setText('dash-runner-best', `Record : ${Store.records.runner || 0}`);
+            setText('dash-flappy-best', `Record : ${Store.records.flappy || 0}`);
+            setText('dash-reflex-best', `Aim : ${Store.records.aim || 0}`);
+          }
+          if (Store.clicker) {
+            setText('dash-clicker-pts', `${Math.floor(Store.clicker.points || 0).toLocaleString('fr-FR')} pts`);
+          }
+        } catch (e) {
+          console.warn('[Dashboard] updateDashboardStats:', e);
+        }
       }
 
       /* -----------------------------------------------------------------------
-         4. SLOPE 2 (Intégration avec data-iframe & Plein écran)
+         4. SLOPE 2 CUSTOM (Intégration directe & Plein écran)
          ----------------------------------------------------------------------- */
-      function loadSlopeIframe() {
+      function reloadSlopeIframe() {
         const iframe = document.getElementById('slope-iframe');
-        const placeholder = document.getElementById('slope-placeholder');
-        const url = iframe.getAttribute('data-iframe');
-        if (!url) return;
-        iframe.src = url;
-        placeholder.classList.add('hidden');
-        AppState.slopeLoaded = true;
+        if (!iframe) return;
+        iframe.src = 'about:blank';
+        setTimeout(() => {
+          iframe.src = 'slope2/index.html';
+        }, 80);
+        showToast('Rechargement de Slope 2 Custom...', '⛷️');
       }
 
-      document.getElementById('slope-start-overlay-btn').addEventListener('click', loadSlopeIframe);
-      document.getElementById('slope-reload-btn').addEventListener('click', () => {
-        const iframe = document.getElementById('slope-iframe');
-        iframe.src = 'about:blank';
-        setTimeout(loadSlopeIframe, 60);
-        showToast('Rechargement de Slope 2...', '⛷️');
-      });
+      const slopeReloadBtn = document.getElementById('slope-reload-btn');
+      if (slopeReloadBtn) {
+        slopeReloadBtn.addEventListener('click', reloadSlopeIframe);
+      }
 
-      document.getElementById('slope-fs-btn').addEventListener('click', () => {
-        const wrap = document.getElementById('slope-frame-wrap');
-        try {
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          } else if (wrap.requestFullscreen) {
-            wrap.requestFullscreen();
-          } else if (wrap.webkitRequestFullscreen) {
-            wrap.webkitRequestFullscreen();
-          } else {
-            showToast('Plein écran non supporté par ce navigateur', '⚠️');
+      const slopeFsBtn = document.getElementById('slope-fs-btn');
+      if (slopeFsBtn) {
+        slopeFsBtn.addEventListener('click', () => {
+          const wrap = document.getElementById('slope-frame-wrap');
+          try {
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else if (wrap && wrap.requestFullscreen) {
+              wrap.requestFullscreen();
+            } else if (wrap && wrap.webkitRequestFullscreen) {
+              wrap.webkitRequestFullscreen();
+            } else {
+              showToast('Plein écran non supporté par ce navigateur', '⚠️');
+            }
+          } catch (err) {
+            showToast('Impossible de passer en plein écran', '⚠️');
           }
-        } catch (err) {
-          showToast('Impossible de passer en plein écran', '⚠️');
-        }
-      });
+        });
+      }
 
       /* -----------------------------------------------------------------------
          5. BANQUE DE MEMES COMPATIBLE GITHUB PAGES (./meme/1.jpeg, 2.gif...)
@@ -10015,7 +10025,7 @@
         }
 
         const DEFAULT_LINKS = {
-  "Slope 2 (1games.io officiel)": "https://1games.io/game/slope-2/",
+  "Slope 2 Custom": "slope2/index.html",
   "1v1.LOL (Battle Royale & Construction)": "https://1v1.lol",
   "Smash Karts (Combat de Kart 3D en ligne)": "https://smashkarts.io",
   "Paper.io 2 (Conquête de territoire multijoueur)": "https://paper-io.com",
