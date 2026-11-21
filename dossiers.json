@@ -3,7 +3,8 @@
   "meme": [
     "11VP",
     "HP",
-    "Ultérieur"
+    "Ultérieur",
+    "Ulterieur"
   ],
   "sound": [
     "",
@@ -15,6 +16,18 @@
       "name": "Tim Bendzko - Programmiert",
       "folder": "Musique",
       "src": "./sound/Tim Bendzko - Programmiert (Offizielles Video).mp3"
+    }
+  ],
+  "customMemes": [
+    {
+      "name": "Bouselouf",
+      "folder": "HP",
+      "src": "./meme/HP/16.png"
+    },
+    {
+      "name": "Halouf",
+      "folder": "HP",
+      "src": "./meme/HP/17.png"
     }
   ]
 }

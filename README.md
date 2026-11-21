@@ -129,7 +129,7 @@ Une collection complète de 28 mini-jeux ultra-addictifs conçus pour un pic de 
 ## 🖼️ Banque de Memes & Sous-dossiers
 
 La galerie scanne automatiquement les dossiers déclarés dans `dossiers.json` :
-- **Sous-dossiers par défaut** : `11VP`, `HP`, `Ultérieur` (26 memes originaux triés).
+- **Sous-dossiers par défaut** : `11VP`, `HP`, `Ultérieur` (28 memes triés dont Bouselouf et Halouf).
 - **Fonctionnalités** :
   - Filtre par sous-dossier (`📁 Tous`, `📁 11VP`, `📁 HP`...) avec compteur d'images.
   - Filtre par type (`Tous`, `GIFs`, `Images`).

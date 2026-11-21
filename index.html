@@ -7363,7 +7363,6 @@
         // Actions spécifiques à l'entrée d'une section
         try {
           if (sectionKey === 'home') updateDashboardStats();
-        if (typeof MemeGallery !== 'undefined') MemeGallery.init();
           if (sectionKey === 'slope') {
             const iframe = document.getElementById('slope-iframe');
             if (iframe && (!iframe.src || iframe.src.includes('about:blank'))) {
@@ -7371,7 +7370,12 @@
             }
             AppState.slopeLoaded = true;
           }
-          if (sectionKey === 'memes' && !MemeGallery.initialized) MemeGallery.scan();
+          if (sectionKey === 'memes') {
+            if (typeof MemeGallery !== 'undefined') {
+              MemeGallery.init();
+              if (!MemeGallery.scanned) MemeGallery.scan();
+            }
+          }
           if (sectionKey === 'soundboard' && typeof Soundboard !== 'undefined' && !Soundboard.initialized) Soundboard.scan();
           if (sectionKey === 'rooftop' && typeof RooftopSnipers !== 'undefined') RooftopSnipers.start();
           if (sectionKey !== 'rooftop' && typeof RooftopSnipers !== 'undefined') RooftopSnipers.pause();
@@ -7519,7 +7523,7 @@
           { id: 'm-11vp-9', name: 'Scheurer Critérium Soudage', folder: '11VP', type: 'gif', src: './meme/11VP/9.gif' },
           { id: 'm-11vp-10', name: 'Scheurer IA', folder: '11VP', type: 'img', src: './meme/11VP/10.jpeg' },
 
-          // HP (15 memes)
+          // HP (17 memes)
           { id: 'm-hp-1', name: 'Alexandre IA Police', folder: 'HP', type: 'img', src: './meme/HP/1.jpeg' },
           { id: 'm-hp-2', name: 'Bovard Ebola', folder: 'HP', type: 'img', src: './meme/HP/2.jpeg' },
           { id: 'm-hp-3', name: 'Ebola Granola', folder: 'HP', type: 'img', src: './meme/HP/3.jpeg' },
@@ -7535,17 +7539,21 @@
           { id: 'm-hp-13', name: 'Slope 2 Accès Perdu', folder: 'HP', type: 'gif', src: './meme/HP/13.gif' },
           { id: 'm-hp-14', name: 'Terminal Duo', folder: 'HP', type: 'img', src: './meme/HP/14.jpeg' },
           { id: 'm-hp-15', name: 'Wingdings IA Porte', folder: 'HP', type: 'img', src: './meme/HP/15.jpeg' },
+          { id: 'm-hp-16', name: 'Bouselouf', folder: 'HP', type: 'img', src: './meme/HP/16.png' },
+          { id: 'm-hp-17', name: 'Halouf', folder: 'HP', type: 'img', src: './meme/HP/17.png' },
 
           // Ultérieur (1 meme)
-          { id: 'm-ult-1', name: 'Baston + Incendie', folder: 'Ultérieur', type: 'img', src: './meme/Ultérieur/1.jpeg' }
+          { id: 'm-ult-1', name: 'Baston + Incendie', folder: 'Ultérieur', type: 'img', src: './meme/Ulterieur/1.jpeg' }
         ];
 
         let items = [...KNOWN_MEMES];
+        let customMemesList = [];
         let filter = 'all';
         let activeFolder = 'all';
         let searchQuery = '';
         let lbIndex = 0;
-        let initialized = false;
+        let uiInited = false;
+        let scanned = false;
         let scanning = false;
         let knownFolders = ['', '11VP', 'HP', 'Ultérieur', 'Ulterieur'];
 
@@ -7577,8 +7585,26 @@
                   if (!knownFolders.includes(f)) knownFolders.push(f);
                 });
               }
+              if (Array.isArray(data.customMemes)) {
+                customMemesList = data.customMemes;
+              }
             }
           } catch (e) {}
+
+          try {
+            const mRes = await fetch('memes.json', { cache: 'no-cache' });
+            if (mRes.ok) {
+              const mData = await mRes.json();
+              if (Array.isArray(mData)) {
+                mData.forEach(cm => {
+                  if (!customMemesList.some(x => x.src === cm.src)) {
+                    customMemesList.push(cm);
+                  }
+                });
+              }
+            }
+          } catch (e) {}
+
           if (Store.customMemeFolders && Array.isArray(Store.customMemeFolders)) {
             Store.customMemeFolders.forEach(f => {
               if (!knownFolders.includes(f)) knownFolders.push(f);
@@ -7607,11 +7633,11 @@
           });
         }
 
-        // Scan dynamique pour découvrir d'éventuels nouveaux fichiers
+        // Scan dynamique pour découvrir d\'éventuels nouveaux fichiers
         async function scan() {
           if (scanning) return;
           scanning = true;
-          initialized = true;
+          scanned = true;
 
           const badge = document.getElementById('meme-status-badge');
           const banner = document.getElementById('meme-fallback-banner');
@@ -7626,8 +7652,65 @@
 
           const found = [...KNOWN_MEMES];
           const existingSrcs = new Set(found.map(m => m.src));
-          const MAX_MISSES = 4;
-          const MAX_INDEX = 40;
+
+          // 1. Charger customMemes (dossiers.json et memes.json)
+          if (customMemesList && Array.isArray(customMemesList)) {
+            customMemesList.forEach((cm, idx) => {
+              if (cm.src && !existingSrcs.has(cm.src)) {
+                existingSrcs.add(cm.src);
+                found.push({
+                  id: cm.id || `custom-meme-${idx}`,
+                  name: cm.name || `Meme #${idx + 1}`,
+                  folder: cm.folder || 'Racine',
+                  type: (cm.src.toLowerCase().endsWith('.gif') || cm.type === 'gif') ? 'gif' : 'img',
+                  src: cm.src
+                });
+              }
+            });
+          }
+
+          // 2. Détection dynamique via GitHub API
+          try {
+            for (const folder of knownFolders) {
+              const folderPath = folder ? `meme/${folder}` : 'meme';
+              const folderLabel = folder || 'Racine';
+              const res = await fetch(`https://api.github.com/repos/Med0-n/School-Fun/contents/${folderPath}`, {
+                headers: { 'Accept': 'application/vnd.github.v3+json' },
+                cache: 'no-cache'
+              });
+              if (res.ok) {
+                const files = await res.json();
+                if (Array.isArray(files)) {
+                  files.forEach(f => {
+                    if (f.type === 'file') {
+                      const ext = f.name.split('.').pop().toLowerCase();
+                      if (EXTENSIONS.includes(ext)) {
+                        const localSrc = `./${f.path}`;
+                        if (!existingSrcs.has(localSrc) && !existingSrcs.has(f.path)) {
+                          existingSrcs.add(localSrc);
+                          const rawName = f.name.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
+                          const cleanName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+                          found.push({
+                            id: `gh-api-${folderLabel.toLowerCase().replace(/[^a-z0-9]/g, '_')}-${f.name}`,
+                            name: cleanName,
+                            folder: folderLabel,
+                            type: ext === 'gif' ? 'gif' : 'img',
+                            src: localSrc
+                          });
+                        }
+                      }
+                    }
+                  });
+                }
+              }
+            }
+          } catch (err) {
+            console.warn('[MemeGallery] API GitHub indisponible pour découverte automatique :', err);
+          }
+
+          // 3. Probe numérique direct
+          const MAX_MISSES = 6;
+          const MAX_INDEX = 60;
 
           try {
             for (const folder of knownFolders) {
@@ -7636,11 +7719,23 @@
               let consecutiveMisses = 0;
 
               for (let i = 1; i <= MAX_INDEX && consecutiveMisses < MAX_MISSES; i++) {
+                let alreadyKnown = false;
+                for (const ext of EXTENSIONS) {
+                  const p = `./meme/${folderPrefix}${i}.${ext}`;
+                  if (existingSrcs.has(p)) {
+                    alreadyKnown = true;
+                    break;
+                  }
+                }
+                if (alreadyKnown) {
+                  consecutiveMisses = 0;
+                  continue;
+                }
+
                 const probes = EXTENSIONS.map(ext => {
                   const path = `./meme/${folderPrefix}${i}.${ext}`;
-                  if (existingSrcs.has(path)) return Promise.resolve(null);
                   return probeImage(path).then(ok => ok ? {
-                    id: `gh-${folderLabel.toLowerCase().replace(/[^a-z0-9]/g, '_')}-${i}.${ext}`,
+                    id: `gh-probe-${folderLabel.toLowerCase().replace(/[^a-z0-9]/g, '_')}-${i}.${ext}`,
                     name: `${folder ? folder + ' #' : 'Meme #'}${i}`,
                     folder: folderLabel,
                     type: ext === 'gif' ? 'gif' : 'img',
@@ -7804,103 +7899,105 @@
         }
 
         function init() {
-          initialized = true;
+          if (!uiInited) {
+            uiInited = true;
 
-          // Filtres type (Tous, GIFs, Images)
-          document.querySelectorAll('#meme-filters .pill-tab').forEach(btn => {
-            btn.onclick = () => {
-              document.querySelectorAll('#meme-filters .pill-tab').forEach(b => b.classList.remove('active'));
-              btn.classList.add('active');
-              filter = btn.dataset.filter;
-              render();
-            };
-          });
+            // Filtres type (Tous, GIFs, Images)
+            document.querySelectorAll('#meme-filters .pill-tab').forEach(btn => {
+              btn.onclick = () => {
+                document.querySelectorAll('#meme-filters .pill-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filter = btn.dataset.filter;
+                render();
+              };
+            });
 
-          // Recherche rapide en direct
-          const searchIn = document.getElementById('meme-search-input');
-          if (searchIn) {
-            searchIn.oninput = (e) => {
-              searchQuery = e.target.value.trim();
-              render();
-            };
-          }
+            // Recherche rapide en direct
+            const searchIn = document.getElementById('meme-search-input');
+            if (searchIn) {
+              searchIn.oninput = (e) => {
+                searchQuery = e.target.value.trim();
+                render();
+              };
+            }
 
-          // Bouton actualiser
-          const refBtn = document.getElementById('meme-refresh-btn');
-          if (refBtn) {
-            refBtn.onclick = () => {
-              scan();
-              showToast('Actualisation du dossier ./meme/...', '🔄');
-            };
-          }
-
-          // Bouton meme aléatoire
-          const randBtn = document.getElementById('meme-random-btn');
-          if (randBtn) {
-            randBtn.onclick = () => {
-              const list = getFiltered();
-              if (!list.length) return;
-              const rand = Math.floor(Math.random() * list.length);
-              openLightbox(rand);
-            };
-          }
-
-          // Import local
-          const localIn = document.getElementById('meme-local-input');
-          if (localIn) {
-            localIn.onchange = (e) => {
-              importLocalFiles(e.target.files);
-              e.target.value = '';
-            };
-          }
-
-          // Accordéon gestion sous-dossiers
-          const manageBtn = document.getElementById('meme-manage-folders-btn');
-          const folderForm = document.getElementById('meme-folder-form');
-          const closeFormBtn = document.getElementById('close-meme-folder-form-btn');
-          const addFolderBtn = document.getElementById('add-meme-folder-btn');
-          const folderInput = document.getElementById('new-meme-folder-input');
-
-          if (manageBtn && folderForm) {
-            manageBtn.onclick = () => folderForm.classList.toggle('hidden');
-          }
-          if (closeFormBtn && folderForm) {
-            closeFormBtn.onclick = () => folderForm.classList.add('hidden');
-          }
-          if (addFolderBtn && folderInput) {
-            addFolderBtn.onclick = () => {
-              const fName = folderInput.value.trim();
-              if (fName && !knownFolders.includes(fName)) {
-                knownFolders.push(fName);
-                if (!Store.customMemeFolders) Store.customMemeFolders = [];
-                Store.customMemeFolders.push(fName);
-                saveData();
-                folderInput.value = '';
-                if (folderForm) folderForm.classList.add('hidden');
+            // Bouton actualiser
+            const refBtn = document.getElementById('meme-refresh-btn');
+            if (refBtn) {
+              refBtn.onclick = () => {
                 scan();
-                showToast(`Dossier « ${fName} » ajouté !`, '📁');
-              }
-            };
-          }
+                showToast('Actualisation du dossier ./meme/...', '🔄');
+              };
+            }
 
-          // Lightbox boutons
-          const prevBtn = document.getElementById('lb-prev');
-          const nextBtn = document.getElementById('lb-next');
-          const closeBtn = document.getElementById('lb-close-btn');
-          const likeBtn = document.getElementById('lb-like-btn');
-          const lbBox = document.getElementById('meme-lightbox');
+            // Bouton meme aléatoire
+            const randBtn = document.getElementById('meme-random-btn');
+            if (randBtn) {
+              randBtn.onclick = () => {
+                const list = getFiltered();
+                if (!list.length) return;
+                const rand = Math.floor(Math.random() * list.length);
+                openLightbox(rand);
+              };
+            }
 
-          if (prevBtn) prevBtn.onclick = () => stepLightbox(-1);
-          if (nextBtn) nextBtn.onclick = () => stepLightbox(1);
-          if (closeBtn) closeBtn.onclick = closeLightbox;
-          if (likeBtn) likeBtn.onclick = () => {
-            const list = getFiltered();
-            if (list[lbIndex]) toggleLike(list[lbIndex].id);
-          };
-          if (lbBox) {
-            lbBox.onclick = (e) => {
-              if (e.target.id === 'meme-lightbox') closeLightbox();
+            // Import local
+            const localIn = document.getElementById('meme-local-input');
+            if (localIn) {
+              localIn.onchange = (e) => {
+                importLocalFiles(e.target.files);
+                e.target.value = '';
+              };
+            }
+
+            // Accordéon gestion sous-dossiers
+            const manageBtn = document.getElementById('meme-manage-folders-btn');
+            const folderForm = document.getElementById('meme-folder-form');
+            const closeFormBtn = document.getElementById('close-meme-folder-form-btn');
+            const addFolderBtn = document.getElementById('add-meme-folder-btn');
+            const folderInput = document.getElementById('new-meme-folder-input');
+
+            if (manageBtn && folderForm) {
+              manageBtn.onclick = () => folderForm.classList.toggle('hidden');
+            }
+            if (closeFormBtn && folderForm) {
+              closeFormBtn.onclick = () => folderForm.classList.add('hidden');
+            }
+            if (addFolderBtn && folderInput) {
+              addFolderBtn.onclick = () => {
+                const fName = folderInput.value.trim();
+                if (fName && !knownFolders.includes(fName)) {
+                  knownFolders.push(fName);
+                  if (!Store.customMemeFolders) Store.customMemeFolders = [];
+                  Store.customMemeFolders.push(fName);
+                  saveData();
+                  folderInput.value = '';
+                  if (folderForm) folderForm.classList.add('hidden');
+                  scan();
+                  showToast(`Dossier « ${fName} » ajouté !`, '📁');
+                }
+              };
+            }
+
+            // Lightbox boutons
+            const prevBtn = document.getElementById('lb-prev');
+            const nextBtn = document.getElementById('lb-next');
+            const closeBtn = document.getElementById('lb-close-btn');
+            const likeBtn = document.getElementById('lb-like-btn');
+            const lbBox = document.getElementById('meme-lightbox');
+
+            if (prevBtn) prevBtn.onclick = () => stepLightbox(-1);
+            if (nextBtn) nextBtn.onclick = () => stepLightbox(1);
+            if (closeBtn) closeBtn.onclick = closeLightbox;
+            if (likeBtn) likeBtn.onclick = () => {
+              const list = getFiltered();
+              if (list[lbIndex]) toggleLike(list[lbIndex].id);
             };
+            if (lbBox) {
+              lbBox.onclick = (e) => {
+                if (e.target.id === 'meme-lightbox') closeLightbox();
+              };
+            }
           }
 
           const badge = document.getElementById('meme-status-badge');
@@ -7914,7 +8011,8 @@
         }
 
         return {
-          get initialized() { return initialized; },
+          get initialized() { return uiInited; },
+          get scanned() { return scanned; },
           init,
           scan,
           stepLightbox
