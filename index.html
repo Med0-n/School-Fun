@@ -2975,6 +2975,82 @@
       background: rgba(30, 41, 59, 0.85);
       border-color: rgba(0, 240, 255, 0.4);
     }
+      /* Alexandre Wingdings Simulator */
+    .alexandre-doc-paper {
+      position: relative;
+      background: #090d16;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      min-height: 420px;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.08);
+      font-family: 'Courier New', Courier, monospace;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      user-select: text;
+      overflow-y: auto;
+      max-height: 520px;
+      text-align: left;
+    }
+    .alexandre-doc-paper .doc-selected-all {
+      background: rgba(0, 160, 255, 0.35) !important;
+      color: #ffffff !important;
+      outline: 2px dashed #00f0ff;
+      border-radius: 6px;
+      padding: 4px;
+    }
+    .alexandre-doc-paper.wingdings-active, .doc-content.wingdings-active {
+      font-family: 'Wingdings', 'Webdings', 'Segoe UI Symbol', monospace !important;
+      color: #ff0077 !important;
+      font-size: 21px !important;
+      line-height: 1.9 !important;
+      letter-spacing: 2px;
+      text-shadow: 0 0 12px rgba(255, 0, 119, 0.6);
+      animation: wingdingsGlow 1s infinite alternate;
+    }
+    @keyframes wingdingsGlow {
+      from { text-shadow: 0 0 8px rgba(255, 0, 119, 0.4); }
+      to { text-shadow: 0 0 18px rgba(0, 240, 255, 0.8); }
+    }
+    .alexandre-speech-bubble {
+      position: relative;
+      background: rgba(30, 41, 59, 0.95);
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #f8fafc;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+      margin-bottom: 14px;
+      min-height: 60px;
+      text-align: left;
+    }
+    .alexandre-speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 40px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: rgba(0, 240, 255, 0.4) transparent;
+      display: block;
+      width: 0;
+    }
+    .alexandre-shop-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+    }
+    .alexandre-shop-item.can-buy:hover {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(0, 240, 255, 0.4);
+    }
   </style>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -3109,7 +3185,8 @@
         <button class="nav-btn" data-section="reflex"><span class="nav-icon">🎯</span> Réflexe &amp; Aim Trainer</button>
         <button class="nav-btn" data-section="clicker"><span class="nav-icon">⌨️</span> Spacebar Clicker</button>
 
-        <div class="nav-group-label">⚡ Dopamine Rush &amp; Réflexes (27)</div>
+        <div class="nav-group-label">⚡ Dopamine Rush &amp; Réflexes (28)</div>
+        <button class="nav-btn" data-section="alexandre"><span class="nav-icon">😭</span> Alexandre Wingdings Simulator</button>
         <button class="nav-btn" data-section="ebolaclicker"><span class="nav-icon">🦠</span> Ebola Clicker</button>
         <button class="nav-btn" data-section="csbhop"><span class="nav-icon">🔪</span> CS:GO Bhop &amp; Surf 3D</button>
         <button class="nav-btn" data-section="highway"><span class="nav-icon">🏎️</span> Neon Highway 3D</button>
@@ -3205,7 +3282,7 @@
             <span class="timer-dot active" id="topbar-timer-dot"></span>
             <span class="timer-icon">⏱️</span>
             <span class="timer-text" id="topbar-timer-text">00m 00s</span>
-            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/81</span>
+            <span class="topbar-games-badge" id="topbar-games-badge" title="Jeux & Outils découverts">🎮 0/82</span>
           </div>
 
           
@@ -3266,7 +3343,7 @@
           <div class="hero-banner-pro">
             <div class="hero-title-gradient">Hub Furtif &amp; Arcade Cyberpunk</div>
             <p style="font-size:14px; line-height:1.6; color:#94a3b8; max-width:760px; margin:0 0 10px;">
-              Le hub scolaire secret ultime : 81 jeux 2D/3D sans lag, duels 1v1 sur le même clavier, expériences de physique, studio d'art rétro et outils furtifs. 
+              Le hub scolaire secret ultime : 82 jeux 2D/3D sans lag, duels 1v1 sur le même clavier, expériences de physique, studio d'art rétro et outils furtifs. 
               Si un prof s'approche, appuie sur <span class="kbd">Échap</span> pour ouvrir instantanément de vraies notes Google Docs modifiables !
             </p>
 
@@ -3316,7 +3393,7 @@
               <div class="stat-box" style="border-left:3px solid var(--accent-violet);">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <span class="stat-label">🎮 Jeux Découverts</span>
-                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 81</span>
+                  <span class="stat-value text-violet mono" id="dash-games-count" style="font-size:16px;">0 / 82</span>
                 </div>
                 <div style="width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden; margin:8px 0 4px;">
                   <div id="dash-games-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--accent-cyan), var(--accent-violet)); transition:width 0.4s ease;"></div>
@@ -3379,8 +3456,8 @@
           <!-- Barre de Filtres par Catégorie et Recherche Rapide -->
           <div class="dash-controls-bar">
             <div class="dash-filter-tabs" id="dash-filter-tabs">
-              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">78</span>)</button>
-              <button class="dash-filter-btn" data-filter="dopamine">⚡ Dopamine Rush (<span id="count-dopamine">27</span>)</button>
+              <button class="dash-filter-btn active" data-filter="all">🌟 Tous (<span id="count-all">79</span>)</button>
+              <button class="dash-filter-btn" data-filter="dopamine">⚡ Dopamine Rush (<span id="count-dopamine">28</span>)</button>
               <button class="dash-filter-btn" data-filter="arcade">🕹️ Solo Arcade (<span id="count-arcade">16</span>)</button>
               <button class="dash-filter-btn" data-filter="duel">⚔️ Duels 1v1 (<span id="count-duel">9</span>)</button>
               <button class="dash-filter-btn" data-filter="puzzle">🧠 Puzzles (<span id="count-puzzle">6</span>)</button>
@@ -3758,7 +3835,14 @@
               <div class="game-launch-meta"><span class="text-amber">73+ Liens</span><span>Consulter →</span></div>
             </button>
 
-            <!-- DOPAMINE RUSH PACK (27 JEUX ADDICTIFS) -->
+            <!-- DOPAMINE RUSH PACK (28 JEUX ADDICTIFS) -->
+            <!-- ALEXANDRE WINGDINGS SIMULATOR -->
+            <button class="game-launch-card" data-goto="alexandre" data-cat="dopamine">
+              <div class="card-ico">😭</div>
+              <h4>Alexandre Wingdings</h4>
+              <p>Sélectionne tout son texte généré par Gemini 2.5 Flash Lite et convertis-le en Wingdings pour le faire pleurer sous les feux d'artifice</p>
+              <div class="game-launch-meta"><span class="text-rose">1000 Pages</span><span>Wingdinguer →</span></div>
+            </button>
             <!-- EBOLA CLICKER -->
             <button class="game-launch-card" data-goto="ebolaclicker" data-cat="dopamine">
               <div class="card-ico">🦠</div>
@@ -6488,6 +6572,112 @@
   </div>
 </section>
 
+<!-- SECTION : ALEXANDRE WINGDINGS SIMULATOR -->
+<section id="sec-alexandre" class="section">
+  <!-- En-tête Statut & Progression 1000 Pages -->
+  <div class="card" style="padding: 16px; margin-bottom: 14px; border: 1px solid rgba(0, 240, 255, 0.3); background: rgba(15, 23, 42, 0.9);">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="font-size: 32px;">😭</div>
+        <div>
+          <h3 style="margin: 0; font-size: 19px; color: #fff;">Alexandre Wingdings Simulator</h3>
+          <span style="font-size: 12px; color: var(--text-muted);">
+            ⚡ Modèle Auteur : <strong class="text-cyan">Gemini 2.5 Flash Lite</strong> (Dissertations absurdes &amp; larmes garanties)
+          </span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <div style="background: rgba(30, 41, 59, 0.8); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(0,240,255,0.25);">
+          <span style="font-size: 12px; color: #94a3b8;">Progression : </span>
+          <strong id="alexandre-page-stat" class="mono text-cyan" style="font-size: 15px;">1 / 1000</strong>
+        </div>
+        <div style="background: rgba(30, 41, 59, 0.8); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(244,63,94,0.3);">
+          <span style="font-size: 12px; color: #94a3b8;">Larmes : </span>
+          💧 <strong id="alexandre-tears-display" class="mono text-rose" style="font-size: 15px;">0</strong>
+        </div>
+        <button id="alexandre-reset-save-btn" class="btn btn-secondary btn-sm" title="Réinitialiser la progression des 1000 pages">🔄 Reset</button>
+      </div>
+    </div>
+
+    <!-- Barre de Progression vers les 1000 Pages -->
+    <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin-top: 12px;">
+      <div id="alexandre-progress-bar" style="height: 100%; width: 0.1%; background: linear-gradient(90deg, #00f0ff, #a855f7, #ff0077); transition: width 0.3s ease;"></div>
+    </div>
+  </div>
+
+  <!-- Grille Principale : Manuscrit à Gauche + Alexandre & Upgrades à Droite -->
+  <div style="display: grid; grid-template-columns: 1fr 360px; gap: 16px;" id="alexandre-main-grid">
+    <!-- Colonne Gauche : Manuscrit & Boutons d'Action -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="position: relative;">
+        <!-- Canvas Feux d'artifice superposé -->
+        <canvas id="alexandre-fireworks-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;"></canvas>
+
+        <!-- Document Manuscrit d'Alexandre -->
+        <div id="alexandre-doc-content" class="alexandre-doc-paper doc-content" tabindex="0" title="Clique ou utilise Cmd+A pour sélectionner tout le texte">
+          Chargement du chef-d'œuvre philosophique d'Alexandre...
+        </div>
+      </div>
+
+      <!-- Barre d'Action Wingdings -->
+      <div class="card" style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border: 1px solid rgba(0, 240, 255, 0.25);">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button id="alexandre-select-btn" class="btn btn-primary" style="font-weight: 700;">
+            📑 1. Tout Sélectionner (Cmd+A)
+          </button>
+          <button id="alexandre-convert-btn" class="btn btn-danger" style="font-weight: 800; box-shadow: 0 0 15px rgba(255,0,119,0.3);" disabled>
+            🔮 2. Convertir en Wingdings ! (Touche W)
+          </button>
+        </div>
+        <div style="font-size: 11px; color: var(--text-muted);">
+          Raccourcis : <span class="kbd">Cmd+A</span> puis <span class="kbd">W</span> ou <span class="kbd">Entrée</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne Droite : Alexandre dans son coin + Boutique -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <!-- Carte Alexandre Personnage -->
+      <div class="card" style="padding: 16px; border: 1px solid rgba(0, 240, 255, 0.3); background: rgba(15, 23, 42, 0.95); text-align: center; position: relative;">
+        <!-- Bulle de dialogue d'Alexandre -->
+        <div id="alexandre-speech-bubble" class="alexandre-speech-bubble">
+          « Admire ce chef-d'œuvre de la pensée moderne ! Généré avec la puissance cérébrale de Gemini 2.5 Flash Lite. N'y touche surtout pas ! »
+        </div>
+
+        <!-- Avatar Animé Vectoriel SVG d'Alexandre -->
+        <div style="display: inline-block; position: relative; margin: 6px 0;">
+          <svg id="alexandre-avatar-face" width="110" height="110" viewBox="0 0 100 100" style="display: block; filter: drop-shadow(0 0 12px rgba(0,240,255,0.3));">
+            <!-- Rempli par JavaScript -->
+          </svg>
+
+          <!-- Animation de cascade de larmes -->
+          <div id="alexandre-tears-container" style="display: none; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); pointer-events: none;">
+            <div style="font-size: 20px; animation: pulse 0.5s infinite alternate;">💧💧💧</div>
+          </div>
+        </div>
+
+        <div id="alexandre-nameplate" style="font-weight: 800; font-size: 15px; color: #fff; margin-top: 4px;">
+          Alexandre 🤓 (Écrivain)
+        </div>
+        <div style="font-size: 11px; color: #94a3b8; margin-top: 2px;">
+          Réagit en direct à la sélection et à la destruction de ses textes.
+        </div>
+      </div>
+
+      <!-- Boutique d'Améliorations Émotionnelles -->
+      <div class="card" style="padding: 14px; border: 1px solid rgba(0, 240, 255, 0.2); flex: 1;">
+        <div class="card-title" style="margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+          <span>😭 Améliorations de Larmes</span>
+          <span class="badge" style="background: rgba(244,63,94,0.15); color: #f43f5e;">Boutique</span>
+        </div>
+        <div id="alexandre-shop-list" style="display: flex; flex-direction: column;">
+          <!-- Injecté par JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
     </div>
   </div>
@@ -7092,6 +7282,8 @@
         invaders: '🛸 Space Invaders Cyber',
         crossy: '🐸 Cyber Crossy Road',
         memory: '🃏 Cyber Memory Matrix',
+        ebolaclicker: '🦠 Ebola Clicker',
+        alexandre: '😭 Alexandre Wingdings Simulator',
 
 
       };
@@ -17037,7 +17229,7 @@ const SilkCanvas = (() => {
 const ActiveTimeTracker = (() => {
   const STORAGE_KEY_TOTAL = 'hf_active_seconds_total_v2';
   const STORAGE_KEY_PLAYED = 'hf_played_games_v2';
-  const ALL_MODULES_TOTAL = 81;
+  const ALL_MODULES_TOTAL = 82;
 
   let totalSeconds = parseInt(localStorage.getItem(STORAGE_KEY_TOTAL) || '0', 10);
   if (isNaN(totalSeconds)) totalSeconds = 0;
@@ -17369,5 +17561,6 @@ window.CYBER_MODULES = CYBER_MODULES;
   <script src="games_dopamine.js"></script>
   <script src="game_cs_bhop.js"></script>
   <script src="game_ebola_clicker.js"></script>
+  <script src="game_alexandre.js"></script>
 </body>
 </html>
